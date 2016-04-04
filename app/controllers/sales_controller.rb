@@ -22,6 +22,7 @@ class SalesController < ApplicationController
       SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
     end
     sale.update(price: result)
+    sale.notify_buy
     redirect_to_index
   end
 
