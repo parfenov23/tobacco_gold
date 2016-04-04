@@ -1,0 +1,12 @@
+.list-group.row
+  .list-group-item.active
+    a.btn.btn-success href="/buy/new"  Добавить закуп
+  - @buys.each do |buy|
+    .list-group-item.col-md-6
+      span
+        =' buy.created_at.strftime("%d-%m-%Y")
+        |(#{buy.price}р.)
+      a.btn.btn-danger.pull-right href="/buy/#{buy.id}/remove" data-method='delete'
+        | &#10006;
+      /a.btn.btn-success.pull-right href="/sales/#{sale.id}/edit" style="margin-right: 5px;"
+      /  | &#9998;

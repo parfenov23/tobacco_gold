@@ -1,0 +1,21 @@
+- form_model = @product_price
+- url_form = "product_prices"
+
+- from_model_present = form_model.id.nil?
+- action_url = from_model_present ? "/#{url_form}" : "/#{url_form}/#{form_model.id}"
+- method = from_model_present ? "post" : "put"
+
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+  .form-group
+    label
+      | Название:
+    input.form-control name="product_price[title]" type="text" value="#{form_model.title}"
+  .form-group
+    label
+      | Цена:
+    input.form-control name="product_price[price]" type="text" value="#{form_model.price}"
+
+  - product_id = from_model_present ? params[:product_id] : form_model.product_id
+  input type="hidden" name="product_price[product_id]" value="#{product_id}"
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit" Сохранить

@@ -1,0 +1,93 @@
+body, .well {
+    height : 100%;
+}
+
+.well {
+    padding       : 0px 5px 5px 5px;
+    margin-bottom : 0;
+}
+
+.list-group.row {
+    margin-right : 0px;
+    margin-left  : 0px;
+}
+
+.form-horizontal .form-group {
+    margin-right : 0px;
+    margin-left  : 0px;
+}
+
+.list-group-item span {
+    line-height : 35px;
+    width: 50%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.btn_nav_back {
+    height           : 20px;
+    line-height      : 0px !important;
+    margin-left      : 10px;
+    margin-top       : 10px;
+    background-color : #419641 !important;
+    color            : white !important;
+    text-shadow      : 0 0px 0 rgba(255, 255, 255, .25) !important;
+}
+
+.btn-file {
+    position : relative;
+    overflow : hidden;
+}
+
+.btn-file input[type=file] {
+    position   : absolute;
+    top        : 0;
+    right      : 0;
+    min-width  : 100%;
+    min-height : 100%;
+    font-size  : 100px;
+    text-align : right;
+    filter     : alpha(opacity=0);
+    opacity    : 0;
+    background : red;
+    cursor     : inherit;
+    display    : block;
+}
+
+input[readonly] {
+    background-color : white !important;
+    cursor           : text !important;
+}
+
+.no_padding {
+    padding : 0;
+}
+
+.form_filter .row {
+    margin-bottom : 5px;
+}
+
+#BillingTable thead tr {
+    background-color : #2B669A;
+    color            : white;
+}
+
+#BillingTable thead tr th.tablesorter-headerAsc {
+    background-color : #FCF8E3;
+    color            : black;
+}
+
+#BillingTable thead tr th.tablesorter-headerDesc {
+    background-color : #D9EDF7;
+    color            : black;
+}
+
+.tablesorter tbody {
+    background-color : white;
+}
+
+.tablesorter td .btn-primary {
+    margin-left : 3px;
+}
