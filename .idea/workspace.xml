@@ -25,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="sale.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="sale.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/sale.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1" column="43" selection-start-line="1" selection-start-column="43" selection-end-line="1" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.29039302">
+              <caret line="7" column="80" selection-start-line="7" selection-start-column="80" selection-end-line="7" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -115,10 +115,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.slim" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.slim" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/products/index.slim">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30930233">
+            <state vertical-scroll-proportion="-4.75">
               <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
               <folding />
             </state>
@@ -174,10 +174,10 @@
         <option value="$PROJECT_DIR$/app/models/sale_item.rb" />
         <option value="$PROJECT_DIR$/app/views/sales/info.slim" />
         <option value="$PROJECT_DIR$/app/models/product.rb" />
-        <option value="$PROJECT_DIR$/app/models/sale.rb" />
         <option value="$PROJECT_DIR$/app/models/buy_item.rb" />
         <option value="$PROJECT_DIR$/app/models/product_item.rb" />
         <option value="$PROJECT_DIR$/app/views/products/index.slim" />
+        <option value="$PROJECT_DIR$/app/models/sale.rb" />
       </list>
     </option>
   </component>
@@ -939,14 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/sale.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="43" selection-start-line="1" selection-start-column="43" selection-end-line="1" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/sale_item.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -981,8 +973,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/products/index.slim">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30930233">
+        <state vertical-scroll-proportion="-4.75">
           <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/sale.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29039302">
+          <caret line="7" column="80" selection-start-line="7" selection-start-column="80" selection-end-line="7" selection-end-column="80" />
           <folding />
         </state>
       </provider>
