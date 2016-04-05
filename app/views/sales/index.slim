@@ -4,8 +4,9 @@
   - @sales.each do |sale|
     .list-group-item.col-md-6
       span
-        =' sale.created_at.strftime("%d-%m-%Y")
-        |(#{sale.price}р.)
+        a href='/sales/#{sale.id}/info'
+          =' sale.created_at.strftime("%d-%m-%Y")
+          |(#{sale.price}р.)
       a.btn.btn-danger.pull-right href="/sales/#{sale.id}/remove" data-method='delete'
         | &#10006;
       /a.btn.btn-success.pull-right href="/sales/#{sale.id}/edit" style="margin-right: 5px;"

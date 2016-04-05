@@ -9,6 +9,10 @@ class SalesController < ApplicationController
     @products = Product.all
   end
 
+  def info
+    @sale = find_model
+  end
+
   def create
     sales_arr = params[:sales]
     sale = Sale.create
