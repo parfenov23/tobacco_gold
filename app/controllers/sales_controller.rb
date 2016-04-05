@@ -1,7 +1,7 @@
 class SalesController < ApplicationController
 
   def index
-    @sales = model.all
+    @sales = model.all.order("created_at DESC")
   end
 
   def new
