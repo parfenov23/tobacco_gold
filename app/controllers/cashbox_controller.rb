@@ -1,7 +1,7 @@
 class CashboxController < ApplicationController
 
   def index
-    @cashbox = Sale.sum(:price)
+    @cashbox = Sale.cash_box
     @buy = Buy.sum(:price)
   end
 

@@ -25,7 +25,14 @@ Rails.application.routes.draw do
       get :info
     end
   end
+
   resources :buy do
+    member do
+      get :remove
+    end
+  end
+
+  resources :other_buy do
     member do
       get :remove
     end

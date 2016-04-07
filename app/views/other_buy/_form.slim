@@ -1,0 +1,21 @@
+- action_url = @other_buy.id.nil? ? "/other_buy" : "/other_buy/#{@other_buy.id}"
+- method = @other_buy.id.nil? ? "post" : "put"
+
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+  .form-group
+    label
+      | Название:
+    input.form-control name="other_buy[title]" type="text" value="#{@other_buy.title}"
+  .form-group
+    label
+      | Тип:
+    select.form-control name="other_buy[type_mode]"
+      option value="0"  Ушло
+      option value="1"  Пришло
+  .form-group
+    label
+      | Сумма:
+    input.form-control name="other_buy[price]" type="text" value="#{@other_buy.price}"
+
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit" Сохранить

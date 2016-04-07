@@ -14,6 +14,7 @@ html
                           {url: "/stock", title: "Склад"},
                           {url: "/sales", title: "Продажа"},
                           {url: "/buy", title: "Закуп"},
+                          {url: "/other_buy", title: "Прочие расходы"},
                           {url: "/cashbox", title: "Касса"}]
           - arr_nav_li.each do |li_nav|
             - class_li = li_nav[:url] == request.fullpath.to_s ? "active" : ""
