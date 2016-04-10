@@ -1,0 +1,25 @@
+b Общая сумма закупа: #{@buy.price} рублей
+
+hr style="border-color: #EEEEEE -moz-use-text-color #FFFFFF; border-style: solid none;border-width: 1px 0;margin: 18px 0;"
+table.table
+  thead
+    tr
+      th Производитель
+      th Вкус
+      th Цена шт
+      th Количество
+      th Цена
+
+  tbody
+    - arr_class = ["success", "info"]
+    - i = -1
+    - @buy.buy_items.each do |item|
+      - product_item = item.product_item
+      - product = product_item.product
+      - i == 1 ? i = 0 : i+=1
+      tr class=arr_class[i]
+        td = product.title
+        td = product_item.title
+        td = item.price
+        td = item.count
+        td = item.price * item.count

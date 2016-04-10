@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :buy do
     member do
       get :remove
+      get :info
     end
   end
 

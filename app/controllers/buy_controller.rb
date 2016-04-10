@@ -39,6 +39,10 @@ class BuyController < ApplicationController
     redirect_to_index
   end
 
+  def info
+    @buy = find_model
+  end
+
   private
 
   def find_model

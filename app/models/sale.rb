@@ -9,6 +9,6 @@ class Sale < ActiveRecord::Base
   end
 
   def self.cash_box
-    sum(:price).to_i - OtherBuy.where(type_mode: false).sum(:price) + OtherBuy.where(type_mode: true).sum(:price) - OtherBuy.where(type_mode: false).sum(:price)
+    sum(:price) + OtherBuy.it_sum - OtherBuy.took_sum - Buy.all_sum
   end
 end
