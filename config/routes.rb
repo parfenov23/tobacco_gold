@@ -39,7 +39,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :stock
+  resources :stock do
+    collection do
+      get :to_excel
+    end
+  end
   resources :cashbox
 
   # You can have the root of your site routed with "root"

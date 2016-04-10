@@ -12,6 +12,7 @@ javascript:
     $(document).on('click', '.addItemSale', function(){
       var refer = $(".referenceItemSale").html();
       $(".allItemsSale").append($(refer));
+      $(document).scrollTop($(document).height());
     });
     $(document).on('click', '.deleteItemSale', function(){
       $(this).closest(".parentItemSale").remove();
@@ -52,9 +53,8 @@ javascript:
           option value=price.id = price.price
 
 .referenceItemSale style="display: none;"
-  .parentItemSale
-    hr style="border-top: 1px solid #232323;"
-    .btn.btn-primary.deleteItemSale style="margin-bottom: 5px;" Удалить
+  .parentItemSale.list-group-item
+    .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
     select.form-control.changeSelectContent
       option value='0' Не выбранно
       - @products.each do |product|
@@ -67,18 +67,19 @@ javascript:
       input.form-control.countItems name="sales[][count]" type="text" value="0"
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .allItemsSale
-    .parentItemSale
-      select.form-control.changeSelectContent
-        option value='0' Не выбранно
-        - @products.each do |product|
-          option value=product.id = product.title
+  .list-group.row
+    .allItemsSale
+      .parentItemSale.list-group-item
+        select.form-control.changeSelectContent
+          option value='0' Не выбранно
+          - @products.each do |product|
+            option value=product.id = product.title
 
-      .formLoadContent
-      .form-group
-        label
-          | Кол-во:
-        input.form-control.countItems name="sales[][count]" type="text" value="0"
+        .formLoadContent
+        .form-group
+          label
+            | Кол-во:
+          input.form-control.countItems name="sales[][count]" type="text" value="0"
 
   label style='margin-right: 5px;' Итого:
   label.titlePrice 0

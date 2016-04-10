@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <% @products.each do |product| %>
+            <Cell>
+              <Data ss:Type="String"><%= product.title %></Data>
+            </Cell>
+            <Cell>
+              <Data ss:Type="String">Kolvo</Data>
+            </Cell>
+        <% end %>
+      </Row>
+      <% @products.each do |product| %>
+          <Row>
+            <% product.product_items.where.not(count: 0).each do |item| %>
+                <Cell>
+                  <Data ss:Type="Number">5</Data>
+                </Cell>
+                <Cell>
+                  <Data ss:Type="String"><%= item.count %></Data>
+                </Cell>
+            <% end %>
+          </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

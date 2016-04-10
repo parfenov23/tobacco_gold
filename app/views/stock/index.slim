@@ -1,8 +1,12 @@
+a.btn.btn-success.addItemSale href='/stock' В наличии
+a.btn.btn-primary.addItemSale href="/stock?type=not_available" Нет в наличии
+-# link_to "Excel", to_excel_stock_index_path(format: "xls")
 - @products.each do |product|
   .list-group.row
     .list-group-item.active
       = product.title
-    - product.product_items.where.not(count: 0).each do |item|
+    - product_items = params[:type] != "not_available" ? product.product_items.where.not(count: 0) : product.product_items.where(count: 0)
+    - product_items.each do |item|
       .list-group-item.col-md-3
         span
           = item.title
