@@ -45,7 +45,8 @@ Rails.application.routes.draw do
     end
   end
   resources :cashbox
-
+  get 'auth' => 'home#auth'
+  post 'auth_user' => 'home#auth_user'
   # You can have the root of your site routed with "root"
   root 'products#index'
 
