@@ -8,8 +8,8 @@ html
     link href="/style/app.css" rel="stylesheet"
   body style="background-color: #f5f5f5;"
     .well style="padding: 0px 5px 5px 5px;margin-bottom: 0;"
-      nav.navbar.navbar-default
-        - if current_user_help
+      - if current_user
+        nav.navbar.navbar-default
           ul.nav.navbar-nav
             - arr_nav_li = [{url: "/products", title: "Товары"},
                             {url: "/stock", title: "Склад"},

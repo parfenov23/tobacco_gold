@@ -1,5 +1,6 @@
-a.btn.btn-success.addItemSale href='/stock' В наличии
-a.btn.btn-primary.addItemSale href="/stock?type=not_available" Нет в наличии
+- if current_user
+  a.btn.btn-success.addItemSale href='/stock' В наличии
+  a.btn.btn-primary.addItemSale href="/stock?type=not_available" Нет в наличии
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
 - @products.each do |product|
   .list-group.row
@@ -10,5 +11,6 @@ a.btn.btn-primary.addItemSale href="/stock?type=not_available" Нет в нал�
       .list-group-item.col-md-3
         span
           = item.title
-        .btn.btn-success.pull-right
-          = item.count
+        - if current_user
+          .btn.btn-success.pull-right
+            = item.count

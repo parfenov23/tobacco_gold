@@ -1,5 +1,5 @@
 class StockController < ApplicationController
-
+  before_action :auth, except: [:index]
   def index
     @products = Product.all
     @products = Product.all.select{|product| product.product_items.where(count: 0).present? } if params[:type] == "not_available"
