@@ -7,8 +7,9 @@
     .list-group-item.active
       - product_min_price = product.product_prices.min.price
       =' product.title
-      line style="color: #5bc0de;"
-        | от #{product_min_price.to_i} рублей
+      - unless current_user
+        line style="color: #5bc0de;"
+          | от #{product_min_price.to_i} рублей
     - product_items = params[:type] != "not_available" ? product.product_items.where.not(count: 0) : product.product_items.where(count: 0)
     - product_items.each do |item|
       .list-group-item.col-md-3
