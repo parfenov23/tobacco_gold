@@ -5,7 +5,7 @@
 - @products.each do |product|
   .list-group.row
     .list-group-item.active
-      - product_min_price = product.product_prices.min.price
+      - product_min_price = product.product_prices.order("price ASC").first.price
       =' product.title
       - unless current_user
         line style="color: #5bc0de;"
