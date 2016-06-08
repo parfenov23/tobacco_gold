@@ -7,4 +7,12 @@ class Product < ActiveRecord::Base
     buy_items = BuyItem.where(id: items_ids).where(["price > ?", 50])
     buy_items.present? ? buy_items.map(&:price).min : product_prices.map(&:price).min
   end
+
+  def self.stock_price
+    result = 0
+    all.each do |product|
+      result += (product.min_price * product.product_items.sum(:count) )
+    end
+    result
+  end
 end
