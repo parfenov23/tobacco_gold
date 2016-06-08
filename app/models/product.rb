@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
 
   def min_price
     items_ids = product_items.ids
-    buy_items = BuyItem.where(id: items_ids)
+    buy_items = BuyItem.where(id: items_ids).where(["price > ?", 50])
     buy_items.present? ? buy_items.map(&:price).min : product_prices.map(&:price).min
   end
 end
