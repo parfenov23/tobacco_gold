@@ -46,7 +46,7 @@ javascript:
   - @products.each do |product|
     div id="select#{product.id}"
       select.form-control name="sales[][item_id]"
-        - product.product_items.each do |item|
+        - product.product_items.where.not(count: 0).each do |item|
           option value=item.id = item.title
       select.form-control.selectPrice name="sales[][price_id]"
         - product.product_prices.each do |price|
