@@ -31,6 +31,9 @@ Rails.application.routes.draw do
       get :remove
       get :info
     end
+    collection do
+      post :new_item_product
+    end
   end
 
   resources :other_buy do

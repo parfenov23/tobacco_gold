@@ -26,6 +26,13 @@ class BuyController < ApplicationController
     redirect_to_index
   end
 
+  def new_item_product
+    ProductItem.create(params_model)
+    @products = Product.all
+    products_select = render_to_string "buy/_products_select", :layout => false
+    render text: products_select
+  end
+
   def edit
     @sale = find_model
   end
@@ -55,7 +62,7 @@ class BuyController < ApplicationController
   end
 
   def params_model
-    params.require(:buy).permit(:title).compact rescue {}
+    params.require(:buy).permit(:title, :product_id).compact rescue {}
   end
 
   def model

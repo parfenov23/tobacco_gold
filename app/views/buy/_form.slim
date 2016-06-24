@@ -8,6 +8,21 @@ javascript:
   var loadContent = function (block) {
 
   };
+
+  var saveNewProductItem = function(){
+    var data = $("form.newTasteItem").serialize();
+    $.ajax({
+      type: 'POST',
+      url : '/buy/new_item_product',
+      data: data
+    }).success(function (data) {
+      $("#contentSelect").html($(data));
+      $(".addFormNewItem").hide();
+      $("form.newTasteItem input").val('');
+    }).error(function (data) {
+    });
+  };
+
   $(document).ready(function(){
     $(document).on('click', '.addItemSale', function(){
       var refer = $(".referenceItemSale").html();
@@ -40,15 +55,17 @@ javascript:
       });
       $(".titlePrice").text(result);
     });
+    $(document).on('click', '.js_saveNewProductItem', saveNewProductItem);
+    $(document).on('click', '.js_openFormNewItem', function(){
+      $(".addFormNewItem").show();
+    });
+    $(document).on('click', '.js_hideFormNewItem', function(){
+      $(".addFormNewItem").hide();
+    });
   });
 
 #contentSelect style="display:none;"
-  - @products.each do |product|
-    div id="select#{product.id}"
-      select.form-control name="buy[][item_id]"
-        - product.product_items.each do |item|
-          option value=item.id = item.title
-      input.selectPrice.form-control name="buy[][price_id]" placeholder='стоимость'
+  = render "buy/products_select"
 
 .referenceItemSale style="display: none;"
   .parentItemSale.list-group-item
@@ -86,5 +103,26 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .btn.btn-primary.addItemSale Добавить
   br
   br
+  .btn.btn-primary.js_openFormNewItem style='margin-right: 5px;' Добавить Вкус
+  br
+  br
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit" Сохранить
+
+.addFormNewItem style="display:none;"
+  hr
+  .btn.btn-danger.pull-right.js_hideFormNewItem style="margin-bottom: 5px;" ✖
+  form.newTasteItem
+    h3 Добавление Вкуса
+    .form-group
+      label
+        | Производитель:
+      select.form-control name="buy[product_id]"
+        option value='0' Не выбранно
+        - @products.each do |product|
+          option value=product.id = product.title
+    .form-group
+      label
+        | Название:
+      input.form-control name="buy[title]" type="text"
+    .btn.btn-primary.js_saveNewProductItem Сохранить

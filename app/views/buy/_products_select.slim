@@ -1,0 +1,6 @@
+- @products.each do |product|
+  div id="select#{product.id}"
+    select.form-control name="buy[][item_id]"
+      - product.product_items.each do |item|
+        option value=item.id = item.title
+    input.selectPrice.form-control name="buy[][price_id]" placeholder='стоимость'
