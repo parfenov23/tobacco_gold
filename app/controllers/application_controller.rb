@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :auth
 
   def auth
-    result = session[:user_pass] == 'lolopo123'
+    result = session[:user_pass] == 'parfenov407'
     redirect_to '/auth' if !result
   end
 end
