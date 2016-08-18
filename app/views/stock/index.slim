@@ -15,7 +15,7 @@
       .list-group-item.col-md-3
         span
           = item.title
-        - if current_user
+        - if current_user || params[:pub] == "true"
           .btn.btn-success.pull-right
             = item.count
 

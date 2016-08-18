@@ -42,6 +42,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :vk_reg do
+    member do
+      get :remove
+    end
+  end
+
   resources :stock do
     collection do
       get :to_excel
