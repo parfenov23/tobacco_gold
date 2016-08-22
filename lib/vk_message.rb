@@ -7,7 +7,7 @@ class VkMessage
     if response["error"].present?
       if response["error"]["error_code"] == 14
         code_captcha = anticaptcha(response["error"]["captcha_img"])
-        sender(message, code_captcha)
+        sender(message, [response["error"]["captcha_sid"],code_captcha.last])
       end
     end
   end
@@ -24,7 +24,7 @@ class VkMessage
   end
 
   def self.anticaptcha(url)
-    captcha = Antigate.wrapper('c83da0e4119a0dbd55c9d69ee72f62cc')
+    captcha = Antigate.wrapper('80254ffdc4d2f1fc99f46c92019252f9')
     recognized = captcha.recognize(url, 'jpg')
     recognized
   end
