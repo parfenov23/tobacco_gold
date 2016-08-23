@@ -24,4 +24,9 @@ class Sale < ActiveRecord::Base
     end
     price_sales
   end
+
+  def self.curr_month_price
+    start_day = (Time.now - Time.new.day.day + 1.day).beginning_of_day
+    where(["created_at > ?", start_day]).sum(:price)
+  end
 end

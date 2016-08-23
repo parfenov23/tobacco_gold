@@ -1,10 +1,20 @@
 h4 Текущая касса: #{@cashbox} рублей
 hr style="border-top: 1px solid #333"
+//////////////////
 b Денег в товаре: #{@stock_price} рублей
 br
 b Сумма касса + товар = #{@cashbox + @stock_price}
 hr style="border-top: 1px solid #333"
+//////////////////
 h3 Статистика за последнию неделю
 b Проданно на: #{@last_sales_price} рублей
 br
 b Прибыль: #{@last_sales_price - @sales_profit} рублей
+hr style="border-top: 1px solid #333"
+//////////////////
+h3 Статистика продаж и закупов за текущий месяц
+b Продажи: #{@curr_month_sales_price}
+br
+b Закупы:  #{@curr_month_buy_price}
+br
+b Итого: #{@curr_month_sales_price - @curr_month_buy_price}
