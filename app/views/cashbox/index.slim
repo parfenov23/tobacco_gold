@@ -17,4 +17,7 @@ b Продажи: #{@curr_month_sales_price} рублей
 br
 b Закупы:  #{@curr_month_buy_price} рублей
 br
-b Прибыль: #{@curr_month_sales_price - @curr_month_buy_price} рублей
+b Прочие расходы: #{@curr_month_other_down_price} рублей
+br
+b Прочие доходы: #{@curr_month_other_up_price} рублей
+b Прибыль: #{(@curr_month_sales_price - @curr_month_buy_price) + @curr_month_other_up_price - @curr_month_other_down_price} рублей

@@ -13,4 +13,10 @@ class OtherBuy < ActiveRecord::Base
   def self.it_sum
     where(type_mode: true).sum(:price)
   end
+
+  def self.curr_month_price(type_mode=true)
+    start_day = (Time.now - Time.new.day.day + 1.day).beginning_of_day
+    all_others = where(["created_at > ?", start_day])
+    all_others.where(type_mode: type_mode).sum(:price)
+  end
 end
