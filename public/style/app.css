@@ -91,3 +91,10 @@ input[readonly] {
 .tablesorter td .btn-primary {
     margin-left : 3px;
 }
+
+ul.nav.navbar-nav{
+    text-align: center;
+}
+ul.nav.navbar-nav li{
+    display: inline-block;
+}
