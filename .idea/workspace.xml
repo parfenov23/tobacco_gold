@@ -41,14 +41,9 @@
       <file leaf-file-name="index.slim" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/stock/index.slim">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31843576">
-              <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
-              <folding>
-                <marker date="1472190762000" expanded="true" signature="435:945" placeholder=".list-group.row" />
-                <marker date="1472190762000" expanded="true" signature="457:589" placeholder=".list-group-item.active" />
-                <marker date="1472190762000" expanded="true" signature="757:945" placeholder=".list-group-item.col-md-3" />
-                <marker date="1472190762000" expanded="true" signature="889:945" placeholder=".btn.btn-success.pull-right" />
-              </folding>
+            <state vertical-scroll-proportion="0.53072625">
+              <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -945,14 +940,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/stock/index.slim">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31843576">
-          <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
-          <folding>
-            <marker date="1472190762000" expanded="true" signature="435:945" placeholder=".list-group.row" />
-            <marker date="1472190762000" expanded="true" signature="457:589" placeholder=".list-group-item.active" />
-            <marker date="1472190762000" expanded="true" signature="757:945" placeholder=".list-group-item.col-md-3" />
-            <marker date="1472190762000" expanded="true" signature="889:945" placeholder=".btn.btn-success.pull-right" />
-          </folding>
+        <state vertical-scroll-proportion="0.53072625">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
