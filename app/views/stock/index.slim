@@ -2,7 +2,7 @@
   a.btn.btn-success.addItemSale href='/stock' В наличии
   a.btn.btn-primary.addItemSale href="/stock?type=not_available" Нет в наличии
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
-- @products.each do |product|
+- @products.order('title DESC').each do |product|
   .list-group.row
     .list-group-item.active
       - product_min_price = product.product_prices.order("price ASC").first.price
