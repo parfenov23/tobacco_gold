@@ -1,6 +1,7 @@
 require 'vk_message'
 class Sale < ActiveRecord::Base
   has_many :sale_items, dependent: :destroy
+  default_scope { order("created_at DESC") }
 
   def notify_buy
     message = "Продажа: #{self.price.to_i} рублей\nКасса: #{Sale.cash_box} рублей"

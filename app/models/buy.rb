@@ -1,6 +1,7 @@
 require 'vk_message'
 class Buy < ActiveRecord::Base
   has_many :buy_items
+  default_scope { order("created_at DESC") }
 
   def self.all_sum
     sum(:price)
