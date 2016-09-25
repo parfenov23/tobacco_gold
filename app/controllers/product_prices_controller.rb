@@ -18,6 +18,7 @@ class ProductPricesController < ApplicationController
   end
 
   def update
+    find_product_price.update_default if params_product_price[:default] == "1"
     find_product_price.update(params_product_price)
     redirect_to_index
   end
@@ -44,6 +45,6 @@ class ProductPricesController < ApplicationController
   end
 
   def params_product_price
-    params.require(:product_price).permit(:price, :product_id, :title).compact rescue {}
+    params.require(:product_price).permit(:price, :product_id, :title, :default).compact rescue {}
   end
 end

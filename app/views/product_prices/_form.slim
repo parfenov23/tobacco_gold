@@ -14,6 +14,11 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     label
       | Цена:
     input.form-control name="product_price[price]" type="text" value="#{form_model.price}"
+  .form-group
+    label
+      | Текущая?:
+    = check_box("product_price", "default", {checked: check_if_true(form_model.default)})
+    /= check_box_tag 'product_price[default]', 'yes', form_model.default
 
   - product_id = from_model_present ? params[:product_id] : form_model.product_id
   input type="hidden" name="product_price[product_id]" value="#{product_id}"

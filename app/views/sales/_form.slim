@@ -48,9 +48,9 @@ javascript:
       select.form-control name="sales[][item_id]"
         - product.product_items.where.not(count: 0).each do |item|
           option value=item.id = item.title
-      select.form-control.selectPrice name="sales[][price_id]"
-        - product.product_prices.each do |price|
-          option value=price.id = price.price
+      - all_prices = product.product_prices
+      - all_prices_arr = product.product_prices.map{|first_price| [first_price.price, first_price.id]}
+      = select("", "", all_prices_arr, {selected: all_prices.curr_default_id}, { name: 'sales[][price_id]', class: 'form-control selectPrice'})
 
 .referenceItemSale style="display: none;"
   .parentItemSale.list-group-item
@@ -64,7 +64,7 @@ javascript:
     .form-group
       label
         | Кол-во:
-      input.form-control.countItems name="sales[][count]" type="text" value="0"
+      input.form-control.countItems name="sales[][count]" type="text" value="1"
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
   .list-group.row
@@ -79,7 +79,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
         .form-group
           label
             | Кол-во:
-          input.form-control.countItems name="sales[][count]" type="text" value="0"
+          input.form-control.countItems name="sales[][count]" type="text" value="1"
 
   label style='margin-right: 5px;' Итого:
   label.titlePrice 0
