@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
 
   def auth
     result = session[:user_pass] == 'parfenov407'
-    redirect_to '/auth' if !result
+    redirect_to '/stock' if !result
   end
 end
