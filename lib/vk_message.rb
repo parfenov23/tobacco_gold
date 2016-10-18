@@ -13,7 +13,7 @@ class VkMessage
   end
 
   def self.run(message)
-    Thread.new { sender(message) }
+    #Thread.new { sender(message) }
   end
 
   def self.params

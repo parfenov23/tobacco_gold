@@ -1,0 +1,25 @@
+aside#left-sidebar-normal.left-sidebar__normal
+  - if user_signed_in?
+    .profile onclick="window.location.href='/users/edit'"
+      .ava
+        a href="/users/edit"
+          img.circle-img-new src= user_ava(current_user.avatar)
+      .header.hide_menu_average
+        .name
+          a href="/users/edit" = current_user.login
+        .lvl style=("padding-top: 5px;")
+          a href="/users/edit"
+            | Редактировать
+      hr.hide_menu_average
+
+  nav.left-menu
+    a.category_sidebar data-type="normal" href="javascript:void(0)" 
+      i.icon.category
+      span.title.hide_menu_average
+        | Производители
+      hr.hide_menu_average
+    - left_bar_links.each do |link|
+      a href=link[:href]
+        i.icon class=link[:type]
+        span.title.hide_menu_average = link[:title]
+        hr.hide_menu_average

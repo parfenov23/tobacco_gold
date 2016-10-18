@@ -1,0 +1,9 @@
+.list-group.row
+  .list-group-item.active
+    a.btn.btn-success href="/admin/other_buy/new"  Добавить
+  - @other_buys.each do |other_buy|
+    .list-group-item.col-md-6
+      span
+        = "#{other_buy.title}(#{other_buy.price})"
+      a.btn.btn-danger.pull-right href="/admin/other_buy/#{other_buy.id}/remove" data-method='delete'
+        | &#10006;

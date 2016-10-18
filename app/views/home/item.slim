@@ -1,0 +1,24 @@
+- content_for :script do
+  script src="/uploads/script/item.js" type="text/javascript"
+  script type="text/javascript" src="/uploads/script/vendor/jssor.js"
+  script type="text/javascript" src="/uploads/script/vendor/jssor.slider.js"
+  script type="text/javascript" src="/uploads/script/vendor/carusel_slide.js"
+
+.content.content-block__normal.background.normal_align
+  .header_block
+    .title.hidden_text
+      = @item.first_name
+    hr
+  .content_item
+    .right_content
+      .info_point#info_point
+    .left_content
+      #slider1_container style=("position: relative; top: 0px; left: 0px; width: 800px;height: 400px; overflow: hidden;")
+        div style=("cursor: move; position: absolute; left: 0px; top: 0px; width: 800px; height: 400px;overflow: hidden;") u="slides"
+          - @item.attachments.where(size: "800x560").each do |attachment|
+            div.imgCenter
+              img src=attachment.file.url u="image"
+        span.jssora13l style=("top: 123px; left: 30px;") u="arrowleft"
+        span.jssora13r style=("top: 123px; right: 30px;") u="arrowright"
+    .description_item
+      = raw @item.description

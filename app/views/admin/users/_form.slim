@@ -1,0 +1,19 @@
+- action_url = @user.id.nil? ? "/admin/users" : "/admin/users/#{@user.id}"
+- method = @user.id.nil? ? "post" : "put"
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+  .form_group
+    |Email:
+    input.form-control name="user[email]" type="text" value="#{@user.email}"
+  .form_group
+    |Логин:
+    input.form-control name="user[login]" type="text" value="#{@user.login}"
+  .form_group
+    |Ставки:
+    input.form-control name="user[rate]" type="text" value="#{@user.rate}"
+  .form_group
+    |Пароль(6):
+    input.form-control name="user[password]" type="text"
+  hr
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit"  Сохранить
+hr

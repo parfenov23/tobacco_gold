@@ -16,4 +16,9 @@ class Product < ActiveRecord::Base
     end
     result
   end
+
+  def current_price
+    price = product_prices.where(default: true).last
+    (price.price rescue product_prices.map(&:price).max).to_i
+  end
 end

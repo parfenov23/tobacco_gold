@@ -1,0 +1,17 @@
+.item
+  .item_content
+    a.item_link href="/item?id=#{item.id}"
+      .title = item.title
+      .img_item
+        img alt="test" src="http://kalyan1.ru/image/cache/data/Al-Fakher/al-fakher-chocolate-mint-500x500.jpg"
+    .item_info
+      .price
+        i.icon.cash
+        .title_price #{item.product.current_price}
+      .time
+        i.icon.buy_rate
+        .title_time = item.sale_items.count
+    .user
+      i.icon.participant
+      .user_name = item.product.title
+    .button_rate Добавить в корзину

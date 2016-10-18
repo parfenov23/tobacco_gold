@@ -1,0 +1,128 @@
+- form_model = @buy
+- url_form = "admin/buy"
+
+- from_model_present = form_model.id.nil?
+- action_url = from_model_present ? "/#{url_form}" : "/#{url_form}/#{form_model.id}"
+- method = from_model_present ? "post" : "put"
+javascript:
+  var loadContent = function (block) {
+
+  };
+
+  var saveNewProductItem = function(){
+    var data = $("form.newTasteItem").serialize();
+    $.ajax({
+      type: 'POST',
+      url : '/buy/new_item_product',
+      data: data
+    }).success(function (data) {
+      $("#contentSelect").html($(data));
+      $(".addFormNewItem").hide();
+      $("form.newTasteItem input").val('');
+    }).error(function (data) {
+    });
+  };
+
+  $(document).ready(function(){
+    $(document).on('click', '.addItemSale', function(){
+      var refer = $(".referenceItemSale").html();
+      $(".allItemsSale").append($(refer));
+      $(document).scrollTop($(document).height());
+    });
+    $(document).on('click', '.deleteItemSale', function(){
+      $(this).closest(".parentItemSale").remove();
+    });
+
+    $(document).on('change', '.changeSelectContent', function () {
+      var bl_val = parseInt(this.value);
+      var id = "#select" + bl_val;
+      var block_content = $("#contentSelect " + id).html();
+      if (bl_val > 0){
+        $(this).closest('.parentItemSale').find('.formLoadContent').html($(block_content));
+      } else {
+        $(this).closest('.parentItemSale').find('.formLoadContent').html('');
+      }
+    });
+
+    $(document).on('click', '.priceItemSale', function(){
+      var all_select_ptice = $(".selectPrice:visible");
+      var result = 0;
+      all_select_ptice.each(function(i, block){
+        var price = parseInt($(block).val());
+        var parent_block = $(block).closest(".parentItemSale");
+        var count = parseInt(parent_block.find(".countItems").val());
+        result += price*count;
+      });
+      $(".titlePrice").text(result);
+    });
+    $(document).on('click', '.js_saveNewProductItem', saveNewProductItem);
+    $(document).on('click', '.js_openFormNewItem', function(){
+      $(".addFormNewItem").show();
+    });
+    $(document).on('click', '.js_hideFormNewItem', function(){
+      $(".addFormNewItem").hide();
+    });
+  });
+
+#contentSelect style="display:none;"
+  = render "products_select"
+
+.referenceItemSale style="display: none;"
+  .parentItemSale.list-group-item
+    .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
+    select.form-control.changeSelectContent
+      option value='0' Не выбранно
+      - @products.each do |product|
+        option value=product.id = product.title
+
+    .formLoadContent
+    .form-group
+      label
+        | Кол-во:
+      input.form-control.countItems name="buy[][count]" type="text" value="0"
+
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+  .list-group.row
+    .allItemsSale
+      .parentItemSale.list-group-item
+        select.form-control.changeSelectContent
+          option value='0' Не выбранно
+          - @products.each do |product|
+            option value=product.id = product.title
+
+        .formLoadContent
+        .form-group
+          label
+            | Кол-во:
+          input.form-control.countItems name="buy[][count]" type="text" value="0"
+
+  label style='margin-right: 5px;' Итого:
+  label.titlePrice 0
+  br
+  .btn.btn-primary.priceItemSale style='margin-right: 5px;' Подсчитать
+  .btn.btn-primary.addItemSale Добавить
+  br
+  br
+  .btn.btn-primary.js_openFormNewItem style='margin-right: 5px;' Добавить Вкус
+  br
+  br
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit" Сохранить
+
+.addFormNewItem style="display:none;"
+  hr
+  .btn.btn-danger.pull-right.js_hideFormNewItem style="margin-bottom: 5px;" ✖
+  form.newTasteItem
+    h3 Добавление Вкуса
+    .form-group
+      label
+        | Производитель:
+      select.form-control name="buy[product_id]"
+        option value='0' Не выбранно
+        - @products.each do |product|
+          option value=product.id = product.title
+    .form-group
+      label
+        | Название:
+      input.form-control name="buy[title]" type="text"
+    .btn.btn-primary.js_saveNewProductItem Сохранить

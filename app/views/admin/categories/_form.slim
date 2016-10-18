@@ -1,0 +1,9 @@
+- action_url = @category.id.nil? ? "/admin/categories" : "/admin/categories/#{@category.id}"
+- method = @category.id.nil? ? "post" : "put"
+form.form-horizontal action="#{action_url}" method="post"
+    .form_group
+        label.control-label Название:
+        input.form-control name="category[first_name]" type="text" value="#{@category.first_name }"
+    hr
+    input type="hidden" name="_method" value="#{method}"
+    button.btn.btn-primary type="submit"  Сохранить

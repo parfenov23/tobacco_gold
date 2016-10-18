@@ -1,0 +1,14 @@
+// Изменяемая часть
+.form-group
+  label
+    | ФИО:
+  input.form-control name="contacts[first_name]" type="text" value="#{@model.first_name}"
+.form-group
+  label
+    | Телефон:
+  input.form-control name="contacts[phone]" type="text" value="#{@model.phone}"
+.form-group
+  label
+    | Социальная ссылка:
+  input.form-control name="contacts[social]" type="text" value="#{@model.social}"
+// ================

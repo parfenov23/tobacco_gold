@@ -1,0 +1,17 @@
+.content.content-block__normal.background.normal_align.page_buy_rate
+    .header_block
+        .title Купить ставки
+        hr
+    .description_page
+      = raw((ContentPage.where(name_page: "buy_rate").last.description.to_s rescue "Нет описания страницы"))
+    .content_rate
+        .column_left
+            .title_rate Выберите пакет ставок:
+            .packets
+                - 6.times do
+                    .packet.block_display_inline
+                        img src="https://bonusmall.ru/img.php?id=5243"
+            .finish_price
+                |Стоимость 100 рублей
+        .column_right
+            .title_rate Выберите способ оплаты:

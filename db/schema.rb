@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925102538) do
+ActiveRecord::Schema.define(version: 20161018220046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,46 @@ ActiveRecord::Schema.define(version: 20160925102538) do
     t.float    "price",      default: 0.0
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "first_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "phone"
+    t.string   "social"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "content_pages", force: :cascade do |t|
+    t.string   "name_page"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "sum",        default: 0
+    t.integer  "order_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "sum",        default: 0
+    t.boolean  "pay",        default: false
+    t.integer  "profit",     default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "contact_id"
+    t.string   "hash_id"
   end
 
   create_table "other_buys", force: :cascade do |t|
@@ -62,6 +102,13 @@ ActiveRecord::Schema.define(version: 20160925102538) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.text     "title"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sale_items", force: :cascade do |t|
     t.integer  "sale_id"
     t.integer  "product_item_id"
@@ -76,5 +123,27 @@ ActiveRecord::Schema.define(version: 20160925102538) do
     t.datetime "updated_at",               null: false
     t.float    "price",      default: 0.0
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "login",                  default: "",    null: false
+    t.text     "avatar"
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "rate",                   default: 0
+    t.boolean  "admin",                  default: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

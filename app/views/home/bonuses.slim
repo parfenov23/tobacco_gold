@@ -1,0 +1,6 @@
+.content.content-block__normal.background
+  .header_block
+    .title Бонусы
+    hr
+  .content_block
+    = raw((ContentPage.where(name_page: "bonuses").last.description.to_s rescue "Нет описания страницы"))

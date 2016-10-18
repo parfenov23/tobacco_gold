@@ -1,0 +1,39 @@
+html
+  head
+    = csrf_meta_tags
+    link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"
+    link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet"
+    script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+    script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
+    link href="/style/app.css" rel="stylesheet"
+    = javascript_include_tag "/tinymce/tinymce.min.js"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    javascript:
+      tinymce.init({
+        selector: "textarea",
+        height  : 300
+      });
+
+      (window.Image?(new Image()):document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=TfrGqiMZB2vs4jnbffgNFYFnoLIfyOq8*XcQSovHcoCOaHwnMLOqxUVEgd6*EnXUWVdCyQ*7DBO5/fnCOamlGHVcEYXh0whQL/uEkdsCFmgZRKTj1bRqsYSxrlcDvZA1amZbVNN6piaonAJaKnG0nvhk8gqyntxzdn*QLUOw9*k-';
+
+  body style="background-color: #f5f5f5;"
+    .well style="padding: 0px 5px 5px 5px;margin-bottom: 0;"
+      - if current_user.present?
+        nav.navbar.navbar-default
+          ul.nav.navbar-nav
+            - arr_nav_li = [{url: "/admin/products", title: "Товары"},
+                            {url: "/admin/stock", title: "Склад"},
+                            {url: "/admin/sales", title: "Продажа"},
+                            {url: "/admin/buy", title: "Закуп"},
+                            {url: "/admin/other_buy", title: "Прочие расходы"},
+                            {url: "/admin/cashbox", title: "Касса"},
+                            {url: '/admin/categories', title: 'Все категории'}, 
+                            {url: '/admin/questions', title: 'Все вопросы'}, 
+                            {url: '/admin/content_pages', title: 'Контент'}, 
+                            {url: '/admin/users', title: 'Пользователи'}]
+            - arr_nav_li.each do |li_nav|
+              - class_li = li_nav[:url] == request.fullpath.to_s ? "active" : ""
+              li class="#{class_li}"
+                a href="#{li_nav[:url]}"
+                  = li_nav[:title]
+      = yield

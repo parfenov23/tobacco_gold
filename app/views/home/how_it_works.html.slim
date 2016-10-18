@@ -1,0 +1,6 @@
+.content.content-block__normal.background
+  .header_block
+    .title Как это работает?
+    hr
+  .content_block
+    = raw((ContentPage.where(name_page: "how_it_works").last.description.to_s rescue "Нет описания страницы"))

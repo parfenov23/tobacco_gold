@@ -1,0 +1,25 @@
+table.table
+  thead
+    tr
+      th ФИО
+      th Телефон
+      th Ссылка на профиль
+  tbody
+    tr
+      td = @model.first_name
+      td = @model.phone
+      td
+        a href=@model.social = @model.social
+hr style="border-color: #EEEEEE -moz-use-text-color #FFFFFF; border-style: solid none;border-width: 1px 0;"
+
+.list-group.row
+  .list-group-item.active
+    a.btn.btn-success href="/orders/new?contact_id=#{@model.id}" Добавить Заказ
+  - @model.orders.each do |order|
+    .list-group-item.col-md-6
+      span
+        = order.created_at
+      a.btn.btn-danger.pull-right href="/orders/#{order.id}/remove" data-method='delete'
+        | &#10006;
+      a.btn.btn-success.pull-right href="/orders/#{order.id}/edit" style="margin-right: 5px;"
+        | &#9998;

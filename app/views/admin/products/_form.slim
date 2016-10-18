@@ -1,0 +1,11 @@
+- action_url = @product.id.nil? ? "/admin/products" : "/admin/products/#{@product.id}"
+- method = @product.id.nil? ? "post" : "put"
+
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+  .form-group
+    label
+      | Название:
+    input.form-control name="product[title]" type="text" value="#{@product.title}"
+
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit" Сохранить

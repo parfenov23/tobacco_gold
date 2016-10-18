@@ -1,0 +1,13 @@
+- action_url = @question.id.nil? ? "/admin/questions" : "/admin/questions/#{@question.id}"
+- method = @question.id.nil? ? "post" : "put"
+form.form-horizontal action="#{action_url}" method="post"
+    .form_group
+        |Вопрос:
+        input.form-control name="question[title]" type="text" value="#{@question.title}" /
+    .form_group
+        |Ответ:
+        textarea cols="70" name="question[content]" rows="10" = @question.content
+
+    hr
+    input type="hidden" name="_method" value="#{method}"
+    button.btn.btn-primary type="submit"  Сохранить

@@ -1,0 +1,13 @@
+h2 Все вопросы
+hr
+.list-group.row
+    .list-group-item.active
+        a.btn.btn-success href="/admin/questions/new"
+            | Добавить вопрос
+    - @questions.each do |question|
+        .list-group-item.col-md-6
+            span = question.title
+            a.btn.btn-danger.pull-right href=("/admin/questions/#{question.id}/remove")
+                | Удалить
+            a.btn.btn-success.pull-right href=("/admin/questions/#{question.id}/edit") style=("margin-right: 5px;")
+                | Редактировать

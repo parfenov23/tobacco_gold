@@ -1,0 +1,17 @@
+- action_url = @content_page.id.nil? ? "/admin/content_pages" : "/admin/content_pages/#{@content_page.id}"
+- method = @content_page.id.nil? ? "post" : "put"
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+  .form_group
+    | Категория:
+    - arr_pages = all_pages
+    = select_tag("content[name_page]",
+                 options_for_select(arr_pages, @content_page.name_page), {:class => 'form-control'})
+  .form_group
+    span
+      |Описание:
+    textarea name="content[description]"
+      = @content_page.description
+  hr
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit"  Сохранить
+hr

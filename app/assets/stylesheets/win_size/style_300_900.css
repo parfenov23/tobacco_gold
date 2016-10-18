@@ -1,0 +1,198 @@
+@media only screen and (min-width : 300px) and (max-width : 900px) {
+
+    body {
+        min-width : 300px;
+    }
+
+    /*#to-top {*/
+        /*display : block !important;*/
+    /*}*/
+
+    .left-sidebar__wrp .left-sidebar__normal {
+        width : 63px;
+        zoom: 0.8;
+    }
+
+    .left-sidebar__normal .profile {
+        padding-left: 0px;
+    }
+
+
+    .left-sidebar__wrp .left-sidebar__normal .hide_menu_average {
+        display : none;
+    }
+
+    .right-sidebar__wrp {
+        display : none;
+    }
+
+    .open-content {
+        display : none !important;
+    }
+
+    .my-tasks__wrp .inner__right-sidebar {
+        margin-right : 300px;
+    }
+
+    .my-tasks__wrp .inner-left-sidebar {
+        margin-left : 60px;
+    }
+
+    .my-tasks__wrp .my-tasks__shot {
+        z-index : 21;
+    }
+
+    .my-tasks__wrp .my-tasks__normal {
+        left     : -1000px;
+        position : fixed;
+        top      : 0;
+        height   : 100%;
+    }
+
+    .my-tasks__wrp .task-list .tags-wrp .tag {
+        display : none;
+    }
+
+    .my-tasks__wrp .task-list .tags-wrp .all-tags {
+        display : inline-block !important;
+    }
+
+    .content__wrp .inner-left-sidebar {
+        margin-left : 60px;
+    }
+
+    .content__wrp .inner__my-tasks {
+        margin-left : 20px;
+    }
+
+    .content__wrp .content-block__shot {
+        z-index : 22;
+    }
+
+    .content__wrp .content-block__normal {
+        z-index    : 22;
+        margin-top : 40px;
+        text-align : center;
+    }
+
+    .content__wrp .inner__right-sidebar {
+        margin-right : 0px;
+    }
+
+    .open_right_aside {
+        display : block !important;
+    }
+}
+
+@media only screen and (min-width : 300px) and (max-width : 900px) and (max-width : 600px) {
+    #my-tasks-shot {
+        display : none;
+    }
+
+    #left-sidebar-shot .left-menu .task {
+        display : block;
+    }
+
+    .content__wrp .inner__my-tasks {
+        margin-left : 45px;
+    }
+}
+
+@media only screen and (min-width : 300px) and (max-width : 900px) and (max-width : 560px) {
+    .user_menu .logo {
+        height : 10px;
+    }
+
+    .left-sidebar__normal {
+        top : 33px;
+    }
+
+    .content{
+        zoom: 0.8;
+    }
+
+    #product_logo, #product_logo_mini {
+        height : 23px;
+    }
+
+    header .logo {
+        padding-top : 0px;
+    }
+
+    header .log-out {
+        height          : 15px;
+        background-size : 15px;
+    }
+
+    header {
+        background-size : 3px;
+        height          : 27px;
+    }
+
+    header .separator {
+        height : 25px;
+    }
+
+    .right-part {
+        top : 4px !important;
+    }
+
+    #two_top-sidebar-less {
+        height : 25px;
+    }
+
+    .two_top-sidebar__less .top-menu a {
+        height          : 24px;
+        background-size : 40px;
+        width           : 40px;
+    }
+
+    .two_top-sidebar__less .top-menu a:hover {
+        background-position-y : -24px;
+    }
+
+    .two_top-sidebar__less {
+        top : 25px;
+    }
+
+    .news-content .title .self-action {
+        display : none;
+    }
+
+    .comments-list .comment .file_list_comment object {
+        width : 100% !important;
+    }
+
+    .comments-list .comment .file_list_comment .upload-file-list {
+        width : 100% !important;
+    }
+
+    #left-sidebar-shot {
+        display : none;
+    }
+
+    .content__wrp .inner-left-sidebar {
+        margin-left : 20px;
+    }
+
+    header .important-a {
+        margin-right : 5px;
+    }
+
+    header .important-a p {
+        display : none !important;
+    }
+
+    .two_top-sidebar__less {
+        display : block !important;
+    }
+
+    #content {
+        margin-top : 35px;
+    }
+
+    .right-sidebar__wrp {
+        top : 85px;
+    }
+
+}

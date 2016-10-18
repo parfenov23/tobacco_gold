@@ -3,4 +3,12 @@ class ProductItem < ActiveRecord::Base
   has_many :buy_items, dependent: :destroy
   has_many :sale_items, dependent: :destroy
   default_scope { order('title ASC') }
+
+  def self.popular_sort(count_first=3)
+  	products = self.all
+  	products.find(
+  		products.map{ |m| 
+  			[m.id, m.sale_items.count] 
+  		}.to_h.sort_by(&:last).reverse.first(count_first).to_h.keys)
+  end
 end

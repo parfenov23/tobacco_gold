@@ -1,0 +1,59 @@
+
+.content.page_buy_rate {
+  .description_page {
+    font-size : 14px;
+  }
+  .content_rate {
+    margin-top : 20px;
+    display    : table;
+    width      : 100%;
+    @media only screen and (min-width : 1200px) {
+
+      .column_left {
+        width   : calc(100% - 200px);
+        display : table-cell;
+      }
+      .column_right {
+        display : table-cell;
+        width   : 200px;
+      }
+    }
+
+    @media only screen and (min-width : 700px) and (max-width : 900px) {
+      .column_left {
+        width   : calc(100% - 200px);
+        display : table-cell;
+      }
+      .column_right {
+        display : table-cell;
+        width   : 200px;
+      }
+    }
+
+    .packets {
+      margin-bottom : 20px;
+      .packet {
+        margin : 10px;
+        width  : 165px;
+
+        &.active_block{
+            img{
+              border     : 1px double #494B51;
+              box-sizing : border-box;
+            }
+        }
+        img {
+          width : 100%;
+          &:hover {
+            border     : 1px solid #494B51;
+            box-sizing : border-box;
+            cursor     : pointer;
+          }
+        }
+      }
+    }
+    .finish_price {
+      font-size : 15px;
+    }
+  }
+}
