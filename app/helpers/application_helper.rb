@@ -23,6 +23,10 @@ module ApplicationHelper
     end
   end
 
+  def current_user_admin?
+    current_user.admin rescue false
+  end
+
   def all_pages
     [
       ["Как это работает", "how_it_works"],

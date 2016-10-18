@@ -1,4 +1,4 @@
-- if current_user.admin
+- if current_user_admin?
   a.btn.btn-success.addItemSale href='/admin/stock' В наличии
   a.btn.btn-primary.addItemSale href="/admin/stock?type=not_available" Нет в наличии
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
@@ -16,7 +16,7 @@
         .list-group-item.col-md-3
           span
             = item.title
-          - if current_user.admin || params[:pub] == "true"
+          - if current_user_admin? || params[:pub] == "true"
             .btn.btn-success.pull-right
               = item.count
 

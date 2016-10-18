@@ -18,7 +18,7 @@ html
 
   body style="background-color: #f5f5f5;"
     .well style="padding: 0px 5px 5px 5px;margin-bottom: 0;"
-      - if current_user.admin
+      - if current_user_admin?
         nav.navbar.navbar-default
           ul.nav.navbar-nav
             - arr_nav_li = [{url: "/admin/products", title: "Товары"},
