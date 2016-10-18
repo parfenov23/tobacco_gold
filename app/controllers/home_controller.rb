@@ -21,7 +21,7 @@ class HomeController < ActionController::Base
   end
 
   def callback_vk
-    render json: {success: true}
+    render text: "5bbf068d"
   end
 
   def item
