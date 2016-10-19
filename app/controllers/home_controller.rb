@@ -21,6 +21,7 @@ class HomeController < ActionController::Base
   end
 
   def callback_vk
+    VkMessage
     render text: "5bbf068d"
   end
 
