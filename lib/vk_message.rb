@@ -38,8 +38,8 @@ class VkMessage
   end
 
   def self.message_price(get_params)
-    body_text = get_params[:body].mb_chars.downcase.to_s
-    if body_text = "прайс"
+    body_text = get_params[:body].mb_chars.downcase.to_s rescue nil
+    if body_text == "прайс"
       message = Product.all.map{|product| "#{product.title}: #{product.current_price} рублей"}.join("\n")
       run(message, type="group", {user_id: "13859193"})
     end
