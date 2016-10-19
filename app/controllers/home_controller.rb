@@ -1,3 +1,4 @@
+require 'vk_message'
 class HomeController < ActionController::Base
   before_filter :redirect_test, except: [:callback_vk, :auth]
   def index
@@ -21,7 +22,7 @@ class HomeController < ActionController::Base
   end
 
   def callback_vk
-    VkMessage
+    VkMessage.message_price(params)
     render text: "5bbf068d"
   end
 
