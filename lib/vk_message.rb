@@ -38,13 +38,13 @@ class VkMessage
   end
 
   def self.message_price(get_params)
-    unless HistoryVk.where(params_type: get_params).present?
+    unless HistoryVk.where(params_type: get_params.to_s).present?
       body_text = (get_params[:object][:body].mb_chars.downcase.to_s) rescue nil
       if body_text == "прайс"
         message = Product.all.map{|product| "#{product.title}: #{product.current_price} рублей"}.join("\n")
         run(message, type="group", {user_id: "13859193"})
       end
-      HistoryVk.create(params_type: get_params)
+      HistoryVk.create(params_type: get_params.to_s)
     end
   end
 
