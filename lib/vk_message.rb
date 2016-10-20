@@ -45,6 +45,9 @@ class VkMessage
       if body_text == "прайс"
         message = Product.all.map{|product| "#{product.title}: #{product.current_price} рублей"}.join("\n")
         run(message, type="group", {user_id: get_params[:object][:user_id]})
+      elsif body_text.scan("прайс").blank? 
+        message = "Новое сообщение в группе\nПользователь: http://vk.com/id#{get_params[:object][:user_id]}\nСообщение: #{body_text}"
+        run(message, type="user", {chat_id: '57'})
       end
       HistoryVk.create(params_type: get_params.to_s)
     end
