@@ -47,7 +47,7 @@ class VkMessage
         run(message, type="group", {user_id: get_params[:object][:user_id]})
       elsif body_text.scan("прайс").blank? 
         message = "Новое сообщение в группе\nПользователь: http://vk.com/id#{get_params[:object][:user_id]}\nСообщение: #{body_text}"
-        run(message, type="user", {chat_id: '57', title: 'Сообщение в группу'})
+        run(message, type="user", {chat_id: '72'})
       end
       HistoryVk.create(params_type: get_params.to_s)
     end
