@@ -13,7 +13,7 @@ javascript:
     var data = $("form.newTasteItem").serialize();
     $.ajax({
       type: 'POST',
-      url : '/buy/new_item_product',
+      url : '/admin/buy/new_item_product',
       data: data
     }).success(function (data) {
       $("#contentSelect").html($(data));
