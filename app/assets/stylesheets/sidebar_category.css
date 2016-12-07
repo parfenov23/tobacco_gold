@@ -1,10 +1,11 @@
 #category {
-    width            : 200px;
-    min-height       : 200px;
-    background-color : #494B51;
-    left             : -300px;
-    position         : fixed;
-    z-index          : 20;
+    width: 200px;
+    min-height: 200px;
+    background-color: #494B51;
+    left: -300px;
+    position: fixed;
+    z-index: 22;
+    overflow: auto;
 }
 
 #category .triangle-left {
