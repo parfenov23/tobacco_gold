@@ -38,10 +38,10 @@ module ApplicationHelper
 
   def left_bar_links
     [
-      {type: 'buy_rate', title: 'Пополнить счет', href: '/buy_rate'},
+      # {type: 'buy_rate', title: 'Пополнить счет', href: '/buy_rate'},
       {type: 'how_it_works', title: 'Как мы работаем?', href: '/how_it_works'},
-      {type: 'winners', title: 'Рейтинг', href: '/winners'},
-      {type: 'bonuses', title: 'Бонусы и Скидки', href: '/bonus'},
+      # {type: 'winners', title: 'Рейтинг', href: '/winners'},
+      {type: 'bonuses', title: 'Скидки и Акции', href: '/bonus'},
       {type: 'faq', title: 'F.A.Q', href: '/help'},
       {type: 'contacts', title: 'Контакты', href: '/contacts'},
       {type: 'participant', title: 'Мини версия', href: '/stock'}

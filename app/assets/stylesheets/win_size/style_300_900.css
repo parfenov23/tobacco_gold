@@ -112,7 +112,8 @@
     }
 
     #product_logo, #product_logo_mini {
-        height : 23px;
+        height: 13px;
+        width: 120px;
     }
 
     header .logo {

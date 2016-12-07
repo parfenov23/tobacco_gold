@@ -1,0 +1,9 @@
+.list-group.row
+  .list-group-item.active
+    a.btn.btn-success href="/admin/hookah_cash/new"  Добавить
+  - @hookah_cashs.each do |hookah_cash|
+    .list-group-item.col-md-6
+      span
+        = "#{hookah_cash.title}(#{hookah_cash.price})"
+      a.btn.btn-danger.pull-right href="/admin/hookah_cash/#{hookah_cash.id}/remove" data-method='delete'
+        | &#10006;

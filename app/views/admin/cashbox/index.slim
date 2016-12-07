@@ -1,9 +1,11 @@
-h4 Текущая касса: #{@cashbox} рублей
+h4 Текущая касса: #{@cashbox.to_i} рублей
 hr style="border-top: 1px solid #333"
 //////////////////
-b Денег в товаре: #{@stock_price} рублей
+b Денег в товаре: #{@stock_price.to_i} рублей
 br
-b Сумма касса + товар = #{@cashbox + @stock_price}
+b Сумма касса + товар = #{(@cashbox + @stock_price).to_i} рублей
+br
+b Касса кальнов: #{HookahCash.cash_box} рублей
 hr style="border-top: 1px solid #333"
 //////////////////
 h3 Статистика за последнию неделю
@@ -22,3 +24,4 @@ br
 b Прочие доходы: #{@curr_month_other_up_price} рублей
 br
 b Прибыль: #{(@curr_month_sales_price - @curr_month_buy_price) + @curr_month_other_up_price - @curr_month_other_down_price} рублей
+//////////////////

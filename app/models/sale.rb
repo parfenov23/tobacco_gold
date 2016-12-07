@@ -4,7 +4,7 @@ class Sale < ActiveRecord::Base
   default_scope { order("created_at DESC") }
 
   def notify_buy
-    message = "Продажа: #{self.price.to_i} рублей\nКасса: #{Sale.cash_box} рублей"
+    message = "Продажа: #{self.price.to_i} рублей\n Информация: #{sale_url}\nКасса: #{Sale.cash_box} рублей"
     VkMessage.run(message)
   end
 
@@ -26,6 +26,10 @@ class Sale < ActiveRecord::Base
     price_sales
   end
 
+  def sale_url
+    "http://tobacc-gold.tk/admin/sales/#{id}/info"
+  end
+  
   def self.curr_month_price
     start_day = (Time.now - Time.new.day.day + 1.day).beginning_of_day
     where(["created_at > ?", start_day]).sum(:price)

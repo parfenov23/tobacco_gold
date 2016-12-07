@@ -11,6 +11,16 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     label
       | Количество:
     input.form-control name="product_item[count]" type="text" value="#{@product_item.count}"
+  hr
+  .form-group
+    label
+      | Картинка:
+    input.form-control name="product_item[image_url]" type="text" value="#{@product_item.image_url}"
+  .form-group
+    label
+      | Описание:
+    textarea.form-control name="product_item[description]" type="text"
+      = @product_item.description
 
   - product_id = product_present ? params[:product_id] : @product_item.product_id
   input type="hidden" name="product_item[product_id]" value="#{product_id}"

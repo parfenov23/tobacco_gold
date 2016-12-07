@@ -49,7 +49,9 @@ header .notification-area {
 }
 
 #product_logo {
-    height : 40px;
+    width: 192px;
+    height: 25px;
+    padding-top: 6px;
 }
 
 header .notification-area:after {

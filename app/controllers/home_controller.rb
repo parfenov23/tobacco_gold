@@ -8,7 +8,7 @@ class HomeController < ActionController::Base
   end
 
   def redirect_test
-    redirect_to "/stock" 
+    redirect_to "/stock" if !current_user.admin
   end
 
   def auth
@@ -27,7 +27,7 @@ class HomeController < ActionController::Base
   end
 
   def item
-    @item = Item.find(params[:id])
+    @item = ProductItem.find(params[:id]) 
   end
 
 end

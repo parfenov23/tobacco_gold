@@ -1,0 +1,21 @@
+- action_url = @hookah_cash.id.nil? ? "/admin/hookah_cash" : "/admin/hookah_cash/#{@hookah_cash.id}"
+- method = @hookah_cash.id.nil? ? "post" : "put"
+
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+  .form-group
+    label
+      | Название:
+    input.form-control name="hookah_cash[title]" type="text" value="#{@hookah_cash.title}"
+  .form-group
+    label
+      | Тип:
+    select.form-control name="hookah_cash[type_mode]"
+      option value="0"  Ушло
+      option value="1"  Пришло
+  .form-group
+    label
+      | Сумма:
+    input.form-control name="hookah_cash[price]" type="text" value="#{@hookah_cash.price}"
+
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit" Сохранить

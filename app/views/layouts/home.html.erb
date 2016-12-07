@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>
-    Аукцион | PlayBuy
+    Магазин | Tobacco Gold
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <%= stylesheet_link_tag 'application' %>
@@ -21,12 +21,12 @@
     </a>
 
     <div class="right-part">
-      <% if user_signed_in? %>
+<!--       <% if user_signed_in? %>
           <div class="my_rate">
             <% count_rate = current_user.rate%>
             У вас <%= rus_case(count_rate, "ставка", "ставки", "ставок") %>
           </div>
-      <% end %>
+      <% end %> -->
       <div class="separator"></div>
       <% if user_signed_in? %>
           <%= link_to destroy_user_session_path, :method => :get, :class => "exit for-hover" do |link| %>
