@@ -8,7 +8,7 @@ class HomeController < ActionController::Base
   end
 
   def redirect_test
-    redirect_to "/stock" if !current_user.admin
+    redirect_to "/stock" if !current_user.admin rescue true
   end
 
   def auth

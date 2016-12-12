@@ -27,7 +27,7 @@ class Sale < ActiveRecord::Base
   end
 
   def sale_url
-    "http://tobacc-gold.tk/admin/sales/#{id}/info"
+    "http://tobacco-gold.tk/admin/sales/#{id}/info"
   end
   
   def self.curr_month_price
