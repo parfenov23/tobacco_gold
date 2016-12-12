@@ -111,8 +111,8 @@ a {
     margin-right : 20px;
 }
 
-.content__wrp .inner-left-sidebar .content .content_item .left_content .imgCenter .img{
-    height: 250px
+.content__wrp .inner-left-sidebar .content .content_item .left_content .imgCenter img{
+    height: 250px;
 }
 
 .content-block__normal {
