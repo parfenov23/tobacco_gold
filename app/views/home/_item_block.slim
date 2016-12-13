@@ -10,8 +10,10 @@
         .title_price #{item.product.current_price}
       .time
         i.icon.buy_rate
-        .title_time = item.sale_items.count
+        - sale_count = item.sale_items.count
+        .title_time = sale_count > 0 ? sale_count : "Новинка"
     .user
       i.icon.participant
       .user_name = item.product.title
-    .button_rate Добавить в корзину
+    - present_stock = item.count > 0 
+    .button_rate class=present_stock = present_stock ? "Добавить в корзину" : "Нет на складе"
