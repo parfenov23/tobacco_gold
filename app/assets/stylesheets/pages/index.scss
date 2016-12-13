@@ -122,6 +122,6 @@ $color_flame_pea_approx : #D85C35;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 175px;
+    max-width: 175px;
   }
 }
