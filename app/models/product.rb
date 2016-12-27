@@ -12,7 +12,7 @@ class Product < ActiveRecord::Base
   def self.stock_price
     result = 0
     all.each do |product|
-      result += (product.min_price * product.product_items.sum(:count) )
+      result += (product.current_price * product.product_items.sum(:count) )
     end
     result
   end
