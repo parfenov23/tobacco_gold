@@ -20,8 +20,13 @@ module Admin
           SaleItem.create({sale_id: sale.id, product_item_id: product_item.id, count: revision_count, product_price_id: product.current_price_model.id})
         end
       end
-      sale.sale_items.count > 0 ? ({e: sale.update(price: result),  f: sale.notify_buy}) : sale.destroy
-      
+      if sale.sale_items.count > 0 
+        binding.pry
+        sale.update(price: result)
+        sale.notify_buy
+      else
+        sale.destroy
+      end
       redirect_to :back
     end
 
