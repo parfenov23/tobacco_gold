@@ -20,7 +20,7 @@ class VkMessage
     case type
     when "user"
       {
-        access_token: "9b7dba694b2f38cb8d080c35625e2d7a559b00cd5c73167f782ca02ff07799691a0dbd1fbafbfb686448c",
+        access_token: "c17431ed7cce7643c46ca0ba900c15124dbb1970d16ec3995eb126a7bcc03e304a4815f1effb2fd499575",
         chat_id: "53"
       }
     when "group"

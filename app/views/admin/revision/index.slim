@@ -1,0 +1,20 @@
+- @products.each do |product|
+  - product_items = params[:type] != "not_available" ? product.product_items.where.not(count: 0) : product.product_items.where(count: 0)
+  - if product_items.present?
+    form action="/admin/revision" method="post"
+      input type="hidden" name="product_item" value=product.id
+      .list-group.row
+        .list-group-item.active
+          - product_min_price = product.product_prices.order("price ASC").first.price
+          = product.title
+        - product_items.each do |item|
+          .list-group-item.col-md-3
+            span
+              = item.title
+            - if current_user_admin? || params[:pub] == "true"
+              .pull-right style="padding-left: 5px;padding-top: 4px;"
+                / input type="hidden" name="product_items[id][]" value=item.id
+                input type="text" style="width: 20px;" name="product_items[#{item.id}][]" value=""
+              .btn.btn-success.pull-right
+                = item.count
+      input type="submit" class="btn btn-info" value="Сохранить"

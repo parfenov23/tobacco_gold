@@ -101,6 +101,9 @@ Rails.application.routes.draw do
         get :to_excel
       end
     end
+
+    resources :revision
+
     resources :cashbox
 
     resources :sales do

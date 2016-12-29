@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
   def min_price
     items_ids = product_items.ids
     buy_items = BuyItem.where(id: items_ids).where(["price > ?", 50])
-    buy_items.present? ? buy_items.map(&:price).min : product_prices.map(&:price).min
+    buy_items.present? ? buy_items.minimum(:price) : product_prices.minimum(:price)
   end
 
   def self.stock_price
@@ -18,7 +18,11 @@ class Product < ActiveRecord::Base
   end
 
   def current_price
-    price = product_prices.where(default: true).last
-    (price.price rescue product_prices.map(&:price).max).to_i
+    price = product_prices.find_by_default(true)
+    (price.price rescue product_prices.minimum(:price)).to_i
+  end
+
+  def current_price_model
+    product_prices.find_by_default(true)
   end
 end
