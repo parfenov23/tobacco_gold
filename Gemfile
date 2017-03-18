@@ -22,6 +22,10 @@ gem 'mini_magick'
 gem 'devise', '3.4.1'
 gem 'bcrypt', '3.1.10'
 
+#========== sms center
+gem 'smsc'
+#==========
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'

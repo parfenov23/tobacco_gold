@@ -14,12 +14,12 @@ hr style="border-color: #EEEEEE -moz-use-text-color #FFFFFF; border-style: solid
 
 .list-group.row
   .list-group-item.active
-    a.btn.btn-success href="/orders/new?contact_id=#{@model.id}" Добавить Заказ
+    a.btn.btn-success href="/admin/orders/new?contact_id=#{@model.id}" Добавить Заказ
   - @model.orders.each do |order|
     .list-group-item.col-md-6
       span
         = order.created_at
-      a.btn.btn-danger.pull-right href="/orders/#{order.id}/remove" data-method='delete'
+      a.btn.btn-danger.pull-right href="/admin/orders/#{order.id}/remove" data-method='delete'
         | &#10006;
-      a.btn.btn-success.pull-right href="/orders/#{order.id}/edit" style="margin-right: 5px;"
+      a.btn.btn-success.pull-right href="/admin/orders/#{order.id}/edit" style="margin-right: 5px;"
         | &#9998;

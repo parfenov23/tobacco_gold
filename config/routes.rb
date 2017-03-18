@@ -78,6 +78,16 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :contacts do
+      member do
+        get :remove
+      end
+      collection do 
+        get :sms
+        post :sms_send
+      end
+    end
+
     resources :products do
       member do
         get :remove
