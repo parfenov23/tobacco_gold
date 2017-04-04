@@ -13,4 +13,4 @@
           .btn.js__addToBasket data-id=@item.id Добавить в корзину
     .description_item
       = raw @item.description
-= render "layouts/comment_vk"
+= render "layouts/comment_vk" if Rails.env.production?
