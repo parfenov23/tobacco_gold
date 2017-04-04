@@ -7,6 +7,16 @@ class HomeController < ActionController::Base
   def how_it_works
   end
 
+  def add_item_to_basket
+    session[:items] = session[:items].present? ? (session[:items] + [params[:item_id].to_i]) : [params[:item_id].to_i]
+    render json: session[:items]
+  end
+
+  def rm_item_to_basket
+    session[:items].delete(params[:item_id].to_i)
+    render json: session[:items]
+  end
+
   def redirect_test
     redirect_to "/stock" if ((!current_user.admin) rescue true)
   end
@@ -28,6 +38,11 @@ class HomeController < ActionController::Base
 
   def item
     @item = ProductItem.find(params[:id]) 
+  end
+
+  def buy_rate
+    @all_items = ProductItem.where(id: session[:items])
+    @all_sum = @all_items.map{|pi| pi.product.current_price*session[:items].count(pi.id)}.sum
   end
 
 end

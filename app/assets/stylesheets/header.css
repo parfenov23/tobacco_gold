@@ -327,5 +327,21 @@ header .my_rate {
     color        : white;
     float        : left;
     margin-right : 10px;
-    margin-top   : 2px;
+}
+
+header .my_rate .buy_rate{
+    font-size: 20px;
+}
+
+header .my_rate .count {
+    border-radius: 50%;
+    background-color: #F1592A;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 9px;
+    left: -6px;
+    text-align: center;
+    line-height: 18px;
+    font-size: 10px;
 }

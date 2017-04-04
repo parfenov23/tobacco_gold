@@ -7,53 +7,44 @@
     margin-top : 20px;
     display    : table;
     width      : 100%;
-    @media only screen and (min-width : 1200px) {
-
-      .column_left {
-        width   : calc(100% - 200px);
-        display : table-cell;
-      }
-      .column_right {
-        display : table-cell;
-        width   : 200px;
-      }
-    }
-
-    @media only screen and (min-width : 700px) and (max-width : 900px) {
-      .column_left {
-        width   : calc(100% - 200px);
-        display : table-cell;
-      }
-      .column_right {
-        display : table-cell;
-        width   : 200px;
-      }
-    }
-
-    .packets {
-      margin-bottom : 20px;
-      .packet {
-        margin : 10px;
-        width  : 165px;
-
-        &.active_block{
-            img{
-              border     : 1px double #494B51;
-              box-sizing : border-box;
-            }
-        }
-        img {
-          width : 100%;
-          &:hover {
-            border     : 1px solid #494B51;
-            box-sizing : border-box;
-            cursor     : pointer;
-          }
+    .item_content{
+      display: flex;
+      border-bottom: 1px solid;
+      padding-bottom: 16px;
+      padding-top: 16px;
+      .icon{
+        width: 50px;
+        img{
+          width: 100%;
         }
       }
-    }
-    .finish_price {
-      font-size : 15px;
+      .name{
+        width: 50%;
+        padding-left: 24px;
+        padding-top: 24px;
+      }
+      .sum{
+        width: 20%;
+        padding-top: 24px;
+        padding-left: 8px;
+      }
+      .count{
+        width: 20%;
+        padding-top: 24px;
+      }
+      .remove{
+        .btn_rm{
+          border-radius: 50%;
+          background-color: #F1592A;
+          color: white;
+          font-size: 18px;
+          width: 20px;
+          height: 20px;
+          text-align: center;
+          margin-top: 24px;
+          cursor: pointer;
+        }
+      }
     }
   }
 }

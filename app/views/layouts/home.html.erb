@@ -9,6 +9,7 @@
   </title>
   <meta name="yandex-verification" content="82f611331ec2dcf3" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <script type="text/javascript" src="//vk.com/js/api/openapi.js?143"></script>
   <%= stylesheet_link_tag 'application' %>
   <%= yield :styles %>
   <!--<link href="/uploads/application.css" media="all" rel="stylesheet" type="text/css">-->
@@ -22,12 +23,14 @@
     </a>
 
     <div class="right-part">
-<!--       <% if user_signed_in? %>
+      <% if user_signed_in? %>
           <div class="my_rate">
-            <% count_rate = current_user.rate%>
-            У вас <%= rus_case(count_rate, "ставка", "ставки", "ставок") %>
+            <a class="no_color" href="/buy_rate">
+              <i class="icon buy_rate"></i>
+            </a>
+            <span class="count"><%= session[:items].count if session[:items].present? %></span>
           </div>
-      <% end %> -->
+      <% end %> 
       <div class="separator"></div>
       <% if user_signed_in? %>
           <%= link_to destroy_user_session_path, :method => :get, :class => "exit for-hover" do |link| %>
@@ -53,6 +56,10 @@
   </div>
 </section>
 
+<div id="alert">
+  <div class="text"></div>
+  <div class="close">×</div>
+</div>
 
 <div id="to-top" style="z-index: 20;">
   <!--<span class="open_right_aside open" style="display: none;"></span>-->
@@ -64,6 +71,8 @@
 
 <script src="/uploads/script/aside.js" type="text/javascript"></script>
 <script src="/uploads/script/to_bot.js" type="text/javascript"></script>
+
+
 <%= yield :script %>
 </body>
 </html>

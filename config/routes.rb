@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   get "contacts" => "home#contacts"
   get "auth" => "home#auth"
 
+  post "add_item_to_basket" => "home#add_item_to_basket"
+  post "rm_item_to_basket" => "home#rm_item_to_basket"
+
   #VK================
   get "callback_vk" => "home#callback_vk"
   post "callback_vk" => "home#callback_vk"

@@ -1,17 +1,30 @@
 .content.content-block__normal.background.normal_align.page_buy_rate
     .header_block
-        .title Купить ставки
-        hr
-    .description_page
-      = raw((ContentPage.where(name_page: "buy_rate").last.description.to_s rescue "Нет описания страницы"))
+        .title.hidden_text В корзине #{session[:items].count} #{Russian.p(session[:items].count, "товар", "товара", "товаров")}
+        .sum_price #{@all_sum} руб
+
+    / .description_page
+    /   = raw((ContentPage.where(name_page: "buy_rate").last.description.to_s rescue "Нет описания страницы"))
     .content_rate
-        .column_left
-            .title_rate Выберите пакет ставок:
-            .packets
-                - 6.times do
-                    .packet.block_display_inline
-                        img src="https://bonusmall.ru/img.php?id=5243"
-            .finish_price
-                |Стоимость 100 рублей
-        .column_right
-            .title_rate Выберите способ оплаты:
+        - @all_items.each do |item|
+            - count = session[:items].count(item.id)
+            - sum = item.product.current_price
+            .item_content
+                .icon
+                    img src=item.image_url
+                .name 
+                    a href="/item?id=#{item.id}" = "#{item.product.title} - #{item.title}"
+                .sum #{sum} руб
+                .count #{count} шт.
+                .remove.js__rmItemInBasket data-id=item.id
+                    .btn_rm ×
+        / .column_left
+        /     .title_rate Выберите пакет ставок:
+        /     .packets
+        /         - 6.times do
+        /             .packet.block_display_inline
+        /                 img src="https://bonusmall.ru/img.php?id=5243"
+        /     .finish_price
+        /         |Стоимость 100 рублей
+        / / .column_right
+        / /     .title_rate Выберите способ оплаты:

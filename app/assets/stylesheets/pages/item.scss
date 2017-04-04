@@ -2,6 +2,11 @@
   width : 100%;
   .left_content {
     width : 100%;
+    margin-bottom: 24px;
+    display: flex;
+    .imgCenter{
+      width: 70%;
+    }
     #slider1_container {
       zoom         : 0.7;
       margin-left  : auto;

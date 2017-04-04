@@ -3,12 +3,14 @@
 
 .content.content-block__normal.background.normal_align
   .header_block
-    .title.hidden_text
-      = @item.title
-    hr
+    .title.hidden_text #{@item.product.title} - #{@item.title}
+    .sum_price ЦЕНА: #{@item.product.current_price} руб
   .content_item
     .left_content
-        div.imgCenter style="text-align: center;"
+        .imgCenter
           img src=@item.image_url u="image"
+        .all_action
+          .btn.js__addToBasket data-id=@item.id Добавить в корзину
     .description_item
       = raw @item.description
+= render "layouts/comment_vk"

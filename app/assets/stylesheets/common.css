@@ -34,6 +34,9 @@ a {
     font-size       : 13px;
     text-decoration : none;
 }
+a.no_color{
+    color: inherit;
+}
 
 .circle-img-new {
     border-radius : 50%;
@@ -138,7 +141,9 @@ a {
 .content-block__normal .header_block {
     font-weight : 900;
     font-size   : 18px;
-    text-align  : left;
+    display: flex;
+    border-bottom: 1px solid rgba(31, 31, 31, 0.5);
+    padding-bottom: 12px;
 }
 
 .content-block__normal .header_block hr {
@@ -227,8 +232,13 @@ a {
     color          : #FC8585;
 }
 
-.hidden_text {
+.header_block .hidden_text {
     text-overflow : ellipsis;
     overflow      : hidden;
     white-space   : nowrap;
+    width: 70%;
+}
+.header_block .sum_price{
+    width: 30%;
+    text-align: right;
 }
