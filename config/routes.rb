@@ -88,6 +88,8 @@ Rails.application.routes.draw do
       collection do 
         get :sms
         post :sms_send
+        get :vk
+        post :vk_send
       end
     end
 

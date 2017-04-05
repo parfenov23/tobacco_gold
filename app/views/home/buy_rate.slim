@@ -1,7 +1,8 @@
 .content.content-block__normal.background.normal_align.page_buy_rate
     .header_block
-        .title.hidden_text В корзине #{session[:items].count} #{Russian.p(session[:items].count, "товар", "товара", "товаров")}
-        .sum_price #{@all_sum} руб
+        - count_items = session[:items].uniq.count
+        .title.hidden_text В корзине #{count_items} #{Russian.p(count_items, "товар", "товара", "товаров")}
+        .sum_price.js__titleTotlaPriceBasket #{@all_sum} руб
 
     / .description_page
     /   = raw((ContentPage.where(name_page: "buy_rate").last.description.to_s rescue "Нет описания страницы"))
@@ -18,6 +19,13 @@
                 .count #{count} шт.
                 .remove.js__rmItemInBasket data-id=item.id
                     .btn_rm ×
+    form.form_send_basket
+        .input-wrp
+            input placeholder="Ваше имя" name="request[user_name]"
+        .input-wrp
+            input placeholder="Номер телефона" name="request[user_phone]"
+        input type="hidden" name="request[user_id]" value=current_user.id
+        .btn.js__submitFormBasket Отправить
         / .column_left
         /     .title_rate Выберите пакет ставок:
         /     .packets

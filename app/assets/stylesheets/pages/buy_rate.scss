@@ -47,4 +47,24 @@
       }
     }
   }
+  .form_send_basket{
+    margin-top: 24px;
+    .input-wrp{
+      border-bottom: 1px solid #bdbdbd;
+      padding-bottom: 12px;
+      padding-top: 12px;
+      input{
+        width: 100%;
+        background-color: inherit;
+        border-width: 0px;
+        outline: none;
+        font-size: 16px;
+      }
+    }
+    .btn{
+      margin-top: 24px;
+      margin-left: calc(100% - 94px);
+      display: inline-block;
+    }
+  }
 }

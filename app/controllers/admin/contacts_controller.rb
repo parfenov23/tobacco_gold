@@ -1,5 +1,7 @@
 module Admin
   class ContactsController < AdminController
+    require 'vk_message'
+
     def index
       @models = model.all
     end
@@ -31,6 +33,13 @@ module Admin
       sms = Smsc::Sms.new('tobaccogold', 'lolopo123', 'utf-8') 
       sms.message(params[:description], all_phones, sender: "tobacco_gold")
 
+      redirect_to_index
+    end
+
+    def vk_send
+      VkMessage.all_users_dialog_group.each do |uid|
+        VkMessage.run(params[:description], type="group", {user_id: uid})
+      end
       redirect_to_index
     end
 

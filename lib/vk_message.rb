@@ -37,6 +37,14 @@ class VkMessage
     end
   end
 
+  def self.all_users_dialog_group
+    agent = Mechanize.new
+    response = JSON.parse(agent.get("https://api.vk.com/method/messages.getDialogs", params("group").merge({count: 200})).body)
+    arr = response["response"].drop(1)
+    user_ids = arr.map{|a| a["uid"]}
+    user_ids
+  end
+
   def self.message_price(get_params)
     get_params[:object].delete(:date)
     get_params = {type: get_params[:type], object: get_params[:object]}

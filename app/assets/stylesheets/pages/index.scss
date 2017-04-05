@@ -12,7 +12,7 @@ $color_flame_pea_approx : #D85C35;
     float            : left;
     font-size        : 15px;
     background-color : $color_mako_approx;
-    width            : 100%;
+    width            : 98px;
     height           : 20px;
     color            : $white;
     display          : inline-block;
@@ -44,11 +44,35 @@ $color_flame_pea_approx : #D85C35;
       margin-top  : 1px;
       color       : $color_flamingo_approx;
     }
-    .title_time {
+    .title_count {
       font-size   : 15px;
       padding     : 1px;
-      display     : inline-block;
-      margin-left : -15px;
+      display     : flex;
+      // margin-left : -15px;
+      .btn_qty{
+        width: 20%;
+        .qty{
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background-color: #f1592a;
+          margin-left: 4px;
+          line-height: 14px;
+          text-align: center;
+          margin-top: 2px;
+          cursor: pointer;
+        }
+      }
+      input{
+        width: 55%;
+        background-color: inherit;
+        border-width: 0px;
+        outline: none;
+        // width: 24px;
+        text-align: center;
+        font-size: 14px;
+        color: white;
+      }
     }
   }
   .item_info {

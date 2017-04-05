@@ -40,6 +40,14 @@ aside .shadow-wrp {
     margin-bottom      : 10px
 }
 
+aside .shadow-wrp a.close_item_content{
+    color: #000;
+}
+
+aside .shadow-wrp a.close_item_content:hover{
+    color: #F1592A;
+}
+
 aside .shadow-wrp .today-date {
     text-align    : right;
     font-size     : 12px;

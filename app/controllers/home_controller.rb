@@ -8,13 +8,16 @@ class HomeController < ActionController::Base
   end
 
   def add_item_to_basket
-    session[:items] = session[:items].present? ? (session[:items] + [params[:item_id].to_i]) : [params[:item_id].to_i]
-    render json: session[:items]
+    arr = params[:count].to_i.times.map{|c| params[:item_id].to_i}
+    session[:items] = session[:items].present? ? (session[:items] + arr) : arr
+    render json: {all: session[:items], count: session[:items].uniq.count}
   end
 
   def rm_item_to_basket
     session[:items].delete(params[:item_id].to_i)
-    render json: session[:items]
+    @all_items = ProductItem.where(id: session[:items])
+    @all_sum = @all_items.map{|pi| pi.product.current_price*session[:items].count(pi.id)}.sum
+    render json: {all: session[:items], count: session[:items].uniq.count, total_price: @all_sum}
   end
 
   def redirect_test
