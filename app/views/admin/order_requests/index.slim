@@ -1,0 +1,15 @@
+- model_url = @models.first_url
+.list-group.row
+  .list-group-item.active
+    a.btn.btn-success href="/admin/order_requests"  Не оплаченые
+    a.btn.btn-success href="/admin/order_requests?status=paid"  Оплаченые
+  - status = params[:status].present? ? params[:status] : "waiting"
+  - @models.where(status: status).each do |model|
+    .list-group-item.col-md-6
+      span
+        a href="/admin/#{model_url}/#{model.id}" = model.title
+      a.btn.btn-danger.pull-right href="/admin/#{model_url}/#{model.id}/remove" data-method='delete'
+        | &#10006;
+      - if model.status == "waiting"
+        a.btn.btn-success.pull-right href="/admin/#{model_url}/#{model.id}/edit" style="margin-right: 5px;"
+          | &#9998;

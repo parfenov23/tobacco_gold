@@ -58,6 +58,9 @@ var submitFormBasket = function(){
       data   : form.serialize(),
       success: function (data) {
         show_error('Ваша заявка отправлена. Наш менеджер свяжется с Вами в ближайшее время!', 3000);
+        setTimeout(function(){
+          window.location.href = '/'
+        }, 3000)
       },
       error  : function () {
         show_error('Ошибка', 3000);

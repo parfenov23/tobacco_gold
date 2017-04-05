@@ -1,0 +1,25 @@
+// Изменяемая часть
+.form-group
+  label
+    | Имя:
+  input.form-control name="contact[first_name]" type="text" value="#{@model.user_name}"
+.form-group
+  label
+    | Телефон:
+  input.form-control name="contact[phone]" type="text" value="#{@model.user_phone}"
+.form-group
+  .all_order_items
+    - @model.items.each do |id, count|
+      .order_item
+        - product_item = ProductItem.find(id)
+        = select_tag("item_id[]", options_for_select(@all_items, id))
+        span style="margin-left: 5px;" 
+          |Кол-во: 
+        input name="count[]" value=count
+        .btn.btn-danger.js__removeItemOrder style="margin-left: 5px;" &#10006;
+  .btn.btn-success.js__addItemOrder Добавить
+/ .form-group
+/   label
+/     | Социальная ссылка:
+/   input.form-control name="contact[social]" type="text" value="#{@model.social}"
+// ================

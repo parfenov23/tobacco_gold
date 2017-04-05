@@ -1,0 +1,35 @@
+- model_present = @model.id.nil?
+- model_url = @model.class.first_url
+- action_url = model_present ? "/admin/#{model_url}" : "/admin/#{model_url}/#{@model.id}"
+- method = model_present ? "post" : "put"
+- @all_items = []
+- Product.all.map{|product| product.product_items.map{|item| @all_items << ["#{product.title} - #{item.title}", item.id] }}
+
+javascript:
+  var onClickRemoveItem = function(){
+        $(".js__removeItemOrder").on('click', function(){ $(this).closest(".order_item").remove(); })
+  }
+  $(document).ready(function(){
+    onClickRemoveItem();
+    $(".js__addItemOrder").on('click', function(){
+      var ref_block = $(".referenceItemOrder .order_item").clone()
+      $(".all_order_items").append(ref_block);
+      $(".js__removeItemOrder").unbind( "click" );
+      onClickRemoveItem();
+    })
+  });
+
+.referenceItemOrder style="display: none;"
+  .order_item
+    = select_tag("item_id[]", options_for_select(@all_items))
+    span style="margin-left: 5px;" 
+      |Кол-во: 
+    input name="count[]" value=1
+    .btn.btn-danger.js__removeItemOrder style="margin-left: 5px;" &#10006;
+
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+
+  = render "content_form"
+
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit" Сохранить

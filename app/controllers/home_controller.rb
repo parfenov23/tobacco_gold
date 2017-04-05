@@ -34,6 +34,17 @@ class HomeController < ActionController::Base
   def registration
   end
 
+  def send_item_to_basket
+    params_r = params[:request]
+    basket = {}
+    session[:items].map { |item| basket[item.to_s] = basket[item.to_s].to_i + 1 }
+    order = OrderRequest.create(user_id: current_user.id, user_name: params_r[:user_name], 
+      user_phone: params_r[:user_phone], status: "waiting", items: basket)
+    session[:items] = nil
+    order.notify
+    render json: {id: order.id}
+  end
+
   def callback_vk
     VkMessage.message_price(params)
     render text: "ok"

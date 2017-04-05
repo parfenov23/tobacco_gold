@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   post "add_item_to_basket" => "home#add_item_to_basket"
   post "rm_item_to_basket" => "home#rm_item_to_basket"
+  post "send_item_to_basket" => "home#send_item_to_basket"
 
   #VK================
   get "callback_vk" => "home#callback_vk"
@@ -59,6 +60,12 @@ Rails.application.routes.draw do
       end
     end
     resources :questions do
+      member do
+        get :remove
+      end
+    end
+
+    resources :order_requests do
       member do
         get :remove
       end

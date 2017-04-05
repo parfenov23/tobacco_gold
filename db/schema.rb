@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207142548) do
+ActiveRecord::Schema.define(version: 20170405204042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "buy_items", force: :cascade do |t|
     t.integer  "buy_id"
@@ -73,6 +74,17 @@ ActiveRecord::Schema.define(version: 20161207142548) do
     t.integer  "order_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "order_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "user_name"
+    t.string   "user_phone"
+    t.string   "status"
+    t.text     "basket"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.hstore   "items",      default: {}, null: false
   end
 
   create_table "orders", force: :cascade do |t|

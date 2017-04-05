@@ -1,0 +1,40 @@
+div 
+  b Имя: 
+  = @model.user_name
+div 
+  b Телефон: 
+  = @model.user_phone
+div
+  b Общая сумма заявки: 
+  = @model.total_sum.to_s + " рублей"
+hr style="border-color: #ccc;"
+
+table.table
+  thead
+    tr
+      th Наиминование
+      th Цена за шт
+      th Количество
+      th На складе
+      th Итого
+  tbody
+    - @model.items.each do |k, v|
+      - item = ProductItem.find(k)
+      - curr_price = item.product.current_price
+      tr
+        td #{item.product.title} - #{item.title}
+        td #{curr_price} руб
+        td #{v} шт
+        td #{item.count} шт
+        td #{curr_price*v.to_i} руб
+
+- model_url = @model.class.first_url
+- if @model.status == "waiting"
+  form.form-horizontal action="/admin/#{model_url}/#{@model.id}" method="post" enctype="multipart/form-data"
+    input type="hidden" name="orderrequest[status]" value="paid"
+    input type="hidden" name="_method" value="put"
+    button.btn.btn-success type="submit" Оплачено
+
+  a.btn.btn-primary href="/admin/#{model_url}/#{@model.id}/edit" Редактировать
+
+
