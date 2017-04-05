@@ -37,9 +37,12 @@ module Admin
     end
 
     def vk_send
-      VkMessage.all_users_dialog_group.each do |uid|
-        VkMessage.run(params[:description], type="group", {user_id: uid})
-      end
+      Thread.new {
+        VkMessage.all_users_dialog_group.each do |uid|
+          sleep(3)
+          VkMessage.sender(params[:description], type="group", {user_id: uid})
+        end
+      }
       redirect_to_index
     end
 
