@@ -31,7 +31,7 @@ module Admin
     def sms_send
       all_phones = model.all.map(&:phone)
       sms = Smsc::Sms.new('tobaccogold', 'lolopo123', 'utf-8') 
-      sms.message(params[:description], all_phones, sender: "tobacco_gold")
+      sms.message(params[:description], all_phones, sender: "TobaccoGold")
 
       redirect_to_index
     end
