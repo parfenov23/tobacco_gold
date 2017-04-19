@@ -23,20 +23,7 @@ html
       - if current_user_admin?
         nav.navbar.navbar-default
           ul.nav.navbar-nav
-            - arr_nav_li = [{url: "/admin/products", title: "Товары"},
-                            {url: "/admin/stock", title: "Склад"},
-                            {url: "/admin/sales", title: "Продажа"},
-                            {url: "/admin/revision", title: "Ревизия"},
-                            {url: "/admin/hookah_cash", title: "Кальяны"},
-                            {url: "/admin/buy", title: "Закуп"},
-                            {url: "/admin/other_buy", title: "Прочие расходы"},
-                            {url: "/admin/cashbox", title: "Касса"},
-                            {url: '/admin/categories', title: 'Все категории'}, 
-                            {url: '/admin/order_requests', title: 'Заявки'}, 
-                            {url: '/admin/content_pages', title: 'Контент'}, 
-                            {url: '/admin/users', title: 'Пользователи'}, 
-                            {url: '/admin/contacts', title: 'Клиенты'}]
-            - arr_nav_li.each do |li_nav|
+            - all_nav_li_admin.each do |li_nav|
               - class_li = li_nav[:url] == request.fullpath.to_s ? "active" : ""
               li class="#{class_li}"
                 a href="#{li_nav[:url]}"

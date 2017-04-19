@@ -1,0 +1,9 @@
+.list-group.row
+  .list-group-item.active
+  - @all_managers.each do |user|
+    - if user.balance_payments > 0
+      .list-group-item.col-md-6
+        span
+          = user.title
+          a.btn.btn-success.pull-right href="/admin/admin/paid_manager_payments?user_payment=#{user.balance_payments}&user_id=#{user.id}"
+            | Выплатить #{user.balance_payments} руб.

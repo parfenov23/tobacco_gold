@@ -8,11 +8,11 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     |Логин:
     input.form-control name="user[login]" type="text" value="#{@user.login}"
   .form_group
-    |Ставки:
-    input.form-control name="user[rate]" type="text" value="#{@user.rate}"
-  .form_group
     |Пароль(6):
     input.form-control name="user[password]" type="text"
+  .form_group
+    |Права:
+    = select_tag("user[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"], ["Пользователь", "user"]], @user.role.to_s), {:class => 'form-control'})
   hr
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit"  Сохранить

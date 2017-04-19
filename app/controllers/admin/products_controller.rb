@@ -2,15 +2,15 @@ module Admin
   class ProductsController < AdminController
 
     def index
-      @products = Product.all
+      @products = model.all
     end
 
     def new
-      @product = Product.new
+      @product = model.new
     end
 
     def create
-      Product.create(params_product)
+      model.create(params_product)
       redirect_to_index
     end
 
@@ -31,7 +31,11 @@ module Admin
     private
 
     def find_product
-      Product.find(params[:id])
+      model.find(params[:id])
+    end
+
+    def model
+      Product
     end
 
     def redirect_to_index
@@ -39,7 +43,7 @@ module Admin
     end
 
     def params_product
-      params.require(:product).permit(:title).compact rescue {}
+      params.require(model.to_s.downcase.to_sym).permit(model.column_names).compact.select { |k, v| v != "" } rescue {}
     end
   end
 end

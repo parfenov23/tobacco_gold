@@ -1,8 +1,4 @@
 module ApplicationHelper
-  # def current_user
-  #   session[:user_pass] == 'parfenov407'
-  # end
-
   def check_if_true(item)
     if(item == 'true' or item == true or item == 1 or item == '1')
       return true
@@ -15,6 +11,10 @@ module ApplicationHelper
     '/uploads/ava.jpg'
   end
 
+  def default_img_product(model)
+    model.image_url || model.product.default_img
+  end
+
   def user_ava(avatar)
     if avatar.to_s != ""
       "data:image/png;base64," + avatar
@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def current_user_admin?
-    current_user.admin rescue false
+    current_user.admin || current_user.is_admin? || current_user.is_manager? rescue false
   end
 
   def all_pages
@@ -50,5 +50,33 @@ module ApplicationHelper
 
   def rus_case(count, n1, n2, n3)
     "#{count} #{Russian.p(count, n1, n2, n3)}"
+  end
+
+  def all_nav_li_admin
+    all_navs =       [
+      {url: "/admin/admin", title: "Главная"},
+        {url: "/admin/products", title: "Товары"},
+        {url: "/admin/stock", title: "Склад"},
+        {url: "/admin/sales", title: "Продажа"},
+        {url: "/admin/revision", title: "Ревизия"},
+        {url: "/admin/hookah_cash", title: "Кальяны"},
+        {url: "/admin/buy", title: "Закуп"},
+        {url: "/admin/other_buy", title: "Прочие расходы"},
+        {url: "/admin/cashbox", title: "Касса"},
+        {url: '/admin/categories', title: 'Все категории'}, 
+        {url: '/admin/order_requests', title: 'Заявки'}, 
+        {url: '/admin/content_pages', title: 'Контент'}, 
+        {url: '/admin/users', title: 'Пользователи'}, 
+        {url: '/admin/contacts', title: 'Клиенты'},
+        {url: '/admin/admin/manager_payments', title: 'Выплаты'}
+      ]
+
+    if current_user.is_admin?
+      all_navs
+    elsif current_user.is_manager?
+      aviable_page = ["admin","products", "sales", "stock", "order_requests", "contacts"]
+      all_navs.map{|nav| nav if aviable_page.include?(nav[:url].gsub("/admin/", ""))}.compact
+    end
+    
   end
 end

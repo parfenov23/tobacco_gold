@@ -6,8 +6,17 @@ module Admin
   		
   	end
 
+    def manager_payments
+      @all_managers = User.where(role: "manager")
+    end
+
+    def paid_manager_payments
+      ManagerPayment.create(user_id: params[:user_id], price: params[:user_payment])
+      redirect_to "/admin/admin/manager_payments"
+    end
+
   	def redirect_to_stock
-		redirect_to "/stock" if !current_user.admin
+		  redirect_to "/stock" if !current_user.is_admin? && !current_user.is_manager?
   	end
   end
 end

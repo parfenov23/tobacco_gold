@@ -1,6 +1,8 @@
 require 'vk_message'
 class Sale < ActiveRecord::Base
   has_many :sale_items, dependent: :destroy
+  belongs_to :user
+  belongs_to :contact
   default_scope { order("created_at DESC") }
 
   def notify_buy
@@ -9,7 +11,7 @@ class Sale < ActiveRecord::Base
   end
 
   def self.cash_box
-    sum(:price) + OtherBuy.it_sum - OtherBuy.took_sum - Buy.all_sum
+    sum(:price) + OtherBuy.it_sum - OtherBuy.took_sum - Buy.all_sum - ManagerPayment.sum(:price)
   end
 
   def self.last_sales_price

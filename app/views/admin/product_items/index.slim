@@ -1,11 +1,13 @@
 .list-group.row
   .list-group-item.active
-    a.btn.btn-success href="/admin/product_items/new?product_id=#{params[:product_id]}"  Добавить вкус
+    - if current_user.is_admin?
+      a.btn.btn-success href="/admin/product_items/new?product_id=#{params[:product_id]}"  Добавить вкус
   - @product_items.each do |item|
     .list-group-item.col-md-6
       span
         = item.title
-      a.btn.btn-danger.pull-right href="/admin/product_items/#{item.id}/remove" data-method='delete'
-        | &#10006;
+      - if current_user.is_admin?
+        a.btn.btn-danger.pull-right href="/admin/product_items/#{item.id}/remove" data-method='delete'
+          | &#10006;
       a.btn.btn-success.pull-right href="/admin/product_items/#{item.id}/edit" style="margin-right: 5px;"
         | &#9998;

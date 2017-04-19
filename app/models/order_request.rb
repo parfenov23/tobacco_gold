@@ -1,6 +1,7 @@
 require 'vk_message'
 class OrderRequest < ActiveRecord::Base
   belongs_to :user
+  belongs_to :contact
   # serialize :basket, ActiveRecord::Coders::NestedHstore
 
   def title
@@ -13,8 +14,8 @@ class OrderRequest < ActiveRecord::Base
     sum
   end
 
-  def paid
-    sale = Sale.create
+  def paid(user_id=nil, contact_id=nil)
+    sale = Sale.create(user_id: user_id, contact_id: contact_id)
     result = 0
     items.each do |id, count|
       item = ProductItem.find(id)

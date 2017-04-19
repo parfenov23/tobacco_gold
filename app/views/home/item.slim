@@ -8,9 +8,9 @@
   .content_item
     .left_content
         .imgCenter
-          img src=@item.image_url u="image"
+          img src=default_img_product(@item) u="image"
         .all_action
           .btn.js__addToBasket data-id=@item.id Добавить в корзину
     .description_item
-      = raw @item.description
+      = raw (@item.description || "Нет описания")
 = render "layouts/comment_vk" if Rails.env.production?

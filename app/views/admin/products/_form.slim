@@ -6,6 +6,10 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     label
       | Название:
     input.form-control name="product[title]" type="text" value="#{@product.title}"
+  .form-group
+    label
+      | Картинка:
+    input.form-control name="product[default_img]" type="text" value="#{@product.default_img}"
 
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit" Сохранить

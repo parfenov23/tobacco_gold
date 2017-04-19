@@ -1,13 +1,19 @@
-h1 Админка сайта
+h3 Личный кабинет менеджера
 hr
-.menu
-    ul.list-group
-        li.list-group-item
-            h4
-                a href="/admin/catigories"  Все категории товаров
-        li.list-group-item
-            h4
-                a href="/admin/items"  Все товары
-        li.list-group-item
-            h4
-                a href="/admin/questions"  Все вопросы
+- all_my_sales_price = current_user.sales.sum(:price)
+p 
+  b Продано за все время: 
+  |#{all_my_sales_price.to_i} руб.
+p 
+  b Всего заработано: 
+  - all_earned = (all_my_sales_price / 100 * 10).to_i
+  |#{all_earned.to_i} руб.
+- all_paid = current_user.manager_payments.sum(:price)
+p 
+  b Выплачено: 
+  |#{all_paid} руб.
+
+p 
+  b Остаток: 
+  |#{all_earned - all_paid} руб.
+

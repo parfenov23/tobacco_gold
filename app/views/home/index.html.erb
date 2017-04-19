@@ -1,6 +1,8 @@
 <div class="content content-block__normal">
   <% items = ProductItem.all.where({product_id: params[:category]}.compact) %>
   <% items.each do |item| %>
-    <%= render "item_block", {item: item} %>
+    <% if item.count > 0 %>
+      <%= render "item_block", {item: item} %>
+    <% end %>
   <% end %>
 </div>

@@ -5,6 +5,12 @@ b Общая сумма продажи: #{@sale.price} рублей
 /      td = item.title
 /      td = item.price
 hr style="border-color: #EEEEEE -moz-use-text-color #FFFFFF; border-style: solid none;border-width: 1px 0;margin: 18px 0;"
+p 
+  b Получатель: 
+  = @sale.contact.title
+p 
+  b Менеджер: 
+  = @sale.user.login
 table.table
   thead
     tr

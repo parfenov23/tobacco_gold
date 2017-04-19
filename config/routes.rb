@@ -43,6 +43,10 @@ Rails.application.routes.draw do
   get '/admin', to: redirect('/admin/admin')
   namespace :admin do
     resources :admin do
+      collection do
+        get :manager_payments
+        get :paid_manager_payments
+      end
     end
     resources :categories do
       member do

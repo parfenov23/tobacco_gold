@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405204042) do
+ActiveRecord::Schema.define(version: 20170419013836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20170405204042) do
     t.string   "social"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   create_table "content_pages", force: :cascade do |t|
@@ -68,6 +69,13 @@ ActiveRecord::Schema.define(version: 20170405204042) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "manager_payments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.string   "title"
     t.integer  "sum",        default: 0
@@ -85,6 +93,7 @@ ActiveRecord::Schema.define(version: 20170405204042) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.hstore   "items",      default: {}, null: false
+    t.integer  "contact_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -126,8 +135,9 @@ ActiveRecord::Schema.define(version: 20170405204042) do
 
   create_table "products", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "default_img"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -150,17 +160,19 @@ ActiveRecord::Schema.define(version: 20170405204042) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.float    "price",      default: 0.0
+    t.integer  "user_id"
+    t.integer  "contact_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "login",                  default: "",    null: false
+    t.string   "email",                  default: "",     null: false
+    t.string   "login",                  default: "",     null: false
     t.text     "avatar"
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "encrypted_password",     default: "",     null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,      null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -169,6 +181,7 @@ ActiveRecord::Schema.define(version: 20170405204042) do
     t.datetime "updated_at"
     t.integer  "rate",                   default: 0
     t.boolean  "admin",                  default: false
+    t.string   "role",                   default: "user"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

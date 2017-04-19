@@ -11,7 +11,9 @@ module Admin
     end
 
     def create
-      model.create(params_model)
+      params_r = params_model
+      params_r[:phone] = params_r[:phone].gsub(/\D/, '')
+      model.create(params_r)
       redirect_to_index
     end
 
@@ -24,7 +26,9 @@ module Admin
     end
 
     def update
-      find_model.update(params_model)
+      params_r = params_model
+      params_r[:phone] = params_r[:phone].gsub(/\D/, '')
+      find_model.update(params_r)
       redirect_to_index
     end
 

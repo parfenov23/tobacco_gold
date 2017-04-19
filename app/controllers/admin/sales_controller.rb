@@ -2,7 +2,7 @@ module Admin
   class SalesController < AdminController
 
     def index
-      @sales = model.all
+      @sales = current_user.is_admin? ? model.all : model.where(user_id: current_user.id)
     end
 
     def new
@@ -16,7 +16,7 @@ module Admin
 
     def create
       sales_arr = params[:sales]
-      sale = Sale.create
+      sale = Sale.create(user_id: current_user.id, contact_id: params[:contact_id])
       result = 0
       sales_arr.each do |sale_param|
         count = sale_param[:count].to_i
