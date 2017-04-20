@@ -4,7 +4,7 @@ gem 'rails', '4.2.0'
 gem 'pg'
 gem 'nested-hstore'
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'yandex-money-sdk'
 gem 'jquery-rails'
@@ -25,10 +25,15 @@ gem 'bcrypt', '3.1.10'
 #========== sms center
 gem 'smsc'
 #==========
-
+gem 'whenever', :require => false
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'capistrano', '3.4.0', require: false
+  gem 'capistrano-rails', '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rvm', '~> 0.1', require: false
+  gem 'capistrano3-unicorn'
 end
 
