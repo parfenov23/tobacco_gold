@@ -28,6 +28,7 @@ gem 'therubyracer', :platforms => :ruby
 gem 'smsc'
 #==========
 gem 'whenever', :require => false
+gem 'unicorn'
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
