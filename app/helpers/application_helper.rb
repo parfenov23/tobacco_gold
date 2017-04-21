@@ -7,6 +7,20 @@ module ApplicationHelper
     end
   end
 
+  # Заголовок страницы
+  def layout_title
+    d = @page_title.nil? ? "" : " | "
+    @page_title.to_s + d + "Tobacco Gold"
+  end
+
+  def title(page_title=nil)
+    @page_title = page_title
+  end
+
+  def page_title(default_title = '')
+    @page_title || default_title
+  end
+
   def default_ava_link
     '/uploads/ava.jpg'
   end
