@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def default_img_product(model)
-    model.image_url || model.product.default_img
+    model.image_url.present? ? model.image_url : model.product.default_img
   end
 
   def user_ava(avatar)
