@@ -70,7 +70,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .form-group
     label Контакт:
     - all_contacts = Contact.all
-    = select_tag("contact_id", options_for_select(all_contacts.map{|contact| [contact.title, contact.id]}), {:class => 'form-control'})
+    = select_tag("contact_id", options_for_select([["Нет", nil]] + all_contacts.map{|contact| [contact.title, contact.id]}), {:class => 'form-control'})
 
   .list-group.row
     .allItemsSale
