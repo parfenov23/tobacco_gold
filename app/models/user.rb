@@ -36,6 +36,6 @@ class User < ActiveRecord::Base
   end
 
   def meneger_procent
-    10
+    procent_sale
   end
 end
