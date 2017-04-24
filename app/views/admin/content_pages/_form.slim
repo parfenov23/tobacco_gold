@@ -9,7 +9,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .form_group
     span
       |Описание:
-    textarea name="content[description]"
+    textarea.js_TinyMce name="content[description]"
       = @content_page.description
   hr
   input type="hidden" name="_method" value="#{method}"
