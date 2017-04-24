@@ -34,7 +34,7 @@ module Admin
     end
 
     def params_user
-      params.require(:user).permit(:email, :login, :rate, :password, :role).compact.select{|k,v| v != ""}
+      params.require(:user).permit(:email, :login, :rate, :password, :role, :procent_sale).compact.select{|k,v| v != ""}
     end
   end
 end
