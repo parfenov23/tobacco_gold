@@ -12,7 +12,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     input.form-control name="user[password]" type="text"
   .form_group
     |Процент от продаж:
-    input.form-control name="user[procent_sale]" type="text"
+    input.form-control name="user[procent_sale]" type="text" value=@user.procent_sale
   .form_group
     |Права:
     = select_tag("user[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"], ["Пользователь", "user"]], @user.role.to_s), {:class => 'form-control'})
