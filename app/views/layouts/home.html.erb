@@ -55,7 +55,6 @@
         </a>
 
         <div class="right-part">
-          <% if user_signed_in? %>
           <div class="my_rate">
             <a class="no_color" href="/buy_rate">
               <i class="icon buy_rate"></i>
@@ -63,12 +62,11 @@
             <% style = session[:items].blank? ? "display: none" : ""%>
             <span class="count" style="<%= style %>"><%= session[:items].uniq.count if session[:items].present? %></span>
           </div>
-          <% end %> 
           <div class="separator"></div>
           <% if user_signed_in? %>
-          <%= link_to destroy_user_session_path, :method => :get, :class => "exit for-hover" do |link| %>
-          <i class="icon log_out"></i>
-          <% end %>
+            <%= link_to destroy_user_session_path, :method => :get, :class => "exit for-hover" do |link| %>
+              <i class="icon log_out"></i>
+            <% end %>
           <% else %>
           <%= link_to new_user_session_path, :class => "exit for-hover log-in" do %>
           <i class="icon log_in"></i>
