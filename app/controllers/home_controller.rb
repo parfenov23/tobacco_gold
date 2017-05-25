@@ -38,10 +38,11 @@ class HomeController < ActionController::Base
     params_r = params[:request]
     basket = {}
     session[:items].map { |item| basket[item.to_s] = basket[item.to_s].to_i + 1 }
-    order = OrderRequest.create(user_id: current_user.id, user_name: params_r[:user_name], 
-      user_phone: params_r[:user_phone], status: "waiting", items: basket)
     contact_phone = params_r[:user_phone].gsub(/\D/, '')
     contact = Contact.create(first_name: params_r[:user_name], phone: contact_phone)
+    order = OrderRequest.create(user_id: (current_user.id rescue nil), user_name: params_r[:user_name], 
+      user_phone: params_r[:user_phone], status: "waiting", items: basket)
+
     order.update(contact_id: (contact.save ? contact.id : Contact.find_by_phone(contact_phone).id ) )
     session[:items] = nil
     order.notify
