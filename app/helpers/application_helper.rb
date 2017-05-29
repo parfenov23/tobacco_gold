@@ -60,6 +60,7 @@ module ApplicationHelper
       {type: 'contacts', title: 'Контакты', href: '/contacts'}
     ]
     all_menu << {type: 'participant', title: 'Админка', href: '/admin/admin'} if current_user_present_and_control
+    all_menu
   end
 
   def rus_case(count, n1, n2, n3)
