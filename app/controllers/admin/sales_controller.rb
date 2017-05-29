@@ -30,7 +30,7 @@ module Admin
         SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
       end
       sale.update(price: result, profit: result_profit)
-      # sale.notify_buy
+      sale.notify_buy
       redirect_to_index
     end
 

@@ -23,7 +23,7 @@ module Admin
         BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price})
       end
       buy.update(price: result)
-      # buy.notify_buy
+      buy.notify_buy
       redirect_to_index
     end
 
