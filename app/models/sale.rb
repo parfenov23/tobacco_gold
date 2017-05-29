@@ -19,17 +19,29 @@ class Sale < ActiveRecord::Base
   end
 
   def self.sales_profit
-    price_sales = 0
-    where(["created_at > ?", Time.now - 7.day]).each do |sale|
-      sale.sale_items.each do |sale_item|
-        price_sales += (sale_item.product_item.product.min_price * sale_item.count)
-      end
-    end
-    price_sales
+    where(["created_at > ?", Time.now - 7.day]).sum(:profit)
+  end
+
+  def self.current_month_profit
+    where(["created_at > ?", Time.now.beginning_of_month]).sum(:profit)
   end
 
   def sale_url
     "http://tobacco-gold.tk/admin/sales/#{id}/info"
+  end
+
+  def self.curr_year_statistic
+    arr_result = []
+    Time.now.month.times do |i|
+      month = Time.now.beginning_of_year + i.month
+      first_day = month.beginning_of_month
+      last_day = month.end_of_month
+      all_sales = Sale.where(["created_at > ?", first_day]).where(["created_at < ?", last_day])
+      sales_sum = all_sales.sum(:price)
+      profit_sum = all_sales.sum(:profit)
+      arr_result << [Russian::strftime(month, "%B"), sales_sum, profit_sum]
+    end
+    arr_result
   end
   
   def self.curr_month_price

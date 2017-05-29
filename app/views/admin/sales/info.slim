@@ -9,9 +9,10 @@ hr style="border-color: #EEEEEE -moz-use-text-color #FFFFFF; border-style: solid
   p 
     b Получатель: 
     = @sale.contact.title
-p 
-  b Менеджер: 
-  = @sale.user.login
+- if @sale.user.present? 
+  p 
+    b Менеджер: 
+    = @sale.user.login
 table.table
   thead
     tr

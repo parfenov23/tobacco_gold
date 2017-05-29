@@ -11,7 +11,7 @@ hr style="border-top: 1px solid #333"
 h3 Статистика за последнию неделю
 b Проданно на: #{@last_sales_price} рублей
 br
-b Прибыль: #{@last_sales_price - @sales_profit} рублей
+b Прибыль: #{@sales_profit} рублей
 hr style="border-top: 1px solid #333"
 //////////////////
 h3 Статистика продаж и закупов за текущий месяц
@@ -25,5 +25,8 @@ b Прочие доходы: #{@curr_month_other_up_price} рублей
 br
 b Выплаты менеджерам: #{@curr_month_manager_pay} рублей
 br
-b Прибыль: #{(@curr_month_sales_price - @curr_month_buy_price) + @curr_month_other_up_price - @curr_month_other_down_price - @curr_month_manager_pay} рублей
+/ b Прибыль: #{(@curr_month_sales_price - @curr_month_buy_price) + @curr_month_other_up_price - @curr_month_other_down_price - @curr_month_manager_pay} рублей
+br
+ b Прибыль: #{Sale.current_month_profit} рублей
 //////////////////
+= render "sale_profit_chart"

@@ -4,7 +4,10 @@
   - @sales.each do |sale|
     .list-group-item.col-md-6
       span
-        a href='/admin/sales/#{sale.id}/info' #{sale.created_at.strftime("%d-%m-%Y")} (#{sale.price}р.)
+        - text = "#{sale.created_at.strftime("%d-%m-%Y")} (#{sale.price}р.) "
+        - text += "(#{sale.profit}р.)" if current_user.is_admin?
+        a href='/admin/sales/#{sale.id}/info' 
+          = text
       - if current_user.is_admin?
         a.btn.btn-danger.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete'
           | &#10006;
