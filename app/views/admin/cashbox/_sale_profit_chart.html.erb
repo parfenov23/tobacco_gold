@@ -2,7 +2,7 @@
 <script type="text/javascript">
   google.charts.load('current', {'packages':['bar']});
   google.charts.setOnLoadCallback(drawChart);
-  <% arr = ([['Месяц', 'Продажи', 'Прибыль']].concat Sale.curr_year_statistic).to_json %>
+  <% arr = ([['Месяц', 'Продажи', 'Прибыль', "Прочие расходы"]].concat Sale.curr_year_statistic).to_json %>
   function drawChart() {
     var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
 
