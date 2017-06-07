@@ -12,7 +12,7 @@
   <div class="form_auth">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "form_validate"}) do |f| %>
         <div class="login">
-          <div class="title_input">Логин:</div>
+          <div class="title_input">Email:</div>
           <%= f.email_field :email, autofocus: true, :class => "form_input" %>
         </div>
 

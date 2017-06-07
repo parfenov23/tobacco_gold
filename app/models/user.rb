@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   :trackable,
   :validatable
 
-  validates :login, :email, presence: true
-  validates :login, :email, uniqueness: true
+  validates :email, presence: true
+  validates :email, uniqueness: true
 
   has_many :sales
   has_many :contacts
