@@ -9,9 +9,9 @@ header {
 }
 
 header .holder__new {
+    display: flex;
     padding-top : 7px;
     *zoom       : 1;
-    display     : block;
     width       : 96.3571%;
     margin      : 0 auto;
     position    : relative
@@ -246,16 +246,17 @@ header .log-in {
     /*background   : url(/uploads/common/header/header-login.png) 0 0 no-repeat*/
 }
 
+header .left-part{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
 header .right-part {
-    position       : absolute;
-    top            : 10px;
-    right          : 0;
-    display        : inline-block;
-    vertical-align : top;
-    margin         : 0;
-    zoom           : 1;
-    *display       : inline;
-    content        : ""
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-top: 2px;
 }
 
 header #scrollbar1 .viewport {
@@ -331,6 +332,32 @@ header .my_rate {
 
 header .my_rate .buy_rate{
     font-size: 20px;
+}
+
+header .profile{
+    width: 20px;
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+
+header .admin, header .phone{
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+
+header .admin a {
+    color: #dfdfdf;
+    font-size: 20px;
+}
+
+header .phone a{
+    font-size: 16px;
+    line-height: 20px;
+    color: #dfdfdf;
+    margin-right: 6px;
+    border-bottom: #dfdfdf 1px dashed;
 }
 
 header .my_rate .count {

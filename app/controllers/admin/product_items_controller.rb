@@ -45,7 +45,7 @@ module Admin
     end
 
     def params_product_item
-      params.require(:product_item).permit(:title, :product_id, :count, :image_url, :description).compact rescue {}
+      params.require(:product_item).permit(:title, :product_id, :count, :image_url, :description, :in_stock).compact rescue {}
     end
   end
 end

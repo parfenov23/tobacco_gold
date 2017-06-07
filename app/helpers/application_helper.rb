@@ -75,6 +75,7 @@ module ApplicationHelper
     all_navs =       [
       {url: "/admin/admin", title: "Главная"},
         {url: "/admin/products", title: "Товары"},
+        {url: '/admin/categories', title: 'Категории'}, 
         {url: "/admin/stock", title: "Склад"},
         {url: "/admin/sales", title: "Продажа"},
         {url: "/admin/revision", title: "Ревизия"},
@@ -82,7 +83,6 @@ module ApplicationHelper
         {url: "/admin/buy", title: "Закуп"},
         {url: "/admin/other_buy", title: "Прочие расходы"},
         {url: "/admin/cashbox", title: "Касса"},
-        # {url: '/admin/categories', title: 'Все категории'}, 
         {url: '/admin/order_requests', title: 'Заявки'}, 
         {url: '/admin/content_pages', title: 'Контент'}, 
         {url: '/admin/users', title: 'Пользователи'}, 

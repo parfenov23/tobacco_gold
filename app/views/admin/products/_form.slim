@@ -10,6 +10,10 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     label
       | Картинка:
     input.form-control name="product[default_img]" type="text" value="#{@product.default_img}"
-
+  .form-group
+    label
+      | Категория:
+    - all_categories = Category.all
+    = select_tag("product[category_id]", options_for_select([["Нет", nil]] + all_categories.map{|category| [category.first_name, category.id]}, @product.category_id), {:class => 'form-control'})
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit" Сохранить

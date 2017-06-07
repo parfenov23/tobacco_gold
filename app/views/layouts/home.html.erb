@@ -47,34 +47,7 @@
   <!--<link href="/uploads/application.css" media="all" rel="stylesheet" type="text/css">-->
 
   <body>
-    <header>
-      <div class="holder__new user_menu">
-        <a class="logo" href="/">
-          <img alt="" id="product_logo" src="/uploads/img/logo.png">
-          <img alt="" id="product_logo_mini" src="/uploads/img/logo.png" style="display:none;">
-        </a>
-
-        <div class="right-part">
-          <div class="my_rate">
-            <a class="no_color" href="/buy_rate">
-              <i class="icon buy_rate"></i>
-            </a>
-            <% style = session[:items].blank? ? "display: none" : ""%>
-            <span class="count" style="<%= style %>"><%= session[:items].uniq.count if session[:items].present? %></span>
-          </div>
-          <div class="separator"></div>
-          <% if user_signed_in? %>
-            <%= link_to destroy_user_session_path, :method => :get, :class => "exit for-hover" do |link| %>
-              <i class="icon log_out"></i>
-            <% end %>
-          <% else %>
-          <%= link_to new_user_session_path, :class => "exit for-hover log-in" do %>
-          <i class="icon log_in"></i>
-          <% end %>
-          <% end %>
-        </div>
-      </div>
-    </header>
+    <%= render "layouts/header" %>
     <%= render "layouts/left_sidebar/section" %>
     <%= render "layouts/right_sidebar/section" %>
     <section class="content__wrp wrapper">

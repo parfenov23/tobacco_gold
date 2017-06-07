@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
   has_many :product_items, dependent: :destroy
   has_many :product_prices, dependent: :destroy
+  belongs_to :category
   default_scope { order("title ASC") }
 
   def min_price

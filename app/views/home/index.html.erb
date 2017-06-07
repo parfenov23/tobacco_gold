@@ -1,8 +1,7 @@
 <% title "Табак для кальяна от мировых лидеров табачного производства!" %>
 <div class="content content-block__normal">
-  <% items = ProductItem.all.where({product_id: params[:category]}.compact) %>
-  <% items.each do |item| %>
-    <% if item.count > 0 %>
+  <% @items.each do |item| %>
+    <% if item.count > 0 || item.in_stock %>
       <%= render "item_block", {item: item} %>
     <% end %>
   <% end %>

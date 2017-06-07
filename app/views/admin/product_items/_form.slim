@@ -22,6 +22,10 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       | Описание:
     textarea.form-control name="product_item[description]" type="text"
       = @product_item.description
+  .form-group
+    label
+      | Товар в наличии?:
+    = check_box("product_item", "in_stock", {checked: check_if_true(@product_item.in_stock)})
 
   - product_id = product_present ? params[:product_id] : @product_item.product_id
   input type="hidden" name="product_item[product_id]" value="#{product_id}"

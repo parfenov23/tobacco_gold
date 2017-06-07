@@ -46,13 +46,20 @@
     }
   }
   .left-menu {
+    margin-top: 8px;
     margin-bottom : 70px;
+    .category_item:hover{
+      .hide_product_in_category{
+        display: block !important;
+      }
+    }
     a {
       display        : block;
       color          : white;
-      padding-left   : 36px;
+      padding-left   : 16px;
       height         : 24px;
       padding-bottom : 16px;
+      font-size: 15px;
       .title {
         line-height : 37px;
       }
@@ -62,11 +69,42 @@
         display       : block;
         border        : none;
         border-bottom : 1px solid #D0DAE3;
-        margin-right  : 33px;
-        margin-left   : 27px;
+        margin-right: 1px;
+        margin-top: 2px;
+        // margin-left   : 27px;
       }
       &:hover {
         background-color : #F1592A;
+      }
+    }
+    .hide_product_in_category{
+      display: none;
+      position: absolute;
+      left: 240px;
+      margin-top: -40px;
+      padding: 16px 8px 16px 8px;
+      width: 100%;
+      background-color: #494B51;
+      border-left: #f1592a 1px solid;
+      box-shadow: -3px 0px 1px 1px rgba(0, 0, 0, 0.15);
+      ul{
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        li{
+          display: block;
+          float: left;
+          width: 50%;
+          a{
+            display: block;
+            padding-left: 4px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            font-size: 15px;
+            width: calc(100% - 8px);
+            height: 100%;
+          }
+        }
       }
     }
     .commands {
@@ -95,6 +133,23 @@
     }
     .ico:hover {
       background-position-y : -37px;
+    }
+    &.contacts{
+      position: fixed;
+      bottom: 0;
+      width: 230px;
+      background-color: white;
+      margin-bottom: 24px;
+      a{
+        color: black;
+        padding-left: 28px;
+        i{
+          color: black;
+        }
+        &:hover{
+          color: white;
+        }
+      }
     }
   }
   .groups {

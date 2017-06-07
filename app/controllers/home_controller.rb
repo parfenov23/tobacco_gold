@@ -2,6 +2,13 @@ require 'vk_message'
 class HomeController < ActionController::Base
   # before_filter :redirect_test, except: [:callback_vk, :auth]
   def index
+    @items = if params[:category_id].present?   
+      ProductItem.where(product_id: Category.find(params[:category_id]).products.map(&:id) )
+    elsif params[:product_id].present? 
+      Product.find(params[:product_id]).product_items
+    else
+      ProductItem.all
+    end
   end
 
   def how_it_works

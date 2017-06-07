@@ -27,6 +27,10 @@ class VkMessage
       {
         access_token: "d2e5220ce29d44a450ccd93db9c38d95e6860c1e7f0fbbd059cb308eaf59e7668a0b9f798ff647ea71ab2",
       }
+    when "user_bot"
+      {
+        access_token: "0f9e712a6c26480f9d1580742ae6dd7a147a58243e1bf5053c34f876ad4f43d43982cc6195bd9ecfb7ed3",
+      }
     end
   end
 
