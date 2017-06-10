@@ -9,6 +9,8 @@ class VkMessage
       if response["error"]["error_code"] == 14
         code_captcha = anticaptcha(response["error"]["captcha_img"])
         sender(message, type, [response["error"]["captcha_sid"],code_captcha.last], get_params)
+      elsif response["error"]["error_code"] == 7
+        return_status = true
       else
         return_status = false
       end
