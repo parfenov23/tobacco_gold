@@ -5,6 +5,7 @@
     - if current_user.is_admin?
       a.btn.btn-success href="/admin/#{model_url}/sms" Отправить смс
       a.btn.btn-success href="/admin/#{model_url}/vk" Отправить сообщение в вк
+      a.btn.btn-success href="/admin/#{model_url}/dispatch_vk" Рассылка вк
   - @models.each do |model|
     .list-group-item.col-md-6
       span

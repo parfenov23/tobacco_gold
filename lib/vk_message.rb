@@ -4,12 +4,16 @@ class VkMessage
     params_get = params(type).merge({message: message}).merge(get_params)
     params_get.merge!({captcha_sid: captcha_arr.first, captcha_key: captcha_arr.last}) if captcha_arr.present?
     response = JSON.parse(agent.get("https://api.vk.com/method/messages.send", params_get).body)
+    return_status = true
     if response["error"].present?
       if response["error"]["error_code"] == 14
         code_captcha = anticaptcha(response["error"]["captcha_img"])
         sender(message, type, [response["error"]["captcha_sid"],code_captcha.last], get_params)
+      else
+        return_status = false
       end
     end
+    return return_status
   end
 
   def self.run(message, type="user", get_params={})

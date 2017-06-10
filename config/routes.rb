@@ -101,6 +101,8 @@ Rails.application.routes.draw do
         post :sms_send
         get :vk
         post :vk_send
+        get :dispatch_vk
+        post :dispatch_vk_send
       end
     end
 

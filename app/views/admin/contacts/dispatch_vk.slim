@@ -1,0 +1,23 @@
+form.form-horizontal action="/admin/contacts/dispatch_vk_send" method="post" enctype="multipart/form-data"
+  .form-group
+    label Текс сообщения:
+    br
+    textarea name="description"  style="margin: 0px; width: 100%; height: 175px;"
+  
+  .form-group
+    label Фото
+    br
+    input type="text" name="attachment"
+
+  .form-group
+    label Аккаунты
+    br
+    textarea name="accounts"  style="margin: 0px; width: 100%; height: 175px;"
+
+  .form-group
+    label страницы пользователей
+    br
+    textarea name="user_accounts" style="margin: 0px; width: 100%; height: 175px;"
+
+  input type="hidden" name="_method" value="post"
+  button.btn.btn-primary type="submit" Отправить

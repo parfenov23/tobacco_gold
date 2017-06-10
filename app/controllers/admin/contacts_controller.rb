@@ -50,6 +50,25 @@ module Admin
       redirect_to_index
     end
 
+    def dispatch_vk_send
+      Thread.new {
+        accounts = params[:accounts].split(",")
+        user_accounts = params[:user_accounts].split(",")
+        user_accounts.each do |user|
+          if VkUser.find_by_domain(user).blank?
+            status = VkMessage.sender(params[:description], "user_bot", {domain: user.gsub("/", ""), access_token: accounts.sample, attachment: params[:attachment]})
+            if status
+              VkUser.create(domain: user)
+              sleep(120)
+            else
+              break
+            end
+          end
+        end
+      }
+      redirect_to_index
+    end
+
     def remove
       find_model.destroy
       redirect_to_index
