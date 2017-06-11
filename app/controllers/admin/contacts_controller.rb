@@ -54,14 +54,19 @@ module Admin
       Thread.new {
         accounts = params[:accounts].split(",")
         user_accounts = params[:user_accounts].split(",")
+        c_acc = 0
         user_accounts.each do |user|
+          curr_acc = accounts[c_acc]
           if VkUser.find_by_domain(user).blank?
-            status = VkMessage.sender(params[:description], "user_bot", {domain: user.gsub("/", ""), access_token: accounts.sample, attachment: params[:attachment]})
-            if status
+            status = VkMessage.sender(params[:description], "user_bot", {domain: user.gsub("/", ""), access_token: curr_acc, attachment: params[:attachment]})
+            if status[:status]
               VkUser.create(domain: user)
               sleep(120)
             else
-              break
+              if status[:code] != 7
+                c_acc += 1
+                break if c_acc == accounts.count
+              end
             end
           end
         end
