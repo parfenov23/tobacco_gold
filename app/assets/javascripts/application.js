@@ -43,4 +43,13 @@ $(document).ready(function () {
         .animate({scrollTop: '0'}, 500);
         e.preventDefault();
     });
+
+    $(document).on('click', '.js__openLeftSideBarMenu', function(){
+        if ($(this).hasClass('active')){
+            $("section.left-sidebar__wrp aside").css({left: "-100%"});
+        }else{
+            $("section.left-sidebar__wrp aside").css({left: "0"});
+        }
+        $( this ).toggleClass( "active" );
+    });
 });

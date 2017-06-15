@@ -54,6 +54,10 @@ i.participant:before{
     content : "\e971";
 }
 
+i.burger:before{
+    content: "\e8a1";
+}
+
 i.clock:before{
     content : "\e94e";
 }
