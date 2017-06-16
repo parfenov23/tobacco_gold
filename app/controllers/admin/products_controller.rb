@@ -2,7 +2,8 @@ module Admin
   class ProductsController < AdminController
 
     def index
-      @products = model.all
+      # binding.pry
+      @products = params[:category].blank? ? model.all : Product.where(category_id: params[:category])
     end
 
     def new
