@@ -22,8 +22,9 @@ class OrderRequest < ActiveRecord::Base
       item = ProductItem.find(id)
       product = item.product
       price = product.current_price_model
+      binding.pry
       last_buy_price = (item.buy_items.last.price rescue 0)
-      result_profit += (price.price - last_buy_price)*count
+      result_profit += (price.price - last_buy_price)*count.to_i
       result += price.price.to_i*count.to_i
       item.update({count: (item.count - count.to_i)})
       SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count.to_i, product_price_id: price.id})
