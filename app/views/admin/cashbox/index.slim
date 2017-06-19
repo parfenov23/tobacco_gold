@@ -28,5 +28,7 @@ br
 / b Прибыль: #{(@curr_month_sales_price - @curr_month_buy_price) + @curr_month_other_up_price - @curr_month_other_down_price - @curr_month_manager_pay} рублей
 br
  b Прибыль: #{Sale.current_month_profit} рублей
+br
+  b Остаток прибыли: #{Sale.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price} рублей
 //////////////////
 = render "sale_profit_chart"
