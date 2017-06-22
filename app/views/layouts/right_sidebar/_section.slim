@@ -1,4 +1,4 @@
-- pop_items = ProductItem.popular_sort
+- pop_items = ProductItem.where(top: true)
 section.right-sidebar__wrp.wrapper style=""
   aside#right-sidebar.right-sidebar style=("left: 1140px; position: absolute;") 
     - pop_items.each do |item|
