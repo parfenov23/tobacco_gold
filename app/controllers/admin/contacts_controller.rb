@@ -59,14 +59,11 @@ module Admin
           curr_acc = accounts[c_acc]
           if VkUser.find_by_domain(user).blank?
             status = VkMessage.sender(params[:description], "user_bot", {domain: user.gsub("/", ""), access_token: curr_acc, attachment: params[:attachment]})
+            c_acc += 1
+            c_acc = 0 if c_acc == accounts.count
             if status[:status]
               VkUser.create(domain: user)
-              sleep(120)
-            else
-              if status[:code] != 7
-                c_acc += 1
-                break if c_acc == accounts.count
-              end
+              sleep(30)
             end
           end
         end
