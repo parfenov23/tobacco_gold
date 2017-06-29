@@ -1,8 +1,20 @@
 <% title "Табак для кальяна от мировых лидеров табачного производства!" %>
 <div class="content content-block__normal">
-  <% @items.each do |item| %>
-    <% if item.count > 0 || item.in_stock %>
-      <%= render "item_block", {item: item} %>
-    <% end %>
+  <% if params[:product_id].blank? %>
+    <div class="sorting_slider">
+      <div class="left_part_sort">
+        <div id="sliderSort"></div>
+      </div>
+      <div class="rigth_part_sort">
+        <div class="btn js__submitBtnFormSliderSort">Поиск</div>
+      </div>
+    </div>
   <% end %>
+  <div class="allItems">
+    <% @items.each do |item| %>
+      <% if item.count > 0 || item.in_stock %>
+        <%= render "item_block", {item: item} %>
+      <% end %>
+    <% end %>
+  </div>
 </div>

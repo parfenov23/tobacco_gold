@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622213829) do
+ActiveRecord::Schema.define(version: 20170629142917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,22 @@ ActiveRecord::Schema.define(version: 20170622213829) do
     t.integer  "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "mix_box_items", force: :cascade do |t|
+    t.integer  "mix_box_id"
+    t.string   "product_item_id"
+    t.integer  "procent"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "mix_boxes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "price"
   end
 
   create_table "order_items", force: :cascade do |t|

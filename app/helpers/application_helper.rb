@@ -76,6 +76,7 @@ module ApplicationHelper
       {url: "/admin/admin", title: "Главная"},
         {url: "/admin/products", title: "Товары"},
         {url: '/admin/categories', title: 'Категории'}, 
+        {url: '/admin/mix_boxes', title: 'Миксы'}, 
         {url: "/admin/stock", title: "Склад"},
         {url: "/admin/sales", title: "Продажа"},
         {url: "/admin/revision", title: "Ревизия"},

@@ -1,0 +1,11 @@
+// Изменяемая часть
+.form-group
+  label
+    | Табак:
+  = select_tag("mix_box_items[product_item_id]", options_for_select(@all_items, @model.product_item_id))
+.form-group
+  label
+    | Процент:
+  input.form-control name="mix_box_items[procent]" type="text" value="#{@model.procent}"
+input type="hidden" name="mix_box_items[mix_box_id]" value=params[:mix_box_id]
+// ================

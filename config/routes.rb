@@ -75,6 +75,18 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :mix_boxes do
+      member do
+        get :remove
+      end
+    end
+
+    resources :mix_box_items do
+      member do
+        get :remove
+      end
+    end
+
     # resources :attachments do
     #   member do
     #     get :remove

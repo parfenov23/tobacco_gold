@@ -9,6 +9,13 @@ class HomeController < ActionController::Base
     else
       ProductItem.all
     end
+    if params[:price].present?
+      ids = @items.map do |item| 
+        item_price = item.product.current_price
+        item.id if item_price > params[:price][:from].to_i && item_price < params[:price][:to].to_i
+      end.compact
+      @items = ProductItem.where(id: ids)
+    end
   end
 
   def how_it_works
