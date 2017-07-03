@@ -10,7 +10,8 @@
     .left_content
         .imgCenter
           img src=default_img_product(@item) u="image"
-        .all_action
+        .all_action.parent_item
+          input.js__countItemBasket type="hidden" value="1"
           .btn.js__addToBasket data-id=@item.id Добавить в корзину
     .description_item
       = raw (@item.description || "Нет описания")

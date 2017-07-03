@@ -73,12 +73,10 @@ var submitFormBasket = function(){
 
 
 $(document).ready(function () {
-  $(".js__addToBasket").on('click', addCountToBasket);
+  $(document).on('click', '.js__addToBasket', addCountToBasket);
+  $(document).on('click', '.js__rmItemInBasket', rmItemInBasket);
+  $(document).on('click', '.js__addCountItemBasket', addCountItemBasket);
+  $(document).on('click', '.js__submitFormBasket', submitFormBasket);
 
-  $(".js__rmItemInBasket").on('click', rmItemInBasket);
-
-  $(".js__addCountItemBasket").on('click', addCountItemBasket);
-
-  $(".js__submitFormBasket").on('click', submitFormBasket);
   $(".form_send_basket [name='request[user_phone]']").mask("+7(999) 999-9999");
 });

@@ -12,7 +12,7 @@ class HomeController < ActionController::Base
     if params[:price].present?
       ids = @items.map do |item| 
         item_price = item.product.current_price
-        item.id if item_price > params[:price][:from].to_i && item_price < params[:price][:to].to_i
+        item.id if item_price >= params[:price][:from].to_i && item_price <= params[:price][:to].to_i
       end.compact
       @items = ProductItem.where(id: ids)
     end
@@ -23,6 +23,7 @@ class HomeController < ActionController::Base
 
   def add_item_to_basket
     arr = params[:count].to_i.times.map{|c| params[:item_id].to_i}
+    # binding.pry
     session[:items] = session[:items].present? ? (session[:items] + arr) : arr
     render json: {all: session[:items], count: session[:items].uniq.count}
   end

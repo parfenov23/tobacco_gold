@@ -36,8 +36,10 @@ function hide_to_top() {
 var noUIinstall = function(){
     if ($("#sliderSort").length){
         var slider = document.getElementById('sliderSort');
+        var price_from = parseInt($(slider).data("from"));
+        var price_to = parseInt($(slider).data("to"));
         noUiSlider.create(slider, {
-            start: [0, 1000],
+            start: [price_from, price_to],
             connect: true,
             tooltips: true,
             format: 
