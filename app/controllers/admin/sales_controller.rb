@@ -18,18 +18,15 @@ module Admin
       sales_arr = params[:sales]
       sale = Sale.create(user_id: current_user.id, contact_id: params[:contact_id])
       result = 0
-      result_profit = 0
       sales_arr.each do |sale_param|
         count = sale_param[:count].to_i
         item = ProductItem.find(sale_param[:item_id])
         price = ProductPrice.find(sale_param[:price_id])
         result += price.price*count
-        last_buy_price = (item.buy_items.last.price rescue 0)
-        result_profit += (price.price - last_buy_price)*count
         item.update({count: (item.count - count)})
         SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
       end
-      sale.update(price: result, profit: result_profit)
+      sale.update(price: result, profit: sale.find_profit)
       sale.notify_buy
       redirect_to_index
     end

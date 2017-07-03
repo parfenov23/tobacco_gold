@@ -21,8 +21,7 @@ module Admin
         end
       end
       if sale.sale_items.count > 0 
-        binding.pry
-        sale.update(price: result)
+        sale.update(price: result, profit: sale.find_profit)
         sale.notify_buy
       else
         sale.destroy

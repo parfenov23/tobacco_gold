@@ -34,25 +34,27 @@ function hide_to_top() {
 }
 
 var noUIinstall = function(){
-    var slider = document.getElementById('sliderSort');
-    noUiSlider.create(slider, {
-        start: [0, 1000],
-        connect: true,
-        tooltips: true,
-        format: 
-        {
-            to: function (value) {
-              return Math.round(value) + ' Руб.';
-            },
-            from: function (value) {
-              return value.replace('Руб.', '');
-            }
-        },
-        range: {
+    if ($("#sliderSort").length){
+        var slider = document.getElementById('sliderSort');
+        noUiSlider.create(slider, {
+            start: [0, 1000],
+            connect: true,
+            tooltips: true,
+            format: 
+            {
+                to: function (value) {
+                  return Math.round(value) + ' Руб.';
+              },
+              from: function (value) {
+                  return value.replace('Руб.', '');
+              }
+          },
+          range: {
             'min': 0,
             'max': 1000
-        }
-    });
+            }
+        });
+    }
 }
 
 var get_url_params_to_hash = function (hash){
