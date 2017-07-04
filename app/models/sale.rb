@@ -12,10 +12,10 @@ class Sale < ActiveRecord::Base
 
   def find_profit
     result_profit = 0
-    sale_items.each do |sale_item|
+    sale.sale_items.each do |sale_item|
       item = sale_item.product_item
       product = item.product
-      price = product.current_price_model
+      price = sale_item.product_price
       last_buy_price = (item.buy_items.last.price rescue 0)
       result_profit += (price.price - last_buy_price)*sale_item.count.to_i if last_buy_price > 0
     end
