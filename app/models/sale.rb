@@ -12,7 +12,7 @@ class Sale < ActiveRecord::Base
 
   def find_profit
     result_profit = 0
-    sale.sale_items.each do |sale_item|
+    sale_items.each do |sale_item|
       item = sale_item.product_item
       product = item.product
       price = sale_item.product_price
