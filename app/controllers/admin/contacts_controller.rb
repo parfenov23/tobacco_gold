@@ -41,12 +41,7 @@ module Admin
     end
 
     def vk_send
-      Thread.new {
-        VkMessage.all_users_dialog_group.each do |uid|
-          sleep(3)
-          VkMessage.sender(params[:description], type="group", {user_id: uid})
-        end
-      }
+      VkMessage.sender(params[:description], type="group", {user_ids: VkMessage.all_users_dialog_group.first(100).join(",")})
       redirect_to_index
     end
 
@@ -63,7 +58,7 @@ module Admin
             c_acc = 0 if c_acc == accounts.count
             if status[:status]
               VkUser.create(domain: user)
-              sleep(30)
+              sleep(5)
             end
           end
         end
