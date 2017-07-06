@@ -50,7 +50,8 @@ class VkMessage
     response = JSON.parse(agent.get("https://api.vk.com/method/messages.getDialogs", params("group").merge({count: 200})).body)
     arr = response["response"].drop(1)
     user_ids = arr.map{|a| a["uid"]}
-    user_ids
+    JSON.parse(agent.get("https://api.vk.com/method/users.get", 
+      params("user").merge({user_ids: user_ids.join(","), fields: "can_write_private_message"})).body)["response"].map{|user| user["uid"] if user["can_write_private_message"] == 1}.compact
   end
 
   def self.message_price(get_params)
