@@ -11,7 +11,7 @@ module Admin
     end
 
     def paid_manager_payments
-      ManagerPayment.create(user_id: params[:user_id], price: params[:user_payment])
+      ManagerPayment.where(user_id: params[:user_id]).update_all(payment: true)
       redirect_to "/admin/admin/manager_payments"
     end
 

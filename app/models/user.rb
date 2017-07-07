@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :manager_payments
 
   def title
-    login
+    email
   end
 
   def is_admin?
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def balance_payments
-    (sales.sum(:price) / 100 * meneger_procent).to_i - manager_payments.sum(:price)
+    manager_payments.sum(:price) - manager_payments.where(payment: true).sum(:price)
   end
 
   def meneger_procent

@@ -6,9 +6,9 @@ p
   |#{all_my_sales_price.to_i} руб.
 p 
   b Всего заработано: 
-  - all_earned = (all_my_sales_price / 100 * current_user.meneger_procent).to_i
+  - all_earned = current_user.manager_payments.sum(:price)
   |#{all_earned.to_i} руб.
-- all_paid = current_user.manager_payments.sum(:price)
+- all_paid = current_user.manager_payments.where(payment: true).sum(:price)
 p 
   b Выплачено: 
   |#{all_paid} руб.

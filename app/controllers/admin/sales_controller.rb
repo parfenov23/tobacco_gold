@@ -27,6 +27,7 @@ module Admin
         SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
       end
       sale.update(price: result, profit: sale.find_profit)
+      current_user.manager_payments.create(price: result/100*current_user.procent_sale)
       sale.notify_buy
       redirect_to_index
     end
