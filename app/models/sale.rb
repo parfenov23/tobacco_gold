@@ -39,7 +39,7 @@ class Sale < ActiveRecord::Base
   end
 
   def sale_url
-    "http://tobacco-gold.tk/admin/sales/#{id}/info"
+    "http://tobacco-gold.ru/admin/sales/#{id}/info"
   end
 
   def self.curr_year_statistic
