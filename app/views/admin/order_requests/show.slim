@@ -4,6 +4,9 @@ div
 div 
   b Телефон: 
   = @model.user_phone
+div 
+  b Комментарий: 
+  = @model.comment
 div
   b Общая сумма заявки: 
   = @model.total_sum.to_s + " рублей"

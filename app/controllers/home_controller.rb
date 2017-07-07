@@ -56,7 +56,7 @@ class HomeController < ActionController::Base
     contact_phone = params_r[:user_phone].gsub(/\D/, '')
     contact = Contact.create(first_name: params_r[:user_name], phone: contact_phone)
     order = OrderRequest.create(user_id: (current_user.id rescue nil), user_name: params_r[:user_name], 
-      user_phone: params_r[:user_phone], status: "waiting", items: basket)
+      user_phone: params_r[:user_phone], status: "waiting", items: basket, comment: params_r[:comment])
 
     order.update(contact_id: (contact.save ? contact.id : Contact.find_by_phone(contact_phone).id ) )
     session[:items] = nil
