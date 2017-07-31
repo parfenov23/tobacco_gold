@@ -23,7 +23,7 @@ class Sale < ActiveRecord::Base
   end
 
   def self.cash_box
-    sum(:price) + OtherBuy.it_sum - OtherBuy.took_sum - Buy.all_sum - ManagerPayment.sum(:price)
+    sum(:price) + OtherBuy.it_sum - OtherBuy.took_sum - Buy.all_sum - ManagerPayment.where(payment: true).sum(:price)
   end
 
   def self.last_sales_price
