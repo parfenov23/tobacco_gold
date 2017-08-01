@@ -17,12 +17,14 @@
  *= require_tree ./vendor
  */
 
- .item_link {
+$color_flamingo_approx : #F6A623;
+
+.item_link {
   color : #000;
 }
 
 .item_link:hover {
-  color : #F1592A;
+  color : $color_flamingo_approx ;
 }
 
 .block_display_inline{
@@ -55,7 +57,7 @@
 
 .btn{
   display: inline-block;
-  background-color: #F1592A;
+  background-color: #F6A623;
   height: 30px;
   font-size: 18px;
   line-height: 30px;

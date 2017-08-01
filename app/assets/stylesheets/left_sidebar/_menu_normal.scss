@@ -1,10 +1,11 @@
+$color_flamingo_approx : #F6A623;
 .left-sidebar__normal {
   width            : 240px;
   position         : fixed;
   top              : 45px;
   left             : 0;
   height           : 100%;
-  background-color : #494B51;
+  background-color : #1f1f1f;
   margin           : 0;
   z-index          : 25;
   .profile {
@@ -14,7 +15,7 @@
     cursor       : pointer;
     height       : 52px;
     &:hover {
-      background-color : #F1592A;
+      background-color : $color_flamingo_approx;
     }
     .ava {
       width    : 43px;
@@ -74,7 +75,7 @@
         // margin-left   : 27px;
       }
       &:hover {
-        background-color : #F1592A;
+        background-color : $color_flamingo_approx;
       }
     }
     .hide_product_in_category{
@@ -85,7 +86,7 @@
       padding: 16px 8px 16px 8px;
       width: 100%;
       background-color: #494B51;
-      border-left: #f1592a 1px solid;
+      border-left: $color_flamingo_approx 1px solid;
       box-shadow: -3px 0px 1px 1px rgba(0, 0, 0, 0.15);
       ul{
         margin: 0;

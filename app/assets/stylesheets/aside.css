@@ -45,7 +45,7 @@ aside .shadow-wrp a.close_item_content{
 }
 
 aside .shadow-wrp a.close_item_content:hover{
-    color: #F1592A;
+    color: #F6A623;
 }
 
 aside .shadow-wrp .today-date {
@@ -88,7 +88,7 @@ aside#user-page.fix-to-top {
 .close_item_content .price {
     float            : left;
     font-size        : 15px;
-    background-color : #494B51;
+    background-color : #1f1f1f;
     width            : 97px;
     height           : 20px;
     color            : #FFF;
@@ -101,7 +101,7 @@ aside#user-page.fix-to-top {
     display     : inline-block;
     margin-left : 3px;
     margin-top  : 2px;
-    color       : #F1592A;
+    color       : #F6A623;
 }
 
 .close_item_content .price .title_price {
