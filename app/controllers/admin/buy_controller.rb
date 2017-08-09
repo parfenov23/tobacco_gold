@@ -22,8 +22,13 @@ module Admin
         item.update({count: (item.count + count)})
         BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price})
       end
-      buy.update(price: result)
+      buy.update(price: result, def_pay: params[:buy_param][:def_pay])
       buy.notify_buy
+      redirect_to_index
+    end
+
+    def def_pay
+      find_model.update(def_pay: true)
       redirect_to_index
     end
 

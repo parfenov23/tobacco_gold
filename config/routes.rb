@@ -157,6 +157,7 @@ Rails.application.routes.draw do
       member do
         get :remove
         get :info
+        get :def_pay
       end
       collection do
         post :new_item_product

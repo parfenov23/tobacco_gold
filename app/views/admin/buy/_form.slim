@@ -95,6 +95,10 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
           label
             | Кол-во:
           input.form-control.countItems name="buy[][count]" type="text" value="0"
+  .form-group
+    label
+      | Оплачено?:
+    = check_box("buy_param", "def_pay", {checked: false})
 
   label style='margin-right: 5px;' Итого:
   label.titlePrice 0

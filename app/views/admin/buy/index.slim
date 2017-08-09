@@ -5,8 +5,10 @@
     .list-group-item.col-md-6
       span
         a href='/admin/buy/#{buy.id}/info'
-          =' buy.created_at.strftime("%d-%m-%Y")
-          |(#{buy.price}р.)
+          = buy.created_at.strftime("%d-%m-%Y") + " (#{buy.price}р.)"
+      - if !buy.def_pay
+        a.btn.btn-success.pull-right href="/admin/buy/#{buy.id}/def_pay" 
+          | ✔
       a.btn.btn-danger.pull-right href="/admin/buy/#{buy.id}/remove" data-method='delete'
         | &#10006;
       /a.btn.btn-success.pull-right href="/sales/#{sale.id}/edit" style="margin-right: 5px;"

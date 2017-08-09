@@ -4,12 +4,14 @@ class Buy < ActiveRecord::Base
   default_scope { order("created_at DESC") }
 
   def self.all_sum
-    sum(:price)
+    where(def_pay: true).sum(:price)
   end
 
   def notify_buy
-    message = "Закуп: #{self.price.to_i} рублей\nКасса: #{Sale.cash_box} рублей"
-    VkMessage.run(message)
+    if Rails.env.production?
+      message = "Закуп: #{self.price.to_i} рублей\nКасса: #{Sale.cash_box} рублей"
+      VkMessage.run(message)
+    end
   end
 
   def self.curr_month_price
