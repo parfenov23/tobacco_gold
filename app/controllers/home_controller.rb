@@ -73,6 +73,10 @@ class HomeController < ActionController::Base
     @item = ProductItem.find(params[:id]) 
   end
 
+  def mix_box
+    @mix_box = MixBox.find(params[:id])
+  end
+
   def buy_rate
     @all_items = ProductItem.where(id: session[:items])
     @all_sum = @all_items.map{|pi| pi.product.current_price*session[:items].count(pi.id)}.sum

@@ -17,12 +17,15 @@ Rails.application.routes.draw do
 
   get "how_it_works" => "home#how_it_works"
   get "item" => "home#item"
+  get "item/:id" => "home#item"
   get "help" => "home#help"
   get "login" => "home#login"
   get "registration" => "home#registration"
   get "buy_rate" => "home#buy_rate"
   get "bonus" => "home#bonuses"
   get "contacts" => "home#contacts"
+  get "all_mixs" => "home#all_mixs"
+  get "mix_box/:id" => "home#mix_box"
   get "auth" => "home#auth"
 
   post "add_item_to_basket" => "home#add_item_to_basket"

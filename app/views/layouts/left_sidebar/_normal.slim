@@ -6,6 +6,9 @@ aside#left-sidebar-normal.left-sidebar__normal
           span.title.hide_menu_average = category.first_name
           hr.hide_menu_average
         = render "layouts/left_sidebar/category_product", {category: category}
+    .category_item
+      a href="/all_mixs"
+        span.title.hide_menu_average Миксы
   nav.left-menu.contacts
     - if current_user_admin?
       a href="/admin/admin"

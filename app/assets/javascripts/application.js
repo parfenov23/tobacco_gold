@@ -82,7 +82,6 @@ $(document).scroll(function () {
 });
 $(document).ready(function () {
     hide_to_top();
-    noUIinstall();
     $('#to-top a').on('click', function (e) {
         event.preventDefault();
         $('html, body').stop()
@@ -105,6 +104,6 @@ $(document).ready(function () {
         var to = block_sort.find(".noUi-handle-upper .noUi-tooltip").text().split(" Руб.")[0];
         window.location.href = get_url_params_to_hash({"price[from]": from, "price[to]": to})
     });
-
+    noUIinstall();
 
 });
