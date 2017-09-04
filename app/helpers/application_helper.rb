@@ -72,7 +72,7 @@ module ApplicationHelper
   end
 
   def all_nav_li_admin
-    all_navs =       [
+    all_navs =       [ 
       {url: "/admin/admin", title: "Главная"},
         {url: "/admin/products", title: "Товары"},
         {url: '/admin/categories', title: 'Категории'}, 
