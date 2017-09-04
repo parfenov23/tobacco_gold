@@ -19,3 +19,5 @@ form.form-horizontal action="/admin/admin/search" method="post" enctype="multipa
       tr
         td Цена
         td #{@product_item.product.current_price} рублей
+  - else
+    h3 Не найдено 
