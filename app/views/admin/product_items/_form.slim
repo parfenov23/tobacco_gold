@@ -22,7 +22,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       | Описание:
     textarea.form-control name="product_item[description]" type="text"
       = @product_item.description
-  - if product_present
+  - if @product_item.id.present?
     .form-group
       label
         | Код товара:
