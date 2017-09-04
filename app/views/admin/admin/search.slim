@@ -15,7 +15,8 @@ form.form-horizontal action="/admin/admin/search" method="post" enctype="multipa
         td #{@product_item.product.title} - #{@product_item.title}
       tr
         td Описание
-        td #{@product_item.description}
+        td 
+          = raw @product_item.description
       tr
         td Цена
         td #{@product_item.product.current_price} рублей
