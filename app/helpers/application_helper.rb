@@ -88,7 +88,7 @@ module ApplicationHelper
         {url: '/admin/content_pages', title: 'Контент'}, 
         {url: '/admin/users', title: 'Пользователи'}, 
         {url: '/admin/contacts', title: 'Клиенты'},
-        {url: '/admin/admin/manager_payments', title: 'Выплаты'}
+        {url: '/admin/admin/manager_payments', title: 'Выплаты'},
         {url: '/admin/admin/search', title: 'Поиск'}
       ]
 
