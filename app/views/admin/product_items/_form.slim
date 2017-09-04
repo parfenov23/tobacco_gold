@@ -24,6 +24,10 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       = @product_item.description
   .form-group
     label
+      | Код товара:
+    input.form-control name="product_item[barcode]" type="text" value="#{@product_item.barcode}"  
+  .form-group
+    label
       | Товар в наличии?:
     = check_box("product_item", "in_stock", {checked: check_if_true(@product_item.in_stock)})
   .form-group
