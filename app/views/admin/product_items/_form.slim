@@ -22,10 +22,11 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       | Описание:
     textarea.form-control name="product_item[description]" type="text"
       = @product_item.description
-  / .form-group
-  /   label
-  /     | Код товара:
-  /   input.form-control name="product_item[barcode]" type="text" value="#{@product_item.barcode}"  
+  - if product_present
+    .form-group
+      label
+        | Код товара:
+      input.form-control name="product_item[barcode]" type="text" value="#{@product_item.barcode}"  
   .form-group
     label
       | Товар в наличии?:
