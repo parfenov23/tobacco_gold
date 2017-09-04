@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       collection do
         get :manager_payments
         get :paid_manager_payments
+        get :search
       end
     end
     resources :categories do

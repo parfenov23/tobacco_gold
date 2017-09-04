@@ -1,0 +1,21 @@
+h3 Поиск позиции
+form.form-horizontal action="/admin/admin/search" method="post" enctype="multipart/form-data"
+  .form-group
+    input.form-control name="barcode" type="text" placeholder="Введите код"
+  input type="hidden" name="_method" value="get"
+  / button.btn.btn-primary type="submit" Поиск
+
+- if params[:barcode].present?
+  hr
+  br
+  - if @product_item.present?
+    table class="table table-bordered"
+      tr
+        td Название
+        td #{@product_item.product.title} - #{@product_item.title}
+      tr
+        td Описание
+        td #{@product_item.description}
+      tr
+        td Цена
+        td #{@product_item.product.current_price} рублей

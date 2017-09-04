@@ -15,6 +15,10 @@ module Admin
       redirect_to "/admin/admin/manager_payments"
     end
 
+    def search
+      @product_item = ProductItem.where(barcode: params[:barcode]).last
+    end
+
   	def redirect_to_stock
 		  redirect_to "/stock" if !current_user.is_admin? && !current_user.is_manager?
   	end

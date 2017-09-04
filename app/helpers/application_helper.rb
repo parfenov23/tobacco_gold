@@ -89,12 +89,13 @@ module ApplicationHelper
         {url: '/admin/users', title: 'Пользователи'}, 
         {url: '/admin/contacts', title: 'Клиенты'},
         {url: '/admin/admin/manager_payments', title: 'Выплаты'}
+        {url: '/admin/admin/search', title: 'Поиск'}
       ]
 
     if current_user.is_admin?
       all_navs
     elsif current_user.is_manager?
-      aviable_page = ["admin","products", "sales", "stock", "order_requests", "contacts"]
+      aviable_page = ["admin","products", "sales", "stock", "order_requests", "contacts", "admin/search"]
       all_navs.map{|nav| nav if aviable_page.include?(nav[:url].gsub("/admin/", ""))}.compact
     end
     
