@@ -20,6 +20,7 @@ module Admin
         price = sale_param[:price_id].to_i
         result += price*count
         item.update({count: (item.count + count)})
+        item.update({barcode: sale_param[:barcode]}) if sale_param[:barcode].present?
         BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price})
       end
       buy.update(price: result, def_pay: params[:buy_param][:def_pay])
@@ -68,7 +69,7 @@ module Admin
     end
 
     def params_model
-      params.require(:buy).permit(:title, :product_id).compact rescue {}
+      params.require(:buy).permit(:title, :product_id, :barcode).compact rescue {}
     end
 
     def model

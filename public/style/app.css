@@ -98,3 +98,12 @@ ul.nav.navbar-nav{
 ul.nav.navbar-nav li{
     display: inline-block;
 }
+.list-group.row .allItemsSale .parentItemSale .inlineBlock{
+    display: flex;
+}
+
+.list-group.row .allItemsSale .parentItemSale .inlineBlock .changeSelectContent{
+    margin-right: 18px;
+}
+
+
