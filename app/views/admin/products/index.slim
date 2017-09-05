@@ -9,11 +9,7 @@
     .list-group-item.col-md-6
       span
         = product.title
-      - if current_user.is_admin?
-        a.btn.btn-danger.pull-right href="/admin/products/#{product.id}/remove" data-method='delete'
-          | &#10006;
-      a.btn.btn-success.pull-right href="/admin/products/#{product.id}/edit" style="margin-right: 5px;"
-        | &#9998;
+      = render "admin/admin/common_btn", {url: "/admin/products/#{product.id}"}
       a.btn.btn-primary.pull-right href="/admin/product_items?product_id=#{product.id}" style="margin-right: 5px;"
         | Вкусы
       a.btn.btn-info.pull-right href="/admin/product_prices?product_id=#{product.id}" style="margin-right: 5px;"

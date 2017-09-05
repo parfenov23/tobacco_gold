@@ -7,7 +7,4 @@ hr
   - @all_content_page.each do |content|
     .list-group-item.col-md-6
       span = content.name_page
-      a.btn.btn-danger.pull-right href=("/admin/content_pages/#{content.id}/remove")
-        | Удалить
-      a.btn.btn-success.pull-right href=("/admin/content_pages/#{content.id}/edit") style=("margin-right: 5px;")
-        | Редактировать
+      = render "admin/admin/common_btn", {url: "/admin/content_pages/#{content.id}"}

@@ -9,7 +9,5 @@
         a href='/admin/sales/#{sale.id}/info' 
           = text
       - if current_user.is_admin?
-        a.btn.btn-danger.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete'
+        a.btn.btn-danger.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
           | &#10006;
-      /a.btn.btn-success.pull-right href="/sales/#{sale.id}/edit" style="margin-right: 5px;"
-      /  | &#9998;

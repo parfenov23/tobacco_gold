@@ -1,6 +1,9 @@
 .list-group.row
   .list-group-item.active
-    a.btn.btn-success href="/admin/buy/new"  Добавить закуп
+    form action="/admin/buy/new" method="get" style="margin-bottom: 0; display: flex;"
+      button.btn.btn-success href="/admin/buy/new"  Добавить закуп
+      span.selectInlineProvider
+        = select_tag("provider_id", options_for_select(Provider.all.map{|pr| [pr.title, pr.id]}))
   - @buys.each do |buy|
     .list-group-item.col-md-6
       span

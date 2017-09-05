@@ -10,12 +10,13 @@
 
 .referenceItemSale style="display: none;"
   .parentItemSale.list-group-item
-    .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
-    select.form-control.changeSelectContent
-      option value='0' Не выбранно
-      - @products.each do |product|
-        option value=product.id = product.title
-
+    .inlineBlock
+      select.form-control.changeSelectContent
+        option value='0' Не выбранно
+        - @products.each do |product|
+          - price = product.current_purchase_price(params[:provider_id])
+          option data-price=price value=product.id = product.title
+      .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
     .formLoadContent
     .form-group
       label

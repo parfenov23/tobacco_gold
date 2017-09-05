@@ -89,7 +89,8 @@ module ApplicationHelper
         {url: '/admin/users', title: 'Пользователи'}, 
         {url: '/admin/contacts', title: 'Клиенты'},
         {url: '/admin/admin/manager_payments', title: 'Выплаты'},
-        {url: '/admin/admin/search', title: 'Поиск'}
+        {url: '/admin/admin/search', title: 'Поиск'},
+        {url: '/admin/providers', title: 'Поставщики'}
       ]
 
     if current_user.is_admin?

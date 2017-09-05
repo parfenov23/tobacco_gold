@@ -106,4 +106,19 @@ ul.nav.navbar-nav li{
     margin-right: 18px;
 }
 
+.selectInlineProvider{
+    width: initial;
+    color: black;
+    margin-left: 8px;
+}
+
+.selectInlineProvider select{
+    height: 34px;
+    width: 120px;
+}
+
+.blankProductItemDescription{
+    background-color: #faffd2;
+}
+
 

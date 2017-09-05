@@ -1,0 +1,11 @@
+// Изменяемая часть
+.form-group
+  label
+    | Товар:
+  = select_tag("provider_items[product_id]", options_for_select(Product.all.map{|pr| [pr.title, pr.id]}, @model.product_id), {:class => 'form-control'})
+.form-group
+  label
+    | Цена:
+  input.form-control name="provider_items[price]" type="text" value="#{@model.price}"
+input type="hidden" name="provider_items[provider_id]" value=params[:provider_id]
+// ================

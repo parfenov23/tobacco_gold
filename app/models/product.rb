@@ -26,4 +26,8 @@ class Product < ActiveRecord::Base
   def current_price_model
     product_prices.find_by_default(true)
   end
+
+  def current_purchase_price(provider_id)
+    Provider.find(provider_id).provider_items.where(product_id: id).last.price rescue 0
+  end
 end

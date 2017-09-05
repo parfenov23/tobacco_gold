@@ -91,6 +91,18 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :providers do
+      member do
+        get :remove
+      end
+    end
+
+    resources :provider_items do
+      member do
+        get :remove
+      end
+    end
+
     # resources :attachments do
     #   member do
     #     get :remove

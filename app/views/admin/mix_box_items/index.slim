@@ -8,7 +8,4 @@
   - @models.each do |model|
     .list-group-item.col-md-6
       span #{model.title} (#{model.procent}%)
-      a.btn.btn-danger.pull-right href="/admin/#{model_url}/#{model.id}/remove" data-method='delete'
-        | &#10006;
-      a.btn.btn-success.pull-right href="/admin/#{model_url}/#{model.id}/edit" style="margin-right: 5px;"
-        | &#9998;
+      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}"}

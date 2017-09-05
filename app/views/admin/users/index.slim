@@ -7,7 +7,4 @@ hr
   - @users.each do |user|
     .list-group-item.col-md-6
       span = user.email
-      a.btn.btn-danger.pull-right href=("/admin/users/#{user.id}/remove")
-        | Удалить
-      a.btn.btn-success.pull-right href=("/admin/users/#{user.id}/edit") style=("margin-right: 5px;")
-        | Редактировать
+      = render "admin/admin/common_btn", {url: "/admin/users/#{user.id}"}

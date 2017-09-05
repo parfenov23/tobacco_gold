@@ -61,10 +61,13 @@ var addBlankBlockItem = function(bc){
 var addProductItemToProductBlock = function(curr_block, bl_val){
   var id = "#select" + bl_val;
   var block_content = $("#contentSelect " + id).html();
+  var price = $(curr_block).find("option[value='" + bl_val + "']").data('price');
+  var parent_item = $(curr_block).closest('.parentItemSale')
   if (bl_val > 0){
-    $(curr_block).closest('.parentItemSale').find('.formLoadContent').html($(block_content));
+    parent_item.find('.formLoadContent').html($(block_content));
+    parent_item.find("input[name='buy[][price_id]']").val(price)
   } else {
-    $(curr_block).closest('.parentItemSale').find('.formLoadContent').html('');
+    parent_item.find('.formLoadContent').html('');
   }
 }
 

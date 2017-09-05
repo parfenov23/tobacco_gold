@@ -2,7 +2,7 @@ module Admin
   class ProductPricesController < AdminController
 
     def index
-      @product_prices = find_product.product_prices
+      @product_prices = find_product.product_prices.where(archive: false)
     end
 
     def new
@@ -26,7 +26,7 @@ module Admin
 
     def remove
       product_id = find_product_price.product_id
-      find_product_price.destroy
+      find_product_price.update(archive: true)
       redirect_to '/admin/product_prices?product_id=' + product_id.to_s
     end
 

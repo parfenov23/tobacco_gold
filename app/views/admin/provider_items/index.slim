@@ -1,0 +1,9 @@
+- model_url = @models.first_url
+.list-group.row
+  .list-group-item.active
+    a.btn.btn-success href="/admin/#{model_url}/new?provider_id=#{params[:provider_id]}" Добавить
+  - @models.each do |model|
+    .list-group-item.col-md-6
+      span
+        = model.title
+      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}"}

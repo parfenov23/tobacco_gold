@@ -5,7 +5,4 @@
     .list-group-item.col-md-6
       span
         = price.title
-      a.btn.btn-danger.pull-right href="/admin/product_prices/#{price.id}/remove" data-method='delete'
-        | &#10006;
-      a.btn.btn-success.pull-right href="/admin/product_prices/#{price.id}/edit" style="margin-right: 5px;"
-        | &#9998;
+      = render "admin/admin/common_btn", {url: "/admin/product_prices/#{price.id}"}
