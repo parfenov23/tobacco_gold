@@ -27,9 +27,14 @@ var allot_item = function(barcode){
   $(".list-group-item[data-barcode='" +  barcode +"']").addClass("allotItemRevision");
 }
 
+var pasteCountItem = function(){
+  $(this).closest(".list-group-item").find(".revisionCount").val($(this).data('count'));
+}
+
 $(document).ready(function(){ 
   scanBarCode();
-
+  $(document).on('click', '.js_pasteCountItem', pasteCountItem)
+  
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
       event.preventDefault();

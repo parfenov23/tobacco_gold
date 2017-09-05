@@ -16,6 +16,6 @@ script src="/admin/js/revision.js"
               .pull-right style="padding-left: 5px;"
                 / input type="hidden" name="product_items[id][]" value=item.id
                 input.revisionCount type="text" style="width: 20px;" name="product_items[#{item.id}][]" value=""
-              .btn.btn-success.pull-right
+              .btn.btn-success.pull-right.js_pasteCountItem data-count=item.count
                 = item.count
       input type="submit" class="btn btn-info" value="Сохранить"
