@@ -13,7 +13,8 @@
           option data-barcode=item.barcode data-product=product.id value=item.id = item.title
       - all_prices = product.product_prices.where(archive: false)
       - all_prices_arr = all_prices.map{|first_price| [first_price.price, first_price.id]}
-      = select("", "", all_prices_arr, {selected: all_prices.curr_default_id}, { name: 'sales[][price_id]', class: 'form-control selectPrice'})
+      - curr_price = params[:type_sale] != "opt" ? all_prices.curr_default_id : all_prices.curr_opt_id
+      = select("", "", all_prices_arr, {selected: curr_price}, { name: 'sales[][price_id]', class: 'form-control selectPrice'})
 
 .referenceItemSale style="display: none;"
   .parentItemSale.list-group-item

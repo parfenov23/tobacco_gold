@@ -46,7 +46,7 @@ module Admin
     end
 
     def params_product_price
-      params.require(:product_price).permit(:price, :product_id, :title, :default).compact rescue {}
+      params.require(:product_price).permit(:price, :product_id, :title, :default, :opt).compact rescue {}
     end
   end
 end

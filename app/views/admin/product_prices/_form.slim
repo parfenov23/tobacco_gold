@@ -18,6 +18,10 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     label
       | Текущая?:
     = check_box("product_price", "default", {checked: check_if_true(form_model.default)})
+  .form-group
+    label
+      | Оптовая?:
+    = check_box("product_price", "opt", {checked: check_if_true(form_model.opt)})
     /= check_box_tag 'product_price[default]', 'yes', form_model.default
 
   - product_id = from_model_present ? params[:product_id] : form_model.product_id

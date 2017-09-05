@@ -1,6 +1,7 @@
 class ProductPrice < ActiveRecord::Base
   belongs_to :product
   scope :curr_default_id, -> { where(default: true).first.id rescue nil }
+  scope :curr_opt_id, -> { where(opt: true).first.id rescue nil }
 
   def update_default
     # binding.pry

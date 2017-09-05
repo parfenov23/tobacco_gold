@@ -1,6 +1,9 @@
 .list-group.row
   .list-group-item.active
-    a.btn.btn-success href="/admin/sales/new"  Добавить продажу
+    form action="/admin/sales/new" method="get" style="margin-bottom: 0; display: flex;"
+      button.btn.btn-success href="/admin/sales/new"  Добавить продажу
+      span.selectInlineProvider
+        = select_tag("type_sale", options_for_select([["Розница","retail"], ["Оптовая", "opt"]]))
   - @sales.each do |sale|
     .list-group-item.col-md-6
       span
