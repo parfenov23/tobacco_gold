@@ -121,4 +121,12 @@ ul.nav.navbar-nav li{
     background-color: #faffd2;
 }
 
+.allotItemRevision{
+    background-color: wheat;
+}
+
+.list-group-item input.revisionCount{
+    margin-right: 4px;
+    height: 34px;
+}
 
