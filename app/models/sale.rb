@@ -7,7 +7,7 @@ class Sale < ActiveRecord::Base
 
   def notify_buy
     message = "Продажа: #{self.price.to_i} рублей\n Информация: #{sale_url}\nКасса: #{Sale.cash_box} рублей"
-    VkMessage.run(message)
+    VkMessage.run(message) if Rails.env.production?
   end
 
   def find_profit
@@ -54,6 +54,21 @@ class Sale < ActiveRecord::Base
       sales_sum = all_sales.sum(:price)
       profit_sum = all_sales.sum(:profit)
       arr_result << [Russian::strftime(month, "%B"), sales_sum, profit_sum, all_other_buy]
+    end
+    arr_result
+  end
+
+  def self.meneger_curr_year_statistic(manager_id)
+        arr_result = []
+    Time.now.month.times do |i|
+      month = Time.now.beginning_of_year + i.month
+      first_day = month.beginning_of_month
+      last_day = month.end_of_month
+      all_sales = find_model_result(Sale.where(user_id: manager_id), first_day, last_day)
+      sales_sum = all_sales.sum(:price)
+      all_earnings = find_model_result(ManagerPayment.where(user_id: manager_id), first_day, last_day).sum(:price)
+
+      arr_result << [Russian::strftime(month, "%B"), sales_sum, all_earnings]
     end
     arr_result
   end
