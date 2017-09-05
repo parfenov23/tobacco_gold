@@ -23,8 +23,12 @@ var scanBarCode = function(){
 }
 
 var allot_item = function(barcode){
+  var curr_block = $(".list-group-item[data-barcode='" +  barcode +"']");
+  var input_block = curr_block.find("input.revisionCount")
+  input_block.val( (parseInt(input_block.val()) || 0) + 1 );
   $(".allotItemRevision").removeClass("allotItemRevision");
-  $(".list-group-item[data-barcode='" +  barcode +"']").addClass("allotItemRevision");
+  curr_block.addClass("allotItemRevision");
+
 }
 
 var pasteCountItem = function(){
@@ -34,7 +38,7 @@ var pasteCountItem = function(){
 $(document).ready(function(){ 
   scanBarCode();
   $(document).on('click', '.js_pasteCountItem', pasteCountItem)
-  
+
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
       event.preventDefault();
