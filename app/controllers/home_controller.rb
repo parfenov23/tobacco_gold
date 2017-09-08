@@ -7,7 +7,8 @@ class HomeController < ActionController::Base
     elsif params[:product_id].present? 
       Product.find(params[:product_id]).product_items
     else
-      ProductItem.all
+      arr_ids = ProductItem.where(["count > ? ", 0]).map{|pi| {id: pi.id, count: pi.sale_items.count} if pi.count > 0}.compact.sort_by { |hsh| hsh[:count] }.reverse.first(20).map{|pi| pi[:id]}
+      ProductItem.where(ids: arr_ids)
     end
     if params[:price].present?
       ids = @items.map do |item| 
