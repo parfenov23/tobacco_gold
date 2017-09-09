@@ -66,8 +66,24 @@ class Sale < ActiveRecord::Base
     arr_result
   end
 
+  def self.curr_month_statistic
+    arr_result = []
+    Time.now.day.times do |i|
+      day = Time.now.beginning_of_month + i.day
+      first_day = day.beginning_of_day
+      last_day = day.end_of_day
+      all_sales = find_model_result(Sale, first_day, last_day)
+      all_other_buy = find_model_result(OtherBuy, first_day, last_day).sum(:price)
+      all_other_buy += find_model_result(ManagerPayment, first_day, last_day).sum(:price)
+      sales_sum = all_sales.sum(:price)
+      profit_sum = all_sales.sum(:profit)
+      arr_result << [Russian::strftime(day, "%a, %d"), sales_sum, profit_sum, all_other_buy]
+    end
+    arr_result
+  end
+
   def self.meneger_curr_year_statistic(manager_id)
-        arr_result = []
+    arr_result = []
     Time.now.month.times do |i|
       month = Time.now.beginning_of_year + i.month
       first_day = month.beginning_of_month

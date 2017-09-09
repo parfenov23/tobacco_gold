@@ -1,0 +1,42 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['bar']});
+  google.charts.setOnLoadCallback(drawChart);
+  <% arr = ([['День', 'Продажи', 'Прибыль', "Прочие расходы"]].concat Sale.curr_month_statistic).to_json %>
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
+
+    var options = {
+      chart: {
+        title: 'Tobacco Gold',
+        subtitle: 'продажи, прибыль за <%= Russian::strftime(Time.now, "%B") %>',
+      }
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('columnchart_material_month'));
+
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+  }
+</script>
+<div id="columnchart_material_month" style="width: 100%; height: 500px;margin-top: 24px;"></div>
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['bar']});
+  google.charts.setOnLoadCallback(drawChart);
+  <% arr = ([['Месяц', 'Продажи', 'Прибыль', "Прочие расходы"]].concat Sale.curr_year_statistic).to_json %>
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
+
+    var options = {
+      chart: {
+        title: 'Tobacco Gold',
+        subtitle: 'продажи, прибыль за текущий год',
+      }
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('columnchart_material_year'));
+
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+  }
+</script>
+<div id="columnchart_material_year" style="width: 100%; height: 500px;margin-top: 24px;"></div>
