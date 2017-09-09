@@ -1,34 +1,61 @@
-h4 Текущая касса: #{@cashbox.to_i} рублей
-hr style="border-top: 1px solid #333"
-//////////////////
-b Денег в товаре: #{@stock_price.to_i} рублей
-br
-b Сумма касса + товар = #{(@cashbox + @stock_price).to_i} рублей
-/ br
-/ b Касса кальнов: #{HookahCash.cash_box} рублей
-hr style="border-top: 1px solid #333"
-//////////////////
-h3 Статистика за последнию неделю
-b Проданно на: #{@last_sales_price} рублей
-br
-b Прибыль: #{@sales_profit} рублей
-hr style="border-top: 1px solid #333"
-//////////////////
-h3 Статистика продаж и закупов за текущий месяц
-b Продажи: #{@curr_month_sales_price} рублей
-br
-b Закупы:  #{@curr_month_buy_price} рублей
-br
-b Прочие расходы: #{@curr_month_other_down_price} рублей
-br
-b Прочие доходы: #{@curr_month_other_up_price} рублей
-br
-b Выплаты менеджерам: #{@curr_month_manager_pay} рублей
-br
-/ b Прибыль: #{(@curr_month_sales_price - @curr_month_buy_price) + @curr_month_other_up_price - @curr_month_other_down_price - @curr_month_manager_pay} рублей
-br
-b Прибыль: #{Sale.current_month_profit} рублей
-br
-b Остаток прибыли: #{Sale.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price} рублей
-//////////////////
+.content_tables_cashbox.list-group.row
+  .list-group-item
+    table.table.table-bordered.table_cashbox_page
+      tbody
+        th.table_title_cash Общее
+        th.table_title_cash
+        tr.success
+          td Текущая касса
+          td.info_column #{@cashbox.to_i} рублей
+        tr
+          td Денег в товаре
+          td.info_column #{@stock_price.to_i} рублей
+        tr.info
+          td Сумма касса + товар
+          td.info_column #{(@cashbox + @stock_price).to_i} рублей
+        tr.success
+          td Сумма продаж за сегодня
+          td.info_column #{Sale.current_day.sum(:price)} рублей
+        tr.danger
+          td Прибыль за сегодня
+          td.info_column #{Sale.current_day_profit} рублей
+  .list-group-item
+    table.table.table-bordered.table_cashbox_page
+      tbody
+        th.table_title_cash Статистика за последнию неделю
+        th.table_title_cash
+        tr.success
+          td Проданно на: 
+          td.info_column #{@last_sales_price} рублей
+        tr.danger
+          td Прибыль: 
+          td.info_column #{@sales_profit} рублей
+  .list-group-item
+    table.table.table-bordered.table_cashbox_page
+      tbody
+        th.table_title_cash Статистика продаж и закупов за текущий месяц
+        th.table_title_cash
+        tr.success
+          td Продажи
+          td.info_column #{@curr_month_sales_price} рублей
+        tr.danger
+          td Закупы
+          td.info_column #{@curr_month_buy_price} рублей
+        tr.info
+          td Прочие расходы
+          td.info_column #{@curr_month_other_down_price} рублей
+        tr.success
+          td Прочие доходы
+          td.info_column #{@curr_month_other_up_price} рублей
+        tr.danger
+          td Выплаты менеджерам
+          td.info_column #{@curr_month_manager_pay} рублей
+        tr.info
+          td Прибыль
+          td.info_column #{Sale.current_month_profit} рублей
+        tr.success
+          td Остаток прибыли
+          td.info_column #{Sale.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price} рублей
+
+
 = render "sale_profit_chart"

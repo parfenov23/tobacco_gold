@@ -26,12 +26,20 @@ class Sale < ActiveRecord::Base
     sum(:price) + OtherBuy.it_sum - OtherBuy.took_sum - Buy.all_sum - ManagerPayment.where(payment: true).sum(:price)
   end
 
+  def self.current_day
+    Sale.where(["created_at > ? ", Time.current.beginning_of_day]).where(["created_at < ? ", Time.current.end_of_day])
+  end
+
   def self.last_sales_price
     where(["created_at > ?", Time.now - 7.day]).sum(:price)
   end
 
   def self.sales_profit
     where(["created_at > ?", Time.now - 7.day]).sum(:profit)
+  end
+
+  def self.current_day_profit
+    current_day.sum(:profit)
   end
 
   def self.current_month_profit
