@@ -1,6 +1,6 @@
 - model_url = @models.first_url
 .list-group.row
-  .list-group-item.active
+  .list-group-item.panel_gray_common
     a.btn.btn-success href="/admin/order_requests"  Не оплаченые
     a.btn.btn-success href="/admin/order_requests?status=paid"  Оплаченые
   - status = params[:status].present? ? params[:status] : "waiting"

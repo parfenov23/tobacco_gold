@@ -1,5 +1,5 @@
 .list-group.row
-  .list-group-item.active
+  .list-group-item.panel_gray_common
     - if current_user.is_admin?
       a.btn.btn-success href="/admin/product_items/new?product_id=#{params[:product_id]}"  Добавить вкус
   - @product_items.each do |item|
