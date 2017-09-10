@@ -14,8 +14,9 @@
       - else
         |#{Russian::strftime(time, "%B")} #{time.year}
     - other_buys.each do |other_buy|
-      .list-group-item.col-md-6
-        span
+      - add_class_item = other_buy.type_mode ? "list-group-item-success" : "list-group-item-danger"
+      .list-group-item.col-md-6 class=add_class_item
+        span style="color: black;"
           = "#{other_buy.title}(#{other_buy.price})"
         a.btn.btn-danger.pull-right href="/admin/other_buy/#{other_buy.id}/remove" data-method='delete'
           | &#10006;
