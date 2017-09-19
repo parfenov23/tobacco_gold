@@ -22,6 +22,17 @@
   .list-group-item
     table.table.table-bordered.table_cashbox_page
       tbody
+        th.table_title_cash Долг поставщикам
+        th.table_title_cash
+        - Provider.all.each do |provider|
+          - all_sum_buys = provider.buys.where(def_pay: false).sum(:price)
+          tr.success
+            td = provider.title
+            td.info_column #{all_sum_buys} рублей
+
+  .list-group-item
+    table.table.table-bordered.table_cashbox_page
+      tbody
         th.table_title_cash Статистика за последнию неделю
         th.table_title_cash
         tr.success
@@ -58,5 +69,3 @@
           td.info_column #{Sale.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price} рублей
 
 = render "sale_profit_chart_month"
-br
-= render "sale_profit_chart"

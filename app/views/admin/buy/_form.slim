@@ -52,6 +52,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .btn.btn-primary.js_openFormNewItem style='margin-right: 5px;' Добавить Вкус
   br
   br
+  input type="hidden" name="buy_param[provider_id]" value="#{params[:provider_id]}"
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit" Сохранить
 

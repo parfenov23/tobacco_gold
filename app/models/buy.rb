@@ -1,6 +1,7 @@
 require 'vk_message'
 class Buy < ActiveRecord::Base
   has_many :buy_items
+  belongs_to :provider
   default_scope { order("created_at DESC") }
 
   def self.all_sum
@@ -12,6 +13,10 @@ class Buy < ActiveRecord::Base
       message = "Закуп: #{self.price.to_i} рублей\nКасса: #{Sale.cash_box} рублей"
       VkMessage.run(message)
     end
+  end
+
+  def provider_title
+    provider.present? ? provider.title : "Нет поставщика"
   end
 
   def self.curr_month_price

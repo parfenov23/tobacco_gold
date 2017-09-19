@@ -23,7 +23,7 @@ module Admin
         item.update({barcode: sale_param[:barcode]}) if sale_param[:barcode].present?
         BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price})
       end
-      buy.update(price: result, def_pay: params[:buy_param][:def_pay])
+      buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:buy_param][:provider_id])
       buy.notify_buy
       redirect_to_index
     end
@@ -41,7 +41,8 @@ module Admin
     end
 
     def edit
-      @sale = find_model
+      @buy = find_model
+      @products = Product.all
     end
 
     def update

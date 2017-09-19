@@ -8,7 +8,7 @@
     .list-group-item.col-md-6
       span
         a href='/admin/buy/#{buy.id}/info'
-          = buy.created_at.strftime("%d-%m-%Y") + " (#{buy.price}р.)"
+          = buy.created_at.strftime("%d-%m-%Y") + " (#{buy.price}р.) | #{buy.provider_title}"
       - if !buy.def_pay
         a.btn.btn-success.pull-right href="/admin/buy/#{buy.id}/def_pay" 
           | ✔
