@@ -13,6 +13,10 @@ class ProductItem < ActiveRecord::Base
   		}.to_h.sort_by(&:last).reverse.first(count_first).to_h.keys)
   end
 
+  def self.first_url
+    "product_items"
+  end
+
   # def total_sum
 
   # end

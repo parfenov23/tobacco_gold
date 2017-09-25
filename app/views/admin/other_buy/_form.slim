@@ -1,11 +1,11 @@
-- action_url = @other_buy.id.nil? ? "/admin/other_buy" : "/admin/other_buy/#{@other_buy.id}"
-- method = @other_buy.id.nil? ? "post" : "put"
+- action_url = @model.id.nil? ? "/admin/other_buy" : "/admin/other_buy/#{@model.id}"
+- method = @model.id.nil? ? "post" : "put"
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
   .form-group
     label
       | Название:
-    input.form-control name="other_buy[title]" type="text" value="#{@other_buy.title}"
+    input.form-control name="other_buy[title]" type="text" value="#{@model.title}"
   .form-group
     label
       | Тип:
@@ -15,7 +15,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .form-group
     label
       | Сумма:
-    input.form-control name="other_buy[price]" type="text" value="#{@other_buy.price}"
-
+    input.form-control name="other_buy[price]" type="text" value="#{@model.price}"
+  = render "admin/admin/common_cashbox"
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit" Сохранить

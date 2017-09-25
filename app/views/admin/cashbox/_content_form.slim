@@ -1,0 +1,10 @@
+// Изменяемая часть
+.form-group
+  label
+    | Наличные:
+  input.form-control name="cashbox[cash]" type="text" value="#{@model.cash}"
+.form-group
+  label
+    | Visa:
+  input.form-control name="cashbox[visa]" type="text" value="#{@model.visa}"
+// ================

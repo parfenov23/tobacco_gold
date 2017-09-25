@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cachbox_item_table_type: MyString
+  cashbox_item_table_id: 1
+  price: 1
+  type_cash: MyString
+  type_mode: false
+  current_cash: 1
+
+two:
+  cachbox_item_table_type: MyString
+  cashbox_item_table_id: 1
+  price: 1
+  type_cash: MyString
+  type_mode: false
+  current_cash: 1

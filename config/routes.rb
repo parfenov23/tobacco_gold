@@ -160,7 +160,12 @@ Rails.application.routes.draw do
 
     resources :revision
 
-    resources :cashbox
+    resources :cashbox do
+      collection do
+        get :to_check
+        post :update_cashbox
+      end
+    end
 
     resources :sales do
       member do

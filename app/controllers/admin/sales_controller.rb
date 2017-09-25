@@ -1,5 +1,5 @@
 module Admin
-  class SalesController < AdminController
+  class SalesController < CommonController
 
     def index
       @sales = current_user.is_admin? ? model.all : model.where(user_id: current_user.id)
@@ -27,6 +27,7 @@ module Admin
         SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
       end
       sale.update(price: result, profit: sale.find_profit)
+      current_cashbox.calculation(params[:cashbox_type], result, true)
       current_user.manager_payments.create(price: result/100*current_user.procent_sale)
       sale.notify_buy
       redirect_to_index

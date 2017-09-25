@@ -2,7 +2,11 @@
   .list-group-item
     table.table.table-bordered.table_cashbox_page
       tbody
-        th.table_title_cash Общее
+        th.table_title_cash 
+          span 
+            |Общее
+            a.btn.btn-primary style="margin-left: 4px;" href="/admin/cashbox/#{@current_cashbox.id}/edit" Редактирование
+            a.btn.btn-success style="margin-left: 4px;" href="/admin/cashbox/to_check" Сверка
         th.table_title_cash
         tr.success
           td Текущая касса
@@ -19,6 +23,20 @@
         tr.danger
           td Прибыль за сегодня
           td.info_column #{Sale.current_day_profit} рублей
+        tr.info
+          td
+          td
+        // пока так
+        tr.success
+          td Наличны
+          td.info_column #{@current_cashbox.cash} рублей
+        tr.danger
+          td Visa
+          td.info_column #{@current_cashbox.visa} рублей
+        tr.info
+          td Общая касса
+          td.info_column #{@current_cashbox.cash + @current_cashbox.visa} рублей
+
   .list-group-item
     table.table.table-bordered.table_cashbox_page
       tbody

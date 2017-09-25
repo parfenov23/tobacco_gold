@@ -1,0 +1,13 @@
+form.form-horizontal action="/admin/cashbox/update_cashbox" method="post" enctype="multipart/form-data"
+
+  .form-group
+    label
+      | Наличные (#{@current_cashbox.cash} руб.):
+    input.form-control name="cashbox[cash]" type="text" value="#{@current_cashbox.cash}"
+  .form-group
+    label
+      | Visa (#{@current_cashbox.visa} руб.)::
+    input.form-control name="cashbox[visa]" type="text" value="#{@current_cashbox.visa}"
+
+  input type="hidden" name="_method" value="post"
+  button.btn.btn-primary type="submit" Сохранить

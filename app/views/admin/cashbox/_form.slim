@@ -1,0 +1,13 @@
+- model_present = @model.id.nil?
+- model_url = @model.class.first_url
+- action_url = model_present ? "/admin/#{model_url}" : "/admin/#{model_url}/#{@model.id}"
+- method = model_present ? "post" : "put"
+- @all_items = []
+- Product.all.map{|product| product.product_items.map{|item| @all_items << ["#{product.title} - #{item.title}", item.id] }}
+
+form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+
+  = render "content_form"
+
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit" Сохранить

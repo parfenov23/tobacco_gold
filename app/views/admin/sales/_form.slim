@@ -50,7 +50,6 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       /     label
       /       | Кол-во:
       /     input.form-control.countItems name="sales[][count]" type="text" value="1"
-
   label style='margin-right: 5px;' Итого:
   label.titlePrice 0
   br
@@ -58,5 +57,6 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .btn.btn-primary.addItemSale Добавить
   br
   br
+  = render "admin/admin/common_cashbox"
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit" Сохранить

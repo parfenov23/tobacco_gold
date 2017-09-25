@@ -37,10 +37,6 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       /     label
       /       | Кол-во:
       /     input.form-control.countItems name="buy[][count]" type="text" value="0"
-  .form-group
-    label
-      | Оплачено?:
-    = check_box("buy_param", "def_pay", {checked: false})
 
   label style='margin-right: 5px;' Итого:
   label.titlePrice 0
@@ -54,6 +50,11 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   br
   input type="hidden" name="buy_param[provider_id]" value="#{params[:provider_id]}"
   input type="hidden" name="_method" value="#{method}"
+  .form-group
+    label
+      | Оплачено?:
+    = check_box("buy_param", "def_pay", {checked: false})
+  = render "admin/admin/common_cashbox"
   button.btn.btn-primary type="submit" Сохранить
 
 .addFormNewItem style="display:none;"

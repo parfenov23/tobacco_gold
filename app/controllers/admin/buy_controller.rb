@@ -1,5 +1,5 @@
 module Admin
-  class BuyController < AdminController
+  class BuyController < CommonController
 
     def index
       @buys = model.all
@@ -24,12 +24,14 @@ module Admin
         BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price})
       end
       buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:buy_param][:provider_id])
+      current_cashbox.calculation('cash', result, false) if params[:buy_param][:def_pay] == "1"
       buy.notify_buy
       redirect_to_index
     end
 
     def def_pay
       find_model.update(def_pay: true)
+      current_cashbox.calculation(params[:cashbox_type], find_model.price, false)
       redirect_to_index
     end
 

@@ -1,6 +1,10 @@
 require 'vk_message'
 class OtherBuy < ActiveRecord::Base
 
+  def self.first_url
+    "other_buy"
+  end
+
   def notify_buy
     message = "#{title} на #{price.to_i} рублей\nКасса: #{Sale.cash_box} рублей"
     VkMessage.run(message) if Rails.env.production?

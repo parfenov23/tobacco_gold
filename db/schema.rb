@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919133304) do
+ActiveRecord::Schema.define(version: 20170925122545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,24 @@ ActiveRecord::Schema.define(version: 20170919133304) do
     t.datetime "updated_at",                  null: false
     t.boolean  "def_pay",     default: false
     t.integer  "provider_id"
+  end
+
+  create_table "cachbox_items", force: :cascade do |t|
+    t.string   "cachbox_item_table_type"
+    t.integer  "cashbox_item_table_id"
+    t.integer  "price"
+    t.string   "type_cash"
+    t.boolean  "type_mode"
+    t.integer  "current_cash"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "cashboxes", force: :cascade do |t|
+    t.integer  "cash"
+    t.integer  "visa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -198,12 +216,13 @@ ActiveRecord::Schema.define(version: 20170919133304) do
   end
 
   create_table "sales", force: :cascade do |t|
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.float    "price",      default: 0.0
     t.integer  "user_id"
     t.integer  "contact_id"
     t.integer  "profit",     default: 0
+    t.boolean  "visa",       default: false
   end
 
   create_table "users", force: :cascade do |t|

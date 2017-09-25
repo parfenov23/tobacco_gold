@@ -4,6 +4,10 @@ class Product < ActiveRecord::Base
   belongs_to :category
   default_scope { order("title ASC") }
 
+  def self.first_url
+    "products"
+  end
+
   def min_price
     items_ids = product_items.ids
     buy_items = BuyItem.where(id: items_ids).where(["price > ?", 50])
