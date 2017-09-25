@@ -4,7 +4,8 @@ module Admin
       Cashbox.create if Cashbox.all.blank? # временное решение
       @current_cashbox = Cashbox.first # потом поиск по филиалу
 
-      @cashbox = Sale.cash_box
+      # @cashbox = Sale.cash_box
+      @cashbox = @current_cashbox.cash + @current_cashbox.visa
       @stock_price = Product.stock_price
       @last_sales_price = Sale.last_sales_price
       @sales_profit = Sale.sales_profit

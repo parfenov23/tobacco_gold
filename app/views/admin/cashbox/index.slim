@@ -9,8 +9,17 @@
             a.btn.btn-success style="margin-left: 4px;" href="/admin/cashbox/to_check" Сверка
         th.table_title_cash
         tr.success
-          td Текущая касса
-          td.info_column #{@cashbox.to_i} рублей
+          td Наличны
+          td.info_column #{@current_cashbox.cash} рублей
+        tr.danger
+          td Visa
+          td.info_column #{@current_cashbox.visa} рублей
+        tr.info
+          td Общая касса
+          td.info_column #{@cashbox} рублей
+        / tr.success
+        /   td Текущая касса
+        /   td.info_column #{@cashbox.to_i} рублей
         tr.danger
           td Денег в товаре
           td.info_column #{@stock_price.to_i} рублей
@@ -27,15 +36,6 @@
           td
           td
         // пока так
-        tr.success
-          td Наличны
-          td.info_column #{@current_cashbox.cash} рублей
-        tr.danger
-          td Visa
-          td.info_column #{@current_cashbox.visa} рублей
-        tr.info
-          td Общая касса
-          td.info_column #{@current_cashbox.cash + @current_cashbox.visa} рублей
 
   .list-group-item
     table.table.table-bordered.table_cashbox_page
