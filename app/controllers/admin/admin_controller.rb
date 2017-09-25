@@ -11,7 +11,7 @@ module Admin
     end
 
     def paid_manager_payments
-      all_manager_pay = ManagerPayment.where(user_id: params[:user_id])
+      all_manager_pay = ManagerPayment.where(user_id: params[:user_id], payment: false)
       current_cashbox.calculation('cash', all_manager_pay.sum(:price), false)
       all_manager_pay.update_all(payment: true)
       redirect_to "/admin/admin/manager_payments"
