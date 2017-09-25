@@ -12,6 +12,7 @@ module Admin
       @curr_month_sales_price = Sale.curr_month_price.to_i
       @curr_month_buy_price = Buy.curr_month_price.to_i
       @curr_month_other_up_price = OtherBuy.curr_month_price(true).to_i
+      
       @curr_month_other_down_price = OtherBuy.curr_month_price(false).to_i
       @curr_month_manager_pay = ManagerPayment.curr_month_price
     end
