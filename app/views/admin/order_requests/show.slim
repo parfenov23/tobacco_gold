@@ -34,6 +34,7 @@ table.table
 - model_url = @model.class.first_url
 - if @model.status == "waiting"
   form.form-horizontal action="/admin/#{model_url}/#{@model.id}" method="post" enctype="multipart/form-data"
+    = render "admin/admin/common_cashbox"
     input type="hidden" name="orderrequest[status]" value="paid"
     input type="hidden" name="_method" value="put"
     button.btn.btn-success type="submit" Оплачено

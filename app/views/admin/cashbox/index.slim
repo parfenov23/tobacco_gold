@@ -81,6 +81,7 @@
           td.info_column #{Sale.current_month_profit} рублей
         tr.success
           td Остаток прибыли
-          td.info_column #{Sale.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price} рублей
+          - curr_profit = Sale.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price + @curr_month_other_up_price
+          td.info_column #{curr_profit} рублей
 
 = render "sale_profit_chart_month"

@@ -29,6 +29,18 @@ class OrderRequest < ActiveRecord::Base
     sale.notify_buy
   end
 
+  def price
+    result = 0
+    items.each do |id, count|
+      item = ProductItem.find(id)
+      product = item.product
+      price = product.current_price_model
+      result += price.price.to_i*count.to_i
+    end
+    result
+  end
+
+
   def notify
     message = "Клиент оставил заявку на сайте\nНомер: #{id}\nСумма: #{total_sum} рублей"
     VkMessage.run(message)

@@ -57,11 +57,15 @@ class Sale < ActiveRecord::Base
       first_day = month.beginning_of_month
       last_day = month.end_of_month
       all_sales = find_model_result(Sale, first_day, last_day)
-      all_other_buy = find_model_result(OtherBuy, first_day, last_day).sum(:price)
+
+      other_buy_all_year = find_model_result(OtherBuy, first_day, last_day)
+      all_other_buy = other_buy_all_year.where(type_mode: false).sum(:price)
       all_other_buy += find_model_result(ManagerPayment, first_day, last_day).sum(:price)
+      all_other_buy_up = other_buy_all_year.where(type_mode: true).sum(:price)
+
       sales_sum = all_sales.sum(:price)
       profit_sum = all_sales.sum(:profit)
-      arr_result << [Russian::strftime(month, "%B"), sales_sum, profit_sum, all_other_buy]
+      arr_result << [Russian::strftime(month, "%B"), sales_sum, profit_sum, all_other_buy, all_other_buy_up]
     end
     arr_result
   end
@@ -73,11 +77,15 @@ class Sale < ActiveRecord::Base
       first_day = day.beginning_of_day
       last_day = day.end_of_day
       all_sales = find_model_result(Sale, first_day, last_day)
-      all_other_buy = find_model_result(OtherBuy, first_day, last_day).sum(:price)
+
+      other_buy_all_month = find_model_result(OtherBuy, first_day, last_day)
+      all_other_buy = other_buy_all_month.where(type_mode: false).sum(:price)
       all_other_buy += find_model_result(ManagerPayment, first_day, last_day).sum(:price)
+      all_other_buy_up = other_buy_all_month.where(type_mode: true).sum(:price)
+
       sales_sum = all_sales.sum(:price)
       profit_sum = all_sales.sum(:profit)
-      arr_result << [Russian::strftime(day, "%a, %d"), sales_sum, profit_sum, all_other_buy]
+      arr_result << [Russian::strftime(day, "%a, %d"), sales_sum, profit_sum, all_other_buy, all_other_buy_up]
     end
     arr_result
   end

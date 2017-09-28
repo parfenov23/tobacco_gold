@@ -22,6 +22,7 @@ module Admin
       end
       if sale.sale_items.count > 0 
         sale.update(price: result, profit: sale.find_profit)
+        current_cashbox.calculation('cash', result, true)
         sale.notify_buy
       else
         sale.destroy
