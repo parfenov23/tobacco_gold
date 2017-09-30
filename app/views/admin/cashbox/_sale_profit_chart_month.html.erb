@@ -2,7 +2,7 @@
 <script type="text/javascript">
   google.charts.load('current', {'packages':['bar']});
   google.charts.setOnLoadCallback(drawChart);
-  <% arr = ([['День', 'Продажи', 'Прибыль', "Прочие расходы", "Прочие доходы"]].concat Sale.curr_month_statistic).to_json %>
+  <% arr = ([['День', 'Продажи', 'Прибыль', 'Затраты']].concat Sale.curr_month_statistic).to_json %>
   function drawChart() {
     var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
 
@@ -23,7 +23,7 @@
 <script type="text/javascript">
   google.charts.load('current', {'packages':['bar']});
   google.charts.setOnLoadCallback(drawChart);
-  <% arr = ([['Месяц', 'Продажи', 'Прибыль', "Прочие расходы", "Прочие доходы"]].concat Sale.curr_year_statistic).to_json %>
+  <% arr = ([['Месяц', 'Продажи', 'Прибыль', 'Затраты']].concat Sale.curr_year_statistic).to_json %>
   function drawChart() {
     var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
 

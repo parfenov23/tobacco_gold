@@ -9,4 +9,8 @@ class Cashbox < ActiveRecord::Base
     result = type_sum ? {type.to_sym => (curr_sum + price)} : {type.to_sym => (curr_sum - price)}
     update(result)
   end
+
+  def curr_cash
+    cash + visa
+  end
 end

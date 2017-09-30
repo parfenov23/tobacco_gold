@@ -5,9 +5,11 @@ class OtherBuy < ActiveRecord::Base
     "other_buy"
   end
 
-  def notify_buy
-    message = "#{title} на #{price.to_i} рублей\nКасса: #{Sale.cash_box} рублей"
-    VkMessage.run(message) if Rails.env.production?
+  def notify_buy(cashbox=nil)
+    if cashbox.present?
+      message = "#{title} на #{price.to_i} рублей\nКасса: #{cashbox.curr_cash} рублей"
+      VkMessage.run(message) if Rails.env.production?
+    end
   end
 
   def self.took_sum

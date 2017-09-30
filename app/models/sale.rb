@@ -5,9 +5,11 @@ class Sale < ActiveRecord::Base
   belongs_to :contact
   default_scope { order("created_at DESC") }
 
-  def notify_buy
-    message = "Продажа: #{self.price.to_i} рублей\n Информация: #{sale_url}\nКасса: #{Sale.cash_box} рублей"
-    VkMessage.run(message) if Rails.env.production?
+  def notify_buy(cashbox=nil)
+    if cashbox.present?
+      message = "Продажа: #{self.price.to_i} рублей\n Информация: #{sale_url}\nКасса: #{cashbox.curr_cash} рублей"
+      VkMessage.run(message) if Rails.env.production?
+    end
   end
 
   def find_profit
@@ -60,12 +62,13 @@ class Sale < ActiveRecord::Base
 
       other_buy_all_year = find_model_result(OtherBuy, first_day, last_day)
       all_other_buy = other_buy_all_year.where(type_mode: false).sum(:price)
-      all_other_buy += find_model_result(ManagerPayment, first_day, last_day).sum(:price)
+      all_other_buy += find_model_result(ManagerPayment, first_day, last_day).where(payment: true).sum(:price)
       all_other_buy_up = other_buy_all_year.where(type_mode: true).sum(:price)
 
       sales_sum = all_sales.sum(:price)
-      profit_sum = all_sales.sum(:profit)
-      arr_result << [Russian::strftime(month, "%B"), sales_sum, profit_sum, all_other_buy, all_other_buy_up]
+      profit_sum = all_sales.sum(:profit) + all_other_buy_up
+
+      arr_result << [Russian::strftime(month, "%B"), sales_sum, profit_sum, all_other_buy]
     end
     arr_result
   end
@@ -80,12 +83,12 @@ class Sale < ActiveRecord::Base
 
       other_buy_all_month = find_model_result(OtherBuy, first_day, last_day)
       all_other_buy = other_buy_all_month.where(type_mode: false).sum(:price)
-      all_other_buy += find_model_result(ManagerPayment, first_day, last_day).sum(:price)
+      all_other_buy += find_model_result(ManagerPayment, first_day, last_day).where(payment: true).sum(:price)
       all_other_buy_up = other_buy_all_month.where(type_mode: true).sum(:price)
 
       sales_sum = all_sales.sum(:price)
-      profit_sum = all_sales.sum(:profit)
-      arr_result << [Russian::strftime(day, "%a, %d"), sales_sum, profit_sum, all_other_buy, all_other_buy_up]
+      profit_sum = all_sales.sum(:profit) + all_other_buy_up
+      arr_result << [Russian::strftime(day, "%a, %d"), sales_sum , profit_sum, all_other_buy]
     end
     arr_result
   end

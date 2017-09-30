@@ -25,7 +25,7 @@ module Admin
       end
       buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:buy_param][:provider_id])
       current_cashbox.calculation('cash', result, false) if params[:buy_param][:def_pay] == "1"
-      buy.notify_buy
+      buy.notify_buy(current_cashbox)
       redirect_to_index
     end
 
