@@ -8,10 +8,10 @@ class Buy < ActiveRecord::Base
     where(def_pay: true).sum(:price)
   end
 
-  def notify_buy
-    if Rails.env.production?
-      message = "Закуп: #{self.price.to_i} рублей\nКасса: #{Sale.cash_box} рублей"
-      VkMessage.run(message)
+  def notify_buy(cashbox=nil)
+    if cashbox.present?
+      message = "Закуп: #{self.price.to_i} рублей\nКасса: #{cashbox.curr_cash} рублей"
+      VkMessage.run(message) if Rails.env.production?
     end
   end
 

@@ -29,7 +29,7 @@ module Admin
       sale.update(price: result, profit: sale.find_profit)
       current_cashbox.calculation(params[:cashbox_type], result, true)
       current_user.manager_payments.create(price: result/100*current_user.procent_sale)
-      sale.notify_buy
+      sale.notify_buy(current_cashbox)
       redirect_to_index
     end
 
