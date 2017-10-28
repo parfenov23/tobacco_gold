@@ -71,28 +71,37 @@ module ApplicationHelper
     current_user.present? ? current_user.is_admin? || current_user.is_manager? : false
   end
 
-  def all_nav_li_admin
-    all_navs =       [ 
-      {url: "/admin/admin", title: "Главная"},
-        {url: "/admin/products", title: "Товары"},
-        {url: '/admin/categories', title: 'Категории'}, 
-        {url: '/admin/mix_boxes', title: 'Миксы'}, 
-        {url: "/admin/stock", title: "Склад"},
-        {url: "/admin/sales", title: "Продажа"},
-        {url: "/admin/revision", title: "Ревизия"},
-        # {url: "/admin/hookah_cash", title: "Кальяны"},
-        {url: "/admin/buy", title: "Закуп"},
-        {url: "/admin/other_buy", title: "Прочие расходы"},
-        {url: "/admin/cashbox", title: "Касса"},
-        {url: '/admin/order_requests', title: 'Заявки'}, 
-        {url: '/admin/content_pages', title: 'Контент'}, 
-        {url: '/admin/users', title: 'Пользователи'}, 
-        {url: '/admin/contacts', title: 'Клиенты'},
-        {url: '/admin/admin/manager_payments', title: 'Выплаты'},
-        {url: '/admin/admin/search', title: 'Поиск'},
-        {url: '/admin/providers', title: 'Поставщики'}
-      ]
+  def curr_title_admin_header
+    curr_title = ""
+    all_navs_admin.each{|nav| curr_title = nav[:title] if nav[:url] == "/#{params[:controller]}" }
+    curr_title
+  end
 
+  def all_navs_admin
+    [ 
+      {url: "/admin/admin", title: "Главная"},
+      {url: "/admin/products", title: "Товары"},
+      {url: '/admin/categories', title: 'Категории'}, 
+      {url: '/admin/mix_boxes', title: 'Миксы'}, 
+      {url: "/admin/stock", title: "Склад"},
+      {url: "/admin/sales", title: "Продажа"},
+      {url: "/admin/revision", title: "Ревизия"},
+      # {url: "/admin/hookah_cash", title: "Кальяны"},
+      {url: "/admin/buy", title: "Закуп"},
+      {url: "/admin/other_buy", title: "Прочие расходы"},
+      {url: "/admin/cashbox", title: "Касса"},
+      {url: '/admin/order_requests', title: 'Заявки'}, 
+      {url: '/admin/content_pages', title: 'Контент'}, 
+      {url: '/admin/users', title: 'Пользователи'}, 
+      {url: '/admin/contacts', title: 'Клиенты'},
+      {url: '/admin/admin/manager_payments', title: 'Выплаты'},
+      {url: '/admin/admin/search', title: 'Поиск'},
+      {url: '/admin/providers', title: 'Поставщики'}
+    ]
+  end
+
+  def all_nav_li_admin
+    all_navs = all_navs_admin 
     if current_user.is_admin?
       all_navs
     elsif current_user.is_manager?

@@ -27,32 +27,46 @@ var scanBarCode = function(){
 }
 
 var addItemWhenBarcodeScan = function(barcode){
-  var item = $("#contentSelect option[data-barcode='"+ barcode +"']");
-  if (item.length){
-    addBlankBlockItem(barcode);
-    var productSaleBlock = $(".barcode" + barcode + ":last");
-    var product_select = productSaleBlock.find("select.changeSelectContent");
-    var product_id = item.data('product')
-    product_select.val(product_id);
-    addProductItemToProductBlock(product_select, product_id);
-    productSaleBlock.find("select[name='sales[][item_id]']").val(item.val());
+  var findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
+  if (!findItem.length){
+    var item = $("#contentSelect option[data-barcode='"+ barcode +"']");
+    if (item.length){
+      addBlankBlockItem(barcode);
+      var productSaleBlock = $(".barcode" + barcode + ":last");
+      var product_select = productSaleBlock.find("select.changeSelectContent");
+      var product_id = item.data('product')
+      product_select.val(product_id);
+      addProductItemToProductBlock(product_select, product_id);
+      productSaleBlock.find("select[name='sales[][item_id]']").val(item.val());
+      findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
+      sumItemSale(findItem);
+      priceItemSale();
+    }
+  }else{
+    var input_count = findItem.find("input[name='sales[][count]']");
+    input_count.val( parseInt(input_count.val()) + 1 );
     priceItemSale();
+    sumItemSale(findItem);
   }
 }
 
 var addBlankBlockItem = function(bc){
-  var refer = $(".referenceItemSale").html();
+  var refer = $(".referenceItemSale tbody").html();
   $(".allItemsSale").append($(refer).addClass('barcode' + bc));
-  $(document).scrollTop($(document).height());
+  // $(document).scrollTop($(document).height());
+  changeSelectPriceAndCount();
 }
 
 var addProductItemToProductBlock = function(curr_block, bl_val){
   var id = "#select" + bl_val;
   var block_content = $("#contentSelect " + id).html();
   if (bl_val > 0){
-    $(curr_block).closest('.parentItemSale').find('.formLoadContent').html($(block_content));
+    var load_content_selests = $("<div>"+ block_content + "</div>");
+    $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html(load_content_selests.find("select[name='sales[][item_id]']"));
+    $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html(load_content_selests.find("select[name='sales[][price_id]']"));
   } else {
-    $(curr_block).closest('.parentItemSale').find('.formLoadContent').html('');
+    $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html('');
+    $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html('');
   }
 }
 
@@ -66,11 +80,30 @@ var priceItemSale = function(){
     result += price*count;
   });
   $(".titlePrice").text(result);
+  if ($(".received_cash").val().length){
+    $(".titleDelivery").text("сдача: " + ($(".received_cash").val() - result) );
+    $(".titleDelivery").show();
+  }
+}
+
+var sumItemSale = function(block){
+  var curr_price = parseInt(block.find("[name='sales[][price_id]'] option:selected").text());
+  var curr_count = parseInt(block.find("[name='sales[][count]']").val());
+  block.find(".endSumPosition").text(curr_price*curr_count);
+}
+
+
+var changeSelectPriceAndCount = function(){
+  $(document).on('change', '.selectPrice, .countItems', function () {
+    var block = $(this).closest(".parentItemSale");
+    sumItemSale(block);
+    priceItemSale();
+  });
 }
 
 $(document).ready(function(){
   scanBarCode();
-
+  changeSelectPriceAndCount();
   $(document).on('click', '.addItemSale', addBlankBlockItem);
 
   $(document).on('click', '.deleteItemSale', function(){

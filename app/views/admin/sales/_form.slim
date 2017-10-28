@@ -16,47 +16,49 @@
       - curr_price = params[:type_sale] != "opt" ? all_prices.curr_default_id : all_prices.curr_opt_id
       = select("", "", all_prices_arr, {selected: curr_price}, { name: 'sales[][price_id]', class: 'form-control selectPrice'})
 
-.referenceItemSale style="display: none;"
-  .parentItemSale.list-group-item
-    .inlineBlock
+table.referenceItemSale style="display: none;"
+  tr.parentItemSale.active
+    td.inlineBlock
       select.form-control.changeSelectContent
         option value='0' Не выбранно
         - @products.each do |product|
           option value=product.id = product.title
+
+    td.formLoadContentTaste
+    td.formLoadContentPrice
+    td.form-group
+      input.form-control.countItems name="sales[][count]" type="text" value="1"
+    td.endSumPosition 0
+    td
       .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
 
-    .formLoadContent
-    .form-group
-      label
-        | Кол-во:
-      input.form-control.countItems name="sales[][count]" type="text" value="1"
-
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .form-group
+  .form-group style="display: none;"
     label Контакт:
     - all_contacts = Contact.all
     = select_tag("contact_id", options_for_select([["Нет", nil]] + all_contacts.map{|contact| [contact.title, contact.id]}), {:class => 'form-control'})
-
-  .list-group.row
-    .allItemsSale
-      / .parentItemSale.list-group-item
-      /   select.form-control.changeSelectContent
-      /     option value='0' Не выбранно
-      /     - @products.each do |product|
-      /       option value=product.id = product.title
-
-      /   .formLoadContent
-      /   .form-group
-      /     label
-      /       | Кол-во:
-      /     input.form-control.countItems name="sales[][count]" type="text" value="1"
-  label style='margin-right: 5px;' Итого:
-  label.titlePrice 0
-  br
-  .btn.btn-primary.priceItemSale style='margin-right: 5px;' Подсчитать
-  .btn.btn-primary.addItemSale Добавить
-  br
-  br
-  = render "admin/admin/common_cashbox"
-  input type="hidden" name="_method" value="#{method}"
-  button.btn.btn-primary type="submit" Сохранить
+  .saleAllItemCashbox
+    .list-group-item.col-md-9
+      table.table
+        thead
+          tr
+            th Производитель
+            th Вкус
+            th Цена
+            th Кол-во
+            th Сумма
+            th 
+        tbody.allItemsSale
+      .btn.btn-primary.addItemSale Добавить позицию
+    .list-group-item.col-md-3
+      .moneyClacl
+        .titlePrice 0.00
+        .titleDelivery сдача: 99999
+      .form-group
+        input.received_cash.form-control placeholder="Получено наличными"
+      = render "admin/admin/common_cashbox"
+      .actionBtnSale
+        .btn-primary.priceItemSale Подсчет
+        input type="hidden" name="_method" value="#{method}"
+        button.btn.btn-success type="submit" Расчет
+  / .list-group.row

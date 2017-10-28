@@ -55,3 +55,35 @@
     }
   }
 }
+
+.saleAllItemCashbox{
+  overflow: auto;
+  .titlePrice{
+    font-size: 34px;
+    text-align: center;
+  }
+  .titleDelivery{
+    font-size: 18px;
+    text-align: center;
+    display: none;
+  }
+  .actionBtnSale{
+    .priceItemSale{
+      height: 40px;
+      text-align: center;
+      line-height: 36px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button{
+      width: 100%;
+      height: 40px;
+      margin-top: 4px;
+      font-size: 18px;
+    }
+  }
+
+}
+
+
