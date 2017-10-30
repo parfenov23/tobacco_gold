@@ -1,7 +1,9 @@
 - @products.each do |product|
-  div id="select#{product.id}"
-    select.form-control name="buy[][item_id]"
-      - product.product_items.each do |item|
-        option data-barcode=item.barcode data-product=product.id value=item.id = item.title
-    input.selectPrice.form-control name="buy[][price_id]" placeholder='стоимость'
-    input.form-control name="buy[][barcode]" placeholder='Код товара'
+  table id="select#{product.id}"
+    tr
+      td
+        select.form-control name="buy[][item_id]"
+          - product.product_items.each do |item|
+            option data-barcode=item.barcode data-product=product.id value=item.id = item.title
+      td
+        input.selectPrice.form-control name="buy[][price_id]" placeholder='стоимость'

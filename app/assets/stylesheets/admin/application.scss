@@ -83,6 +83,24 @@
       font-size: 18px;
     }
   }
+  .allItemsSale{
+    .countItems{
+      max-width: 82px;
+    }
+    .selectPrice{
+      max-width: 72px;
+    }
+    .createFromBarcodeScan{
+      .barcode{
+        input{
+          display: none;
+        }
+        span{
+          display: initial !important;
+        }
+      }
+    }
+  }
 
 }
 

@@ -37,25 +37,35 @@ var scanBarCode = function(){
 }
 
 var addItemWhenBarcodeScan = function(barcode){
-  var item = $("#contentSelect option[data-barcode='"+ barcode +"']");
-  if (item.length){
-    addBlankBlockItem(barcode);
-    var productSaleBlock = $(".barcode" + barcode + ":last");
-    var product_select = productSaleBlock.find("select.changeSelectContent");
-    var product_id = item.data('product')
-    product_select.val(product_id);
-    addProductItemToProductBlock(product_select, product_id);
-    productSaleBlock.find("select[name='buy[][item_id]']").val(item.val());
-    productSaleBlock.find("input[name='buy[][barcode]']").hide();
+  var findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
+  if (!findItem.length){
+    var item = $("#contentSelect option[data-barcode='"+ barcode +"']");
+    if (item.length){
+      addBlankBlockItem(barcode);
+      var productSaleBlock = $(".barcode" + barcode + ":last");
+      var product_select = productSaleBlock.find("select.changeSelectContent");
+      var product_id = item.data('product')
+      product_select.val(product_id);
+      addProductItemToProductBlock(product_select, product_id);
+      productSaleBlock.find("select[name='buy[][item_id]']").val(item.val());
+      findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
+      findItem.addClass("createFromBarcodeScan");
+      findItem.find("td.barcode span").text(barcode);
+      sumItemSale(findItem);
+      priceItemSale();
+    }
+  }else{
+    var input_count = findItem.find("input[name='buy[][count]']");
+    input_count.val( parseInt(input_count.val()) + 1 );
     priceItemSale();
+    sumItemSale(findItem);
   }
 }
 
 
 var addBlankBlockItem = function(bc){
-  var refer = $(".referenceItemSale").html();
+  var refer = $(".referenceItemSale tbody").html();
   $(".allItemsSale").append($(refer).addClass('barcode' + bc));
-  $(document).scrollTop($(document).height());
 }
 
 var addProductItemToProductBlock = function(curr_block, bl_val){
@@ -64,8 +74,12 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
   var price = $(curr_block).find("option[value='" + bl_val + "']").data('price');
   var parent_item = $(curr_block).closest('.parentItemSale')
   if (bl_val > 0){
-    parent_item.find('.formLoadContent').html($(block_content));
-    parent_item.find("input[name='buy[][price_id]']").val(price)
+    var load_content_selests = $("<div>"+ block_content + "</div>");
+    // parent_item.find('.formLoadContent').html($(block_content));
+    $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html(load_content_selests.find("select[name='buy[][item_id]']"));
+    $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html(load_content_selests.find("input[name='buy[][price_id]']"));
+    parent_item.find("input[name='buy[][price_id]']").val(price);
+    changeSelectPriceAndCount();
   } else {
     parent_item.find('.formLoadContent').html('');
   }
@@ -83,8 +97,23 @@ var priceItemSale = function(){
   $(".titlePrice").text(result);
 }
 
+var sumItemSale = function(block){
+  var curr_price = parseInt(block.find("[name='buy[][price_id]']").val());
+  var curr_count = parseInt(block.find("[name='buy[][count]']").val());
+  block.find(".endSumPosition").text(curr_price*curr_count);
+}
+
+var changeSelectPriceAndCount = function(){
+  $(document).on('change', '.selectPrice, .countItems', function () {
+    var block = $(this).closest(".parentItemSale");
+    sumItemSale(block);
+    priceItemSale();
+  });
+}
+
 $(document).ready(function(){
   scanBarCode();
+  changeSelectPriceAndCount();
 
   $(document).on('click', '.addItemSale', addBlankBlockItem);
   
