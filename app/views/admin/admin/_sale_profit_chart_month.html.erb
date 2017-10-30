@@ -2,14 +2,14 @@
 <script type="text/javascript">
   google.charts.load('current', {'packages':['bar']});
   google.charts.setOnLoadCallback(drawChart);
-  <% arr = ([['Месяц', 'Продажи', 'Заработано']].concat Sale.meneger_curr_year_statistic(current_user.id)).to_json %>
+  <% arr = ([['День', 'Продажи', 'Заработано']].concat Sale.meneger_curr_month_statistic(current_user.id)).to_json %>
   function drawChart() {
     var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
 
     var options = {
       chart: {
         title: '<%=  current_user.email %>',
-        subtitle: 'продажи, заработок за текущий год',
+        subtitle: 'продажи, заработок за текущий месяц',
       }
     };
 

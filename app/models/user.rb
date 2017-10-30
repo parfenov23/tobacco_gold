@@ -38,4 +38,36 @@ class User < ActiveRecord::Base
   def meneger_procent
     procent_sale
   end
+
+  # Баланс
+  def manager_balance_month
+    manager_payments.where(["created_at > ?", Time.now.beginning_of_month]).where(["created_at < ?", Time.now.end_of_month]).sum(:price)
+  end
+
+  def manager_balance_today
+    manager_payments.where(["created_at > ?", Time.now.beginning_of_day]).where(["created_at < ?", Time.now.end_of_day]).sum(:price)
+  end
+
+  # Средний Чек
+  def manager_average_check_today
+    all_sales = sales.where(["created_at > ?", Time.now.beginning_of_day]).where(["created_at < ?", Time.now.end_of_day])
+    all_sales.count > 0 ? all_sales.sum(:price) / all_sales.count : 0
+  end
+
+  def manager_average_check_month
+    all_sales = sales.where(["created_at > ?", Time.now.beginning_of_month]).where(["created_at < ?", Time.now.end_of_month])
+    all_sales.count > 0 ? all_sales.sum(:price) / all_sales.count : 0
+  end
+
+  def manager_average_check_all
+    sales.count > 0 ? sales.sum(:price) / sales.count : 0
+  end
+
+  def manager_payment_month
+    sales.where(["created_at > ?", Time.now.beginning_of_month]).where(["created_at < ?", Time.now.end_of_month])
+  end
+
+  def manager_payment_today
+    sales.where(["created_at > ?", Time.now.beginning_of_day]).where(["created_at < ?", Time.now.end_of_day])
+  end
 end

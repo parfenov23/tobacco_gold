@@ -26,7 +26,7 @@ module Admin
         item.update({count: (item.count - count)})
         SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
       end
-      sale.update(price: result, profit: sale.find_profit)
+      sale.update(price: result, profit: sale.find_profit, visa: params[:cashbox_type] == "visa")
       current_cashbox.calculation(params[:cashbox_type], result, true)
       current_user.manager_payments.create(price: result/100*current_user.procent_sale)
       sale.notify_buy(current_cashbox)

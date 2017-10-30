@@ -2,8 +2,30 @@ module Admin
   class AdminController < ActionController::Base
     before_action :redirect_to_stock
     layout "admin"
+    
     def index
-
+      if params[:stat] == "all" 
+        @sum_sales = current_user.sales.sum(:price)
+        @cash_money = current_user.sales.where(visa: false).sum(:price)
+        @cash_visa = current_user.sales.where(visa: true).sum(:price)
+        @average_check = current_user.manager_average_check_all
+        @manager_balance = current_user.manager_payments.sum(:price)
+        @all_count_sales = current_user.sales.count
+      elsif params[:stat] == "month"
+        @sum_sales = current_user.manager_payment_month.sum(:price)
+        @cash_money = current_user.manager_payment_month.where(visa: false).sum(:price)
+        @cash_visa = current_user.manager_payment_month.where(visa: true).sum(:price)
+        @average_check = current_user.manager_average_check_month
+        @manager_balance = current_user.manager_balance_month
+        @all_count_sales = current_user.manager_payment_month.count
+      else
+        @sum_sales = current_user.manager_payment_today.sum(:price)
+        @cash_money = current_user.manager_payment_today.where(visa: false).sum(:price)
+        @cash_visa = current_user.manager_payment_today.where(visa: true).sum(:price)
+        @average_check = current_user.manager_average_check_today
+        @manager_balance = current_user.manager_balance_today
+        @all_count_sales = current_user.manager_payment_today.count
+      end
     end
 
     def manager_payments
