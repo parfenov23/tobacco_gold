@@ -66,6 +66,7 @@ var addItemWhenBarcodeScan = function(barcode){
 var addBlankBlockItem = function(bc){
   var refer = $(".referenceItemSale tbody").html();
   $(".allItemsSale").append($(refer).addClass('barcode' + bc));
+  $(document).scrollTop($(document).height());
 }
 
 var addProductItemToProductBlock = function(curr_block, bl_val){
