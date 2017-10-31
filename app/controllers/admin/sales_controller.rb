@@ -14,6 +14,16 @@ module Admin
       @sale = find_model
     end
 
+    def show
+      @sale = find_model
+      respond_to do |format|
+        format.html
+        format.pdf{
+          render pdf: "test#{Time.now.to_i}"
+        }
+      end
+    end
+
     def create
       sales_arr = params[:sales]
       sale = Sale.create(user_id: current_user.id, contact_id: params[:contact_id])
