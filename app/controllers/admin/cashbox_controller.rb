@@ -1,5 +1,7 @@
 module Admin
   class CashboxController < CommonController
+    before_action :redirect_to_stock, except: [:api]
+
     def index
       Cashbox.create if Cashbox.all.blank? # временное решение
       @current_cashbox = current_cashbox # потом поиск по филиалу
@@ -55,6 +57,10 @@ module Admin
       end
 
       redirect_to "/admin/cashbox"
+    end
+
+    def api
+      render json: {cashbox:{visa: current_cashbox.visa, cash: current_cashbox.cash}}
     end
 
     private

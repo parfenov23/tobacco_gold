@@ -170,6 +170,7 @@ Rails.application.routes.draw do
       collection do
         get :to_check
         post :update_cashbox
+        get :api
       end
     end
 
