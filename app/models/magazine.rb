@@ -1,6 +1,6 @@
 class Magazine < ActiveRecord::Base
   has_one :cashbox, dependent: :destroy
-  before_create :default_create_product_item_count
+  after_create :default_create_product_item_count
 
   def self.first_url
     "magazins"
