@@ -48,11 +48,11 @@ module Admin
     end
 
     def current_cashbox
-      Cashbox.find_by_magazine_id(magazine_id)
+      magazine_id.present? ? Cashbox.find_by_magazine_id(magazine_id) : nil
     end
 
     def magazine_id
-      current_user.magazine_id
+      current_user.present? ? current_user.magazine_id : nil
     end
   end
 end
