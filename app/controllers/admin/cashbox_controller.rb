@@ -60,7 +60,8 @@ module Admin
     end
 
     def api
-      render json: {cashbox:{visa: current_cashbox.visa, cash: current_cashbox.cash}}
+      cashbox = Cashbox.first
+      render json: {cashbox:{visa: cashbox.visa, cash: cashbox.cash}}
     end
 
     private
