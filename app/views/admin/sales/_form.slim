@@ -9,8 +9,10 @@
   - @products.each do |product|
     div id="select#{product.id}"
       select.form-control name="sales[][item_id]"
-        - product.product_items.where.not(count: 0).each do |item|
-          option data-barcode=item.barcode data-product=product.id value=item.id = item.title
+        - product.product_items.each do |item|
+          - product_item_count = item.product_item_counts.where(magazine_id: current_magazine.id).last
+          - if product_item_count.present? && product_item_count.count > 0
+            option data-barcode=item.barcode data-product=product.id value=item.id = item.title
       - all_prices = product.product_prices.where(archive: false)
       - all_prices_arr = all_prices.map{|first_price| [first_price.price, first_price.id]}
       - curr_price = params[:type_sale] != "opt" ? all_prices.curr_default_id : all_prices.curr_opt_id
@@ -59,6 +61,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       = render "admin/admin/common_cashbox"
       .actionBtnSale
         .btn-primary.priceItemSale Подсчет
+        input type="hidden" name="magazine_id" value="#{current_user.magazine_id}"
         input type="hidden" name="_method" value="#{method}"
         button.btn.btn-success type="submit" Расчет
   / .list-group.row

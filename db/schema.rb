@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170925122545) do
+ActiveRecord::Schema.define(version: 20171103194951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170925122545) do
     t.datetime "updated_at",                  null: false
     t.boolean  "def_pay",     default: false
     t.integer  "provider_id"
+    t.integer  "magazine_id"
   end
 
   create_table "cachbox_items", force: :cascade do |t|
@@ -48,8 +49,9 @@ ActiveRecord::Schema.define(version: 20170925122545) do
   create_table "cashboxes", force: :cascade do |t|
     t.integer  "cash"
     t.integer  "visa"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "magazine_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -89,12 +91,21 @@ ActiveRecord::Schema.define(version: 20170925122545) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "magazines", force: :cascade do |t|
+    t.string   "title"
+    t.string   "address"
+    t.string   "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "manager_payments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "price"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "payment",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "payment",     default: false
+    t.integer  "magazine_id"
   end
 
   create_table "mix_box_items", force: :cascade do |t|
@@ -148,9 +159,18 @@ ActiveRecord::Schema.define(version: 20170925122545) do
   create_table "other_buys", force: :cascade do |t|
     t.string   "title"
     t.float    "price"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.boolean  "type_mode",  default: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "type_mode",   default: true
+    t.integer  "magazine_id"
+  end
+
+  create_table "product_item_counts", force: :cascade do |t|
+    t.integer  "product_item_id"
+    t.integer  "magazine_id"
+    t.integer  "count"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "product_items", force: :cascade do |t|
@@ -216,13 +236,14 @@ ActiveRecord::Schema.define(version: 20170925122545) do
   end
 
   create_table "sales", force: :cascade do |t|
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.float    "price",      default: 0.0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.float    "price",       default: 0.0
     t.integer  "user_id"
     t.integer  "contact_id"
-    t.integer  "profit",     default: 0
-    t.boolean  "visa",       default: false
+    t.integer  "profit",      default: 0
+    t.boolean  "visa",        default: false
+    t.integer  "magazine_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -244,6 +265,7 @@ ActiveRecord::Schema.define(version: 20170925122545) do
     t.boolean  "admin",                  default: false
     t.string   "role",                   default: "user"
     t.integer  "procent_sale",           default: 0
+    t.integer  "magazine_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

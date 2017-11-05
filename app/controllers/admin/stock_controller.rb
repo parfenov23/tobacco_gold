@@ -1,6 +1,6 @@
 module Admin
   class StockController < AdminController
-    before_action :auth, except: [:index]
+    before_action :auth, except: [:index, :to_excel]
     before_action :redirect_to_stock, except: [:index]
     def index
       @products = Product.all

@@ -11,6 +11,13 @@ module Admin
       redirect_to '/admin/product_items?product_id=' + product_id.to_s
     end
 
+    def update
+      product_item = find_model
+      product_item.update(params_model)
+      product_item.product_item_counts.where(magazine_id: magazine_id).last.update(count: params[:product_items][:count])
+      redirect_to_index
+    end
+
     private
 
     def model

@@ -4,6 +4,8 @@ class ProductItem < ActiveRecord::Base
   has_many :sale_items, dependent: :destroy
   default_scope { order('title ASC') }
   scope :total_sum, -> { map{|pi| pi.product.current_price}.sum }
+  has_many :product_item_counts, dependent: :destroy
+  after_create :default_create_product_item_count
 
   def self.popular_sort(count_first=3)
   	products = self.all
@@ -15,6 +17,17 @@ class ProductItem < ActiveRecord::Base
 
   def self.first_url
     "product_items"
+  end
+
+  def current_count(magazine)
+    if id.present?
+      product_item_counts.create(magazine_id: magazine.id, count: 0) if product_item_counts.where(magazine_id: magazine.id).blank?
+    end
+    product_item_counts.present? ? product_item_counts.where(magazine_id: magazine.id).last.count : 0
+  end
+
+  def default_create_product_item_count
+    Magazine.all.map{|magaz| ProductItemCount.create({product_item_id: id, magazine_id: magaz.id, count: 0}) }
   end
 
   # def total_sum

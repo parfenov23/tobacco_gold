@@ -29,11 +29,11 @@ module Admin
     end
 
     def manager_payments
-      @all_managers = User.all
+      @all_managers = User.where(magazine_id: magazine_id)
     end
 
     def paid_manager_payments
-      all_manager_pay = ManagerPayment.where(user_id: params[:user_id], payment: false)
+      all_manager_pay = ManagerPayment.where(user_id: params[:user_id], payment: false, magazine_id: magazine_id)
       current_cashbox.calculation('cash', all_manager_pay.sum(:price), false)
       all_manager_pay.update_all(payment: true)
       redirect_to "/admin/admin/manager_payments"
@@ -48,7 +48,11 @@ module Admin
     end
 
     def current_cashbox
-      Cashbox.first
+      Cashbox.find_by_magazine_id(magazine_id)
+    end
+
+    def magazine_id
+      current_user.magazine_id
     end
   end
 end

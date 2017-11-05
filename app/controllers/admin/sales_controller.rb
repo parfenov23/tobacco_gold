@@ -2,7 +2,7 @@ module Admin
   class SalesController < CommonController
 
     def index
-      @sales = current_user.is_admin? ? model.all : model.where(user_id: current_user.id)
+      @sales = current_user.is_admin? ? model.where(magazine_id: magazine_id) : model.where(user_id: current_user.id, magazine_id: magazine_id)
     end
 
     def new
@@ -33,12 +33,14 @@ module Admin
         item = ProductItem.find(sale_param[:item_id])
         price = ProductPrice.find(sale_param[:price_id])
         result += price.price*count
+        current_item_count = item.product_item_counts.where(magazine_id: magazine_id).last
+        current_item_count.update(count: (current_item_count.count - count) )
         item.update({count: (item.count - count)})
         SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
       end
-      sale.update(price: result, profit: sale.find_profit, visa: params[:cashbox_type] == "visa")
+      sale.update(price: result, profit: sale.find_profit, visa: params[:cashbox_type] == "visa", magazine_id: params[:magazine_id])
       current_cashbox.calculation(params[:cashbox_type], result, true)
-      current_user.manager_payments.create(price: result/100*current_user.procent_sale)
+      current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
       sale.notify_buy(current_cashbox)
       redirect_to_index
     end

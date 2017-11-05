@@ -119,6 +119,12 @@ Rails.application.routes.draw do
         get :remove
       end
     end
+    resources :magazins do
+      member do
+        get :remove
+      end
+    end
+
 
     resources :contacts do
       member do

@@ -28,10 +28,10 @@
           td.info_column #{(@cashbox + @stock_price).to_i} рублей
         tr.success
           td Сумма продаж за сегодня
-          td.info_column #{Sale.current_day.sum(:price)} рублей
+          td.info_column #{@all_sales.current_day.sum(:price)} рублей
         tr.danger
           td Прибыль за сегодня
-          td.info_column #{Sale.current_day_profit} рублей
+          td.info_column #{@all_sales.current_day_profit} рублей
         // пока так
 
   .list-group-item
@@ -40,7 +40,7 @@
         th.table_title_cash Долг поставщикам
         th.table_title_cash
         - Provider.all.each do |provider|
-          - all_sum_buys = provider.buys.where(def_pay: false).sum(:price)
+          - all_sum_buys = provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).sum(:price)
           tr.success
             td = provider.title
             td.info_column #{all_sum_buys} рублей
@@ -78,10 +78,10 @@
           td.info_column #{@curr_month_manager_pay} рублей
         tr.info
           td Прибыль
-          td.info_column #{Sale.current_month_profit} рублей
+          td.info_column #{@all_sales.current_month_profit} рублей
         tr.success
           td Остаток прибыли
-          - curr_profit = Sale.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price + @curr_month_other_up_price
+          - curr_profit = @all_sales.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price + @curr_month_other_up_price
           td.info_column #{curr_profit} рублей
 
 = render "sale_profit_chart_month"

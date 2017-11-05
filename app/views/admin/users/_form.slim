@@ -16,6 +16,9 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .form_group
     |Права:
     = select_tag("user[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"], ["Пользователь", "user"]], @user.role.to_s), {:class => 'form-control'})
+  .form_group
+    |Магазин:
+    = select_tag("user[magazine_id]", options_for_select(Magazine.all.map{|magaz| [magaz.title, magaz.id]}, @user.magazine_id), {:class => 'form-control'})
   hr
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit"  Сохранить

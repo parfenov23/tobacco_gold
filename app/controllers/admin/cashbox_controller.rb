@@ -2,19 +2,21 @@ module Admin
   class CashboxController < CommonController
     def index
       Cashbox.create if Cashbox.all.blank? # временное решение
-      @current_cashbox = Cashbox.first # потом поиск по филиалу
+      @current_cashbox = current_cashbox # потом поиск по филиалу
 
       # @cashbox = Sale.cash_box
       @cashbox = @current_cashbox.cash + @current_cashbox.visa
       @stock_price = Product.stock_price
-      @last_sales_price = Sale.last_sales_price
-      @sales_profit = Sale.sales_profit
-      @curr_month_sales_price = Sale.curr_month_price.to_i
-      @curr_month_buy_price = Buy.curr_month_price.to_i
-      @curr_month_other_up_price = OtherBuy.curr_month_price(true).to_i
+      @all_sales = Sale.where(magazine_id: current_user.magazine_id)
+      
+      @last_sales_price = @all_sales.last_sales_price
+      @sales_profit = @all_sales.sales_profit
+      @curr_month_sales_price = @all_sales.curr_month_price.to_i
+      @curr_month_buy_price = Buy.where(magazine_id: current_user.magazine_id).curr_month_price.to_i
+      @curr_month_other_up_price = OtherBuy.where(magazine_id: magazine_id).curr_month_price(true).to_i
 
-      @curr_month_other_down_price = OtherBuy.curr_month_price(false).to_i
-      @curr_month_manager_pay = ManagerPayment.curr_month_price
+      @curr_month_other_down_price = OtherBuy.where(magazine_id: magazine_id).curr_month_price(false).to_i
+      @curr_month_manager_pay = ManagerPayment.where(magazine_id: magazine_id).curr_month_price
     end
 
     def to_check

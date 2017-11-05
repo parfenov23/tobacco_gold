@@ -52,17 +52,17 @@ class Sale < ActiveRecord::Base
     "http://tobacco-gold.ru/admin/sales/#{id}/info"
   end
 
-  def self.curr_year_statistic
+  def self.curr_year_statistic(magaz_id=nil)
     arr_result = []
     Time.now.month.times do |i|
       month = Time.now.beginning_of_year + i.month
       first_day = month.beginning_of_month
       last_day = month.end_of_month
-      all_sales = find_model_result(Sale, first_day, last_day)
+      all_sales = find_model_result(self, first_day, last_day)
 
-      other_buy_all_year = find_model_result(OtherBuy, first_day, last_day)
+      other_buy_all_year = find_model_result(OtherBuy.where(magazine_id: magaz_id), first_day, last_day)
       all_other_buy = other_buy_all_year.where(type_mode: false).sum(:price)
-      all_other_buy += find_model_result(ManagerPayment, first_day, last_day).where(payment: true).sum(:price)
+      all_other_buy += find_model_result(ManagerPayment.where(magazine_id: magaz_id), first_day, last_day).where(payment: true).sum(:price)
       all_other_buy_up = other_buy_all_year.where(type_mode: true).sum(:price)
 
       sales_sum = all_sales.sum(:price)
@@ -73,17 +73,17 @@ class Sale < ActiveRecord::Base
     arr_result
   end
 
-  def self.curr_month_statistic
+  def self.curr_month_statistic(magaz_id=nil)
     arr_result = []
     Time.now.day.times do |i|
       day = Time.now.beginning_of_month + i.day
       first_day = day.beginning_of_day
       last_day = day.end_of_day
-      all_sales = find_model_result(Sale, first_day, last_day)
+      all_sales = find_model_result(self, first_day, last_day)
 
-      other_buy_all_month = find_model_result(OtherBuy, first_day, last_day)
+      other_buy_all_month = find_model_result(OtherBuy.where(magazine_id: magaz_id), first_day, last_day)
       all_other_buy = other_buy_all_month.where(type_mode: false).sum(:price)
-      all_other_buy += find_model_result(ManagerPayment, first_day, last_day).where(payment: true).sum(:price)
+      all_other_buy += find_model_result(ManagerPayment.where(magazine_id: magaz_id), first_day, last_day).where(payment: true).sum(:price)
       all_other_buy_up = other_buy_all_month.where(type_mode: true).sum(:price)
 
       sales_sum = all_sales.sum(:price)

@@ -1,0 +1,15 @@
+- action_url = @model.id.nil? ? "/admin/magazins" : "/admin/magazins/#{@model.id}"
+- method = @model.id.nil? ? "post" : "put"
+form.form-horizontal action="#{action_url}" method="post"
+  .form_group
+    label.control-label Название:
+    input.form-control name="magazins[title]" type="text" value="#{@model.title}"
+  .form_group
+    label.control-label Адрес:
+    input.form-control name="magazins[address]" type="text" value="#{@model.address}"
+  .form_group
+    label.control-label Телефон:
+    input.form-control name="magazins[phone]" type="text" value="#{@model.phone}"
+  hr
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary type="submit"  Сохранить

@@ -41,6 +41,10 @@ module ApplicationHelper
     current_user.admin || current_user.is_admin? || current_user.is_manager? rescue false
   end
 
+  def current_magazine
+    current_user.magazine
+  end
+
   def all_pages
     [
       ["Как это работает", "how_it_works"],
@@ -96,7 +100,8 @@ module ApplicationHelper
       {url: '/admin/contacts', title: 'Клиенты'},
       {url: '/admin/admin/manager_payments', title: 'Выплаты'},
       {url: '/admin/admin/search', title: 'Поиск'},
-      {url: '/admin/providers', title: 'Поставщики'}
+      {url: '/admin/providers', title: 'Поставщики'},
+      {url: '/admin/magazins', title: 'Магазины'}
     ]
   end
 

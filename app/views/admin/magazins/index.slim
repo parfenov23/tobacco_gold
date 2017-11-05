@@ -1,0 +1,11 @@
+.list-group.row
+  .list-group-item.panel_gray_common
+    a.btn.btn-success href="/admin/magazins/new"
+      | Добавить магазин
+  - @models.each do |model_f|
+    .list-group-item.col-md-6
+      span = model_f.title
+      - m_id = model_f.id
+      - url_cashbox = model_f.cashbox.present? ? "/admin/cashbox/#{model_f.cashbox.id}/edit?magazine=#{m_id}": "/admin/cashbox/new?magazine=#{m_id}"
+      a.btn.btn-success style="margin-right: 5px;" href=url_cashbox Касса
+      = render "admin/admin/common_btn", {url: "/admin/magazins/#{model_f.id}"}

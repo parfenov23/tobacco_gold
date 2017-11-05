@@ -11,7 +11,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     .form-group
       label
         | Количество:
-      input.form-control name="product_items[count]" type="text" value="#{@model.count}"
+      input.form-control name="product_items[count]" type="text" value="#{@model.current_count(current_magazine)}"
     hr
   .form-group
     label

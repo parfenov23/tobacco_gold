@@ -1,9 +1,6 @@
-h2 Все пользователи
-hr
-
 .list-group.row
   .list-group-item.panel_gray_common
-    a.btn.btn-success href="/admin/user/new"  Добавить пользователя
+    a.btn.btn-success href="/admin/users/new"  Добавить пользователя
   - @users.each do |user|
     .list-group-item.col-md-6
       span = user.email

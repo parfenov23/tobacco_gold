@@ -9,7 +9,7 @@ module Admin
     end
 
     def create
-      user = ContentPage.new(params_user)
+      user = User.create(params_user)
       redirect_to "/admin/users/#{user.id}/edit"
     end
 
@@ -34,7 +34,7 @@ module Admin
     end
 
     def params_user
-      params.require(:user).permit(:email, :login, :rate, :password, :role, :procent_sale).compact.select{|k,v| v != ""}
+      params.require(:user).permit(:email, :login, :rate, :password, :role, :procent_sale, :magazine_id).compact.select{|k,v| v != ""}
     end
   end
 end
