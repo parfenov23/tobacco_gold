@@ -35,7 +35,7 @@ module Admin
         result_cash = curr_cash - current_cashbox.cash
         param_cash = {price: result_cash, title: "сверка кассы наличные", type_mode: true, type_cash: 'cash'}
       end
-        
+
       if curr_visa < current_cashbox.visa
         result_visa = current_cashbox.visa - curr_visa
         param_visa = {price: result_visa, title: "сверка кассы visa", type_mode: false, type_cash: 'visa'}
@@ -62,7 +62,14 @@ module Admin
     def api
       cashbox = Cashbox.first
       all_sales = Sale.where(magazine_id: cashbox.magazine_id)
-      render json: {cashbox:{cash: cashbox.cash, visa: cashbox.visa, today_sale: all_sales.current_day.sum(:price)}}
+      render json: {cashbox:
+        {
+          cash: cashbox.cash, 
+          visa: cashbox.visa, 
+          today_sale: all_sales.current_day.sum(:price)
+          profit_today: all_sales.current_day_profit
+        }
+      }
     end
 
     private
