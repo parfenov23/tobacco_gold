@@ -66,7 +66,7 @@ module Admin
         {
           cash: cashbox.cash, 
           visa: cashbox.visa, 
-          today_sale: all_sales.current_day.sum(:price)
+          today_sale: all_sales.current_day.sum(:price),
           profit_today: all_sales.current_day_profit
         }
       }
