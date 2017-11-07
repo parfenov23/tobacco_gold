@@ -61,7 +61,8 @@ module Admin
 
     def api
       cashbox = Cashbox.first
-      render json: {cashbox:{visa: cashbox.visa, cash: cashbox.cash}}
+      all_sales = Sale.where(magazine_id: cashbox.magazine_id)
+      render json: {cashbox:{cash: cashbox.cash, visa: cashbox.visa, today_sale: all_sales.current_day.sum(:price)}}
     end
 
     private
