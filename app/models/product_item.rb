@@ -1,14 +1,14 @@
 class ProductItem < ActiveRecord::Base
   include PgSearch
   pg_search_scope :search,
-                  :against => :title,
-                  :using => {
-                    :tsearch => {:any_word => true},
-                    :dmetaphone => {:any_word => true, :sort_only => true},
-                    :trigram => {
-                      :threshold => 0.5
-                    }
-                  }
+  :against => :title,
+  :using => {
+    :tsearch => {:normalization => 2, :negation => true},
+    :dmetaphone => {},
+    :trigram => {
+      :threshold => 0.2
+    }
+  }
 
   belongs_to :product
   has_many :buy_items, dependent: :destroy
@@ -23,7 +23,7 @@ class ProductItem < ActiveRecord::Base
   	products.find(
   		products.map{ |m| 
   			[m.id, m.sale_items.count] 
-  		}.to_h.sort_by(&:last).reverse.first(count_first).to_h.keys)
+        }.to_h.sort_by(&:last).reverse.first(count_first).to_h.keys)
   end
 
   def self.first_url
@@ -39,6 +39,19 @@ class ProductItem < ActiveRecord::Base
 
   def default_create_product_item_count
     Magazine.all.map{|magaz| ProductItemCount.create({product_item_id: id, magazine_id: magaz.id, count: 0}) }
+  end
+
+  def self.title_search(query)
+    result = nil
+    4.times do |i|
+      result = text_search(query, ((4-i)*0.1).to_s )
+      break if result.present?
+    end
+    result
+  end
+
+  def self.text_search(query, val = "0.4")
+    search(query).where("similarity(title, ?) > #{val}", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
 
   # def total_sum

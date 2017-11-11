@@ -11,11 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103194951) do
+ActiveRecord::Schema.define(version: 20171111180657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "pg_trgm"
+  enable_extension "fuzzystrmatch"
 
   create_table "buy_items", force: :cascade do |t|
     t.integer  "buy_id"
