@@ -27,6 +27,8 @@ gem 'wkhtmltopdf-binary'
 
 gem 'therubyracer', :platforms => :ruby
 
+gem 'pg_search' # поиск по базе
+
 #========== sms center
 gem 'smsc'
 #==========

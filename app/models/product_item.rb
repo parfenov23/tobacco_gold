@@ -1,4 +1,15 @@
 class ProductItem < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :search,
+                  :against => :title,
+                  :using => {
+                    :tsearch => {:any_word => true},
+                    :dmetaphone => {:any_word => true, :sort_only => true},
+                    :trigram => {
+                      :threshold => 0.5
+                    }
+                  }
+
   belongs_to :product
   has_many :buy_items, dependent: :destroy
   has_many :sale_items, dependent: :destroy
