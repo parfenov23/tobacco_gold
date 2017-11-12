@@ -73,7 +73,7 @@ module Admin
       arr_title = result_json.gsub(", ",",").split(",")
       @find_arr = []
       arr_title.each do |title|
-        result = ProductItem.where(product_id: 1).title_search(title).last
+        result = ProductItem.where(product_id: 3).title_search(title).last
         @find_arr += [[title, (result.present? ? result.id : nil)]]
       end
     end
