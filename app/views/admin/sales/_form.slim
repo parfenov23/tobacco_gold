@@ -6,25 +6,25 @@
 - method = from_model_present ? "post" : "put"
 
 #contentSelect style="display:none;"
-  / - @products.each do |product|
-  /   div id="select#{product.id}"
-  /     select.form-control name="sales[][item_id]"
-  /       - product.product_items.each do |item|
-  /         - product_item_count = item.product_item_counts.where(magazine_id: current_magazine.id).last
-  /         - if product_item_count.present? && product_item_count.count > 0
-  /           option data-barcode=item.barcode data-product=product.id value=item.id = item.title
-  /     - all_prices = product.product_prices.where(archive: false)
-  /     - all_prices_arr = all_prices.map{|first_price| [first_price.price, first_price.id]}
-  /     - curr_price = params[:type_sale] != "opt" ? all_prices.curr_default_id : all_prices.curr_opt_id
-  /     = select("", "", all_prices_arr, {selected: curr_price}, { name: 'sales[][price_id]', class: 'form-control selectPrice'})
+  - @products.each do |product|
+    / div id="select#{product.id}"
+    /   select.form-control name="sales[][item_id]"
+    /     - product.product_items.each do |item|
+    /       - product_item_count = item.product_item_counts.where(magazine_id: current_magazine.id).last
+    /       - if product_item_count.present? && product_item_count.count > 0
+    /         option data-barcode=item.barcode data-product=product.id value=item.id = item.title
+    /   - all_prices = product.product_prices.where(archive: false)
+    /   - all_prices_arr = all_prices.map{|first_price| [first_price.price, first_price.id]}
+    /   - curr_price = params[:type_sale] != "opt" ? all_prices.curr_default_id : all_prices.curr_opt_id
+    /   = select("", "", all_prices_arr, {selected: curr_price}, { name: 'sales[][price_id]', class: 'form-control selectPrice'})
 
 table.referenceItemSale style="display: none;"
   tr.parentItemSale.active
     td.inlineBlock
       select.form-control.changeSelectContent
         option value='0' Не выбранно
-        / - @products.each do |product|
-        /   option value=product.id = product.title
+        - @products.each do |product|
+          option value=product.id = product.title
 
     td.formLoadContentTaste
     td.formLoadContentPrice
@@ -35,10 +35,10 @@ table.referenceItemSale style="display: none;"
       .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  / .form-group style="display: none;"
-  /   label Контакт:
-  /   - all_contacts = Contact.all
-  /   = select_tag("contact_id", options_for_select([["Нет", nil]] + all_contacts.map{|contact| [contact.title, contact.id]}), {:class => 'form-control'})
+  .form-group style="display: none;"
+    label Контакт:
+    - all_contacts = Contact.all
+    = select_tag("contact_id", options_for_select([["Нет", nil]] + all_contacts.map{|contact| [contact.title, contact.id]}), {:class => 'form-control'})
   .saleAllItemCashbox
     .list-group-item.col-md-9
       table.table
