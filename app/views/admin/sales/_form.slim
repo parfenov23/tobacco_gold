@@ -11,7 +11,7 @@
       select.form-control name="sales[][item_id]"
         - product.product_items.each do |item|
           - product_item_count = item.product_item_counts.where(magazine_id: current_magazine.id).last
-          - if product_item_count.present? && product_item_count.count > 0
+          - if product_item_count.present? && product_item_count.count.to_i > 0
             option data-barcode=item.barcode data-product=product.id value=item.id = item.title
       - all_prices = product.product_prices.where(archive: false)
       - all_prices_arr = all_prices.map{|first_price| [first_price.price, first_price.id]}
