@@ -64,6 +64,20 @@ module Admin
       @buy = find_model
     end
 
+    def search_result
+      agent = Mechanize.new
+      key = "trnsl.1.1.20171111T163230Z.04bdb3d7a3cc5cc3.ba4f5477c9fa02e2c6c9febb79947b65de104637"
+      query = params[:query].gsub("\"Адалья\"", "Адалья").gsub("\r\n", ", ").gsub(/Табак [а-я].+? (Адалья|Адалия) /, "").gsub("Табак Adalya (50гр) ", "")
+      page = agent.post("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{key}&text=#{query}&lang=ru-en")
+      result_json = JSON.parse(page.body)["text"].first
+      arr_title = result_json.gsub(", ",",").split(",")
+      @find_arr = []
+      arr_title.each do |title|
+        result = ProductItem.where(product_id: 1).title_search(title).last
+        @find_arr += [[title, (result.present? ? result.id : nil)]]
+      end
+    end
+
     private
 
     def find_model

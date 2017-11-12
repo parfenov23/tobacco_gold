@@ -188,6 +188,8 @@ Rails.application.routes.draw do
         get :def_pay
       end
       collection do
+        get :search
+        post :search_result
         post :new_item_product
       end
     end
