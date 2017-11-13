@@ -12,7 +12,7 @@ form action="/admin/buy/form_search_result" method="post" enctype="multipart/for
       - @find_arr.sort_by{|a| a[:result].to_i}.reverse.each do |arr|
         - product_item = arr[:result].present? ? ProductItem.find(arr[:result]) : nil
         - product_title = product_item.present? ? product_item.product.title : "Не найдено"
-        - coount_pi = product_item.present? ? product_item.current_count(current_user.magazine) : nil
+        - coount_pi = product_item.present? ? product_item.current_count(current_user.magazine).to_i : nil
         - curr_class = product_item.present? ? (coount_pi > 0 ? "success" : "info") : "danger"
         tr class=curr_class
           td = product_title
