@@ -209,6 +209,7 @@ GEM
     sshkit (1.13.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    string-similarity (2.0.0)
     temple (0.6.10)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
@@ -273,6 +274,7 @@ DEPENDENCIES
   slim (~> 2.0.0)
   smsc
   spring
+  string-similarity
   therubyracer
   uglifier
   unicorn

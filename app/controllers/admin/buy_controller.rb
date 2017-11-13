@@ -67,13 +67,15 @@ module Admin
     def search_result
       agent = Mechanize.new
       key = "trnsl.1.1.20171111T163230Z.04bdb3d7a3cc5cc3.ba4f5477c9fa02e2c6c9febb79947b65de104637"
-      query = params[:query].gsub("\"Адалья\"", "Адалья").gsub("\r\n", ", ").gsub(/Табак [а-я].+? (Адалья|Адалия) /, "").gsub("Табак Adalya (50гр) ", "")
-      page = agent.post("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{key}&text=#{query}&lang=ru-en")
-      result_json = JSON.parse(page.body)["text"].first
-      arr_title = result_json.gsub(", ",",").split(",")
+      query = clear_query_search(params[:query], Product.find(params[:product_id]).title)
+      arr_title = []
+      query.gsub(", ",",").split(",").uniq.each do |t|
+        page = agent.post("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{key}&text=#{t}&lang=ru-en")
+        arr_title << JSON.parse(page.body)["text"].first
+      end
       @find_arr = []
       arr_title.each do |title|
-        result = ProductItem.where(product_id: 3).title_search(title).last
+        result = ProductItem.where(product_id: params[:product_id]).accurate_search_title(title)
         @find_arr += [[title, (result.present? ? result.id : nil)]]
       end
     end
@@ -94,6 +96,21 @@ module Admin
 
     def model
       Buy
+    end
+
+    def clear_query_search(query, product)
+      case product
+      when "Adalya"
+        query.gsub("\"Адалья\"", "Адалья").gsub("\r\n", ", ").gsub(/Табак [а-я].+? (Адалья|Адалия) /, "").gsub("Табак Adalya (50гр) ", "")
+      when "Serbetli"
+        query.gsub("\"Щербетли\"", "Щербетли").gsub("\r\n", ", ").gsub(/Табак [а-я].+? (Щербетли|Щербет) /, "").gsub("Табак Serbetli (50гр) ", "")
+      when "Smyrna"
+        query.gsub("\"Смирна\"", "Смирна").gsub("\r\n", ", ").gsub(/Табак [а-я].+? (Смирна|Смирна) /, "").gsub("Табак SMYRNA (50гр) ", "")
+      when "Afzal"
+        query.gsub("\"Афзал\"", "Афзал").gsub("\r\n", ", ").gsub(/Табак [а-я].+? (Афзал|Афзал) /, "").gsub("Табак Афзал (50гр) ", "")
+      when "AL Fakher" 
+        query.gsub("\"Аль Факер\"", "Аль Факер").gsub("\r\n", ", ").gsub(/Табак [а-я].+? (Аль Факер|Аль Факер) /, "").gsub("Табак Al Fakher (50гр) ", "")
+      end
     end
 
   end

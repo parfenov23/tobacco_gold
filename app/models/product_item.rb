@@ -1,4 +1,5 @@
 class ProductItem < ActiveRecord::Base
+  require 'string/similarity'
   include PgSearch
   pg_search_scope :search,
   :against => :title,
@@ -41,10 +42,21 @@ class ProductItem < ActiveRecord::Base
     Magazine.all.map{|magaz| ProductItemCount.create({product_item_id: id, magazine_id: magaz.id, count: 0}) }
   end
 
+  def self.accurate_search_title(query)
+    result = title_search(query).first
+    if result.present?
+      reg = Regexp.new "\([А-я].+?\)"
+      r_title = result.title.gsub(reg, "").gsub("(", "").gsub(")", "")
+      result = String::Similarity.cosine(r_title, query) > 0.8 ? result : nil
+    end
+    result
+  end
+
   def self.title_search(query)
     result = nil
-    4.times do |i|
-      result = text_search(query, ((4-i)*0.1).to_s )
+    count = 6
+    count.times do |i|
+      result = text_search(query, ((count-i)*0.1).to_s )
       break if result.present?
     end
     result

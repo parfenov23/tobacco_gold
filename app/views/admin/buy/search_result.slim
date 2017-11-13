@@ -3,12 +3,13 @@ table.table
     tr
       th Производитель
       th Вкус
+      th Запрос
       th Количество
 
   tbody
     - arr_class = ["success", "info"]
     - i = -1
-    - @find_arr.each do |arr|
+    - @find_arr.sort_by{|a| a.last.to_i}.reverse.each do |arr|
       - i == 1 ? i = 0 : i+=1
       - product_item = arr.last.present? ? ProductItem.find(arr.last) : nil
       - product_title = product_item.present? ? product_item.product.title : "Не найдено"
@@ -16,4 +17,5 @@ table.table
       tr class=curr_class
         td = product_title
         td = product_item.present? ? product_item.title : arr.first
+        td = arr.first
         td = product_item.present? ? product_item.current_count(current_user.magazine) : nil

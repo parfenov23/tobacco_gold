@@ -4,7 +4,7 @@
       button.btn.btn-success href="/admin/buy/new"  Добавить закуп
       span.selectInlineProvider
         = select_tag("provider_id", options_for_select(Provider.all.map{|pr| [pr.title, pr.id]}))
-    a.btn.btn-success href="#" Поиск
+    a.btn.btn-success href="/admin/buy/search" Поиск
   - @buys.each do |buy|
     .list-group-item.col-md-6
       span
