@@ -1,0 +1,14 @@
+a.btn.btn-success href="/admin/buy/search" Новый поиск
+table.table
+  thead
+    tr
+      th Название
+      th Количество
+  tbody
+    - i = -1
+    - params[:title].each do |title|
+      - count = params[:count][i+=1].to_i
+      - if count > 0
+        tr
+          td = title
+          td = count

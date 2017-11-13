@@ -1,19 +1,25 @@
-table.table
-  thead
-    tr
-      th Производитель
-      th Вкус
-      th Запрос
-      th Количество
+form action="/admin/buy/form_search_result" method="post" enctype="multipart/form-data"
+  table.table
+    thead
+      tr
+        th Производитель
+        th Вкус
+        th Запрос
+        th Количество
+        th Нужно
 
-  tbody
-    - @find_arr.sort_by{|a| a.last.to_i}.reverse.each do |arr|
-      - product_item = arr.last.present? ? ProductItem.find(arr.last) : nil
-      - product_title = product_item.present? ? product_item.product.title : "Не найдено"
-      - coount_pi = product_item.present? ? product_item.current_count(current_user.magazine) : nil
-      - curr_class = product_item.present? ? (coount_pi > 0 ? "success" : "info") : "danger"
-      tr class=curr_class
-        td = product_title
-        td = product_item.present? ? product_item.title : arr.first
-        td = arr.first
-        td = coount_pi
+    tbody
+      - @find_arr.sort_by{|a| a[:result].to_i}.reverse.each do |arr|
+        - product_item = arr[:result].present? ? ProductItem.find(arr[:result]) : nil
+        - product_title = product_item.present? ? product_item.product.title : "Не найдено"
+        - coount_pi = product_item.present? ? product_item.current_count(current_user.magazine) : nil
+        - curr_class = product_item.present? ? (coount_pi > 0 ? "success" : "info") : "danger"
+        tr class=curr_class
+          td = product_title
+          td = product_item.present? ? product_item.title : arr[:title]
+          td = arr[:min_title]
+          td = coount_pi
+          td
+            input type="hidden" name="title[]" value=arr[:full_title] 
+            input.form-control style="width: 45px;" name="count[]" value=0
+  button.btn.btn-primary type="submit" Сформировать

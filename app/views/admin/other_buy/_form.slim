@@ -17,5 +17,6 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       | Сумма:
     input.form-control name="other_buy[price]" type="text" value="#{@model.price}"
   = render "admin/admin/common_cashbox"
+  input type="hidden" name="other_buy[magazine_id]" value="#{current_user.magazine.id}"
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit" Сохранить
