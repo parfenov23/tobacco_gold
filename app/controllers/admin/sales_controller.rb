@@ -33,7 +33,7 @@ module Admin
         item = ProductItem.find(sale_param[:item_id])
         price = ProductPrice.find(sale_param[:price_id])
         result += price.price*count
-        current_item_count = item.product_item_counts.where(magazine_id: magazine_id).last
+        current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
         current_item_count.update(count: (current_item_count.count - count) )
         item.update({count: (item.count - count)})
         SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})

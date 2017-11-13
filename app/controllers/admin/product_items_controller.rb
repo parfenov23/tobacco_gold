@@ -14,7 +14,7 @@ module Admin
     def update
       product_item = find_model
       product_item.update(params_model)
-      product_item.product_item_counts.where(magazine_id: magazine_id).last.update(count: params[:product_items][:count])
+      product_item.product_item_counts.find_by_magazine_id(magazine_id).update(count: params[:product_items][:count])
       redirect_to_index
     end
 

@@ -1,21 +1,23 @@
 script src="/admin/js/revision.js"
 - @products.each do |product|
-  - product_items = params[:type] != "not_available" ? product.product_items.where.not(count: 0) : product.product_items.where(count: 0)
+  - product_items = product.product_items
   - if product_items.present?
     form action="/admin/revision" method="post"
       input type="hidden" name="product_item" value=product.id
       .list-group.row
         .list-group-item.panel_gray_common
-          - product_min_price = product.product_prices.order("price ASC").first.price
+          / - product_min_price = product.product_prices.order("price ASC").first.price
           = product.title
         - product_items.each do |item|
-          .list-group-item.col-md-3 data-barcode=item.barcode
-            span
-              = item.title
-            - if current_user_admin? || params[:pub] == "true"
-              .pull-right style="padding-left: 5px;"
-                / input type="hidden" name="product_items[id][]" value=item.id
-                input.revisionCount type="text" style="width: 20px;" name="product_items[#{item.id}][]" value=""
-              .btn.btn-success.pull-right.js_pasteCountItem data-count=item.count
-                = item.count
+          - item_count = item.product_item_counts.find_by_magazine_id(current_magazine.id)
+          - if item_count.present? && item_count.count.to_i > 0
+            .list-group-item.col-md-3 data-barcode=item.barcode
+              span
+                = item.title
+              - if current_user_admin? || params[:pub] == "true"
+                .pull-right style="padding-left: 5px;"
+                  / input type="hidden" name="product_items[id][]" value=item.id
+                  input.revisionCount type="text" style="width: 20px;" name="product_items[#{item.id}][]" value=""
+                .btn.btn-success.pull-right.js_pasteCountItem data-count=item_count.count
+                  = item_count.count 
       input type="submit" class="btn btn-info" value="Сохранить"
