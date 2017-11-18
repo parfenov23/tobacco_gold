@@ -33,7 +33,7 @@ module Admin
         param_cash = {price: result_cash, title: "сверка кассы наличные", type_mode: false, type_cash: 'cash'}
       elsif curr_cash > current_cashbox.cash
         result_cash = curr_cash - current_cashbox.cash
-        param_cash = {price: result_cash, title: "сверка кассы наличные", type_mode: true, type_cash: 'cash'}
+        param_cash = {price: result_cash, title: "сверка кассы наличные", type_mode: true, type_cash: 'cash', magazine_id: magazine_id}
       end
 
       if curr_visa < current_cashbox.visa
@@ -41,7 +41,7 @@ module Admin
         param_visa = {price: result_visa, title: "сверка кассы visa", type_mode: false, type_cash: 'visa'}
       elsif curr_visa > current_cashbox.visa
         result_visa = curr_visa - current_cashbox.visa
-        param_visa = {price: result_visa, title: "сверка кассы visa", type_mode: true, type_cash: 'visa'}
+        param_visa = {price: result_visa, title: "сверка кассы visa", type_mode: true, type_cash: 'visa', magazine_id: magazine_id}
       end
 
       if param_cash.present?
