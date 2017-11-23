@@ -30,7 +30,7 @@ module Admin
       curr_visa = params[:cashbox][:visa].to_i
       if curr_cash < current_cashbox.cash
         result_cash = current_cashbox.cash - curr_cash
-        param_cash = {price: result_cash, title: "сверка кассы наличные", type_mode: false, type_cash: 'cash'}
+        param_cash = {price: result_cash, title: "сверка кассы наличные", type_mode: false, type_cash: 'cash', magazine_id: magazine_id}
       elsif curr_cash > current_cashbox.cash
         result_cash = curr_cash - current_cashbox.cash
         param_cash = {price: result_cash, title: "сверка кассы наличные", type_mode: true, type_cash: 'cash', magazine_id: magazine_id}
@@ -38,7 +38,7 @@ module Admin
 
       if curr_visa < current_cashbox.visa
         result_visa = current_cashbox.visa - curr_visa
-        param_visa = {price: result_visa, title: "сверка кассы visa", type_mode: false, type_cash: 'visa'}
+        param_visa = {price: result_visa, title: "сверка кассы visa", type_mode: false, type_cash: 'visa', magazine_id: magazine_id}
       elsif curr_visa > current_cashbox.visa
         result_visa = curr_visa - current_cashbox.visa
         param_visa = {price: result_visa, title: "сверка кассы visa", type_mode: true, type_cash: 'visa', magazine_id: magazine_id}

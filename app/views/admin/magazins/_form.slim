@@ -10,6 +10,10 @@ form.form-horizontal action="#{action_url}" method="post"
   .form_group
     label.control-label Телефон:
     input.form-control name="magazins[phone]" type="text" value="#{@model.phone}"
+  .form_group
+    label.control-label Текущая акция:
+    textarea.form-control name="magazins[special_offer]" type="text" 
+      = @model.special_offer
   hr
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary type="submit"  Сохранить
