@@ -35,10 +35,10 @@ table.referenceItemSale style="display: none;"
       .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .form-group style="display: none;"
-    label Контакт:
-    - all_contacts = Contact.all
-    = select_tag("contact_id", options_for_select([["Нет", nil]] + all_contacts.map{|contact| [contact.title, contact.id]}), {:class => 'form-control'})
+  / .form-group style="display: none;"
+  /   label Контакт:
+  /   - all_contacts = Contact.all
+  /   = select_tag("contact_id", options_for_select([["Нет", nil]] + all_contacts.map{|contact| [contact.title, contact.id]}), {:class => 'form-control'})
   .saleAllItemCashbox
     .list-group-item.col-md-9
       table.table
@@ -58,6 +58,13 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
         .titleDelivery сдача: 99999
       .form-group
         input.received_cash.form-control placeholder="Получено наличными"
+      .form-group.discountCashBack
+        input.form-control.search_discount_card placeholder="Дисконтная карта"
+        input type="hidden" name="cashback_bank" value="0"
+        input type="hidden" name="contact_id"
+        select.form-control  name="cashback_type" style="display: none;"
+          option value='stash' Накопить
+          option value='dickount' Скидка
       = render "admin/admin/common_cashbox"
       .actionBtnSale
         .btn-primary.priceItemSale Подсчет

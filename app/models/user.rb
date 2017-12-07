@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :contacts
   has_many :manager_payments
   belongs_to :magazine
+  belongs_to :contact
 
   def title
     email

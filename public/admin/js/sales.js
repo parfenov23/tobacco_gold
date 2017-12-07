@@ -79,6 +79,16 @@ var priceItemSale = function(){
     var count = parseInt(parent_block.find(".countItems").val());
     result += price*count;
   });
+  var discountBlock = $(".discountCashBack");
+  var cashback_type = discountBlock.find("[name='cashback_type']").val();
+  var cashback_bank = parseInt(discountBlock.find("[name='cashback_bank']").val());
+  if (cashback_type == "dickount"){
+    if (result >= cashback_bank){
+      result -= cashback_bank
+    }else{
+      result = 0
+    }
+  }
   $(".titlePrice").text(result);
   if ($(".received_cash").val().length){
     $(".titleDelivery").text("сдача: " + ($(".received_cash").val() - result) );
@@ -101,6 +111,35 @@ var changeSelectPriceAndCount = function(){
   });
 }
 
+var search_contact = function(input){
+  var barcode_contact = $(input).val();
+  $.ajax({
+    type   : 'POST',
+    url    : '/admin/sales/search_contact',
+    data   : {barcode: barcode_contact},
+    success: function (data) {
+      var card_block = $(".discountCashBack");
+      if (data != null){
+        var purse = data.purse;
+        card_block.find(".search_discount_card").val("На карте: " + purse + " руб.");
+        card_block.find("[name='contact_id']").val(data.id);
+        card_block.find("[name='cashback_bank']").val(purse);
+        if (purse >= 300){
+          card_block.find("[name='cashback_type']").show();
+        }else{
+          card_block.find("[name='cashback_type']").hide().find("[value='stash']").attr('selected', 'true');
+        }
+      }else{
+        card_block.find("[name='cashback_bank']").val(0);
+        card_block.find("[name='contact_id']").val("");
+        card_block.find("[name='cashback_type']").hide().find("[value='stash']").attr('selected', 'true');
+      }
+    },
+    error  : function () {
+    }
+  });
+}
+
 $(document).ready(function(){
   scanBarCode();
   changeSelectPriceAndCount();
@@ -113,6 +152,10 @@ $(document).ready(function(){
   $(document).on('change', '.changeSelectContent', function () {
     var bl_val = parseInt(this.value);
     addProductItemToProductBlock(this, bl_val);
+  });
+
+  $(document).on('change', '.search_discount_card', function () {
+    search_contact(this);
   });
 
   $(document).on('click', '.priceItemSale', priceItemSale);

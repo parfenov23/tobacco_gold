@@ -179,6 +179,9 @@ Rails.application.routes.draw do
         get :remove
         get :info
       end
+      collection do
+        post :search_contact
+      end
     end
 
     resources :buy do

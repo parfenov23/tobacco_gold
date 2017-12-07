@@ -1,6 +1,7 @@
 module Admin
   class ContactsController < AdminController
     require 'vk_message'
+    require 'send_sms'
 
     def index
       @models = model.all
@@ -13,7 +14,13 @@ module Admin
     def create
       params_r = params_model
       params_r[:phone] = params_r[:phone].gsub(/\D/, '')
-      model.create(params_r)
+      email = params[:contact][:email]
+      if email.present? && User.find_by_email(email).blank?
+        contact = model.create(params_r)
+        pass = SecureRandom.hex(3)
+        user = User.create(email: email, password: pass, contact_id: contact.id)
+        SendSms.sender([params_r[:phone]], "Логин: #{email}\nПароль: #{pass}\n#{request.base_url}")
+      end
       redirect_to_index
     end
 
