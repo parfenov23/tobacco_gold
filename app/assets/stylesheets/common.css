@@ -196,6 +196,7 @@ a.no_color{
 
 .content-block__normal .content_block {
     text-align : justify;
+    margin-top: 8px;
 }
 
 .content-block__normal .content_block p {

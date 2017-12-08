@@ -1,9 +1,9 @@
 div 
   b Имя: 
-  = @model.user_name
+  = @model.contact.first_name
 div 
   b Телефон: 
-  = @model.user_phone
+  = @model.contact.phone
 div 
   b Комментарий: 
   = @model.comment

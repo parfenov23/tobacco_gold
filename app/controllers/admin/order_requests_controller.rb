@@ -32,7 +32,7 @@ module Admin
       all_params = items.present? ? params_model.merge({items: items}) : params_model
       find_model.update(all_params)
       if params_model[:status] == "paid"
-        find_model.paid(current_user.id)
+        find_model.paid(current_user.id, find_model.contact_id)
         current_cashbox.calculation(params[:cashbox_type], find_model.price, true)
       end
       redirect_to_show

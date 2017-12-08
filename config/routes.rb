@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get "all_mixs" => "home#all_mixs"
   get "mix_box/:id" => "home#mix_box"
   get "auth" => "home#auth"
+  get "cabinet" => "home#cabinet"
+  get "show_sale/:id" => "home#show_sale"
 
   post "add_item_to_basket" => "home#add_item_to_basket"
   post "rm_item_to_basket" => "home#rm_item_to_basket"

@@ -54,14 +54,18 @@ class HomeController < ActionController::Base
     params_r = params[:request]
     basket = {}
     session[:items].map { |item| basket[item.to_s] = basket[item.to_s].to_i + 1 }
-    contact_phone = params_r[:user_phone].gsub(/\D/, '')
-    contact = Contact.create(first_name: params_r[:user_name], phone: contact_phone)
+    contact = current_user.contact
+    if contact.blank?
+      contact_phone = params_r[:user_phone].gsub(/\D/, '')
+      contact = Contact.create(first_name: params_r[:user_name], phone: contact_phone)
+      current_user.update(contact_id: contact.id)
+    end
     order = OrderRequest.create(user_id: (current_user.id rescue nil), user_name: params_r[:user_name], 
       user_phone: params_r[:user_phone], status: "waiting", items: basket, comment: params_r[:comment])
 
     order.update(contact_id: (contact.save ? contact.id : Contact.find_by_phone(contact_phone).id ) )
     session[:items] = nil
-    order.notify
+    order.notify if Rails.env.production?
     render json: {id: order.id}
   end
 
@@ -81,6 +85,25 @@ class HomeController < ActionController::Base
   def buy_rate
     @all_items = ProductItem.where(id: session[:items])
     @all_sum = @all_items.map{|pi| pi.product.current_price*session[:items].count(pi.id)}.sum
+  end
+
+  def cabinet
+    @visible_bar = false
+    @contact = current_user.contact
+  end
+
+  def show_sale
+    @sale = current_user.contact.sales.where(id: params[:id]).last
+    if @sale.present?
+      respond_to do |format|
+        format.html
+        format.pdf{
+          render pdf: "#{@sale.id}_#{Time.now.to_i}"
+        }
+      end
+    else
+      redirect_to "/cabinet"
+    end
   end
 
 end

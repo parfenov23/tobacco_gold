@@ -22,10 +22,13 @@
                     .btn_rm ×
     - if session[:items].present?
         form.form_send_basket
-            .input-wrp
-                input placeholder="Ваше имя" name="request[user_name]"
-            .input-wrp
-                input placeholder="Номер телефона" name="request[user_phone]"
+            - if current_user.contact.blank?
+              .input-wrp
+                  input placeholder="Ваше имя" name="request[user_name]"
+              .input-wrp
+                  input placeholder="Номер телефона" name="request[user_phone]"
+            - else
+              input type="hidden" name="contact_id" value="#{current_user.contact.id}"
             .input-wrp
                 input placeholder="Комментарий к заказу" name="request[comment]"
             .btn.js__submitFormBasket Отправить

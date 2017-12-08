@@ -51,7 +51,8 @@ var submitFormBasket = function(){
   var form = $(this).closest("form");
   var name = form.find("[name='request[user_name]']").val();
   var phone = form.find("[name='request[user_phone]']").val();
-  if (name.length && phone.length){
+
+  if (form.find("[name='contact_id']").length || name.length && phone.length){
     $.ajax({
       type   : 'POST',
       url    : '/send_item_to_basket',

@@ -1,12 +1,18 @@
 // Изменяемая часть
-.form-group
-  label
-    | Имя:
-  input.form-control name="contact[first_name]" type="text" value="#{@model.user_name}"
-.form-group
-  label
-    | Телефон:
-  input.form-control name="contact[phone]" type="text" value="#{@model.user_phone}"
+/ .form-group
+/   label
+/     | Имя:
+/   input.form-control name="contact[first_name]" type="text" value="#{@model.user_name}"
+/ .form-group
+/   label
+/     | Телефон:
+/   input.form-control name="contact[phone]" type="text" value="#{@model.user_phone}"
+div 
+  b Имя: 
+  = @model.contact.first_name
+div 
+  b Телефон: 
+  = @model.contact.phone
 .form-group
   .all_order_items
     - @model.items.each do |id, count|

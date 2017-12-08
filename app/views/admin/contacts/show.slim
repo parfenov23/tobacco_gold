@@ -4,22 +4,27 @@ table.table
       th ФИО
       th Телефон
       th Ссылка на профиль
+      th Кошелек
   tbody
     tr
       td = @model.first_name
       td = @model.phone
       td
         a href=@model.social = @model.social
+      td ="#{@model.purse} руб."
 hr style="border-color: #EEEEEE -moz-use-text-color #FFFFFF; border-style: solid none;border-width: 1px 0;"
 
 .list-group.row
-  .list-group-item.panel_gray_common
-    a.btn.btn-success href="/admin/orders/new?contact_id=#{@model.id}" Добавить Заказ
-  - @model.orders.each do |order|
+  / .list-group-item.panel_gray_common
+  /   a.btn.btn-success href="/admin/orders/new?contact_id=#{@model.id}" Добавить Заказ
+  - @model.sales.each do |sale|
     .list-group-item.col-md-6
       span
-        = order.created_at
-      a.btn.btn-danger.pull-right href="/admin/orders/#{order.id}/remove" data-method='delete'
-        | &#10006;
-      a.btn.btn-success.pull-right href="/admin/orders/#{order.id}/edit" style="margin-right: 5px;"
-        | &#9998;
+        - text = "#{sale.created_at.strftime("%d-%m-%Y")} (#{sale.price}р.) "
+        - text += "(#{sale.profit}р.)" if current_user.is_admin?
+        a href='/admin/sales/#{sale.id}.pdf' 
+          = text
+      / a.btn.btn-danger.pull-right href="/admin/orders/#{order.id}/remove" data-method='delete'
+      /   | &#10006;
+      / a.btn.btn-success.pull-right href="/admin/orders/#{order.id}/edit" style="margin-right: 5px;"
+      /   | &#9998;

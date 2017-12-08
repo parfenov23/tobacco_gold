@@ -19,7 +19,7 @@ module Admin
       respond_to do |format|
         format.html
         format.pdf{
-          render pdf: "test#{Time.now.to_i}"
+          render pdf: "#{@sale.id}_#{Time.now.to_i}"
         }
       end
     end

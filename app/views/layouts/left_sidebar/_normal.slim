@@ -14,6 +14,10 @@ aside#left-sidebar-normal.left-sidebar__normal
       a href="/admin/admin"
         i.icon.participant
         span.title.hide_menu_average Админка
+    - elsif current_user.present? && current_user.contact.present?
+      a href="/cabinet"
+        i.icon.participant
+        span.title.hide_menu_average Личный кабинет
     a href="/contacts"
       i.icon.contacts
       span.title.hide_menu_average Контакты
