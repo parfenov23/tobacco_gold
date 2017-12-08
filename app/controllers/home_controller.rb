@@ -57,13 +57,14 @@ class HomeController < ActionController::Base
     contact = current_user.contact
     if contact.blank?
       contact_phone = params_r[:user_phone].gsub(/\D/, '')
-      contact = Contact.create(first_name: params_r[:user_name], phone: contact_phone)
+      contact = Contact.new(first_name: params_r[:user_name], phone: contact_phone)
+      contact = contact.save ? contact : Contact.find_by_phone(contact_phone)
       current_user.update(contact_id: contact.id)
     end
     order = OrderRequest.create(user_id: (current_user.id rescue nil), user_name: params_r[:user_name], 
       user_phone: params_r[:user_phone], status: "waiting", items: basket, comment: params_r[:comment])
 
-    order.update(contact_id: (contact.save ? contact.id : Contact.find_by_phone(contact_phone).id ) )
+    order.update(contact_id: contact.id)
     session[:items] = nil
     order.notify if Rails.env.production?
     render json: {id: order.id}
