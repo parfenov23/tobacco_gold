@@ -67,6 +67,10 @@ $color_flamingo_approx : #F6A623;
   border-radius: 2px;
   min-width: 120px;
   text-align: center;
+  &.not{
+    background-color: #bbb;
+    cursor: default;
+  }
 }
 
 @import "left_sidebar/menu_normal";
