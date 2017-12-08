@@ -15,8 +15,12 @@ var scanBarCode = function(){
                 // check we have a long length e.g. it is a barcode
                 if (chars.length >= 10) {
                   var barcode = chars.join("");
-                  console.log("Barcode Scanned: " + barcode);
-                  addItemWhenBarcodeScan(barcode);
+                  // console.log("Barcode Scanned: " + barcode);
+                  if ($(".search_discount_card").is(':focus')){
+                    search_contact($(".search_discount_card"));
+                  }else{
+                    addItemWhenBarcodeScan(barcode);
+                  }
                 }
                 chars = [];
                 pressed = false;
@@ -68,6 +72,7 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
     $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html('');
     $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html('');
   }
+  priceItemSale();
 }
 
 var priceItemSale = function(){
@@ -94,6 +99,9 @@ var priceItemSale = function(){
     $(".titleDelivery").text("сдача: " + ($(".received_cash").val() - result) );
     $(".titleDelivery").show();
   }
+  $(".parentItemSale").each(function(n, e){
+    sumItemSale($(e));
+  })
 }
 
 var sumItemSale = function(block){
@@ -155,7 +163,9 @@ $(document).ready(function(){
   });
 
   $(document).on('change', '.search_discount_card', function () {
-    search_contact(this);
+    if(!$(this).val().length){
+      search_contact(this);
+    }
   });
 
   $(document).on('click', '.priceItemSale', priceItemSale);
