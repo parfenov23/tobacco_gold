@@ -39,11 +39,14 @@ module Admin
         SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
       end
       contact = sale.contact
+      sale_profit = sale.find_profit
+
       if contact.present?
         purse = contact.purse
         if params[:cashback_type] == "stash"
           purse = contact.purse + (result.to_f/100*contact.cashback).round 
         elsif params[:cashback_type] == "dickount"
+          sale_profit = sale_profit >= purse ? (sale_profit - purse) : 0
           if result >= purse
             result -= purse
             purse = 0
@@ -54,7 +57,8 @@ module Admin
         end
         contact.update(purse: purse)
       end
-      sale.update(price: result, profit: sale.find_profit, visa: params[:cashbox_type] == "visa", magazine_id: params[:magazine_id])
+
+      sale.update(price: result, profit: sale_profit, visa: params[:cashbox_type] == "visa", magazine_id: params[:magazine_id])
       current_cashbox.calculation(params[:cashbox_type], result, true)
       current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
       sale.notify_buy(current_cashbox)
