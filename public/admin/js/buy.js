@@ -84,6 +84,7 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
   } else {
     parent_item.find('.formLoadContent').html('');
   }
+  priceItemSale();
 }
 
 var priceItemSale = function(){
@@ -96,6 +97,10 @@ var priceItemSale = function(){
     result += price*count;
   });
   $(".titlePrice").text(result);
+  $(".parentItemSale").each(function(n, e){
+    sumItemSale($(e));
+  });
+  allProductCalc();
 }
 
 var sumItemSale = function(block){
@@ -110,6 +115,40 @@ var changeSelectPriceAndCount = function(){
     sumItemSale(block);
     priceItemSale();
   });
+}
+
+var allProductCalc = function(){
+  var all_product = {}
+  $(".allProductCalc .referencePaste").remove();
+  $(".allItemsSale tr").each(function(n, e){
+    var product = $(e).find(".inlineBlock select option:selected").text();
+    var count = parseInt($(e).find(".countItems").val());
+    var price = parseInt($(e).find(".selectPrice").val());
+    var curr_block = all_product[product];
+    if (curr_block == undefined){
+      all_product[product] = {count: count, price: [price], sum: (count*price)}
+    }else{
+      curr_block.count = curr_block.count + count;
+      curr_block.price.push(price);
+      curr_block.sum = curr_block.sum + (count*price)
+    }
+  });
+  for (var key in all_product) {
+    var referenceCopy = $(".allProductCalc .referenceCopy").clone();
+    var curr_hb = all_product[key];
+    referenceCopy.find(".product").text(key);
+    referenceCopy.find(".count").text(curr_hb.count);
+
+    var sum_price = curr_hb.price.reduce(function(previousValue, currentValue, index, array) {
+      return previousValue + currentValue;
+    });
+    var text_price = sum_price/curr_hb.price.length;
+    referenceCopy.find(".price").text(text_price);
+    referenceCopy.find(".sum").text(curr_hb.sum);
+    referenceCopy.show();
+    referenceCopy.removeClass("referenceCopy").addClass("referencePaste");
+    $(".allProductCalc tbody").append(referenceCopy);
+  }
 }
 
 $(document).ready(function(){

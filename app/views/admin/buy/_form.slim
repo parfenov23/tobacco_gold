@@ -56,6 +56,20 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
         input type="hidden" name="buy_param[provider_id]" value="#{params[:provider_id]}"
         input type="hidden" name="_method" value="#{method}"
         button.btn.btn-success type="submit" Расчет
+      .allProductCalc
+        table.table
+          thead
+            tr
+              td Название
+              td Кол-во
+              td Цена
+              td Сумма
+          tbody
+            tr.referenceCopy style="display: none;"
+              td class="inlineBlock product" Adalya
+              td class="inlineBlock count" 34
+              td class="inlineBlock price" 78
+              td class="inlineBlock sum" 4000
 
 
 .addFormNewItem style="display:none;"
