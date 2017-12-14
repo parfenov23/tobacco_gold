@@ -12,7 +12,7 @@
         line style="color: #5bc0de;float: right;"
           | #{product.current_price.to_i} рублей
       - product_items.each do |item|
-        - item_count = item.current_count(current_magazine.id)
+        - item_count = item.current_count(current_magazine)
         - if item_count > 0
           .list-group-item.col-md-3
             span
