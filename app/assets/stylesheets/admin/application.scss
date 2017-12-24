@@ -124,6 +124,15 @@
     padding-top: 8px;
   }
 }
+.list-group-item{
+  .commonInfo{
+    display: flex;
+    justify-content: space-between;
+    span{
+      width: inherit;
+    }
+  }
+}
 
 
 

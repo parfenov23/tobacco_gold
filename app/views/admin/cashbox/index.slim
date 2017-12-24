@@ -1,13 +1,13 @@
 .content_tables_cashbox.list-group.row
   .list-group-item
+    .commonInfo.list-group-item.panel_gray_common
+      span 
+        |Общее
+      span
+        a.btn.btn-primary style="margin-left: 4px;" href="/admin/cashbox/#{@current_cashbox.id}/edit" Редактирование
+        a.btn.btn-success style="margin-left: 4px;" href="/admin/cashbox/to_check" Сверка
     table.table.table-bordered.table_cashbox_page
       tbody
-        th.table_title_cash 
-          span 
-            |Общее
-            a.btn.btn-primary style="margin-left: 4px;" href="/admin/cashbox/#{@current_cashbox.id}/edit" Редактирование
-            a.btn.btn-success style="margin-left: 4px;" href="/admin/cashbox/to_check" Сверка
-        th.table_title_cash
         tr.success
           td Наличны
           td.info_column #{@current_cashbox.cash} рублей
@@ -35,10 +35,9 @@
         // пока так
 
   .list-group-item
+    .panel_gray_common.list-group-item Долг поставщикам
     table.table.table-bordered.table_cashbox_page
       tbody
-        th.table_title_cash Долг поставщикам
-        th.table_title_cash
         - Provider.all.each do |provider|
           - all_sum_buys = provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).sum(:price)
           tr.success
@@ -46,21 +45,20 @@
             td.info_column #{all_sum_buys} рублей
 
   .list-group-item
+    .panel_gray_common.list-group-item Статистика за последнию неделю
     table.table.table-bordered.table_cashbox_page
       tbody
-        th.table_title_cash Статистика за последнию неделю
-        th.table_title_cash
         tr.success
           td Проданно на: 
           td.info_column #{@last_sales_price} рублей
         tr.danger
           td Прибыль: 
           td.info_column #{@sales_profit} рублей
+  
   .list-group-item
+    .panel_gray_common.list-group-item Статистика продаж и закупов за текущий месяц
     table.table.table-bordered.table_cashbox_page
       tbody
-        th.table_title_cash Статистика продаж и закупов за текущий месяц
-        th.table_title_cash
         tr.success
           td Продажи
           td.info_column #{@curr_month_sales_price} рублей

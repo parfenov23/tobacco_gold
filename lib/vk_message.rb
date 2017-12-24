@@ -24,7 +24,7 @@ class VkMessage
     case type
     when "user"
       {
-        access_token: "c17431ed7cce7643c46ca0ba900c15124dbb1970d16ec3995eb126a7bcc03e304a4815f1effb2fd499575",
+        access_token: "6752b799a52769e374f51deb9e549b75a0bfdebcd18a06b6e8669a2bea5899e2db697eb54a12aef5e4b2e",
         chat_id: "53"
       }
     when "group"
