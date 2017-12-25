@@ -132,7 +132,7 @@ var search_contact = function(input){
         card_block.find(".search_discount_card").val("На карте: " + purse + " руб.");
         card_block.find("[name='contact_id']").val(data.id);
         card_block.find("[name='cashback_bank']").val(purse);
-        if (purse >= 300){
+        if (purse >= 5){
           card_block.find("[name='cashback_type']").show();
         }else{
           card_block.find("[name='cashback_type']").hide().find("[value='stash']").attr('selected', 'true');
