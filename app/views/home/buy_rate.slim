@@ -22,7 +22,7 @@
                     .btn_rm ×
     - if session[:items].present?
         form.form_send_basket
-            - if current_user.contact.blank?
+            - if current_user.contact.blank? 
               .input-wrp
                   input placeholder="Ваше имя" name="request[user_name]"
               .input-wrp
