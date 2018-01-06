@@ -31,8 +31,9 @@ html
       #mySidenav.sidenav
         a.closebtn href="javascript:void(0)" onclick="closeNav()"  &times;
         - all_nav_li_admin.each do |li_nav|
-          a href="#{li_nav[:url]}" 
-            = li_nav[:title]
+          - if li_nav[:display] != false
+            a href="#{li_nav[:url]}" 
+              = li_nav[:title]
 
       nav.navbar.navbar-default
         .allNavElem

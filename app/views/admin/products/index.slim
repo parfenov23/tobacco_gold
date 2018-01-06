@@ -2,6 +2,7 @@
   .list-group-item.panel_gray_common
     - if current_user.is_admin?
       a.btn.btn-success href="/admin/products/new"  Добавить производителя
+      a.btn.btn-success.btn-margin-left href="/admin/categories" Добавить категорию
     .categories style="display: inline-block;margin-left: 8px;"
       - Category.all.each do |category|
         a.btn.btn-info style="margin-left: 2px;" href="/admin/products?category=#{category.id}" = category.first_name  

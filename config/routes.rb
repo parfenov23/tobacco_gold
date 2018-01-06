@@ -46,12 +46,24 @@ Rails.application.routes.draw do
   # post "admin/create_attachment" => "admin#create_attachment"
 
   get '/admin', to: redirect('/admin/admin')
+  namespace :api do
+    resources :api
+    resources :sms do
+      collection do
+        post :import
+      end
+    end
+    resources :cashbox
+  end
+
   namespace :admin do
     resources :admin do
       collection do
         get :manager_payments
         get :paid_manager_payments
         get :search
+        get :api_sms
+        post :api_sms
       end
     end
     resources :categories do

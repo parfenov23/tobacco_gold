@@ -100,7 +100,7 @@ var priceItemSale = function(){
   $(".parentItemSale").each(function(n, e){
     sumItemSale($(e));
   });
-  allProductCalc();
+  // allProductCalc();
 }
 
 var sumItemSale = function(block){
@@ -166,7 +166,11 @@ $(document).ready(function(){
     addProductItemToProductBlock(this, bl_val);
   });
 
-  $(document).on('click', '.priceItemSale', priceItemSale);
+  $(document).on('click', '.priceItemSale', function(){
+    priceItemSale();
+    $(".allProductCalc").show();
+    allProductCalc();
+  });
 
   $(document).on('click', '.js_saveNewProductItem', saveNewProductItem);
   $(document).on('click', '.js_openFormNewItem', function(){

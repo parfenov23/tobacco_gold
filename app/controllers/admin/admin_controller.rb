@@ -1,6 +1,6 @@
 module Admin
   class AdminController < ActionController::Base
-    before_action :redirect_to_stock
+    before_action :redirect_to_stock, except: [:api_sms]
     layout "admin"
     
     def index
@@ -53,6 +53,15 @@ module Admin
 
     def magazine_id
       current_user.present? ? current_user.magazine_id : nil
+    end
+
+    def api_sms
+      JSON.parse(params[:allSms]).each do |sms|
+        if sms["address"] == "900"
+          SmsPhone.find_or_create_by(address: sms["address"], body: sms["body"], date_time: sms["date"])
+        end
+      end
+      render json: {success: true}
     end
   end
 end

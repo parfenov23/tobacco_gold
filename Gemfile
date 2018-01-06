@@ -33,6 +33,9 @@ gem 'string-similarity'
 #========== sms center
 gem 'smsc'
 #==========
+
+gem 'localtunnel'
+
 gem 'whenever', :require => false
 gem 'unicorn'
 group :development, :test do
