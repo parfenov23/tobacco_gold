@@ -25,8 +25,17 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   - if @model.id.present?
     .form-group
       label
-        | Код товара:
-      input.form-control name="product_items[barcode]" type="text" value="#{@model.barcode}"  
+        | Цена:
+      - all_prices = @model.product.product_prices.where(archive: false)
+      - all_prices_arr = [["Нет", nil]] + all_prices.map{|first_price| [first_price.price, first_price.id]}
+      - curr_price = @model.price_id
+      = select("", "", all_prices_arr, {selected: curr_price}, { name: 'product_items[price_id]', class: 'form-control selectPrice'})
+      / input.form-control name="product_items[price_id]" type="text" value="#{@model.price_id}"   
+  .form-group
+    label
+      | Код товара:
+    input.form-control name="product_items[barcode]" type="text" value="#{@model.barcode}"  
+
   .form-group
     label
       | Товар в наличии?:

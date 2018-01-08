@@ -43,6 +43,7 @@ var addItemWhenBarcodeScan = function(barcode){
       addProductItemToProductBlock(product_select, product_id);
       productSaleBlock.find("select[name='sales[][item_id]']").val(item.val());
       findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
+      changeSelectProductItem(findItem.find(".changeSelectProductItem"));
       sumItemSale(findItem);
       priceItemSale();
     }
@@ -148,6 +149,16 @@ var search_contact = function(input){
   });
 }
 
+var changeSelectProductItem = function(select){
+  var price = $(select).find("option:selected").data("price_id");
+  var selectPrice = $(select).closest(".parentItemSale").find(".selectPrice");
+  if (price != undefined){
+    selectPrice.val(price);
+  }else{
+    selectPrice.val(selectPrice.data("deff_price"));
+  }
+}
+
 $(document).ready(function(){
   scanBarCode();
   changeSelectPriceAndCount();
@@ -160,6 +171,10 @@ $(document).ready(function(){
   $(document).on('change', '.changeSelectContent', function () {
     var bl_val = parseInt(this.value);
     addProductItemToProductBlock(this, bl_val);
+  });
+
+  $(document).on('change', '.changeSelectProductItem', function () {
+    changeSelectProductItem(this);
   });
 
   $(document).on('change', '.search_discount_card', function () {
