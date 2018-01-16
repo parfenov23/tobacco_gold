@@ -12,7 +12,7 @@
       .price
         i.icon.cash
         - item_product = item.product
-        - price = !current_user.contact.opt ? item_product.current_price : item_product.current_price_opt
+        - price = (!current_user.contact.opt rescue true) ? item_product.current_price : item_product.current_price_opt
         .title_price #{price} руб
       .time
         .title_count
