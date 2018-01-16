@@ -14,11 +14,11 @@ table.table
       td ="#{@model.purse} руб."
 hr style="border-color: #EEEEEE -moz-use-text-color #FFFFFF; border-style: solid none;border-width: 1px 0;"
 
-.list-group.row
+.list-group.row.material
   / .list-group-item.panel_gray_common
   /   a.btn.btn-success href="/admin/orders/new?contact_id=#{@model.id}" Добавить Заказ
   - @model.sales.each do |sale|
-    .list-group-item.col-md-6
+    .list-group-item.col-md-6.material
       span
         - text = "#{sale.created_at.strftime("%d-%m-%Y")} (#{sale.price}р.) "
         - text += "(#{sale.profit}р.)" if current_user.is_admin?

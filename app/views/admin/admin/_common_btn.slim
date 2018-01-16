@@ -1,4 +1,4 @@
-a.btn.btn-danger.pull-right href="#{url}/remove" data-method='delete' style="margin-right: 5px;" onclick="return confirm('Вы уверены?')"
-  | &#10006;
-a.btn.btn-success.pull-right href="#{url}/edit" style="margin-right: 5px;"
+a.btn.btn-success-material href="#{url}/edit" style="margin-right: 5px;" class=(class_edit rescue "") data-title=(data_title rescue "")
   | &#9998;
+a.btn.btn-danger-material href="#{url}/remove" data-method='delete' style="margin-right: 5px;" onclick="return confirm('Вы уверены?')" class=(class_remove rescue "")
+  | &#10006;

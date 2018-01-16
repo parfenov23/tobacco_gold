@@ -1,11 +1,14 @@
 - model_url = @models.first_url
-.list-group.row
-  .list-group-item.panel_gray_common
-    a.btn.btn-success href="/admin/#{model_url}/new" Добавить
+.list-group.row.material
+  / .list-group-item.panel_gray_common
+  /   a.btn.btn-success-material href="/admin/#{model_url}/new" Добавить
   - @models.each do |model|
-    .list-group-item.col-md-6
+    .list-group-item.col-md-6.material
       span
         = model.title
-      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}"}
-      a.btn.btn-info.pull-right href="/admin/provider_items?provider_id=#{model.id}" style="margin-right: 5px;"
+      a.btn.btn-info-material.pull-right href="/admin/provider_items?provider_id=#{model.id}" style="margin-right: 5px;"
         | Цены
+      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование производителя"}
+
+= render "admin/admin/common_popup_new_model", {model: Provider.new, title: "Добавление нового поставщика"}
+

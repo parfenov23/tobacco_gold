@@ -1,16 +1,16 @@
-.list-group.row
+.list-group.row.material
   .list-group-item.panel_gray_common
-    form action="/admin/sales/new" method="get" style="margin-bottom: 0; display: flex;"
-      button.btn.btn-success href="/admin/sales/new"  Добавить продажу
-      span.selectInlineProvider
-        = select_tag("type_sale", options_for_select([["Розница","retail"], ["Оптовая", "opt"]]))
+    form.material action="/admin/sales/new" method="get" style="margin-bottom: 0; display: flex;"
+      button.btn.btn-success-material  Добавить продажу
+      .selectInlineProvider
+        = render "common_select", {arr_li: [["Розница","retail"], ["Оптовая", "opt"]], default: "retail"}
   - @sales.each do |sale|
-    .list-group-item.col-md-6
+    .list-group-item.col-md-6.material
       span
-        - text = "#{sale.created_at.strftime("%d-%m-%Y")} (#{sale.price}р.) "
-        - text += "(#{sale.profit}р.)" if current_user.is_admin?
-        a href='/admin/sales/#{sale.id}.pdf' 
+        - text = "#{sale.created_at.strftime("%d-%m-%Y")} сумма: #{sale.price} руб. "
+        - text += "-> #{sale.profit} руб." if current_user.is_admin?
+        a.link-material href='/admin/sales/#{sale.id}.pdf' 
           = text
       - if current_user.is_admin?
-        a.btn.btn-danger.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
+        a.btn.btn-danger-material.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
           | &#10006;

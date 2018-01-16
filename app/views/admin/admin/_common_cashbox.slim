@@ -1,4 +1,2 @@
 .form-group   
-  select.form-control  name="cashbox_type"
-    option value='cash' Наличные
-    option value='visa' Visa
+  = render "common_select", {arr_li: [["Наличные","cash"], ["Visa", "visa"]], default: "cash"}

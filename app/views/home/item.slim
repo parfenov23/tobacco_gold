@@ -5,7 +5,9 @@
 .content.content-block__normal.background.normal_align
   .header_block
     .title.hidden_text #{@item.product.title} - #{@item.title}
-    .sum_price ЦЕНА: #{@item.product.current_price} руб
+    - item_product = @item.product
+    - price = !current_user.contact.opt ? item_product.current_price : item_product.current_price_opt
+    .sum_price ЦЕНА: #{price} руб
   .content_item
     .left_content
         .imgCenter

@@ -7,6 +7,12 @@ module Admin
       @products = Product.all.select { |product| product.product_items.where(count: 0).present? } if params[:type] == "not_available"
     end
 
+    def info
+      @product_item = ProductItem.find(params[:id])
+      html_form = render_to_string "/admin/stock/_info", :layout => false
+      render text: html_form
+    end
+
     def to_excel
       @products = Product.all
       respond_to do |format|

@@ -1,10 +1,7 @@
-h2 Все описания страниц
-hr
-
-.list-group.row
-  .list-group-item.panel_gray_common
-    a.btn.btn-success href="/admin/content_pages/new"  Добавить описание
+.list-group.row.material
   - @all_content_page.each do |content|
-    .list-group-item.col-md-6
+    .list-group-item.col-md-6.material
       span = content.name_page
-      = render "admin/admin/common_btn", {url: "/admin/content_pages/#{content.id}"}
+      = render "admin/admin/common_btn", {url: "/admin/content_pages/#{content.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование описания страницы"}
+
+= render "admin/admin/common_popup_new_model", {model: ContentPage.new, title: "Добавление описание страницы"}

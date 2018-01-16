@@ -1,7 +1,6 @@
-.list-group.row
-  .list-group-item.panel_gray_common
-    a.btn.btn-success href="/admin/users/new"  Добавить пользователя
-  - @users.each do |user|
-    .list-group-item.col-md-6
+.list-group.row.material
+  - @models.each do |user|
+    .list-group-item.col-md-6.material
       span = user.email
-      = render "admin/admin/common_btn", {url: "/admin/users/#{user.id}"}
+      = render "admin/admin/common_btn", {url: "/admin/users/#{user.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование пользователя"}
+= render "admin/admin/common_popup_new_model", {model: User.new, title: "Добавление нового пользователя"}

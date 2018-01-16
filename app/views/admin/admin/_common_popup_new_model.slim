@@ -1,0 +1,4 @@
+- @popup = title
+- content_for :popup do
+  - @model = model
+  = render "admin/#{@model.class.first_url}/form"

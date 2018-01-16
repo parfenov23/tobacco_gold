@@ -1,13 +1,14 @@
 - model_url = @models.first_url
-.list-group.row
-  .list-group-item.panel_gray_common
-    a.btn.btn-success href="/admin/#{model_url}/new" Добавить
-    - if current_user.is_admin?
-      a.btn.btn-success href="/admin/#{model_url}/sms" Отправить смс
-      a.btn.btn-success href="/admin/#{model_url}/vk" Отправить сообщение в вк
-      a.btn.btn-success href="/admin/#{model_url}/dispatch_vk" Рассылка вк
+.list-group.row.material
+  / .list-group-item.panel_gray_common
+  /   a.btn.btn-success href="/admin/#{model_url}/new" Добавить
+  /   - if current_user.is_admin?
+  /     a.btn.btn-success href="/admin/#{model_url}/sms" Отправить смс
+  /     a.btn.btn-success href="/admin/#{model_url}/vk" Отправить сообщение в вк
+  /     a.btn.btn-success href="/admin/#{model_url}/dispatch_vk" Рассылка вк
   - @models.each do |model|
-    .list-group-item.col-md-6
+    .list-group-item.col-md-6.material
       span
         a href="/admin/#{model_url}/#{model.id}" = model.title
-      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}"}
+      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование контакта"}
+= render "admin/admin/common_popup_new_model", {model: Contact.new, title: "Добавление нового контакта"}

@@ -1,17 +1,15 @@
-- action_url = @content_page.id.nil? ? "/admin/content_pages" : "/admin/content_pages/#{@content_page.id}"
-- method = @content_page.id.nil? ? "post" : "put"
+- action_url = @model.id.nil? ? "/admin/content_pages" : "/admin/content_pages/#{@model.id}"
+- method = @model.id.nil? ? "post" : "put"
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .form_group
-    | Категория:
+  .form-group
+    label Категория:
     - arr_pages = all_pages
     = select_tag("content[name_page]",
-                 options_for_select(arr_pages, @content_page.name_page), {:class => 'form-control'})
-  .form_group
-    span
+                 options_for_select(arr_pages, @model.name_page), {:class => 'form-control'})
+  .form-group
+    label
       |Описание:
-    textarea.js_TinyMce name="content[description]"
-      = @content_page.description
-  hr
+    textarea.form-control.js_TinyMce name="content[description]"
+      = @model.description
   input type="hidden" name="_method" value="#{method}"
-  button.btn.btn-primary type="submit"  Сохранить
-hr
+  button.btn.btn-primary-material.submit type="submit"  Сохранить

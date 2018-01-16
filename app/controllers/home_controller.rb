@@ -86,7 +86,11 @@ class HomeController < ActionController::Base
   def buy_rate
     current_user.blank? ? (redirect_to "/users/sign_up") : nil
     @all_items = ProductItem.where(id: session[:items])
-    @all_sum = @all_items.map{|pi| pi.product.current_price*session[:items].count(pi.id)}.sum
+    @all_sum = @all_items.map{|pi| 
+      item_product = pi.product
+      price = !current_user.contact.opt ? item_product.current_price : item_product.current_price_opt
+      price*session[:items].count(pi.id)
+    }.sum
   end
 
   def cabinet

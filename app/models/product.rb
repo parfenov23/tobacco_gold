@@ -27,8 +27,18 @@ class Product < ActiveRecord::Base
     (price.price rescue product_prices.minimum(:price)).to_i
   end
 
+  def current_price_opt
+    price = product_prices.find_by_opt(true)
+    (price.price rescue current_price).to_i
+  end
+
   def current_price_model
     product_prices.find_by_default(true)
+  end
+
+  def current_price_opt_model
+    price =  product_prices.find_by_opt(true)
+    price.present? ? price : current_price_model
   end
 
   def current_purchase_price(provider_id)

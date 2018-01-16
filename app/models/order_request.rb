@@ -10,7 +10,11 @@ class OrderRequest < ActiveRecord::Base
 
   def total_sum
     sum = 0
-    items.map {|k, v| sum += (ProductItem.find(k).product.current_price * v.to_i) }
+    items.map {|k, v| 
+      item_product = ProductItem.find(k).product
+      curr_price = !contact.opt ? item_product.current_price : item_product.current_price_opt
+      sum += (curr_price * v.to_i) 
+    }
     sum
   end
 
@@ -21,7 +25,7 @@ class OrderRequest < ActiveRecord::Base
     items.each do |id, count|
       item = ProductItem.find(id)
       product = item.product
-      price = product.current_price_model
+      price = !contact.opt ? product.current_price_model : product.current_price_opt_model
       result += price.price.to_i*count.to_i
       current_item_count = item.product_item_counts.find_by_magazine_id(curr_user.magazine_id)
       current_item_count.update({count: (current_item_count.count - count.to_i) })
@@ -41,6 +45,16 @@ class OrderRequest < ActiveRecord::Base
       result += price.price.to_i*count.to_i
     end
     result
+  end
+
+  def sorty_by_product
+    new_hash = {}
+    items.each do |k, v|
+      product_item = ProductItem.find(k)
+      item_hash = [{product_item: product_item, count: v}]
+      new_hash[product_item.product_id] = new_hash[product_item.product_id].present? ? (new_hash[product_item.product_id] + item_hash) : item_hash
+    end
+    new_hash.sort
   end
 
 

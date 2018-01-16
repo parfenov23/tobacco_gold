@@ -1,22 +1,19 @@
-- if @other_buys.where(["created_at > ? ", Time.now.beginning_of_month]).blank?
-  .list-group.row
-    .list-group-item.panel_gray_common
-      a.btn.btn-success href="/admin/other_buy/new"  Добавить
-      span style="margin-left: 14px; display: inline;"
-        |#{Russian::strftime(Time.now, "%B")} #{Time.now.year}
+/ - if @other_buys.where(["created_at > ? ", Time.now.beginning_of_month]).blank?
+/   .list-group.row
+/     .list-group-item.panel_gray_common
+/       / a.btn.btn-success href="/admin/other_buy/new"  Добавить
+/       span style="margin-left: 14px; display: inline;"
+/         |#{Russian::strftime(Time.now, "%B")} #{Time.now.year}
 - @other_buys.group_by{ |u| u.created_at.beginning_of_month }.each do |time, other_buys|
   .list-group.row
     .list-group-item.panel_gray_common
-      - if time.beginning_of_month == Time.current.beginning_of_month
-        a.btn.btn-success href="/admin/other_buy/new"  Добавить
-        span  style="margin-left: 14px; display: inline;"
-          |#{Russian::strftime(time, "%B")} #{time.year}
-      - else
         |#{Russian::strftime(time, "%B")} #{time.year}
     - other_buys.each do |other_buy|
       - add_class_item = other_buy.type_mode ? "list-group-item-success" : "list-group-item-danger"
       .list-group-item.col-md-6 class=add_class_item
         span style="color: black;"
           = "#{other_buy.title}(#{other_buy.price})"
-        a.btn.btn-danger.pull-right href="/admin/other_buy/#{other_buy.id}/remove" data-method='delete'
+        a.btn.btn-danger-material.pull-right href="/admin/other_buy/#{other_buy.id}/remove" data-method='delete'
           | &#10006;
+
+= render "admin/admin/common_popup_new_model", {model: OtherBuy.new, title: "Добавление расхода"}

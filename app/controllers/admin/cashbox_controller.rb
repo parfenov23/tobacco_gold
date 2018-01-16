@@ -14,15 +14,34 @@ module Admin
       @last_sales_price = @all_sales.last_sales_price
       @sales_profit = @all_sales.sales_profit
       @curr_month_sales_price = @all_sales.curr_month_price.to_i
-      @curr_month_buy_price = Buy.where(magazine_id: current_user.magazine_id).curr_month_price.to_i
-      @curr_month_other_up_price = OtherBuy.where(magazine_id: magazine_id).curr_month_price(true).to_i
 
-      @curr_month_other_down_price = OtherBuy.where(magazine_id: magazine_id).curr_month_price(false).to_i
-      @curr_month_manager_pay = ManagerPayment.where(magazine_id: magazine_id).curr_month_price
+      @curr_month_buy_price = Buy.where(magazine_id: current_user.magazine_id).curr_month_price.to_i
+      @curr_day_buy_price = Buy.where(magazine_id: current_user.magazine_id).curr_day_price.to_i
+      @curr_year_buy_price = Buy.where(magazine_id: current_user.magazine_id).curr_year_price.to_i
+
+      @all_other_buy = OtherBuy.where(magazine_id: magazine_id)
+      @all_manager_pay = ManagerPayment.where(magazine_id: magazine_id)
+
+      @curr_month_other_up_price = @all_other_buy.curr_month_price(true).to_i
+      @curr_month_other_down_price = @all_other_buy.curr_month_price(false).to_i
+      @curr_month_manager_pay = @all_manager_pay.curr_month_price
+
+      @curr_day_other_up_price = @all_other_buy.curr_day_price(true).to_i
+      @curr_day_other_down_price = @all_other_buy.curr_day_price(false).to_i
+      @curr_day_manager_pay = @all_manager_pay.curr_day_price
+
+      @curr_year_other_up_price = @all_other_buy.curr_month_price(true).to_i
+      @curr_year_other_down_price = @all_other_buy.curr_month_price(false).to_i
+      @curr_year_manager_pay = @all_manager_pay.curr_month_price
+
     end
 
     def to_check
       @current_cashbox = current_cashbox
+      if params[:typeAction] == "json"
+        html_form = render_to_string "/admin/cashbox/to_check", :layout => false
+        render text: html_form
+      end
     end
 
     def update_cashbox

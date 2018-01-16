@@ -41,7 +41,7 @@ module Admin
     def new_item_product
       ProductItem.create(params_model)
       @products = Product.all
-      products_select = render_to_string "/admin/buy/_products_select", :layout => false
+      products_select = render_to_string "/admin/buy/_select_product_items", :layout => false
       render text: products_select
     end
 

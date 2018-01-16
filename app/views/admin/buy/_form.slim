@@ -6,16 +6,12 @@
 - method = from_model_present ? "post" : "put"
 
 #contentSelect style="display:none;"
-  = render "products_select"
+  = render "select_product_items"
 
 table.referenceItemSale style="display: none;"
   tr.parentItemSale.active
     td.inlineBlock
-      select.form-control.changeSelectContent
-        option value='0' Не выбранно
-        - @products.each do |product|
-          - price = product.current_purchase_price(params[:provider_id])
-          option data-price=price value=product.id = product.title
+      = render "select_product"
     td.formLoadContentTaste
     td.barcode
       input.form-control name="buy[][barcode]" placeholder='Код товара'
@@ -25,13 +21,13 @@ table.referenceItemSale style="display: none;"
       input.form-control.countItems name="buy[][count]" type="text" value="1"
     td.endSumPosition 0
     td
-      .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
+      .btn.btn-danger-material.deleteItemSale.pull-right ✖
 
 
-form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="multipart/form-data"
   .saleAllItemCashbox
     .list-group-item.col-md-9
-      table.table
+      table.table.table-material
         thead
           tr
             th Производитель
@@ -42,20 +38,21 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
             th Сумма
             th 
         tbody.allItemsSale
-      .btn.btn-primary.addItemSale Добавить позицию
-      .btn.btn-primary.js_openFormNewItem style='margin-left: 5px;' Добавить Вкус
-    .list-group-item.col-md-3
+      .btn.btn-primary-material.addItemSale Добавить позицию
+      / .btn.btn-primary-material.js_openFormNewItem style='margin-left: 5px;' Добавить Вкус
+    .list-group-item.col-md-3.block-material
       .moneyClacl
         .titlePrice 0.00
       = render "admin/admin/common_cashbox"
       .form-group
-        label style="margin-right: 8px;" Оплачено?:
-        = check_box("buy_param", "def_pay", {checked: false})
+        = check_box("buy_param", "def_pay", {checked: false, class: "checkbox-material", id: "filled-in-box"})
+        label.checkbox-label-material for="filled-in-box" Оплачено?
+        
       .actionBtnSale
-        .btn-primary.priceItemSale Подсчет
+        .btn.btn-primary-material.priceItemSale Подсчет
         input type="hidden" name="buy_param[provider_id]" value="#{params[:provider_id]}"
         input type="hidden" name="_method" value="#{method}"
-        button.btn.btn-success type="submit" Расчет
+        button.btn.btn-success-material type="submit" Расчет
       .allProductCalc style="display: none;"
         table.table
           thead
@@ -72,19 +69,19 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
               td class="inlineBlock sum" 4000
 
 
-.addFormNewItem style="display:none;"
-  hr
-  .btn.btn-danger.pull-right.js_hideFormNewItem style="margin-bottom: 5px;" ✖
+- @popup = "Добавление нового вкуса"
+- content_for :popup do
   form.newTasteItem
-    h3 Добавление Вкуса
     .form-group
-      label
-        | Производитель:
-      select.form-control name="buy[product_id]"
-        option value='0' Не выбранно
-        - @products.each do |product|
-          option value=product.id = product.title
+      .mad-select
+        ul
+          li data-value="0" Не выбрано
+          - @products.each do |product|
+            li data-value=product.id = product.title
+        input.changeSelectContent type="hidden" value="0" name="buy[product_id]"
     .form-group
       input.form-control name="buy[title]" type="text" placeholder="Название"
+    .form-group
       input.form-control name="buy[barcode]" type="text" placeholder="Код товара"
-    .btn.btn-primary.js_saveNewProductItem Сохранить
+    .btn.btn-primary-material.js_saveNewProductItem.submit Сохранить
+

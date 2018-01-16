@@ -1,10 +1,14 @@
 .list-group.row
   .list-group-item.panel_gray_common style="display: flex;justify-content: space-between;"
     form action="/admin/buy/new" method="get" style="margin-bottom: 0; display: flex;"
-      button.btn.btn-success href="/admin/buy/new"  Добавить закуп
-      span.selectInlineProvider
-        = select_tag("provider_id", options_for_select(Provider.all.map{|pr| [pr.title, pr.id]}))
-    a.btn.btn-success href="/admin/buy/search" Поиск
+      button.btn.btn-success-material href="/admin/buy/new"  Добавить закуп
+      .selectInlineProvider
+        .mad-select  
+          ul
+            - Provider.all.each do |pr|
+              li data-value="#{pr.id}" = pr.title
+          input type="hidden" name="provider_id" value="#{Provider.first.id}"
+    a.btn.btn-success-material href="/admin/buy/search" Поиск
   - @buys.each do |buy|
     .list-group-item.col-md-6
       span
@@ -12,12 +16,12 @@
           = buy.created_at.strftime("%d-%m-%Y") + " (#{buy.price}р.) | #{buy.provider_title}"
       - if !buy.def_pay
         form.def_pay action="/admin/buy/#{buy.id}/def_pay" method="get" enctype="multipart/form-data"
-          span.type_cashbox
+          .type_cashbox
             = render "admin/admin/common_cashbox"
           input type="hidden" name="_method" value="get"
-          button.btn.btn-success.pull-right type="submit"
+          button.btn.btn-success-material.pull-right type="submit"
             | ✔
-      a.btn.btn-danger.pull-right href="/admin/buy/#{buy.id}/remove" data-method='delete'
+      a.btn.btn-danger-material.pull-right href="/admin/buy/#{buy.id}/remove" data-method='delete'
         | &#10006;
       /a.btn.btn-success.pull-right href="/sales/#{sale.id}/edit" style="margin-right: 5px;"
       /  | &#9998;

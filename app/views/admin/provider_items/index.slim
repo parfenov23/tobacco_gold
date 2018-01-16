@@ -1,9 +1,11 @@
 - model_url = @models.first_url
-.list-group.row
-  .list-group-item.panel_gray_common
-    a.btn.btn-success href="/admin/#{model_url}/new?provider_id=#{params[:provider_id]}" Добавить
+.list-group.row.material
+  / .list-group-item.panel_gray_common
+  /   a.btn.btn-success-material href="/admin/#{model_url}/new?provider_id=#{params[:provider_id]}" Добавить
   - @models.each do |model|
-    .list-group-item.col-md-6
+    .list-group-item.col-md-6.material
       span
         = model.title
-      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}"}
+      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование цены поставки"}
+
+  = render "admin/admin/common_popup_new_model", {model: ProviderItem.new, title: "Добавление новой цены поставки"}

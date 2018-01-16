@@ -1,39 +1,40 @@
-.list-group-item.col-md-2.user_items_menu
-  .user_info
-    .ava
-      img src=user_ava(current_user.avatar)
-    .changeUserInfo Смена №5 от 30.10.2017 14:40
-    .changeUserInfo Остаток: #{current_user.balance_payments} руб.
+.managerBorder
+  .list-group-item.col-md-2.user_items_menu.block-material
+    .user_info
+      .ava
+        img src=user_ava(current_user.avatar)
+      .changeUserInfo Смена №5 от 30.10.2017 14:40
+      .changeUserInfo Остаток: #{current_user.balance_payments} руб.
 
-  .userMenu
-    a href="/admin/admin" Текущая смена
-    a href="/admin/admin?stat=month" Текущий месяц
-    a href="/admin/admin?stat=all" Все смены
-    a href="/users/sign_out" data-method="get" Выход
+    .userMenu
+      a href="/admin/admin" Текущая смена
+      a href="/admin/admin?stat=month" Текущий месяц
+      a href="/admin/admin?stat=all" Все смены
+      a href="/users/sign_out" data-method="get" Выход
 
-.list-group-item.col-md-10.userStatistic
-  table class="table"
-    tbody
-      tr
-        td Сумма продаж
-        td #{@sum_sales} руб.
-      tr.noBorderTop
-        td.smile наличные
-        td #{@cash_money} руб.
-      tr.noBorderTop
-        td.smile по карте
-        td #{@cash_visa} руб.
-      tr
-        td Средний чек
-        td #{@average_check} руб.
-      tr
-        td Количество продаж
-        td #{@all_count_sales}
-      tr
-        td Заработано
-        td #{@manager_balance} руб.
-  hr
-  - if params[:stat] == "all"
-    = render "sale_profit_chart"
-  - if params[:stat] == "month"
-    = render "sale_profit_chart_month"
+  .list-group-item.col-md-10.userStatistic.block-material
+    table class="table"
+      tbody
+        tr
+          td Сумма продаж
+          td #{@sum_sales} руб.
+        tr.noBorderTop
+          td.smile наличные
+          td #{@cash_money} руб.
+        tr.noBorderTop
+          td.smile по карте
+          td #{@cash_visa} руб.
+        tr
+          td Средний чек
+          td #{@average_check} руб.
+        tr
+          td Количество продаж
+          td #{@all_count_sales}
+        tr
+          td Заработано
+          td #{@manager_balance} руб.
+    / hr
+    / - if params[:stat] == "all"
+    /   = render "sale_profit_chart"
+    / - if params[:stat] == "month"
+    /   = render "sale_profit_chart_month"

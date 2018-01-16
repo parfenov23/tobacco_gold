@@ -1,45 +1,69 @@
 html
   head
     = csrf_meta_tags
-    link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"
-    link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet"
-    script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
-    script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
+    / link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"
+    / link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet"
+    / script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+    / script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
+
+    link href="/admin/bootstrap/bootstrap.min.css" rel="stylesheet"
+    link href="/admin/bootstrap/bootstrap-theme.min.css" rel="stylesheet"
+    script src="/admin/bootstrap/jquery.min.js"
+    script src="/admin/bootstrap/bootstrap.min.js"
+
     meta name="yandex-verification" content="82f611331ec2dcf3"
     link href="/style/app.css" rel="stylesheet"
+    script src="/admin/js/material_select.js"
+    script src="/admin/js/material_popup.js"
+    link href="/admin/bootstrap/google_icon.css" rel="stylesheet"
     = stylesheet_link_tag 'admin/application'
+    = javascript_include_tag 'admin/application'
     = javascript_include_tag "/tinymce/tinymce.min.js"
     meta name="viewport" content="width=device-width, initial-scale=1"
+    - if Rails.env.production?
+      javascript:
+        (window.Image?(new Image()):document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=TfrGqiMZB2vs4jnbffgNFYFnoLIfyOq8*XcQSovHcoCOaHwnMLOqxUVEgd6*EnXUWVdCyQ*7DBO5/fnCOamlGHVcEYXh0whQL/uEkdsCFmgZRKTj1bRqsYSxrlcDvZA1amZbVNN6piaonAJaKnG0nvhk8gqyntxzdn*QLUOw9*k-';
+
     javascript:
       tinymce.init({
         selector: "textarea.js_TinyMce",
         height  : 300
       });
-
-      (window.Image?(new Image()):document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=TfrGqiMZB2vs4jnbffgNFYFnoLIfyOq8*XcQSovHcoCOaHwnMLOqxUVEgd6*EnXUWVdCyQ*7DBO5/fnCOamlGHVcEYXh0whQL/uEkdsCFmgZRKTj1bRqsYSxrlcDvZA1amZbVNN6piaonAJaKnG0nvhk8gqyntxzdn*QLUOw9*k-';
       
       function openNav() {
-        document.getElementById("mySidenav").style.display = "block";
-      }
-
-      function closeNav() {
-        document.getElementById("mySidenav").style.display = "none";
+        $(".sidenav").toggleClass("open");
       }
 
   body style="background-color: #f5f5f5;"
     - if current_user_admin?
       #mySidenav.sidenav
-        a.closebtn href="javascript:void(0)" onclick="closeNav()"  &times;
+        a.closebtn href="javascript:void(0)" onclick="openNav()"  &times;
         - all_nav_li_admin.each do |li_nav|
           - if li_nav[:display] != false
             a href="#{li_nav[:url]}" 
               = li_nav[:title]
 
-      nav.navbar.navbar-default
+      nav.navbar.navbar-default.block-material
         .allNavElem
           .btnOpenleftBar onclick="openNav()"
             |&#9776;
           .headerTitle 
             = curr_title_admin_header
-    .well style="padding: 14px 5px 5px 5px;margin-bottom: 0;"
+    .well
       = yield
+      #overlay
+      .allOtherPopup
+        .cntt-wrapper
+          .fab-hdr
+            a href="javascript:void(0)" onclick="closeAllOtherPopup()" ×
+            h3 Test
+          .conteinerPopup
+      - if @popup.present?
+        .fab
+          i.material-icons.fab-icon add
+          .cntt-wrapper
+            .fab-hdr
+              a.closeBtn href="javascript:void(0)" onclick="closeAllOtherPopup()" ×
+              h3 = @popup
+            .conteinerPopup
+              = yield :popup

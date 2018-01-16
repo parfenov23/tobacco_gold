@@ -1,0 +1,22 @@
+- @products.each do |product|
+  - all_prices = product.product_prices.where(archive: false)
+  - all_prices_arr = all_prices.map{|first_price| [first_price.price, first_price.id]}
+  - curr_price = params[:type_sale] != "opt" ? all_prices.curr_default_id : all_prices.curr_opt_id
+  div id="select#{product.id}"
+    .mad-select.noInit.selectProductItem
+      ul
+        - product_items = product.product_items
+        - product_items.each do |item|
+          - product_item_count = item.product_item_counts.where(magazine_id: current_magazine.id).last
+          - if product_item_count.present? && product_item_count.count.to_i > 0
+            li data-value=item.id data-barcode=item.barcode data-product=product.id data-price_id=item.price_id data-deff_price=curr_price
+              = item.title
+      input.changeSelectContent.changeSelectProductItem type="hidden" name="sales[][item_id]" value=product_items.first.id
+
+    .mad-select.noInit.selectProductPrice
+      ul
+        - all_prices_arr.each do |price|
+          li data-value=price.last = price.first
+      input.changeSelectContent.selectPrice type="hidden" name="sales[][price_id]" value=curr_price
+
+    / = select("", "", all_prices_arr, {selected: curr_price}, { name: 'sales[][price_id]', class: 'form-control selectPrice', "data-deff_price" => curr_price})

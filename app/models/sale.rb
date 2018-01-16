@@ -29,7 +29,11 @@ class Sale < ActiveRecord::Base
   end
 
   def self.current_day
-    Sale.where(["created_at > ? ", Time.current.beginning_of_day]).where(["created_at < ? ", Time.current.end_of_day])
+    where(["created_at > ? ", Time.current.beginning_of_day]).where(["created_at < ? ", Time.current.end_of_day])
+  end
+
+  def self.curr_year
+    where(["created_at > ? ", Time.now.beginning_of_year]).where(["created_at < ? ", Time.current.end_of_year])
   end
 
   def self.last_sales_price
@@ -46,6 +50,10 @@ class Sale < ActiveRecord::Base
 
   def self.current_month_profit
     where(["created_at > ?", Time.now.beginning_of_month]).sum(:profit)
+  end
+
+  def self.current_year_profit
+    where(["created_at > ?", Time.now.beginning_of_year]).sum(:profit)
   end
 
   def sale_url

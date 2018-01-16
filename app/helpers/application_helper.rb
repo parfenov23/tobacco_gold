@@ -86,7 +86,7 @@ module ApplicationHelper
       {url: "/admin/admin", title: "Главная"},
       {url: "/admin/products", title: "Товары"},
       {url: '/admin/categories', title: 'Категории', display: false}, 
-      {url: '/admin/mix_boxes', title: 'Миксы'}, 
+      # {url: '/admin/mix_boxes', title: 'Миксы'}, 
       {url: "/admin/stock", title: "Склад"},
       {url: "/admin/sales", title: "Продажа"},
       {url: "/admin/revision", title: "Ревизия"},
@@ -101,7 +101,9 @@ module ApplicationHelper
       {url: '/admin/admin/manager_payments', title: 'Выплаты'},
       {url: '/admin/admin/search', title: 'Поиск'},
       {url: '/admin/providers', title: 'Поставщики'},
-      {url: '/admin/magazins', title: 'Магазины'}
+      {url: '/admin/magazins', title: 'Магазины'},
+      {url: '/admin/product_items', title: 'Вкусы', display: false},
+      {url: '/admin/product_prices', title: 'Цены', display: false}
     ]
   end
 

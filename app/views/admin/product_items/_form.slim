@@ -48,4 +48,5 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   - product_id = product_present ? params[:product_id] : @model.product_id
   input type="hidden" name="product_items[product_id]" value="#{product_id}"
   input type="hidden" name="_method" value="#{method}"
-  button.btn.btn-primary type="submit" Сохранить
+  - class_submit = @model.id.present? ? "js_submitUpdateProduct" : "js_submitNewModel"
+  button.btn.btn-primary-material.submit class=class_submit type="submit" Сохранить

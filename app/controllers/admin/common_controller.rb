@@ -10,7 +10,7 @@ module Admin
 
     def create
       model.create(params_model)
-      redirect_to_index
+      params[:typeAction] == "json" ? render_json_success : redirect_to_index
     end
 
     def show
@@ -19,6 +19,7 @@ module Admin
 
     def edit
       @model = find_model
+      render_if_json
     end
 
     def update
@@ -35,6 +36,17 @@ module Admin
 
     def redirect_to_index
       redirect_to "/admin/#{model.first_url}"
+    end
+
+    def render_if_json
+      if params[:typeAction] == "json"
+        html_form = render_to_string "/admin/#{@model.class.first_url}/_form", :layout => false
+        render text: html_form
+      end
+    end
+
+    def render_json_success
+      render json: {success: true}
     end
 
     def find_model

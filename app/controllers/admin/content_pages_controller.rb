@@ -5,7 +5,7 @@ module Admin
     end
 
     def new
-      @content_page = ContentPage.new
+      @model = ContentPage.new
     end
 
     def create
@@ -15,11 +15,15 @@ module Admin
       else
         content_page.update(params_content)
       end
-      redirect_to "/admin/content_pages/#{content_page.id}/edit"
+      redirect_to "/admin/content_pages"
     end
 
     def edit
-      @content_page = find_content_page
+      @model = find_content_page
+      if params[:typeAction] == "json"
+        html_form = render_to_string "/admin/#{@model.class.first_url}/_form", :layout => false
+        render text: html_form
+      end
     end
 
     def update

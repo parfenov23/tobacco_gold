@@ -1,15 +1,7 @@
 module Admin
-  class ContactsController < AdminController
+  class ContactsController < CommonController
     require 'vk_message'
     require 'send_sms'
-
-    def index
-      @models = model.all
-    end
-
-    def new
-      @model = model.new
-    end
 
     def create
       params_r = params_model
@@ -22,14 +14,6 @@ module Admin
         SendSms.sender([params_r[:phone]], "Логин: #{email}\nПароль: #{pass}\n#{request.base_url}")
       end
       redirect_to_index
-    end
-
-    def show
-      @model = find_model
-    end
-
-    def edit
-      @model = find_model
     end
 
     def update

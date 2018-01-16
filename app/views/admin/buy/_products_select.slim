@@ -1,9 +1,0 @@
-- @products.each do |product|
-  table id="select#{product.id}"
-    tr
-      td
-        select.form-control name="buy[][item_id]"
-          - product.product_items.each do |item|
-            option data-barcode=item.barcode data-product=product.id value=item.id = item.title
-      td
-        input.selectPrice.form-control name="buy[][price_id]" placeholder='стоимость'

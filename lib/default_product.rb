@@ -2,8 +2,8 @@ class DefaultProduct
 
   def self.create
     template.each do |product|
-      product_id = Product.create(title: product[:title])
-      product[:product_items].map{|pi| ProductItem.create(title: pi[:title], barcode: pi[:barcode]) }
+      product_id = Product.find_or_create_by(title: product[:title]).id
+      product[:product_items].map{|pi| ProductItem.find_or_create_by(title: pi[:title], barcode: pi[:barcode], product_id: product_id) }
     end
   end
 

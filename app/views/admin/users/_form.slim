@@ -1,25 +1,23 @@
-- action_url = @user.id.nil? ? "/admin/users" : "/admin/users/#{@user.id}"
-- method = @user.id.nil? ? "post" : "put"
+- action_url = @model.id.nil? ? "/admin/users" : "/admin/users/#{@model.id}"
+- method = @model.id.nil? ? "post" : "put"
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .form_group
+  .form-group
     |Email:
-    input.form-control name="user[email]" type="text" value="#{@user.email}"
-  .form_group
+    input.form-control name="user[email]" type="text" value="#{@model.email}"
+  .form-group
     |Логин:
-    input.form-control name="user[login]" type="text" value="#{@user.login}"
-  .form_group
+    input.form-control name="user[login]" type="text" value="#{@model.login}"
+  .form-group
     |Пароль(6):
     input.form-control name="user[password]" type="text"
-  .form_group
+  .form-group
     |Процент от продаж:
-    input.form-control name="user[procent_sale]" type="text" value=@user.procent_sale
-  .form_group
+    input.form-control name="user[procent_sale]" type="text" value=@model.procent_sale
+  .form-group
     |Права:
-    = select_tag("user[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"], ["Пользователь", "user"]], @user.role.to_s), {:class => 'form-control'})
-  .form_group
+    = select_tag("user[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"], ["Пользователь", "user"]], @model.role.to_s), {:class => 'form-control'})
+  .form-group
     |Магазин:
-    = select_tag("user[magazine_id]", options_for_select(Magazine.all.map{|magaz| [magaz.title, magaz.id]}, @user.magazine_id), {:class => 'form-control'})
-  hr
+    = select_tag("user[magazine_id]", options_for_select(Magazine.all.map{|magaz| [magaz.title, magaz.id]}, @model.magazine_id), {:class => 'form-control'})
   input type="hidden" name="_method" value="#{method}"
-  button.btn.btn-primary type="submit"  Сохранить
-hr
+  button.btn.btn-primary-material.submit type="submit"  Сохранить

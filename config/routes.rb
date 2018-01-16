@@ -176,6 +176,9 @@ Rails.application.routes.draw do
       collection do
         get :to_excel
       end
+      member do 
+        get :info
+      end
     end
 
     resources :revision

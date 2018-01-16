@@ -1,43 +1,45 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <% all_sales = Sale.where(magazine_id: current_user.magazine_id) %>
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['bar']});
-  google.charts.setOnLoadCallback(drawChart);
-  <% arr = ([['День', 'Продажи', 'Прибыль', 'Затраты']].concat all_sales.curr_month_statistic(current_user.magazine_id)).to_json %>
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
+<% if params[:date].blank? || params[:date] == "day" %>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+    <% arr = ([['День', 'Продажи', 'Прибыль', 'Затраты']].concat all_sales.curr_month_statistic(current_user.magazine_id)).to_json %>
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
 
-    var options = {
-      chart: {
-        title: 'Tobacco Gold',
-        subtitle: 'продажи, прибыль за <%= Russian::strftime(Time.now, "%B") %>',
-      }
-    };
+      var options = {
+        chart: {
+          title: 'Tobacco Gold',
+          subtitle: 'продажи, прибыль, расходы за <%= Russian::strftime(Time.now, "%B") %>',
+        }
+      };
 
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material_month'));
+      var chart = new google.charts.Bar(document.getElementById('columnchart_material_month'));
 
-    chart.draw(data, google.charts.Bar.convertOptions(options));
-  }
-</script>
-<div id="columnchart_material_month" style="width: 100%; height: 500px;margin-top: 24px;"></div>
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+  </script>
+  <div id="columnchart_material_month" class="block-material" style="width: 100%; height: 500px;margin-top: 24px;padding: 16px;background-color: white;"></div>
+<% end %>
+<% if params[:date] == "year" ||  params[:date] == "month" %>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+    <% arr = ([['Месяц', 'Продажи', 'Прибыль', 'Затраты']].concat all_sales.curr_year_statistic(current_user.magazine_id)).to_json %>
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
 
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['bar']});
-  google.charts.setOnLoadCallback(drawChart);
-  <% arr = ([['Месяц', 'Продажи', 'Прибыль', 'Затраты']].concat all_sales.curr_year_statistic(current_user.magazine_id)).to_json %>
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
+      var options = {
+        chart: {
+          title: 'Tobacco Gold',
+          subtitle: 'продажи, прибыль за текущий год',
+        }
+      };
 
-    var options = {
-      chart: {
-        title: 'Tobacco Gold',
-        subtitle: 'продажи, прибыль за текущий год',
-      }
-    };
+      var chart = new google.charts.Bar(document.getElementById('columnchart_material_year'));
 
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material_year'));
-
-    chart.draw(data, google.charts.Bar.convertOptions(options));
-  }
-</script>
-<div id="columnchart_material_year" style="width: 100%; height: 500px;margin-top: 24px;"></div>
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+  </script>
+  <div id="columnchart_material_year" class="block-material" style="width: 100%; height: 500px;margin-top: 24px;padding: 16px;background-color: white;"></div>
+<% end %>

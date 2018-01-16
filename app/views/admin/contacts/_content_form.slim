@@ -19,4 +19,8 @@
   label
     | Код карты:
   input.form-control name="contact[barcode]" type="text" value="#{@model.barcode}"
+.form-group
+  label
+    | Оптовый клиент?:
+  = check_box("contact", "opt", {checked: check_if_true(@model.opt)})
 // ================

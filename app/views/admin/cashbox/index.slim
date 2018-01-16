@@ -1,86 +1,78 @@
-.content_tables_cashbox.list-group.row
-  .list-group-item
-    .commonInfo.list-group-item.panel_gray_common
-      span 
-        |Общее
-      span
-        / a.btn.btn-primary style="margin-left: 4px;" href="/admin/cashbox/#{@current_cashbox.id}/edit" Редактирование
-        a.btn.btn-primary style="margin-left: 4px;" href="/admin/other_buy" Прочие расходы
-        a.btn.btn-success style="margin-left: 4px;" href="/admin/cashbox/to_check" Сверка
-    table.table.table-bordered.table_cashbox_page
-      tbody
-        tr.success
-          td Наличны
-          td.info_column #{@current_cashbox.cash} рублей
-        tr.danger
-          td Visa
-          td.info_column #{@current_cashbox.visa} рублей
-        tr.info
-          td Общая касса
-          td.info_column #{@cashbox} рублей
-        / tr.success
-        /   td Текущая касса
-        /   td.info_column #{@cashbox.to_i} рублей
-        tr.danger
-          td Денег в товаре
-          td.info_column #{@stock_price.to_i} рублей
-        tr.info
-          td Сумма касса + товар
-          td.info_column #{(@cashbox + @stock_price).to_i} рублей
-        tr.success
-          td Сумма продаж за сегодня
-          td.info_column #{@all_sales.current_day.sum(:price)} рублей
-        tr.danger
-          td Прибыль за сегодня
-          td.info_column #{@all_sales.current_day_profit} рублей
-        // пока так
+.openMobileLeftBar.btn-primary-material
+  i.icon-cashbox.iconCashbox
+.leftContentBar.block-material
+  .list-group-item.panel_gray_common 
+    |Общее
+    a class="js_closeLeftBar" href="javascript:void(0)" ×
+  .listInfo
+    .item
+      // Касса
+      i.icon-cashbox.iconCashbox
+      span.title #{number_with_delimiter(@cashbox, delimiter: " ")} рублей
+    .item.under
+      // деньги наличные
+      i.icon-coin-dollar.iconCashbox
+      span.title #{number_with_delimiter(@current_cashbox.cash, delimiter: " ")} рублей
+    .item.under
+      // Денег на карте
+      i.icon-credit-card.iconCashbox
+      span.title #{number_with_delimiter(@current_cashbox.visa, delimiter: " ")} рублей
+    .item
+      // Денег в товаре
+      i.icon-cart.iconCashbox 
+      span.title #{number_with_delimiter(@stock_price.to_i, delimiter: " ")} рублей
+    .item
+      // Касса + товар
+      i.icon-dollar-coins.iconCashbox
+      span.title #{number_with_delimiter((@cashbox + @stock_price).to_i, delimiter: " ")} рублей
+    .item
+      // остаток прибыли
+      i.bars.iconCashbox
+      - curr_profit = @all_sales.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price + @curr_month_other_up_price
+      span.title #{number_with_delimiter(curr_profit, delimiter: " ")} рублей
+    .item
+      // Усредненное продаж
+      i.averege.iconCashbox
+      - averege = (@curr_month_sales_price/Time.now.day * Time.now.end_of_month.day).to_i
+      span.title #{number_with_delimiter(averege, delimiter: " ")} рублей
+  .list-group-item.panel_gray_common Долг поставщикам
+  .listInfo
+    - Provider.all.each do |provider|
+      - all_sum_buys = provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).sum(:price)
+      .item
+        i.user-tie.iconCashbox
+        span.title #{provider.title}
+      .item.under
+        i.icon-coin-dollar.iconCashbox
+        span.title #{number_with_delimiter(all_sum_buys, delimiter: " ")} рублей
+= render "curr_statistic"
+.headerBar.block-material
+  .displayFlex
+    .leftBlock.js_selectStatisticCachbox
+      - deff_select = params[:date].blank? ? "day" : params[:date]
+      = render "common_select", {arr_li: [["День","day"], ["Месяц", "month"], ["Год", "year"]], default: deff_select, add_class: "noInit"}
+    .rightBlock
+      a.btn.btn-primary-material style="margin-left: 4px;" href="/admin/other_buy" Прочие расходы
+      a.btn.btn-success-material.js_loadContentInOtherPopup data-title="Сверка кассы" style="margin-left: 4px;" href="/admin/cashbox/to_check" Сверка
+.contentCashbox
+  .allMiniBlockStatistic.displayFlex
+    .miniBlockStatistic.block-material
+      .title Продажи
+      .price #{@curr_sale} рублей
+    .miniBlockStatistic.block-material
+      .title Прибыль
+      .price #{@curr_profit} рублей
+    .miniBlockStatistic.block-material
+      .title Расходы
+      .price #{@curr_exp} рублей
+    .miniBlockStatistic.block-material
+      .title Доходы
+      .price #{@curr_inc} рублей
+    .miniBlockStatistic.block-material
+      .title Выплаты
+      .price #{@manager_pay} рублей
 
-  .list-group-item
-    .panel_gray_common.list-group-item Долг поставщикам
-    table.table.table-bordered.table_cashbox_page
-      tbody
-        - Provider.all.each do |provider|
-          - all_sum_buys = provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).sum(:price)
-          tr.success
-            td = provider.title
-            td.info_column #{all_sum_buys} рублей
-
-  .list-group-item
-    .panel_gray_common.list-group-item Статистика за последнию неделю
-    table.table.table-bordered.table_cashbox_page
-      tbody
-        tr.success
-          td Проданно на: 
-          td.info_column #{@last_sales_price} рублей
-        tr.danger
-          td Прибыль: 
-          td.info_column #{@sales_profit} рублей
-  
-  .list-group-item
-    .panel_gray_common.list-group-item Статистика продаж и закупов за текущий месяц
-    table.table.table-bordered.table_cashbox_page
-      tbody
-        tr.success
-          td Продажи
-          td.info_column #{@curr_month_sales_price} рублей
-        tr.danger
-          td Закупы
-          td.info_column #{@curr_month_buy_price} рублей
-        tr.info
-          td Прочие расходы
-          td.info_column #{@curr_month_other_down_price} рублей
-        tr.success
-          td Прочие доходы
-          td.info_column #{@curr_month_other_up_price} рублей
-        tr.danger
-          td Выплаты менеджерам
-          td.info_column #{@curr_month_manager_pay} рублей
-        tr.info
-          td Прибыль
-          td.info_column #{@all_sales.current_month_profit} рублей
-        tr.success
-          td Остаток прибыли
-          - curr_profit = @all_sales.current_month_profit - @curr_month_manager_pay - @curr_month_other_down_price + @curr_month_other_up_price
-          td.info_column #{curr_profit} рублей
-
-= render "sale_profit_chart_month"
+  script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"
+  = render "statistic_charts"
+  .displayFlex
+    = render "sale_profit_chart_month"

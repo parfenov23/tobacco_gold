@@ -1,27 +1,6 @@
 module Admin
-  class OrderRequestsController < AdminController
+  class OrderRequestsController < CommonController
     require 'vk_message'
-
-    def index
-      @models = model.all
-    end
-
-    def new
-      @model = model.new
-    end
-
-    def create
-      model.create(params_model)
-      redirect_to_index
-    end
-
-    def show
-      @model = find_model
-    end
-
-    def edit
-      @model = find_model
-    end
 
     def update
       items = {}
@@ -38,31 +17,14 @@ module Admin
       redirect_to_show
     end
 
-    def remove
-      find_model.destroy
-      redirect_to_index
-    end
-
     private
 
     def model
       OrderRequest
     end
 
-    def redirect_to_index
-      redirect_to "/admin/#{model.first_url}"
-    end
-
     def redirect_to_show
       redirect_to "/admin/#{model.first_url}/#{find_model.id}"
-    end
-
-    def find_model
-      model.find(params[:id])
-    end
-
-    def params_model
-      params.require(model.to_s.downcase.to_sym).permit(model.column_names).compact.select { |k, v| v != "" } rescue {}
     end
   end
 end

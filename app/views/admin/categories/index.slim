@@ -1,8 +1,10 @@
-.list-group.row
-  .list-group-item.panel_gray_common
-    a.btn.btn-success href="/admin/categories/new"
-      | Добавить категорию
+.list-group.row.material
+  / .list-group-item.panel_gray_common
+  /   a.btn.btn-success href="/admin/categories/new"
+  /     | Добавить категорию
   - @models.each do |category|
-    .list-group-item.col-md-6
+    .list-group-item.col-md-6.material
       span = category.first_name
-      = render "admin/admin/common_btn", {url: "/admin/categories/#{category.id}"}
+      = render "admin/admin/common_btn", {url: "/admin/categories/#{category.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование категории"}
+
+= render "admin/admin/common_popup_new_model", {model: Category.new, title: "Добавление новогой категории"}

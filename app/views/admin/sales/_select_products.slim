@@ -1,0 +1,6 @@
+.mad-select.noInit
+  ul
+    li data-value="0" Не выбрано
+    - @products.each do |product|
+      li data-value=product.id = product.title
+  input.changeSelectContent type="hidden" value="0"

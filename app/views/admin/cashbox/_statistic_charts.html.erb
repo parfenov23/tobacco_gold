@@ -1,0 +1,41 @@
+<script type="text/javascript">
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data_1 = google.visualization.arrayToDataTable([
+      ['Название', 'Сумма'],
+      ['Продажи', <%= @curr_sale %>],
+      ['Закуп',     <%= @curr_buy %>],
+      ['Прибыль',      <%= @curr_profit %>]
+      ]);
+
+    var options_1 = {
+      title: 'Продажи, Закупы, Прибыль',
+      pieHole: 0.4,
+    };
+
+    var data_2 = google.visualization.arrayToDataTable([
+      ['Название', 'Сумма'],
+      ['Расходы', <%= @curr_exp %>],
+      ['Доходы',  <%= @curr_inc %>],
+      ['Выплаты',  <%= @manager_pay %>]
+    ]);
+
+    var options_2 = {
+      title: 'Расходы, Доходы, Выплаты',
+      pieHole: 0.4,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data_1, options_1);
+    
+    var chart2 = new google.visualization.PieChart(document.getElementById('donutchart2'));
+    chart2.draw(data_2, options_2);
+  }
+</script>
+<div class="displayFlex">
+  <div id="donutchart" class="block-material" style="width: 100%; height: 300px;margin-right: 16px;"></div>
+  <div id="donutchart2" class="block-material" style="width: 100%; height: 300px;"></div>
+<!--     <div class="donutchart" style="width: 100%; height: 500px;"></div>
+  <div class="donutchart" style="width: 100%; height: 500px;"></div> -->
+</div>

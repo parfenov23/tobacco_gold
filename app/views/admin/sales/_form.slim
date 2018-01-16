@@ -6,27 +6,12 @@
 - method = from_model_present ? "post" : "put"
 
 #contentSelect style="display:none;"
-  - @products.each do |product|
-    div id="select#{product.id}"
-      - all_prices = product.product_prices.where(archive: false)
-      - all_prices_arr = all_prices.map{|first_price| [first_price.price, first_price.id]}
-      - curr_price = params[:type_sale] != "opt" ? all_prices.curr_default_id : all_prices.curr_opt_id
-      select.form-control.changeSelectProductItem name="sales[][item_id]"
-        - product.product_items.each do |item|
-          - product_item_count = item.product_item_counts.where(magazine_id: current_magazine.id).last
-          - if product_item_count.present? && product_item_count.count.to_i > 0
-            option data-barcode=item.barcode data-product=product.id data-price_id=item.price_id value=item.id
-              = item.title
-
-      = select("", "", all_prices_arr, {selected: curr_price}, { name: 'sales[][price_id]', class: 'form-control selectPrice', "data-deff_price" => curr_price})
+  = render "select_product_items"
 
 table.referenceItemSale style="display: none;"
   tr.parentItemSale.active
     td.inlineBlock
-      select.form-control.changeSelectContent
-        option value='0' Не выбранно
-        - @products.each do |product|
-          option value=product.id = product.title
+      = render "select_products"
 
     td.formLoadContentTaste
     td.formLoadContentPrice
@@ -34,16 +19,12 @@ table.referenceItemSale style="display: none;"
       input.form-control.countItems name="sales[][count]" type="text" value="1"
     td.endSumPosition 0
     td
-      .btn.btn-danger.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
+      .btn.btn-danger-material.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
 
-form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  / .form-group style="display: none;"
-  /   label Контакт:
-  /   - all_contacts = Contact.all
-  /   = select_tag("contact_id", options_for_select([["Нет", nil]] + all_contacts.map{|contact| [contact.title, contact.id]}), {:class => 'form-control'})
+form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="multipart/form-data"
   .saleAllItemCashbox
     .list-group-item.col-md-9
-      table.table
+      table.table.table-material
         thead
           tr
             th Производитель
@@ -53,8 +34,8 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
             th Сумма
             th 
         tbody.allItemsSale
-      .btn.btn-primary.addItemSale Добавить позицию
-    .list-group-item.col-md-3
+      .btn.btn-primary-material.addItemSale Добавить позицию
+    .list-group-item.col-md-3.block-material
       .moneyClacl
         .titlePrice 0.00
         .titleDelivery сдача: 99999
@@ -69,8 +50,8 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
           option value='dickount' Скидка
       = render "admin/admin/common_cashbox"
       .actionBtnSale
-        .btn-primary.priceItemSale Подсчет
+        .btn.btn-primary-material.priceItemSale Подсчет
         input type="hidden" name="magazine_id" value="#{current_user.magazine_id}"
         input type="hidden" name="_method" value="#{method}"
-        button.btn.btn-success type="submit" Расчет
+        button.btn.btn-success-material type="submit" Расчет
   / .list-group.row

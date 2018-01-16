@@ -8,9 +8,6 @@ class ProductPrice < ActiveRecord::Base
   end
 
   def update_default
-    # binding.pry
     product.product_prices.update_all(default: false)
-    #update_attribute(:default, true)
-    # binding.pry
   end
 end

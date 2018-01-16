@@ -15,15 +15,18 @@ div
   = @model.contact.phone
 .form-group
   .all_order_items
-    - @model.items.each do |id, count|
-      .order_item
-        - product_item = ProductItem.find(id)
-        = select_tag("item_id[]", options_for_select(@all_items, id))
-        span style="margin-left: 5px;" 
-          |Кол-во: 
-        input name="count[]" value=count
-        .btn.btn-danger.js__removeItemOrder style="margin-left: 5px;" &#10006;
-  .btn.btn-success.js__addItemOrder Добавить
+    - @model.sorty_by_product.each do |product_id, items_hash|
+      - items_hash.each do |item_hash|
+        - item = item_hash[:product_item]
+        .order_item
+          .selectItem
+            = select_tag("item_id[]", options_for_select(@all_items, item.id))
+          .countItem
+            span
+              |Кол-во: 
+            input name="count[]" value=item_hash[:count]
+            .btn.btn-danger-material.js__removeItemOrder &#10006;
+  .btn.btn-success-material.js__addItemOrder Добавить
 / .form-group
 /   label
 /     | Социальная ссылка:

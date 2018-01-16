@@ -21,15 +21,17 @@ javascript:
 
 .referenceItemOrder style="display: none;"
   .order_item
-    = select_tag("item_id[]", options_for_select(@all_items))
-    span style="margin-left: 5px;" 
-      |Кол-во: 
-    input name="count[]" value=1
-    .btn.btn-danger.js__removeItemOrder style="margin-left: 5px;" &#10006;
+    .selectItem
+      = select_tag("item_id[]", options_for_select(@all_items))
+    .countItem
+      span
+        |Кол-во: 
+      input name="count[]" value=1
+      .btn.btn-danger-material.js__removeItemOrder &#10006;
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
 
   = render "content_form"
 
   input type="hidden" name="_method" value="#{method}"
-  button.btn.btn-primary type="submit" Сохранить
+  button.btn.btn-primary-material.submit type="submit" Сохранить

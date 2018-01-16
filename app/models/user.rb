@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
     email
   end
 
+  def self.first_url
+    "users"
+  end
+
   def is_admin?
     role == "admin"
   end
