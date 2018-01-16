@@ -58,19 +58,19 @@
   .allMiniBlockStatistic.displayFlex
     .miniBlockStatistic.block-material
       .title Продажи
-      .price #{@curr_sale} рублей
+      .price #{number_with_delimiter(@curr_sale, delimiter: " ")} рублей
     .miniBlockStatistic.block-material
       .title Прибыль
-      .price #{@curr_profit} рублей
+      .price #{number_with_delimiter(@curr_profit, delimiter: " ")} рублей
     .miniBlockStatistic.block-material
       .title Расходы
-      .price #{@curr_exp} рублей
+      .price #{number_with_delimiter(@curr_exp, delimiter: " ")} рублей
     .miniBlockStatistic.block-material
       .title Доходы
-      .price #{@curr_inc} рублей
+      .price #{number_with_delimiter(@curr_inc, delimiter: " ")} рублей
     .miniBlockStatistic.block-material
       .title Выплаты
-      .price #{@manager_pay} рублей
+      .price #{number_with_delimiter(@manager_pay, delimiter: " ")} рублей
 
   script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"
   = render "statistic_charts"
