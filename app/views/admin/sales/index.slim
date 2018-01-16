@@ -3,7 +3,7 @@
     form.material action="/admin/sales/new" method="get" style="margin-bottom: 0; display: flex;"
       button.btn.btn-success-material  Добавить продажу
       .selectInlineProvider
-        = render "common_select", {arr_li: [["Розница","retail"], ["Оптовая", "opt"]], default: "retail"}
+        = render "common_select", {arr_li: [["Розница","retail"], ["Оптовая", "opt"]], default: "retail", name_input: "cashbox_type"}
   - @sales.each do |sale|
     .list-group-item.col-md-6.material
       span
