@@ -1,6 +1,8 @@
 var loadContent = function (type, id, end_func = function(){}) {
   var get_product_items = function(){
-    $.get( "/admin/sales/load_content_product_items?"+ type +"=" + id, function(data) {
+    var url = new URL(window.location.href)
+    var type_sale = url.searchParams.get("type_sale") || ""
+    $.get( "/admin/sales/load_content_product_items?"+ type +"=" + id + "&type_sale=" + type_sale, function(data) {
       $("#contentSelect").append(data);
       end_func();
     })
