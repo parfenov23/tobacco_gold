@@ -1,4 +1,25 @@
-var loadContent = function (block) {
+var loadContent = function (type, id, end_func = function(){}) {
+  var get_product_items = function(){
+    $.get( "/admin/sales/load_content_product_items?"+ type +"=" + id, function(data) {
+      $("#contentSelect").append(data);
+      end_func();
+    })
+  }
+
+  if (type == "id"){
+    if( !$("#contentSelect").find("#select" + id ).length) {
+      get_product_items();
+    }else{
+      end_func();
+    }
+  }else{
+    if(!$("#contentSelect li[data-barcode='"+ id +"']").length){
+      get_product_items();
+    }else{
+      end_func();
+    }
+  }
+
 
 };
 
@@ -33,23 +54,27 @@ var scanBarCode = function(){
 var addItemWhenBarcodeScan = function(barcode){
   var findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
   if (!findItem.length){
-    var item = $("#contentSelect li[data-barcode='"+ barcode +"']");
-    if (item.length){
-      addBlankBlockItem(barcode);
-      var productSaleBlock = $(".barcode" + barcode + ":last");
-      var product_select = productSaleBlock.find(".changeSelectContent");
-      var product_id = item.data('product');
-      product_select.val(product_id);
-      selectedLi(product_select.closest(".mad-select"), product_id);
-      addProductItemToProductBlock(product_select, product_id);
-      var block_item = productSaleBlock.find(".changeSelectContent[name='sales[][item_id]']")
-      selectedLi(block_item.closest(".mad-select"), item.data("value"));
-      findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
-      findItem.addClass("createFromBarcodeScan");
-      changeSelectProductItem(findItem.find(".changeSelectProductItem"));
-      sumItemSale(findItem);
-      priceItemSale();
-    }
+    loadContent("barcode", barcode, function(){
+      var item = $("#contentSelect li[data-barcode='"+ barcode +"']");
+      if (item.length){
+        addBlankBlockItem(barcode);
+        var productSaleBlock = $(".barcode" + barcode + ":last");
+        var product_select = productSaleBlock.find(".changeSelectContent");
+        var product_id = item.data('product');
+        product_select.val(product_id);
+        selectedLi(product_select.closest(".mad-select"), product_id);
+        addProductItemToProductBlock(product_select, product_id);
+        var block_item = productSaleBlock.find(".changeSelectContent[name='sales[][item_id]']")
+        selectedLi(block_item.closest(".mad-select"), item.data("value"));
+        findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
+        findItem.addClass("createFromBarcodeScan");
+        changeSelectProductItem(findItem.find(".changeSelectProductItem"));
+        sumItemSale(findItem);
+        priceItemSale();
+      }
+
+    })
+
   }else{
     var input_count = findItem.find("input[name='sales[][count]']");
     input_count.val( parseInt(input_count.val()) + 1 );
@@ -71,24 +96,26 @@ var addBlankBlockItem = function(bc){
 }
 
 var addProductItemToProductBlock = function(curr_block, bl_val){
-  var id = "#select" + bl_val;
-  var block_content = $("#contentSelect " + id).html();
-  if (bl_val > 0){
-    var load_content_selests = $("<div>"+ block_content + "</div>");
-    $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html(load_content_selests.find(".selectProductItem"));
-    $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html(load_content_selests.find(".selectProductPrice"));
-  } else {
-    $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html('');
-    $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html('');
-  }
-  var priceSelect = $(curr_block).closest(".parentItemSale").find(".formLoadContentPrice").find(".mad-select").removeClass("noInit");
-  var productItemSelect = $(curr_block).closest(".parentItemSale").find(".formLoadContentTaste").find(".mad-select").removeClass("noInit");
-  include_mad_select(productItemSelect, function(block){
-    changeSelectProductItem(block);
+  loadContent("id", bl_val, function() {
+    var id = "#select" + bl_val;
+    var block_content = $("#contentSelect " + id).html();
+    if (bl_val > 0){
+      var load_content_selests = $("<div>"+ block_content + "</div>");
+      $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html(load_content_selests.find(".selectProductItem"));
+      $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html(load_content_selests.find(".selectProductPrice"));
+    } else {
+      $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html('');
+      $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html('');
+    }
+    var priceSelect = $(curr_block).closest(".parentItemSale").find(".formLoadContentPrice").find(".mad-select").removeClass("noInit");
+    var productItemSelect = $(curr_block).closest(".parentItemSale").find(".formLoadContentTaste").find(".mad-select").removeClass("noInit");
+    include_mad_select(productItemSelect, function(block){
+      changeSelectProductItem(block);
+    });
+    include_mad_select(priceSelect);
+    changeSelectProductItem(productItemSelect.find("input"));
+    priceItemSale();
   });
-  include_mad_select(priceSelect);
-  changeSelectProductItem(productItemSelect.find("input"));
-  priceItemSale();
 }
 
 var priceItemSale = function(){

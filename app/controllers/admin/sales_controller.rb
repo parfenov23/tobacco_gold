@@ -66,6 +66,12 @@ module Admin
       redirect_to_index
     end
 
+    def load_content_product_items
+      @products = params[:id].present? ? Product.where(id: params[:id]) : Product.where(id: (ProductItem.where(barcode: params[:barcode]).last.product_id rescue nil))
+      html_form = render_to_string "/admin/sales/_select_product_items", :layout => false
+      render text: html_form
+    end
+
     def edit
       @sale = find_model
     end
