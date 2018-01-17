@@ -15,101 +15,89 @@
  */
 
 
- .imgItem {
-  padding-bottom : 5px;
+.imgItem {
+  padding-bottom: 5px;
   .checkedImgPrev {
-    margin-right : 10px;
+    margin-right: 10px;
   }
   .imgMini {
-    width : 140px;
+    width: 140px;
   }
   .removeImg {
-    padding-left : 10px;
+    padding-left: 10px;
     cursor: pointer;
   }
 }
 
-.list-group.row{
-  .list-group-item.col-md-6, .list-group-item.col-md-3{
+.list-group.row .list-group-item {
+  &.col-md-6, &.col-md-3 {
     display: flex;
   }
 }
 
-.form-group{
-  .all_order_items{
-    .order_item{
-      margin-top: 4px;
-    }
-  }
+.form-group .all_order_items .order_item {
+  margin-top: 4px;
 }
 
-.table_cashbox_page{
-  .info_column{
+.table_cashbox_page {
+  .info_column {
     width: 60%;
   }
-  .table_title_cash{
+  .table_title_cash {
     background-color: #656565;
-    color: white;
+    color: #fff;
     border: 1px solid #656565 !important;
   }
 }
-.panel_gray_common{
+
+.panel_gray_common {
   background-color: #424242;
-  color: white;
-/*  text-shadow: 0 -1px 0 #286090;*/
-  .mad-select{
+  color: #fff;
+  .mad-select {
     background-color: #fff;
-    ul{
-      li.selected{
-        font-weight: 100;
-      }
+    ul li.selected {
+      font-weight: 100;
     }
   }
 }
 
-.list-group-item{
-  form.def_pay{
+.list-group-item {
+  form.def_pay {
     display: flex;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
-  .type_cashbox{
-    .form-group{
-      width: calc(100% + 24px);
-      margin-bottom: 0;
-      padding-right: 34px;
-      height: 28px;
-      .mad-select{
-        border-bottom: initial;
-      }
+  .type_cashbox .form-group {
+    width: calc(100% + 24px);
+    margin-bottom: 0;
+    padding-right: 34px;
+    height: 28px;
+    .mad-select {
+      border-bottom: initial;
     }
   }
 }
 
-.saleAllItemCashbox{
-  /*  height: auto;*/
+.saleAllItemCashbox {
   width: 100%;
-  /*  overflow: auto;*/
-  .titlePrice{
+  .titlePrice {
     font-size: 34px;
     text-align: center;
   }
-  .list-group-item:first-child{
+  .list-group-item:first-child {
     background-color: initial;
     border: 0;
     padding-top: 0;
   }
-  .parentItemSale{
-    .mad-select{
-      min-width: 164px;
-    }
+  .parentItemSale .mad-select {
+    min-width: 164px;
   }
-  .titleDelivery{
+  .titleDelivery {
     font-size: 18px;
     text-align: center;
     display: none;
   }
-  .actionBtnSale{
-    .priceItemSale{
+  .actionBtnSale {
+    .priceItemSale {
       height: 40px;
       text-align: center;
       line-height: 26px;
@@ -117,72 +105,66 @@
       cursor: pointer;
       border-radius: 4px;
     }
-    .btn{
+    .btn {
       width: 100%;
       height: 40px;
       margin-top: 4px;
       font-size: 18px;
     }
   }
-  .allItemsSale{
-    .countItems{
+  .allItemsSale {
+    .countItems {
       max-width: 82px;
     }
-    .selectPrice{
+    .selectPrice {
       max-width: 72px;
     }
-    .createFromBarcodeScan{
-      .barcode{
-        input{
-          display: none;
-        }
-        span{
-          display: initial !important;
-        }
+    .createFromBarcodeScan .barcode {
+      input {
+        display: none;
+      }
+      span {
+        display: initial !important;
       }
     }
     .mad-select ul.mad-select-drop.show {
       max-height: 290px;
     }
-    .parentItemSale{
-      .formLoadContentTaste{
-        .mad-select{
-          min-width: 248px;
-        }
-      }
+    .parentItemSale .formLoadContentTaste .mad-select {
+      min-width: 248px;
     }
   }
 }
 
-.formCreate{
-  /*  height: calc(100% - 60px);*/
+.formCreate {
   display: flex;
   min-height: 259px;
 }
 
-.list-group-item.col-md-3{
-  .allProductCalc{
+.list-group-item {
+  &.col-md-3 .allProductCalc {
     padding-top: 8px;
   }
-}
-.list-group-item{
-  .commonInfo{
+  .commonInfo {
     display: flex;
     justify-content: space-between;
-    span{
+    span {
       width: inherit;
     }
   }
 }
 
-.btn-margin-left{
+.btn-margin-left {
   margin-left: 8px;
 }
 
-.displayFlex{
+.displayFlex {
   display: flex;
   justify-content: space-between;
-  @media only screen and (max-width : 991px) {
+}
+
+@media only screen and (max-width: 991px) {
+  .displayFlex {
     display: block;
   }
 }

@@ -1,169 +1,165 @@
 @font-face {
   font-family: 'cashbox';
-  src:  url('/admin/fonts/cashbox.eot?3yv9dd');
-  src:  url('/admin/fonts/cashbox.eot?3yv9dd#iefix') format('embedded-opentype'),
-  url('/admin/fonts/cashbox.ttf?3yv9dd') format('truetype'),
-  url('/admin/fonts/cashbox.woff?3yv9dd') format('woff'),
-  url('/admin/fonts/cashbox.svg?3yv9dd#cashbox') format('svg');
-  font-weight: normal;
+  src: url(/admin/fonts/cashbox.eot?3yv9dd);
+  src: url(/admin/fonts/cashbox.eot?3yv9dd#iefix) format("embedded-opentype"), url(/admin/fonts/cashbox.ttf?3yv9dd) format("truetype"), url(/admin/fonts/cashbox.woff?3yv9dd) format("woff"), url(/admin/fonts/cashbox.svg?3yv9dd#cashbox) format("svg");
+  font-weight: 400;
   font-style: normal;
 }
 
+
 .iconCashbox {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'cashbox' !important;
+  font-family: "cashbox" !important;
   speak: none;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-
-  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .icon-dollar-symbol:before {
-  content: "\e900";
+  content: "";
 }
-.icon-credit-card2:before {
-  content: "\e901";
-}
-.icon-dollar-coins:before {
-  content: "\e902";
-}
-.icon-wallet:before {
-  content: "\e903";
-}
-.icon-cashbox:before {
-  content: "\e904";
-}
-.icon-cart:before {
-  content: "\e93a";
-}
-.icon-coin-dollar:before {
-  content: "\e93b";
-}
-.icon-credit-card:before {
-  content: "\e93f";
-}
-.user-tie:before{
-  content: "\e976";
-}
-.bars:before{
-  content: "\e905";
-}
-.averege:before{
-  content: "\e906";
-}
-/* =========================== */
 
-.displayFlex{
-  .leftTableInfo{
-    border-radius: 0px;
-    border: 0;
-    /*    min-width: 380px;*/
-    width: 100%;
-  }
-  .rightTableInfo{
+.icon-credit-card2:before {
+  content: "";
+}
+
+.icon-dollar-coins:before {
+  content: "";
+}
+
+.icon-wallet:before {
+  content: "";
+}
+
+.icon-cashbox:before {
+  content: "";
+}
+
+.icon-cart:before {
+  content: "";
+}
+
+.icon-coin-dollar:before {
+  content: "";
+}
+
+.icon-credit-card:before {
+  content: "";
+}
+
+.user-tie:before {
+  content: "";
+}
+
+.bars:before {
+  content: "";
+}
+
+.averege:before {
+  content: "";
+}
+
+.displayFlex {
+  .leftTableInfo, .rightTableInfo {
     border-radius: 0;
     border: 0;
-    /*    min-width: 380px;*/
     width: 100%;
   }
-  .panel_gray_common{
+  .panel_gray_common {
     height: 62px;
     line-height: 36px;
   }
 }
 
-.leftContentBar{
+.leftContentBar {
   position: fixed;
   top: 50px;
   left: 0;
   width: 240px;
   height: 100%;
   overflow: auto;
-  background-color: white;
+  background-color: #fff;
   z-index: 5;
   padding-bottom: 60px;
-  .listInfo{
+  .listInfo {
     padding: 16px;
-    .item{
+    .item {
       font-size: 18px;
       padding: 4px;
       padding: 4px;
       border-bottom: 1px solid #424242;
       margin-bottom: 4px;
-      &:hover{
+      &:hover {
         background-color: #424242;
-        color: white;
+        color: #fff;
         cursor: pointer;
       }
-      &.under{
+      &.under {
         padding-left: 16px;
       }
-      i{
+      i {
         margin-right: 8px;
       }
     }
   }
 }
 
-.headerBar{
+.headerBar {
   position: fixed;
   left: 240px;
   top: 50px;
   width: calc(100% - 240px);
-  background-color: white;
+  background-color: #fff;
   padding: 8px;
   z-index: 4;
-  .displayFlex{
+  .displayFlex {
     display: flex !important;
   }
 }
 
-.contentCashbox{
+.contentCashbox {
   margin-left: 240px;
   margin-top: 57px;
-  /*  height: calc(100% - 128px);*/
   padding-left: 8px;
   padding-right: 8px;
 }
 
-.allMiniBlockStatistic{
+.allMiniBlockStatistic {
   margin-bottom: 24px;
-  .miniBlockStatistic{
+  .miniBlockStatistic {
     width: 100%;
     height: 80px;
     margin-right: 12px;
     margin-left: 12px;
-    background-color: white;
+    background-color: #fff;
     text-align: center;
     padding: 8px;
-    .title{
+    .title {
       font-size: 16px;
       margin-bottom: 8px;
     }
   }
 }
 
-.js_closeLeftBar{
+.js_closeLeftBar {
   position: absolute;
   right: 12px;
   font-size: 28px;
-  top: 0px;
-  color: white;
+  top: 0;
+  color: #fff;
   display: none;
 }
 
-.openMobileLeftBar{
+.openMobileLeftBar {
   position: fixed;
   width: 48px;
   height: 48px;
-  bottom: 0px;
-  background-color: white;
+  bottom: 0;
+  background-color: #fff;
   padding: 16px;
   left: 0;
   z-index: 5;
@@ -174,25 +170,22 @@
   margin-bottom: 8px;
 }
 
-@media only screen and (max-width : 760px) {
-  .leftContentBar{
+@media only screen and (max-width: 760px) {
+  .leftContentBar {
     display: none;
   }
-  .headerBar{
+  .headerBar {
     left: 0;
     width: 100%;
   }
-  .openMobileLeftBar, .js_closeLeftBar{
+  .openMobileLeftBar, .js_closeLeftBar {
     display: block;
   }
-
-  .contentCashbox{
+  .contentCashbox {
     margin-left: 0;
-    .allMiniBlockStatistic{
-      .miniBlockStatistic{
-        margin-right: 0px;
-        margin-left: 0px;
-      }
+    .allMiniBlockStatistic .miniBlockStatistic {
+      margin-right: 0;
+      margin-left: 0;
     }
   }
 }
