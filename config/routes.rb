@@ -52,6 +52,10 @@ Rails.application.routes.draw do
       collection do
         post :import
       end
+      member do
+        get :remove
+        get :pay
+      end
     end
     resources :cashbox
   end
@@ -63,6 +67,7 @@ Rails.application.routes.draw do
         get :paid_manager_payments
         get :search
         get :api_sms
+        get :sms_phone
         post :api_sms
       end
     end

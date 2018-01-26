@@ -5,7 +5,7 @@ set :rvm_custom_path, '/usr/local/rvm'
 set :rvm_ruby_version, '2.1.0'
 
 # set :application, 'edbox'
-set :repo_url, 'git@bitbucket.org:parfenov23/tobaccogold.git'
+set :repo_url, 'git@github.com:parfenov23/tobacco_gold.git'
 # set :user, 'edbox'
 # set :deploy_to, "/home/#{ fetch :user }/htdocs"
 

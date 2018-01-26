@@ -44,7 +44,7 @@ module Admin
     end
 
     def redirect_to_stock
-      redirect_to "/stock" if !current_user.is_admin? && !current_user.is_manager?
+      redirect_to "/users/sign_in" if (current_user.blank? || !current_user.is_admin? && !current_user.is_manager?)
     end
 
     def current_cashbox
@@ -55,13 +55,8 @@ module Admin
       current_user.present? ? current_user.magazine_id : nil
     end
 
-    def api_sms
-      JSON.parse(params[:allSms]).each do |sms|
-        if sms["address"] == "900"
-          SmsPhone.find_or_create_by(address: sms["address"], body: sms["body"], date_time: sms["date"])
-        end
-      end
-      render json: {success: true}
+    def sms_phone
+      @all_sms = SmsPhone.where(archive: false)
     end
   end
 end

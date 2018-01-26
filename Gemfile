@@ -29,6 +29,7 @@ gem 'therubyracer', :platforms => :ruby
 
 gem 'pg_search' # поиск по базе
 gem 'string-similarity'
+gem 'unicorn'
 
 #========== sms center
 gem 'smsc'

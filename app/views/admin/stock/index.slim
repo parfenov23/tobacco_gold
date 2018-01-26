@@ -3,7 +3,7 @@
   a.btn.btn-primary-material.addItemSale href="/admin/stock?type=not_available" Нет в наличии
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
 - @products.each do |product|
-  - product_items = params[:type] != "not_available" ? product.product_items.where.not(count: 0) : product.product_items.where(count: 0)
+  - product_items = params[:type] != "not_available" ? product.product_items.all_present(current_magazine.id) : product.product_items.all_present(current_magazine.id, false)
   - if product_items.present?
     .list-group.row.material
       .list-group-item.panel_gray_common
@@ -13,10 +13,9 @@
           | #{product.current_price.to_i} рублей
       - product_items.each do |item|
         - item_count = item.current_count(current_magazine)
-        - if item_count > 0
-          .list-group-item.col-md-3.material
-            span
-              = item.title
-            - if current_user_admin? || params[:pub] == "true"
-              a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="#{product.title} - #{item.title}" href="/admin/stock/#{item.id}/info"
-                = item_count
+        .list-group-item.col-md-3.material
+          span
+            = item.title
+          - if current_user_admin? || params[:pub] == "true"
+            a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="#{product.title} - #{item.title}" href="/admin/stock/#{item.id}/info"
+              = item_count

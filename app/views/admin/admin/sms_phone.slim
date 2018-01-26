@@ -1,0 +1,13 @@
+.list-group.row.material
+  - @all_sms.each do |sms|
+    .list-group-item.col-md-6
+      span style="width: calc(100% - 204px);" #{raw sms.clear_body}
+      form.def_pay action="/api/sms/#{sms.id}/pay" method="get" enctype="multipart/form-data"
+        .type_cashbox
+          = render "admin/admin/common_select", {arr_li: [["Списание", "down"], ["Пополнение", "up"]], default: "down", name_input: "type_mode"}
+        input type="hidden" name="_method" value="get"
+        button.btn.btn-success-material.pull-right type="submit"
+          | ✔
+      a.btn.btn-danger-material.pull-right href="/api/sms/#{sms.id}/remove" data-method='delete'
+        | &#10006;
+      / = render "admin/admin/common_btn", {url: "/admin/product_items/#{item.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование вкуса"}

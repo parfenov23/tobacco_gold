@@ -82,4 +82,5 @@ production:
   <<: *default
   database: tobacco_gold_production
   username: tobacco_gold
-  password: <%= ENV['TOBACCO_GOLD_DATABASE_PASSWORD'] %>
+  password: lolopo123
+  # password: <%= ENV['TOBACCO_GOLD_DATABASE_PASSWORD'] %>

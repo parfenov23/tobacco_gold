@@ -5,26 +5,35 @@ module Api
     end
 
     def create
-      sms_phone = SmsPhone.where(address: params["address"], body: params["body"]).last
-      if sms_phone.blank?
-        SmsPhone.create(address: params["address"], body: params["body"], date_time: Time.now.to_i.to_s)
-        regexp = Regexp.new(/(списание|покупка) [0-9]+р/)
-        sum = params["body"].match(regexp).to_s.gsub(/(списание|покупка|) /, '').gsub("р", "").to_i
-        if sum > 0
-          OtherBuy.create(title: params["body"], price: sum, magazine_id: @current_magazine.id, processed: false)
-        end
-      end
+      SmsPhone.create_new_sms
       render json: {success: true}
     end
-    
-    def import
-      JSON.parse(params[:allSms]).each do |sms|
-        if sms["address"] == "900"
-          sms_phone = SmsPhone.find_or_create_by(address: sms["address"], body: sms["body"])
-          sms_phone.update(date_time: sms["date"])
-        end
+
+    def pay
+      sms = SmsPhone.find(params[:id])
+      params_model = {title: sms.clear_body, price: sms.sum, type_mode: (params[:type_mode] == "up" ? true : false)}
+      other_buy = OtherBuy.create(params_model)
+      current_cashbox.calculation('visa', other_buy.price, other_buy.type_mode)
+      other_buy.notify_buy(current_cashbox)
+      sms.update(archive: true)
+      redirect_sms
+    end
+
+    def current_cashbox
+      Cashbox.find_by_magazine_id(current_user.magazine_id)
+    end
+
+    def remove
+      SmsPhone.find(params[:id]).update(archive: true)
+      redirect_sms
+    end
+
+    def redirect_sms
+      if params[:type] != "json"
+        redirect_to "/admin/admin/sms_phone"
+      else
+        render json: {success: true}
       end
-      render json: {success: true}
     end
   end
 end
