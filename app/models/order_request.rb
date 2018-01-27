@@ -28,9 +28,10 @@ class OrderRequest < ActiveRecord::Base
       price = !contact.opt ? product.current_price_model : product.current_price_opt_model
       result += price.price.to_i*count.to_i
       current_item_count = item.product_item_counts.find_by_magazine_id(curr_user.magazine_id)
-      current_item_count.update({count: (current_item_count.count - count.to_i) })
+      curr_count = current_item_count.count
+      current_item_count.update({count: (curr_count - count.to_i) })
       item.update({count: (item.count - count.to_i) })
-      SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count.to_i, product_price_id: price.id})
+      SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count.to_i, product_price_id: price.id, curr_count: curr_count})
     end
     sale.update(price: result, profit: sale.find_profit, magazine_id: curr_user.magazine_id)
     sale.notify_buy

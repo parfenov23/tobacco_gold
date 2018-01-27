@@ -64,8 +64,8 @@
               <td><%= sale_item.product_item.product.title %> <%= sale_item.product_item.title %></td>
               <td class="text_center">шт</td>
               <td class="text_right"><%= sale_item.count %></td>
-              <td class="text_right"><%= sale_item.product_price.price %></td>
-              <td class="text_right"><%= sale_item.count * sale_item.product_price.price %></td>
+              <td class="text_right"><%= sale_item.price %></td>
+              <td class="text_right"><%= sale_item.count * sale_item.price %></td>
             </tr>
           <% end %>
           <tr>

@@ -20,11 +20,11 @@ module Admin
         price = sale_param[:price_id].to_i
         result += price*count
         current_item_count = item.product_item_counts.where(magazine_id: magazine_id).last
-        #current_item_count = item.product_item_counts.create(magazine_id: magazine_id, count: 0) if current_item_count.blank?
-        current_item_count.update(count: (current_item_count.count + count) )
+        curr_count = current_item_count.count
+        current_item_count.update(count: (curr_count + count) )
         item.update({count: (item.count + count)})
         item.update({barcode: sale_param[:barcode]}) if sale_param[:barcode].present?
-        BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price})
+        BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price, curr_count: curr_count})
       end
       buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:buy_param][:provider_id], magazine_id: magazine_id)
       current_cashbox.calculation('cash', result, false) if params[:buy_param][:def_pay] == "1"

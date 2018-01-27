@@ -18,8 +18,10 @@ class Sale < ActiveRecord::Base
       item = sale_item.product_item
       product = item.product
       price = sale_item.product_price
-      last_buy_price = (item.buy_items.last.price rescue 0)
-      result_profit += (price.price - last_buy_price)*sale_item.count.to_i if last_buy_price > 0
+      if price.present?
+        last_buy_price = (item.last_buy_price rescue 0)
+        result_profit += (price.price - last_buy_price)*sale_item.count.to_i if last_buy_price > 0
+      end
     end
     result_profit
   end

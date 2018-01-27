@@ -7,6 +7,6 @@ class SaleItem < ActiveRecord::Base
   end
 
   def price
-    product_price.price
+    product_price.price rescue price_int
   end
 end

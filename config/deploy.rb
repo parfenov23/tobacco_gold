@@ -23,6 +23,7 @@ set :pty, false
 set :keep_releases, 3
 set :whenever_roles, [:app]
 set :deploy_via, :copy
+set :copy_cache, false
 # set :slack_webhook, "https://hooks.slack.com/services/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"
 
 # load 'lib/tasks/resque.rake'

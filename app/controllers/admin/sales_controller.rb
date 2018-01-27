@@ -35,9 +35,10 @@ module Admin
         price = ProductPrice.find(sale_param[:price_id])
         result += price.price*count
         current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
-        current_item_count.update(count: (current_item_count.count - count) )
+        curr_count = current_item_count.count
+        current_item_count.update(count: (curr_count - count) )
         item.update({count: (item.count - count)})
-        SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id})
+        SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id, curr_count: curr_count})
       end
       contact = sale.contact
       sale_profit = sale.find_profit

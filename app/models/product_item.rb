@@ -31,6 +31,10 @@ class ProductItem < ActiveRecord::Base
     "product_items"
   end
 
+  def last_buy_price
+    (buy_items.last.price rescue product.min_price)
+  end
+
   def current_count(magazine)
     if id.present?
       product_item_counts.create(magazine_id: magazine.id, count: 0) if product_item_counts.where(magazine_id: magazine.id).blank?
