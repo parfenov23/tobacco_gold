@@ -93,6 +93,7 @@ module ApplicationHelper
       # {url: "/admin/hookah_cash", title: "Кальяны"},
       {url: "/admin/buy", title: "Закуп"},
       {url: "/admin/other_buy", title: "Прочие расходы", display: false},
+      {url: "/admin/admin/sms_phone", title: "Смс банк"},
       {url: "/admin/cashbox", title: "Касса"},
       {url: '/admin/order_requests', title: 'Заявки'}, 
       {url: '/admin/content_pages', title: 'Контент'}, 
