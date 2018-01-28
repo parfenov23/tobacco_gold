@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       member do
         get :remove
         get :pay
+        get :info
       end
     end
     resources :cashbox

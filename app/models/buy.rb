@@ -29,9 +29,10 @@ class Buy < ActiveRecord::Base
     where(["created_at > ?", start_day]).sum(:price)
   end
 
-  def self.curr_year_price
-    start_day = Time.now.beginning_of_year
-    where(["created_at > ?", start_day]).sum(:price)
+  def self.curr_year_price(type="year")
+    start_day = type == "year" ? Time.now.beginning_of_year : (Time.now - 1.year).beginning_of_year
+    end_day = type == "last_year" ? Time.now.beginning_of_year : Time.now
+    where(["created_at > ?", start_day]).where(["created_at <= ?", end_day]).sum(:price)
   end
 
   def self.tester

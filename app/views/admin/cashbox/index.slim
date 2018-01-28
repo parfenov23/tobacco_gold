@@ -50,7 +50,7 @@
   .displayFlex
     .leftBlock.js_selectStatisticCachbox
       - deff_select = params[:date].blank? ? "day" : params[:date]
-      = render "common_select", {arr_li: [["День","day"], ["Месяц", "month"], ["Год", "year"]], default: deff_select, add_class: "noInit"}
+      = render "common_select", {arr_li: [["День","day"], ["Месяц", "month"], ["Год", "year"], ["Прошлый год", "last_year"]], default: deff_select, add_class: "noInit"}
     .rightBlock
       a.btn.btn-primary-material style="margin-left: 4px;" href="/admin/other_buy" Прочие расходы
       a.btn.btn-success-material.js_loadContentInOtherPopup data-title="Сверка кассы" style="margin-left: 4px;" href="/admin/cashbox/to_check" Сверка

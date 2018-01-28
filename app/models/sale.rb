@@ -34,8 +34,10 @@ class Sale < ActiveRecord::Base
     where(["created_at > ? ", Time.current.beginning_of_day]).where(["created_at < ? ", Time.current.end_of_day])
   end
 
-  def self.curr_year
-    where(["created_at > ? ", Time.now.beginning_of_year]).where(["created_at < ? ", Time.current.end_of_year])
+  def self.curr_year(type="year")
+    time_start = type == "year" ? Time.now.beginning_of_year : (Time.now - 1.year).beginning_of_year
+    time_end = type == "year" ? Time.current.end_of_year : Time.now.beginning_of_year
+    where(["created_at > ? ", time_start]).where(["created_at < ? ", time_end])
   end
 
   def self.last_sales_price
@@ -54,18 +56,21 @@ class Sale < ActiveRecord::Base
     where(["created_at > ?", Time.now.beginning_of_month]).sum(:profit)
   end
 
-  def self.current_year_profit
-    where(["created_at > ?", Time.now.beginning_of_year]).sum(:profit)
+  def self.current_year_profit(type="year")
+    time_start = type == "year" ? Time.now.beginning_of_year : (Time.now - 1.year).beginning_of_year
+    time_end = type == "year" ? Time.current.end_of_year : Time.now.beginning_of_year
+    where(["created_at > ?", time_start]).where(["created_at < ? ", time_end]).sum(:profit)
   end
 
   def sale_url
     "http://tobacco-gold.ru/admin/sales/#{id}/info"
   end
 
-  def self.curr_year_statistic(magaz_id=nil)
+  def self.curr_year_statistic(magaz_id=nil, type="current")
     arr_result = []
-    Time.now.month.times do |i|
-      month = Time.now.beginning_of_year + i.month
+    curr_year = type == "current" ? Time.now : (Time.now - 1.year).end_of_year
+    curr_year.month.times do |i|
+      month = curr_year.beginning_of_year + i.month
       first_day = month.beginning_of_month
       last_day = month.end_of_month
       all_sales = find_model_result(self, first_day, last_day)

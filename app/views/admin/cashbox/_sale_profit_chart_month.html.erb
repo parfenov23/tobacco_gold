@@ -21,11 +21,12 @@
   </script>
   <div id="columnchart_material_month" class="block-material" style="width: 100%; height: 500px;margin-top: 24px;padding: 16px;background-color: white;"></div>
 <% end %>
-<% if params[:date] == "year" ||  params[:date] == "month" %>
+<% if params[:date] == "year" ||  params[:date] == "month" || params[:date] == "last_year" %>
   <script type="text/javascript">
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
-    <% arr = ([['Месяц', 'Продажи', 'Прибыль', 'Затраты']].concat all_sales.curr_year_statistic(current_user.magazine_id)).to_json %>
+    <% curr_year =  (params[:date] == "year" || params[:date] == "month") ? all_sales.curr_year_statistic(current_user.magazine_id) : all_sales.curr_year_statistic(current_user.magazine_id, "last_year") %>
+    <% arr = ([['Месяц', 'Продажи', 'Прибыль', 'Затраты']].concat curr_year).to_json %>
     function drawChart() {
       var data = google.visualization.arrayToDataTable(<%= arr.html_safe %>);
 

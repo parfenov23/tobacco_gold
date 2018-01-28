@@ -19,6 +19,10 @@ module Api
       redirect_sms
     end
 
+    def info
+      render text: "<p>#{SmsPhone.find(params[:id]).body}</p>"
+    end
+
     def current_cashbox
       Cashbox.find_by_magazine_id(current_user.magazine_id)
     end

@@ -14,6 +14,14 @@
   - @curr_exp = @curr_year_other_down_price 
   - @curr_inc = @curr_year_other_up_price 
   - @manager_pay = @curr_year_manager_pay 
+- elsif params[:date] == "last_year"
+  - @curr_sale = @all_sales.curr_year("last_year").sum(:price) 
+  - @curr_buy =  @curr_last_year_buy_price 
+  - @curr_profit = @all_sales.curr_year("last_year").sum(:profit)
+
+  - @curr_exp = @curr_last_year_other_down_price 
+  - @curr_inc = @curr_last_year_other_up_price 
+  - @manager_pay = @curr_last_year_manager_pay 
 - elsif params[:date] == "month"
   - @curr_sale = @curr_month_sales_price 
   - @curr_buy =  @curr_month_buy_price 
