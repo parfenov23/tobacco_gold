@@ -14,7 +14,7 @@ module Api
       params_model = {title: sms.clear_body, price: sms.sum, type_mode: (params[:type_mode] == "up" ? true : false)}
       other_buy = OtherBuy.create(params_model)
       current_cashbox.calculation('visa', other_buy.price, other_buy.type_mode)
-      other_buy.notify_buy(current_cashbox)
+      # other_buy.notify_buy(current_cashbox)
       sms.update(archive: true)
       redirect_sms
     end
