@@ -31,7 +31,7 @@ class SmsPhone < ActiveRecord::Base
   end
 
   def self.match_body_sms(body)
-    regexp = Regexp.new(/(списание|покупка|зачисление) [0-9]+р/)
+    regexp = Regexp.new(/(списание|покупка|зачисление) [+-]?([0-9]*[.])?[0-9]+р/)
     body.match(regexp)
   end
 
@@ -40,7 +40,7 @@ class SmsPhone < ActiveRecord::Base
       rub_title = Russian.p(sum, "рубль", "рубля", "рублей")
       type = SmsPhone.match_body_sms(body)[1]
       message = "VISA SMS INFO: #{type} #{self.sum.to_i} #{rub_title}\n"
-      VkMessage.run(message)
+      VkMessage.run(message) if type != "покупка"
     end
   end
 
