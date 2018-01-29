@@ -110,6 +110,8 @@ module Admin
         query.gsub("\"Афзал\"", "Афзал").gsub(/Табак [а-я].+? (Афзал|Афзал) /, "").gsub("Табак Афзал (50гр) ", "")
       when "AL Fakher" 
         query.gsub("\"Аль Факер\"", "Аль Факер").gsub(/Табак [а-я].+? (Аль Факер|Аль Факер) /, "").gsub("Табак Al Fakher (50гр) ", "")
+      when "Fasil" 
+        query.gsub("\"Fasil\"", "Fasil").gsub(/Табак [а-я].+? (Fasil|Fasil) /, "").gsub("Табак Fasil (50гр) ", "")
       end
     end
 
