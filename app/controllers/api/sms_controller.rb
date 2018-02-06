@@ -11,7 +11,7 @@ module Api
 
     def pay
       sms = SmsPhone.find(params[:id])
-      params_model = {title: sms.clear_body, price: sms.sum, type_mode: (params[:type_mode] == "up" ? true : false)}
+      params_model = {title: sms.clear_body, price: sms.sum, type_mode: (params[:type_mode] == "up" ? true : false), magazine_id: current_user.magazine_id}
       other_buy = OtherBuy.create(params_model)
       current_cashbox.calculation('visa', other_buy.price, other_buy.type_mode)
       # other_buy.notify_buy(current_cashbox)
