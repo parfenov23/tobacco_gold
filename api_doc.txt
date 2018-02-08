@@ -16,9 +16,9 @@ Url: /api/auth/user_info
 
 
 =========== Sms Банк =============
-|Create| GET
+|Create| Post
 Параметр: api_key=3581226b0abdac4ab82d3fa6cf3ef088
-Url: /api/sms/create
+Url: /api/sms
 ----- Response ---------
 {"success":true}
 -----------------------

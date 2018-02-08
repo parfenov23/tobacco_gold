@@ -27,8 +27,7 @@ class SmsPhone < ActiveRecord::Base
       find_sms = where(id_sms: sms_hash[:id_sms]).last
       if find_sms.blank?
         sms = create(sms_hash.merge({magazine_id: magazine_id}))
-        sms.pay_to_other_by("down") if type_sms == "покупка"
-        sms.notify_sms
+        type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
       end
     end
   end
@@ -46,7 +45,7 @@ class SmsPhone < ActiveRecord::Base
     if sum > 0
       rub_title = Russian.p(sum, "рубль", "рубля", "рублей")
       message = "VISA SMS INFO: #{type_sms} #{self.sum.to_i} #{rub_title}\n"
-      VkMessage.run(message) if type_sms != "покупка"
+      VkMessage.run(message)
     end
   end
 
