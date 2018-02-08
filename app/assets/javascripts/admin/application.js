@@ -60,7 +60,7 @@ var current_user_api_url = function(){
   return $("#currentUserUrl").val();
 }
 
-var ajaxApi = function(type, method, data = {}, end_action = function(){}){
+var ajaxApi = function(type, method, data = {}, end_action){
   var auth = {api_key: current_user_api_key};
   var params =  $.extend(auth, data); 
 
@@ -69,7 +69,7 @@ var ajaxApi = function(type, method, data = {}, end_action = function(){}){
     url    : current_user_api_url() + method,
     data   : params,
     success: function (data) {
-      end_action(data);
+      if (end_action != undefined) end_action(data);
       show_error('Успешно', 3000);
     },
     error  : function () {
