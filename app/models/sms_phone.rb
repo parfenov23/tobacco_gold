@@ -27,7 +27,7 @@ class SmsPhone < ActiveRecord::Base
       find_sms = where(id_sms: sms_hash[:id_sms]).last
       if find_sms.blank?
         sms = create(sms_hash.merge({magazine_id: magazine_id}))
-        type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
+        sms.type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
       end
     end
   end
