@@ -60,31 +60,6 @@ var current_user_api_url = function(){
   return $("#currentUserUrl").val();
 }
 
-var ajaxApi = function(type, method, data = {}, end_action){
-  var auth = {api_key: current_user_api_key};
-  var params =  $.extend(auth, data); 
-
-  $.ajax({
-    type   : type,
-    url    : current_user_api_url() + method,
-    data   : params,
-    success: function (data) {
-      if (end_action != undefined) end_action(data);
-      show_error('Успешно', 3000);
-    },
-    error  : function () {
-      show_error('Ошибка', 3000);
-    }
-  });
-}
-
-var btnAjaxRemove = function(btn_this){
-  var btn = $(btn_this);
-  ajaxApi('get', btn.attr("href"), {}, function(){
-    btn.closest(".removeParentBlock").remove();
-  });
-}
-
 $(document).ready(function(){
   $(document).on('click', '.js_loadContentInOtherPopup', function(event){
     event.preventDefault();
