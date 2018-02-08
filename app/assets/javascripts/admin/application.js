@@ -60,7 +60,11 @@ var current_user_api_url = function(){
   return $("#currentUserUrl").val();
 }
 
-var ajaxApi = function(type, method, data = {}, end_action){
+var ajaxApi = function(type, method, data, end_action){
+  if (data = undefined) data = {};
+  var auth = {api_key: current_user_api_key};
+  var params = $.extend(auth, data); 
+
   $.ajax({
     type   : type,
     url    : (current_user_api_url() + method),
