@@ -2,6 +2,8 @@ class SmsPhone < ActiveRecord::Base
   require "sms_gateway"
   require 'vk_message'
 
+  belongs_to :magazine
+
   def self.all_sms
     SmsGateway.messages
   end
@@ -20,11 +22,12 @@ class SmsPhone < ActiveRecord::Base
     result_sms
   end
 
-  def self.create_new_sms
+  def self.create_new_sms(magazine_id)
     parse_hash_sms("900").each do |sms_hash|
       find_sms = where(id_sms: sms_hash[:id_sms]).last
       if find_sms.blank?
-        sms = create(sms_hash)
+        sms = create(sms_hash.merge({magazine_id: magazine_id}))
+        sms.pay_to_other_by("down") if type_sms == "покупка"
         sms.notify_sms
       end
     end
@@ -35,12 +38,15 @@ class SmsPhone < ActiveRecord::Base
     body.match(regexp)
   end
 
+  def type_sms
+    SmsPhone.match_body_sms(body)[1]
+  end
+
   def notify_sms
     if sum > 0
       rub_title = Russian.p(sum, "рубль", "рубля", "рублей")
-      type = SmsPhone.match_body_sms(body)[1]
-      message = "VISA SMS INFO: #{type} #{self.sum.to_i} #{rub_title}\n"
-      VkMessage.run(message) if type != "покупка"
+      message = "VISA SMS INFO: #{type_sms} #{self.sum.to_i} #{rub_title}\n"
+      VkMessage.run(message) if type_sms != "покупка"
     end
   end
 
@@ -51,5 +57,13 @@ class SmsPhone < ActiveRecord::Base
 
   def self.first_url
     "sms"
+  end
+
+  def pay_to_other_by(type_mode)
+      params_model = {title: clear_body, price: sum, type_mode: (type_mode == "up"), magazine_id: magazine.id}
+      other_buy = OtherBuy.create(params_model)
+      magazine.cashbox.calculation('visa', other_buy.price, other_buy.type_mode)
+      update(archive: true)
+      self
   end
 end

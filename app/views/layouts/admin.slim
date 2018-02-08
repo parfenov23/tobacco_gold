@@ -64,3 +64,8 @@ html
               h3 = @popup
             .conteinerPopup
               = yield :popup
+    #alert
+      .text
+      .close ×
+    input#currentUserUrl type="hidden" value=current_user.api_url
+    input#currentUserApiKey type="hidden" value=current_user.get_api_key

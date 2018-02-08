@@ -13,7 +13,6 @@ show_error = function (text, duration) {
             el.hide(400);
         }, duration);
     }
-
 };
 
 function hide_to_top() {

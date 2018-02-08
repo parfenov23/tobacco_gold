@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     "users"
   end
 
+  def api_url
+    Rails.env.production? ? "http://tobacco-gold.ru" : "http://localhost:3000"
+  end
+
   def is_admin?
     role == "admin"
   end
@@ -43,6 +47,10 @@ class User < ActiveRecord::Base
 
   def meneger_procent
     procent_sale
+  end
+
+  def get_api_key
+    api_key.blank? ? update(api_key: SecureRandom.hex(16)) : api_key
   end
 
   # Баланс

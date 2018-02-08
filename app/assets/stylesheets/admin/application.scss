@@ -163,6 +163,29 @@
   justify-content: space-between;
 }
 
+#alert {
+  position      : fixed;
+  display       : none;
+  z-index       : 1000;
+  bottom        : 20px;
+  left          : 50%;
+  height        : 52px;
+  padding       : 0 72px 0 16px;
+  transform     : translateX(-50%);
+  background    : rgba(0, 0, 0, .72);
+  border-radius : 4px;
+  color         : #FFF;
+  text-align    : left;
+  line-height: 52px;
+  .close {
+    position : absolute;
+    top      : 14px;
+    right    : 14px;
+    color    : #FFF;
+    cursor   : pointer;
+  }
+}
+
 @media only screen and (max-width: 991px) {
   .displayFlex {
     display: block;

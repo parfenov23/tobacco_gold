@@ -1,0 +1,47 @@
+|Авторизация| GET
+Параметр: email=parfenov407@gmail.com&password=lolopo123
+Url: /api/auth/get_api_key
+----- Response ---------
+{"success":true,"api_key":"3581226b0abdac4ab82d3fa6cf3ef088"}
+-----------------------
+
+|Информация о пользователе| GET
+Параметр: api_key=3581226b0abdac4ab82d3fa6cf3ef088
+Url: /api/auth/user_info
+
+----- Response ---------
+{"magazine_id":1,"id":1,"email":"parfenov407@gmail.com","login":"","avatar":"","created_at":"2017-09-19T13:43:47.863Z","updated_at":"2018-02-08T12:53:45.196Z","rate":0,"admin":true,"role":"admin","procent_sale":10,"contact_id":7,"api_key":"3581226b0abdac4ab82d3fa6cf3ef088"}
+-----------------------
+
+
+
+=========== Sms Банк =============
+|Create| GET
+Параметр: api_key=3581226b0abdac4ab82d3fa6cf3ef088
+Url: /api/sms/create
+----- Response ---------
+{"success":true}
+-----------------------
+
+|Remove| GET
+Параметр: api_key=3581226b0abdac4ab82d3fa6cf3ef088
+Url: /api/sms/ID/remove
+----- Response ---------
+{"success":true}
+-----------------------
+
+|Pay| GET
+Параметр: api_key=3581226b0abdac4ab82d3fa6cf3ef088
+Url: /api/sms/ID/pay
+----- Response ---------
+{"success":true}
+-----------------------
+
+|Info| GET
+Параметр: api_key=3581226b0abdac4ab82d3fa6cf3ef088
+Url: /api/sms/ID/info
+----- Response ---------
+Текст информация
+-----------------------
+
+=====================================

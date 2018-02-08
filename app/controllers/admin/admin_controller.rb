@@ -43,6 +43,12 @@ module Admin
       @product_item = ProductItem.where(barcode: params[:barcode]).last
     end
 
+    def sms_phone
+      @all_sms = SmsPhone.where(archive: false, magazine_id: magazine_id)
+    end
+
+    private
+
     def redirect_to_stock
       redirect_to "/users/sign_in" if (current_user.blank? || !current_user.is_admin? && !current_user.is_manager?)
     end
@@ -55,8 +61,5 @@ module Admin
       current_user.present? ? current_user.magazine_id : nil
     end
 
-    def sms_phone
-      @all_sms = SmsPhone.where(archive: false)
-    end
   end
 end
