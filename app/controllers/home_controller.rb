@@ -72,7 +72,7 @@ class HomeController < ActionController::Base
 
   def callback_vk
     VkMessage.message_price(params)
-    render text: "ok"
+    render text: "5bbf068d"
   end
 
   def item

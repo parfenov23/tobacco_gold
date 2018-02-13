@@ -3,7 +3,7 @@ class VkMessage
     agent = Mechanize.new
     params_get = params(type).merge({message: message}).merge(get_params)
     params_get.merge!({captcha_sid: captcha_arr.first, captcha_key: captcha_arr.last}) if captcha_arr.present?
-    response = JSON.parse(agent.get("https://api.vk.com/method/messages.send", params_get).body)
+    response = JSON.parse(agent.post("https://api.vk.com/method/messages.send", params_get).body)
     return_status = {status: true, code: "ok"}
     if response["error"].present?
       if response["error"]["error_code"] == 14
