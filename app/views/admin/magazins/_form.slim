@@ -11,6 +11,9 @@ form.form-horizontal action="#{action_url}" method="post"
     label.control-label Телефон:
     input.form-control name="magazins[phone]" type="text" value="#{@model.phone}"
   .form_group
+    label.control-label Vk api key:
+    input.form-control name="magazins[api_key]" type="text" value="#{@model.api_key}"
+  .form_group
     label.control-label Текущая акция:
     textarea.form-control name="magazins[special_offer]" type="text" 
       = @model.special_offer

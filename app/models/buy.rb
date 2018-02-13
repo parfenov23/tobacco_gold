@@ -2,17 +2,16 @@ require 'vk_message'
 class Buy < ActiveRecord::Base
   has_many :buy_items
   belongs_to :provider
+  belongs_to :magazine
   default_scope { order("created_at DESC") }
 
   def self.all_sum
     where(def_pay: true).sum(:price)
   end
 
-  def notify_buy(cashbox=nil)
-    if cashbox.present?
-      message = "Закуп: #{self.price.to_i} рублей\nКасса: #{cashbox.curr_cash} рублей"
-      VkMessage.run(message) if Rails.env.production?
-    end
+  def notify_buy(cashbox=magazine.cashbox)
+    message = "Закуп: #{self.price.to_i} рублей\nКасса: #{cashbox.curr_cash} рублей"
+    VkMessage.run(message, "user", {access_token: magazine.api_key}) if Rails.env.production?
   end
 
   def provider_title

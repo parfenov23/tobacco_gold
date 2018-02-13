@@ -8,7 +8,7 @@ module Admin
     def create
       other_buy = model.create(params_model)
       current_cashbox.calculation(params[:cashbox_type], other_buy.price, other_buy.type_mode)
-      other_buy.notify_buy(current_cashbox)
+      other_buy.notify_buy
       redirect_to_index
     end
 

@@ -61,7 +61,9 @@ class OrderRequest < ActiveRecord::Base
 
   def notify
     message = "Клиент оставил заявку на сайте\nНомер: #{id}\nСумма: #{total_sum} рублей"
-    VkMessage.run(message)
+    Magazine.where.not(api_key: nil).each do |magazine|
+      VkMessage.run(message, "user", {access_token: magazine.api_key})
+    end
   end
 
   def self.first_url

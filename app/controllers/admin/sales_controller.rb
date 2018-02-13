@@ -63,7 +63,7 @@ module Admin
       sale.update(price: result, profit: sale_profit, visa: params[:cashbox_type] == "visa", magazine_id: params[:magazine_id])
       current_cashbox.calculation(params[:cashbox_type], result, true)
       current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
-      sale.notify_buy(current_cashbox)
+      sale.notify_buy
       redirect_to_index
     end
 

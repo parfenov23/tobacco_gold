@@ -42,11 +42,9 @@ class SmsPhone < ActiveRecord::Base
   end
 
   def notify_sms
-    if sum > 0
-      rub_title = Russian.p(sum, "рубль", "рубля", "рублей")
-      message = "VISA SMS INFO: #{type_sms} #{self.sum.to_i} #{rub_title}\n"
-      VkMessage.run(message)
-    end
+    rub_title = Russian.p(sum, "рубль", "рубля", "рублей")
+    message = "VISA SMS INFO: #{type_sms} #{self.sum.to_i} #{rub_title}\n"
+    VkMessage.run(message, "user", {access_token: magazine.api_key}) if sum > 0
   end
 
   def clear_body
@@ -59,10 +57,10 @@ class SmsPhone < ActiveRecord::Base
   end
 
   def pay_to_other_by(type_mode)
-      params_model = {title: clear_body, price: sum, type_mode: (type_mode == "up"), magazine_id: magazine.id}
-      other_buy = OtherBuy.create(params_model)
-      magazine.cashbox.calculation('visa', other_buy.price, other_buy.type_mode)
-      update(archive: true)
-      self
+    params_model = {title: clear_body, price: sum, type_mode: (type_mode == "up"), magazine_id: magazine.id}
+    other_buy = OtherBuy.create(params_model)
+    magazine.cashbox.calculation('visa', other_buy.price, other_buy.type_mode)
+    update(archive: true)
+    self
   end
 end

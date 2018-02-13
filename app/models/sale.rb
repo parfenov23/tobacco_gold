@@ -3,13 +3,12 @@ class Sale < ActiveRecord::Base
   has_many :sale_items, dependent: :destroy
   belongs_to :user
   belongs_to :contact
+  belongs_to :magazine
   default_scope { order("created_at DESC") }
 
-  def notify_buy(cashbox=nil)
-    if cashbox.present?
-      message = "Продажа: #{self.price.to_i} рублей\n Информация: #{sale_url}\nКасса: #{cashbox.curr_cash} рублей"
-      VkMessage.run(message) if Rails.env.production?
-    end
+  def notify_buy(cashbox=magazine.cashbox)
+    message = "Продажа: #{self.price.to_i} рублей\n Информация: #{sale_url}\nКасса: #{cashbox.curr_cash} рублей"
+    VkMessage.run(message, "user", {access_token: magazine.api_key}) if Rails.env.production?
   end
 
   def find_profit
