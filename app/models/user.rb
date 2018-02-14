@@ -50,7 +50,8 @@ class User < ActiveRecord::Base
   end
 
   def get_api_key
-    api_key.blank? ? update(api_key: SecureRandom.hex(16)) : api_key
+    update(api_key: SecureRandom.hex(16)) if api_key.blank?
+    api_key
   end
 
   # Баланс

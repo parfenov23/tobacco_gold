@@ -1,7 +1,7 @@
 .list-group.row.material
   - @all_sms.each do |sms|
     .list-group-item.col-md-6.removeParentBlock
-      a.js_loadContentInOtherPopup data-title="Смс банк" href="/api/sms/#{sms.id}/info" style="width: calc(100% - 204px);line-height: 38px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;" #{raw sms.clear_body}
+      a.js_loadContentInOtherPopup data-title="Смс банк" href="/api/sms/#{sms.id}/info?api_key=#{current_user.get_api_key}" style="width: calc(100% - 204px);line-height: 38px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;" #{raw sms.clear_body}
       form.def_pay action="/api/sms/#{sms.id}/pay" method="get" enctype="multipart/form-data"
         .type_cashbox
           = render "admin/admin/common_select", {arr_li: [["Списание", "down"], ["Пополнение", "up"]], default: "down", name_input: "type_mode"}
