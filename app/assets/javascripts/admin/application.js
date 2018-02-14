@@ -1,6 +1,6 @@
 //= require_tree ./pages
 //= require vendor/serialize_file
-Pusher.logToConsole = true;
+// Pusher.logToConsole = true;
 var pusher = new Pusher('1a55ade886312565bd6d', {
   cluster: 'eu',
   encrypted: true
