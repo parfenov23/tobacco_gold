@@ -193,6 +193,16 @@ var search_contact = function(input){
   });
 }
 
+var installPusher = function(){
+  var channel = pusher.subscribe('enlistment');
+  channel.bind('sms_info', function(data) {
+    var sum_sale = parseInt($(".moneyClacl .titlePrice").text());
+    if( $("input[name='cashbox_type']").val() == "visa" && data.sum == sum_sale && current_user_magazine_id() == data.magazine_id){
+      show_error(data.message, 3000);
+    }
+  });
+}
+
 var changeSelectProductItem = function(select){
   var block_select = $(select).closest(".mad-select").find(".mad-select-drop .selected");
   var price = block_select.data("price_id");
@@ -207,6 +217,7 @@ var changeSelectProductItem = function(select){
 
 $(document).ready(function(){
   scanBarCode();
+  installPusher();
   changeSelectPriceAndCount();
   $(document).on('click', '.addItemSale', addBlankBlockItem);
 
@@ -237,6 +248,5 @@ $(document).ready(function(){
       return false;
     }
   });
-
 
 });

@@ -1,6 +1,7 @@
 class SmsPhone < ActiveRecord::Base
   require "sms_gateway"
   require 'vk_message'
+  require 'pusher_io'
 
   belongs_to :magazine
 
@@ -43,7 +44,9 @@ class SmsPhone < ActiveRecord::Base
 
   def notify_sms
     rub_title = Russian.p(sum, "рубль", "рубля", "рублей")
-    message = "VISA SMS INFO: #{type_sms} #{self.sum.to_i} #{rub_title}\n"
+    message = "VISA SMS INFO: #{type_sms} #{sum.to_i} #{rub_title}\n"
+
+    PusherIo.sender("enlistment", "sms_info", {message: message, sum: sum.to_i, magazine_id: magazine_id}) if type_sms == "зачисление"
     VkMessage.run(message, "user", {access_token: magazine.api_key}) if sum > 0
   end
 

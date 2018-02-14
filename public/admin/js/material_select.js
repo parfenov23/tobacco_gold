@@ -22,8 +22,11 @@ var include_mad_select = function(block, end_funct = function(){}){
       hover : function() { madSelectHover ^= 1; },
       click : function() { 
         $ulDrop.toggleClass("show");
-        var top = $(window).innerHeight() - ($ulDrop.closest(".mad-select").position().top + 290) - 100;
-        if (top < 0) { $ulDrop.css({top: top}) }
+        var size_block = 290;
+        if ($ulDrop.find("li").length <= 2){ size_block = 160 }
+        var top_block = $(window).innerHeight() - ($ulDrop.closest(".mad-select").position().top + size_block) - 100;
+        if (top_block < 0) { $ulDrop.css({top: top_block}) }
+
       }
     });
     // PRESELECT

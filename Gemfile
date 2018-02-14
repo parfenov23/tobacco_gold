@@ -34,6 +34,8 @@ gem 'string-similarity'
 gem 'smsc'
 #==========
 
+gem 'pusher' # Pusher.Io
+
 gem 'localtunnel'
 
 gem 'whenever', :require => false

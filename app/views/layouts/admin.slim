@@ -18,6 +18,7 @@ html
     link href="/style/app.css" rel="stylesheet"
     script src="/admin/js/material_select.js"
     script src="/admin/js/material_popup.js"
+    script src="https://js.pusher.com/4.1/pusher.min.js"
   
     = stylesheet_link_tag 'admin/application'
     = javascript_include_tag 'admin/application'
@@ -69,3 +70,4 @@ html
       .close ×
     input#currentUserUrl type="hidden" value=current_user.api_url
     input#currentUserApiKey type="hidden" value=current_user.get_api_key
+    input#currentMagazineId type="hidden" value=current_user.magazine_id

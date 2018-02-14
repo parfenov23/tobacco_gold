@@ -1,5 +1,11 @@
 //= require_tree ./pages
 //= require vendor/serialize_file
+Pusher.logToConsole = true;
+var pusher = new Pusher('1a55ade886312565bd6d', {
+  cluster: 'eu',
+  encrypted: true
+});
+
 
 show_error = function (text, duration) {
   var el = $('#alert');
@@ -58,6 +64,9 @@ var current_user_api_key = function(){
 
 var current_user_api_url = function(){
   return $("#currentUserUrl").val();
+}
+var current_user_magazine_id = function(){
+  return $("#currentMagazineId").val();
 }
 
 var ajaxApi = function(type, method, data, end_action){
