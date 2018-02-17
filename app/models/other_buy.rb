@@ -1,5 +1,6 @@
 require 'vk_message'
 class OtherBuy < ActiveRecord::Base
+  belongs_to :magazine
 
   def self.first_url
     "other_buy"
