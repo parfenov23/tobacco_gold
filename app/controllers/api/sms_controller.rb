@@ -5,6 +5,7 @@ module Api
     end
 
     def create
+      SmsPhone.create_new_sms(current_magazine.id, [SmsPhone.params_to_hash_sms(params)])
       SmsPhone.create_new_sms(current_magazine.id)
       render json: {success: true}
     end

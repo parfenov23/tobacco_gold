@@ -16,21 +16,23 @@ class SmsPhone < ActiveRecord::Base
   def self.parse_hash_sms(number="")
     sms_all = number.blank? ? all_sms : find_number_received_sms(number)
     result_sms = []
-    sms_all.each do |sms|
-      sum = match_body_sms(sms["message"]).to_s.gsub(/(списание|покупка|зачисление) /, '').gsub("р", "").to_i
-      result_sms << {id_sms: sms["id"].to_i, body: sms["message"], sum: sum, date_time: sms["created_at"], address: sms["contact"]["number"]}
-    end
+    sms_all.each{ |sms| result_sms << params_to_hash_sms(sms) }
     result_sms
   end
 
-  def self.create_new_sms(magazine_id)
-    parse_hash_sms("900").each do |sms_hash|
+  def self.create_new_sms(magazine_id, arr_all_sms = parse_hash_sms("900"))
+    arr_all_sms.each do |sms_hash|
       find_sms = where(id_sms: sms_hash[:id_sms]).last
       if find_sms.blank?
         sms = create(sms_hash.merge({magazine_id: magazine_id}))
         sms.type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
       end
     end
+  end
+
+  def self.params_to_hash_sms(sms)
+    sum = match_body_sms(sms["message"]).to_s.gsub(/(списание|покупка|зачисление) /, '').gsub("р", "").to_i
+    {id_sms: sms["id"].to_i, body: sms["message"], sum: sum, date_time: sms["created_at"], address: sms["contact"]["number"]}
   end
 
   def self.match_body_sms(body)
