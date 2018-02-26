@@ -89,7 +89,7 @@ class ProductItem < ActiveRecord::Base
   def transfer_to_json
     as_json({
       except: [:created_at, :updated_at],
-      methods: [:default_img, :count, :magazine_count, :count_sales]
+      methods: [:count, :magazine_count, :count_sales]
       })
   end
 
