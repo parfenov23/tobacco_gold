@@ -235,7 +235,19 @@ Rails.application.routes.draw do
         get :info
       end
     end
+
     resources :cashbox
+    resources :product_items
+    resources :categories do
+      member do 
+        get :products
+      end
+    end
+    resources :products do
+      member do 
+        get :product_items
+      end
+    end
   end
 
   root :to => "home#index"

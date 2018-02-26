@@ -60,6 +60,43 @@ class ProductItem < ActiveRecord::Base
     joins(:product_item_counts).where("product_item_counts.magazine_id"=> magazine_id).where(["product_item_counts.count #{type ? '>' : '<='} ?", 0]).uniq
   end
 
+  # def as_json(*)
+  #   super.except("created_at", "updated_at").tap do |hash|
+  #     hash["default_img"] = image_url.present? ? image_url : (product.default_img rescue nil)
+  #     hash["count_sales"] = sale_items.count
+  #     # hash["product"] = product.as_json
+  #     hash["count"] = product_item_counts.sum(:count)
+  #     hash["magazine_count"] = product_item_counts.map{|pic| {id: pic.magazine_id, count: pic.count}}
+  #   end
+  # end
+
+  def default_img
+    image_url.present? ? image_url : (product.default_img rescue nil)
+  end
+
+  def count
+    product_item_counts.sum(:count)
+  end
+
+  def magazine_count
+    product_item_counts.map{|pic| {id: pic.magazine_id, count: pic.count}}
+  end
+
+  def count_sales
+    sale_items.count
+  end
+
+  def transfer_to_json
+    as_json({
+      except: [:created_at, :updated_at],
+      methods: [:default_img, :count, :magazine_count, :products, :count_sales]
+      })
+  end
+
+  def self.transfer_to_json
+    all.map(&:transfer_to_json)
+  end
+
   def self.title_search(query)
     result = nil
     count = 6
@@ -74,7 +111,4 @@ class ProductItem < ActiveRecord::Base
     search(query).where("similarity(title, ?) > #{val}", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
 
-  # def total_sum
-
-  # end
 end
