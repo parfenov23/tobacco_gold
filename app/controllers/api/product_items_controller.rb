@@ -16,5 +16,9 @@ module Api
     def show
       render json: ProductItem.find(params[:id]).transfer_to_json
     end
+
+    def get_img_url
+
+    end
   end
 end
