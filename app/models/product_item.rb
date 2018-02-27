@@ -95,7 +95,7 @@ class ProductItem < ActiveRecord::Base
     img_url = "/#{id}.png"
     public_url = dir_url+img_url
 
-    if (base64.to_s.scan("http://").present?)
+    if (base64.to_s.scan("http://").present? || base64.to_s.scan("https://").present? )
       img = open(base64)
       base64 = Base64.encode64(img.read)
     end
