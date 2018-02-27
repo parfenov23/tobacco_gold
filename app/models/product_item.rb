@@ -18,6 +18,7 @@ class ProductItem < ActiveRecord::Base
   scope :total_sum, -> { map{|pi| pi.product.current_price}.sum }
   has_many :product_item_counts, dependent: :destroy
   after_create :default_create_product_item_count
+  after_update :get_image_url
 
   def self.popular_sort(count_first=3)
   	products = self.all
@@ -94,7 +95,7 @@ class ProductItem < ActiveRecord::Base
     img_url = "/#{id}.png"
     public_url = dir_url+img_url
 
-    if (base64.present? && base64.to_s.scan("http://").blank?)
+    if (base64.present? && base64.to_s.scan("http://").blank? && base64.to_s.scan("/attachment/").blank?)
       base64 = base64.gsub("data:image/png;base64,", "")
       FileUtils.mkdir_p(dir_path) unless File.directory?(dir_path)
       File.open((dir_path+img_url), 'wb') do|f|
