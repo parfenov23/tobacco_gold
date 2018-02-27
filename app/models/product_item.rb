@@ -93,8 +93,8 @@ class ProductItem < ActiveRecord::Base
     dir_path = dir_fold + dir_url
     img_url = "/#{id}.png"
     public_url = dir_url+img_url
-    
-    if (base64.scan("http://").blank?)
+
+    if (base64.present? && base64.to_s.scan("http://").blank?)
       base64 = base64.gsub("data:image/png;base64,", "")
       FileUtils.mkdir_p(dir_path) unless File.directory?(dir_path)
       File.open((dir_path+img_url), 'wb') do|f|
