@@ -86,18 +86,24 @@ class ProductItem < ActiveRecord::Base
     sale_items.count
   end
 
-  # def get_image_url
-  #   base64 = default_img
-  #   dir = "#{Rails.root.to_s}/public/attachment/product_items"
-  #   img_url = "#{dir}/#{id}.png"
-  #   if (base64.is_a?(String) && Base64.encode64(Base64.decode64(base64)) == base64)
-  #     FileUtils.mkdir_p(dir) unless File.directory?(dir)
-  #     File.open(img_url, 'wb') do|f|
-  #       f.write(Base64.decode64(base64))
-  #     end
-  #   end
-  #   img_url
-  # end
+  def get_image_url
+    base64 = default_img
+    dir_fold = "#{Rails.root.to_s}/public"
+    dir_url = "/attachment/product_items"
+    dir_path = dir_fold + dir_url
+    img_url = "/#{id}.png"
+    public_url = dir_url+img_url
+    
+    if (base64.scan("http://").blank?)
+      base64 = base64.gsub("data:image/png;base64,", "")
+      FileUtils.mkdir_p(dir_path) unless File.directory?(dir_path)
+      File.open((dir_path+img_url), 'wb') do|f|
+        f.write(Base64.decode64(base64))
+      end
+      update(image_url: public_url)
+    end
+    public_url
+  end
 
   def transfer_to_json
     as_json({
