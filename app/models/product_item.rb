@@ -90,7 +90,7 @@ class ProductItem < ActiveRecord::Base
   def get_image_url
     base64 = default_img
     dir_fold = "#{Rails.root.to_s}/public"
-    dir_url = "/attachment/product_items"
+    dir_url = "/system/attachment/product_items"
     dir_path = dir_fold + dir_url
     img_url = "/#{id}.png"
     public_url = dir_url+img_url
@@ -99,7 +99,7 @@ class ProductItem < ActiveRecord::Base
       img = open(base64)
       base64 = Base64.encode64(img.read)
     end
-    
+
     if (base64.present? && base64.to_s.scan("/attachment/").blank?)
       base64 = base64.gsub("data:image/png;base64,", "")
       FileUtils.mkdir_p(dir_path) unless File.directory?(dir_path)
