@@ -88,7 +88,7 @@ class ProductItem < ActiveRecord::Base
   end
 
   def get_image_url
-    base64 = default_img
+    base64 = image_url
     dir_fold = "#{Rails.root.to_s}/public"
     dir_url = "/system/attachment/product_items"
     dir_path = dir_fold + dir_url
