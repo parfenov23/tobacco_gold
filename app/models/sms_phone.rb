@@ -22,11 +22,9 @@ class SmsPhone < ActiveRecord::Base
 
   def self.create_new_sms(magazine_id, sms_hash = {})
     find_sms = where(id_sms: sms_hash[:id_sms]).last
-    binding.pry
     if find_sms.blank? && sms_hash[:address] == "900"
       sms = create(sms_hash.merge({magazine_id: magazine_id}))
       sms.type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
-      binding.pry
     end
   end
 
