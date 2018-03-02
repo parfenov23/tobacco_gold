@@ -30,7 +30,7 @@ class SmsPhone < ActiveRecord::Base
 
   def self.params_to_hash_sms(sms)
     sum = match_body_sms(sms["body"]).to_s.gsub(/(списание|покупка|зачисление) /, '').gsub("р", "").to_i
-    {id_sms: sms["id"].to_i, body: sms["body"], sum: sum, date_time: sms["created_at"], address: sms["number"]}
+    {id_sms: sms["id"].scan(/[0-9]+/).join.to_i, body: sms["body"], sum: sum, date_time: sms["created_at"], address: sms["number"]}
   end
 
   def self.match_body_sms(body)
