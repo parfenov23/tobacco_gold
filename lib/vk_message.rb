@@ -74,8 +74,8 @@ class VkMessage
   end
 
   def self.anticaptcha(url)
-    captcha = Antigate.wrapper('80254ffdc4d2f1fc99f46c92019252f9')
-    recognized = captcha.recognize(url, 'jpg')
-    recognized
+    client = AntiCaptcha.new("b12c3120278775a969d7a4d57c5bf3bf")
+    result = client.decode_image!(body64: Base64.encode64(open(url).read) )
+    result.api_response["solution"]["text"]
   end
 end

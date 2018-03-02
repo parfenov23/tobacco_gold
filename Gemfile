@@ -15,7 +15,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim', '~> 2.0.0'
 gem 'pry'
 gem 'mechanize'
-gem 'antigate'
+# gem 'antigate'
+gem 'anti_captcha'
 gem 'russian'
 gem 'mini_magick'
 
