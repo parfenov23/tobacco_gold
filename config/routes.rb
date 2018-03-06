@@ -225,6 +225,17 @@ Rails.application.routes.draw do
         get :get_api_key
       end
     end
+
+    resources :users do
+      collection do
+        get :auth_user
+        get :auth_admin
+        get :reg_user
+        get :info
+      end
+    end
+    resources :contacts
+
     resources :sms do
       collection do
         post :import
@@ -237,10 +248,19 @@ Rails.application.routes.draw do
     end
 
     resources :cashbox
+    resources :order_requests
     resources :product_items
     resources :categories do
       member do 
         get :products
+      end
+    end
+    resources :sales do
+      collection do
+        get :all_contact
+      end
+      member do 
+        get :sale_items
       end
     end
     resources :products do

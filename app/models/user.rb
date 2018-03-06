@@ -85,4 +85,11 @@ class User < ActiveRecord::Base
   def manager_payment_today
     sales.where(["created_at > ?", Time.now.beginning_of_day]).where(["created_at < ?", Time.now.end_of_day])
   end
+
+  def transfer_to_json
+    as_json({
+      except: [:created_at, :updated_at, :encrypted_password, :reset_password_token, :reset_password_sent_at]
+      })
+  end
+
 end

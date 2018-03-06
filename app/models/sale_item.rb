@@ -9,4 +9,11 @@ class SaleItem < ActiveRecord::Base
   def price
     product_price.price rescue price_int
   end
+
+  def transfer_to_json
+    as_json({
+      except: [:updated_at],
+      methods: [:price]
+      })
+  end
 end
