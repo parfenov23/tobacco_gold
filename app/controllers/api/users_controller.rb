@@ -22,7 +22,7 @@ module Api
 
     def info
       user = User.where(api_key: params[:user_key]).last
-      render json: user.present? ? user.transfer_to_json : nil
+      render json: user.present? ? user.transfer_to_json : {}
     end
 
     def auth_admin
