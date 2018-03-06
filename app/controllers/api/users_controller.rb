@@ -21,7 +21,8 @@ module Api
     end
 
     def info
-      render json: User.find_by_api_key(params[:user_key]).transfer_to_json
+      user = User.where(api_key: params[:user_key]).last
+      render json: user.present? ? user.transfer_to_json : nil
     end
 
     def auth_admin
