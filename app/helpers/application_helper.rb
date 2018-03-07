@@ -45,28 +45,6 @@ module ApplicationHelper
     current_user.magazine
   end
 
-  def all_pages
-    [
-      ["Как это работает", "how_it_works"],
-      ["Контакты", "contacts"],
-      ["Бонусы", "bonuses"],
-      ["Пополнить счет", "buy_rate"]
-    ]
-  end
-
-  def left_bar_links
-    all_menu = [
-      # {type: 'buy_rate', title: 'Пополнить счет', href: '/buy_rate'},
-      {type: 'how_it_works', title: 'Доставка и оплата', href: '/how_it_works'},
-      # {type: 'winners', title: 'Рейтинг', href: '/winners'},
-      {type: 'bonuses', title: 'Скидки и Акции', href: '/bonus'},
-      # {type: 'faq', title: 'F.A.Q', href: '/help'},
-      {type: 'contacts', title: 'Контакты', href: '/contacts'}
-    ]
-    all_menu << {type: 'participant', title: 'Админка', href: '/admin/admin'} if current_user_present_and_control
-    all_menu
-  end
-
   def rus_case(count, n1, n2, n3)
     "#{count} #{Russian.p(count, n1, n2, n3)}"
   end

@@ -1,7 +1,0 @@
-- title "Контакты"
-.content.content-block__normal.background
-  .header_block
-    .title Контакты
-    hr
-  .content_block
-    = raw((ContentPage.where(name_page: "contacts").last.description.to_s rescue "Нет описания страницы"))
