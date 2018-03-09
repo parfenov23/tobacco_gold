@@ -2,25 +2,27 @@
 .form-group
   label
     | ФИО:
-  input.form-control name="contact[first_name]" type="text" value="#{@model.first_name}"
-.form-group
-  label
-    | Email:
-  input.form-control name="contact[email]" type="text" value="#{@model.email}"
+  input.form-control name="contacts[first_name]" type="text" value="#{@model.first_name}"
+- if @model.email.blank?
+  .form-group
+    label
+      | Email:
+    input.form-control name="contacts[email]" type="text" value="#{@model.email}"
 .form-group
   label
     | Телефон:
-  input.form-control name="contact[phone]" type="text" value="#{@model.phone}"
+  input.form-control name="contacts[phone]" type="text" value="#{@model.phone}"
 .form-group
   label
     | Социальная ссылка:
-  input.form-control name="contact[social]" type="text" value="#{@model.social}"
+  input.form-control name="contacts[social]" type="text" value="#{@model.social}"
 .form-group
   label
     | Код карты:
-  input.form-control name="contact[barcode]" type="text" value="#{@model.barcode}"
+  input.form-control name="contacts[barcode]" type="text" value="#{@model.barcode}"
 .form-group
   label
     | Оптовый клиент?:
-  = check_box("contact", "opt", {checked: check_if_true(@model.opt)})
+  = check_box("contacts", "opt", {checked: check_if_true(@model.opt)})
 // ================
+input type="hidden" name="contacts[company_id]" value=current_company.id

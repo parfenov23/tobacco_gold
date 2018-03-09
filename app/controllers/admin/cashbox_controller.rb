@@ -8,7 +8,7 @@ module Admin
 
       # @cashbox = Sale.cash_box
       @cashbox = @current_cashbox.cash + @current_cashbox.visa
-      @stock_price = Product.stock_price
+      @stock_price = Product.stock_price(current_user.magazine)
       @all_sales = Sale.where(magazine_id: current_user.magazine_id)
       
       @last_sales_price = @all_sales.last_sales_price

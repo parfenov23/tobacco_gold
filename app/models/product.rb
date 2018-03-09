@@ -14,10 +14,11 @@ class Product < ActiveRecord::Base
     buy_items.present? ? buy_items.minimum(:price) : product_prices.minimum(:price)
   end
 
-  def self.stock_price
+  def self.stock_price(magazine)
     result = 0
     all.each do |product|
-      result += (product.current_price * product.product_items.sum(:count) )
+      pi_count = product.product_items.inject(0){|sum, pi| sum + pi.current_count(magazine) }
+      result += (product.current_price * pi_count )
     end
     result
   end
