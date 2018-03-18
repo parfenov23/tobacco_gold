@@ -10,4 +10,8 @@ class ProductPrice < ActiveRecord::Base
   def update_default
     product.product_prices.update_all(default: false)
   end
+
+  def company_id
+    product.company_id
+  end
 end

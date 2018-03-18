@@ -37,7 +37,8 @@
       span.title #{number_with_delimiter(averege, delimiter: " ")} рублей
   .list-group-item.panel_gray_common Долг поставщикам
   .listInfo
-    - Provider.all.each do |provider|
+    / - binding.pry
+    - current_company.providers.each do |provider|
       - all_sum_buys = provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).sum(:price)
       .item
         i.user-tie.iconCashbox

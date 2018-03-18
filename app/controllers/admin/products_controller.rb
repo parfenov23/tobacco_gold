@@ -2,7 +2,7 @@ module Admin
   class ProductsController < CommonController
 
     def index
-      @models = params[:category].blank? ? model.all : Product.where(category_id: params[:category])
+      @models = params[:category].blank? ? current_company.products : current_company.products.where(category_id: params[:category])
     end
 
     private

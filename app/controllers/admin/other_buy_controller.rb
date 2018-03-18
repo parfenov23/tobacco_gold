@@ -2,7 +2,7 @@ module Admin
   class OtherBuyController < CommonController
 
     def index
-      @other_buys = model.all.order("created_at DESC")
+      @other_buys = model.where(magazine_id: magazine_id).order("created_at DESC")
     end
 
     def create

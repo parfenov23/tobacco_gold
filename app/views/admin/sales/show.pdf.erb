@@ -35,11 +35,11 @@
     <div class="well">
       <div>
         <b>Название:</b>
-        <span>Tobacco Gold, ИНН: 665813566276</span>
+        <span><%= current_magazine.title %></span>
       </div>
       <div>
         <b>Адрес:</b>
-        <span>Мичурина 101</span>
+        <span><%= current_magazine.address %></span>
       </div>
       <div style="text-align: center; margin-top: 24px;">
         <% date_sale = @sale.created_at %>
@@ -86,7 +86,7 @@
           Отпустил
           <span>______________</span>
           <span style="margin-left: 14px; text-decoration: underline;">&nbsp;&nbsp;Менеджер&nbsp;&nbsp;</span>
-          <span style="margin-left: 14px; text-decoration: underline;">&nbsp;&nbsp;Первушин Максим Александрович&nbsp;&nbsp;</span>
+          <span style="margin-left: 14px; text-decoration: underline;">&nbsp;&nbsp;<%= @sale.user.email %>&nbsp;&nbsp;</span>
         </div>
       </div>
     </div>

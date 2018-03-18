@@ -8,7 +8,7 @@ class Sale < ActiveRecord::Base
 
   def notify_buy(cashbox=magazine.cashbox)
     message = "Продажа: #{self.price.to_i} рублей\n Информация: #{sale_url}\nКасса: #{cashbox.curr_cash} рублей"
-    VkMessage.run(message, "user", {access_token: magazine.api_key}) if Rails.env.production?
+    VkMessage.run(message, "user", {access_token: magazine.api_key}) if (Rails.env.production? && magazine.api_key.present?)
   end
 
   def find_profit
@@ -144,5 +144,9 @@ class Sale < ActiveRecord::Base
   def self.curr_month_price
     start_day = (Time.now - Time.new.day.day + 1.day).beginning_of_day
     where(["created_at > ?", start_day]).sum(:price)
+  end
+
+  def company_id
+    magazine.company_id
   end
 end

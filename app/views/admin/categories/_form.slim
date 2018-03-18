@@ -5,5 +5,6 @@ form.form-horizontal action="#{action_url}" method="post"
         label.control-label Название:
         input.form-control name="categories[first_name]" type="text" value="#{@model.first_name }"
     hr
+    input type="hidden" name="categories[company_id]" value=current_company.id
     input type="hidden" name="_method" value="#{method}"
     button.btn.btn-primary-material.submit type="submit"  Сохранить

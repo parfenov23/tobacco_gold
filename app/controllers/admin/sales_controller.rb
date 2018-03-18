@@ -8,7 +8,7 @@ module Admin
 
     def new
       @sale = model.new
-      @products = Product.all
+      @products = current_company.products
     end
 
     def info
@@ -16,12 +16,16 @@ module Admin
     end
 
     def show
-      @sale = find_model
-      respond_to do |format|
-        format.html
-        format.pdf{
-          render pdf: "#{@sale.id}_#{Time.now.to_i}"
-        }
+      @sale = find_model if ((find_model.company_id == current_company.id) rescue true )
+      if @sale.blank?
+        redirect_to "/404"
+      else
+        respond_to do |format|
+          format.html
+          format.pdf{
+            render pdf: "#{@sale.id}_#{Time.now.to_i}"
+          }
+        end
       end
     end
 
@@ -68,7 +72,7 @@ module Admin
     end
 
     def load_content_product_items
-      @products = params[:id].present? ? Product.where(id: params[:id]) : Product.where(id: (ProductItem.where(barcode: params[:barcode]).last.product_id rescue nil))
+      @products = params[:id].present? ? Product.where(id: params[:id], company_id: current_company.id) : Product.where(id: (ProductItem.where(barcode: params[:barcode]).last.product_id rescue nil), company_id: current_company.id)
       html_form = render_to_string "/admin/sales/_select_product_items", :layout => false
       render text: html_form
     end

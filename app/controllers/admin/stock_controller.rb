@@ -1,9 +1,9 @@
 module Admin
-  class StockController < AdminController
+  class StockController < CommonController
     # before_action :auth, except: [:index, :to_excel]
     before_action :redirect_to_stock
     def index
-      @products = Product.all
+      @products = current_company.products
       # @products = Product.all.select { |product| product.product_items.where(count: 0).present? } if params[:type] == "not_available"
     end
 

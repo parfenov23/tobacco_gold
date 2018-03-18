@@ -5,9 +5,10 @@
       .selectInlineProvider
         .mad-select  
           ul
-            - Provider.all.each do |pr|
+            - all_providers = current_company.providers
+            - all_providers.each do |pr|
               li data-value="#{pr.id}" = pr.title
-          input type="hidden" name="provider_id" value="#{Provider.first.id}"
+          input type="hidden" name="provider_id" value="#{all_providers.first.id}"
     a.btn.btn-success-material href="/admin/buy/search" Поиск
   - @buys.each do |buy|
     .list-group-item.col-md-6

@@ -7,7 +7,7 @@ module Admin
 
     def new
       @buy = model.new
-      @products = Product.all
+      @products = current_company.products
     end
 
     def create
@@ -61,7 +61,8 @@ module Admin
     end
 
     def info
-      @buy = find_model
+      @buy = find_model if ((find_model.company_id == current_company.id) rescue true )
+      redirect_to "/404" if @buy.blank?
     end
 
     def search_result
@@ -81,10 +82,6 @@ module Admin
     end
 
     private
-
-    def find_model
-      model.find(params[:id])
-    end
 
     def redirect_to_index
       redirect_to '/admin/buy'
