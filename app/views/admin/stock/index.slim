@@ -17,9 +17,10 @@
           | #{product.current_price.to_i} рублей
       - product_items.each do |item|
         - item_count = item.current_count(current_magazine)
-        .list-group-item.col-md-3.material
-          span
-            = item.title
-          - if current_user_admin? || params[:pub] == "true"
-            a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="#{product.title} - #{item.title}" href="/admin/stock/#{item.id}/info"
-              = item_count
+        - if item_count.to_i > 0
+          .list-group-item.col-md-3.material
+            span
+              = item.title
+            - if current_user_admin? || params[:pub] == "true"
+              a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="#{product.title} - #{item.title}" href="/admin/stock/#{item.id}/info"
+                = item_count

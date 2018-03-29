@@ -8,7 +8,7 @@ module Admin
 
     def new
       @sale = model.new
-      @products = current_company.products
+      @products = current_company.products.joins(product_items: :product_item_counts).where(product_item_counts: {magazine_id: magazine_id}).where("product_item_counts.count > 0").uniq
     end
 
     def info
