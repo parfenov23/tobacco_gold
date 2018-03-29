@@ -3,21 +3,21 @@
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
   .form-group
     |Email:
-    input.form-control name="user[email]" type="text" value="#{@model.email}"
+    input.form-control name="users[email]" type="text" value="#{@model.email}"
   .form-group
     |Логин:
-    input.form-control name="user[login]" type="text" value="#{@model.login}"
+    input.form-control name="users[login]" type="text" value="#{@model.login}"
   .form-group
     |Пароль(6):
-    input.form-control name="user[password]" type="text"
+    input.form-control name="users[password]" type="text"
   .form-group
     |Процент от продаж:
-    input.form-control name="user[procent_sale]" type="text" value=@model.procent_sale
+    input.form-control name="users[procent_sale]" type="text" value=@model.procent_sale
   .form-group
     |Права:
-    = select_tag("user[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"], ["Пользователь", "user"]], @model.role.to_s), {:class => 'form-control'})
+    = select_tag("users[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"], ["Пользователь", "user"]], @model.role.to_s), {:class => 'form-control'})
   .form-group
     |Магазин:
-    = select_tag("user[magazine_id]", options_for_select(Magazine.all.map{|magaz| [magaz.title, magaz.id]}, @model.magazine_id), {:class => 'form-control'})
+    = select_tag("users[magazine_id]", options_for_select(Magazine.all.map{|magaz| [magaz.title, magaz.id]}, @model.magazine_id), {:class => 'form-control'})
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary-material.submit type="submit"  Сохранить
