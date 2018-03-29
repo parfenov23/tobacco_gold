@@ -1,9 +1,0 @@
-@media only screen and (max-width : 1000px) {
-    header .dialogs-area {
-        display : none
-    }
-
-    header .search {
-        display : none
-    }
-}

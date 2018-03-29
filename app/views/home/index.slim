@@ -1,0 +1,46 @@
+.container
+  .row
+    .col-md-6.col-md-offset-3
+      .panel.panel-login
+        .panel-heading
+          .row
+            .col-xs-6
+              a#login-form-link.active href="#"  Авторизация
+            .col-xs-6
+              a#register-form-link href="#"  Регистрация
+          hr
+        .panel-body
+          .row
+            .col-lg-12
+              - if params[:error] == "1"
+                .titleError Проверьте введенные данные
+              form#login-form action="/session" method="post" role="form" style=("display: block;") 
+                .form-group
+                  input#username.form-control name="email" placeholder="Email" tabindex="1" type="text" value=""
+                .form-group
+                  input#password.form-control name="password" placeholder="Пароль" tabindex="2" type="password"
+                / .form-group.text-center
+                /   input#remember name="remember" tabindex="3" type="checkbox" 
+                /   label for="remember"  Remember Me
+                .form-group.material
+                  .row
+                    .col-sm-6.col-sm-offset-3 style="text-align: center;"
+                      input#login-submit.btn.btn-success-material name="login-submit" tabindex="4" type="submit" value="Авторизация"
+                / .form-group
+                /   .row
+                /     .col-lg-12
+                /       .text-center
+                /         a.forgot-password href="https://phpoll.com/recover" tabindex="5"  Forgot Password?
+              form#register-form action="/session/registration" method="post" role="form" style=("display: none;") 
+                .form-group
+                  input#username.form-control name="company" placeholder="Название компании" tabindex="1" type="text" value=""
+                .form-group
+                  input#email.form-control name="email" placeholder="Email" tabindex="1" type="email" value=""
+                .form-group
+                  input#password.form-control name="password" placeholder="Пароль" tabindex="2" type="password"
+                .form-group
+                  input#confirm-password.form-control name="confirm_password" placeholder="Повторите пароль" tabindex="2" type="password"
+                .form-group
+                  .row
+                    .col-sm-6.col-sm-offset-3 style="text-align: center;"
+                      input#register-submit.btn.btn-success-material name="register-submit" tabindex="4" type="submit" value="Регистрация"

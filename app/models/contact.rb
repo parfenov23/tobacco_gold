@@ -3,8 +3,8 @@ class Contact < ActiveRecord::Base
   has_many :sales
   has_one :user, dependent: :destroy
 
-  validates :phone, presence: true
-  validates :phone, uniqueness: true
+  # validates :phone, presence: true
+  # validates :phone, uniqueness: true
 
   def title
     first_name

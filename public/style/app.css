@@ -2,6 +2,7 @@
   padding: 14px 5px 5px;
   margin-bottom: 0;
   margin-top: 50px;
+  border: 0;
 }
 
 .list-group.row, .form-horizontal .form-group {
@@ -131,7 +132,7 @@ ul.nav.navbar-nav li {
   text-align: center;
 }
 .navbar.navbar-default .allNavElem .headerTitle {
-  width: calc(100% - 60px);
+  width: 100%;;
   font-size: 24px;
   text-align: center;
   text-transform: uppercase;

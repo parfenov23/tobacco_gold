@@ -1,6 +1,5 @@
 module Admin
   class MagazinsController < CommonController
-
     private
 
     def model

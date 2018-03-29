@@ -1,8 +1,8 @@
 module Admin
-  class RevisionController < AdminController
+  class RevisionController < CommonController
 
     def index
-      @products = Product.all
+      @products = current_company.products
     end
 
     def create

@@ -13,7 +13,8 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .form-group
     label
       | Категория:
-    - all_categories = Category.all
+    - all_categories = current_company.categories
     = select_tag("products[category_id]", options_for_select([["Нет", nil]] + all_categories.map{|category| [category.first_name, category.id]}, @model.category_id), {:class => 'form-control'})
+  input type="hidden" name="products[company_id]" value=current_company.id
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary-material.submit type="submit" Сохранить

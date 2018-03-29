@@ -1,5 +1,7 @@
 class Magazine < ActiveRecord::Base
   has_one :cashbox, dependent: :destroy
+  belongs_to :company
+  has_many :product_item_counts, dependent: :destroy
   after_create :default_create_product_item_count
 
   def self.first_url

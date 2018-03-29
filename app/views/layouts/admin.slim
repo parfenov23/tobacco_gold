@@ -41,12 +41,13 @@ html
             a href="#{li_nav[:url]}" 
               = li_nav[:title]
 
-      nav.navbar.navbar-default.block-material
-        .allNavElem
+    nav.navbar.navbar-default.block-material
+      .allNavElem
+        - if current_user.present?
           .btnOpenleftBar onclick="openNav()"
             |&#9776;
-          .headerTitle 
-            = curr_title_admin_header
+        .headerTitle 
+          = curr_title_admin_header || "Hookah Stock Online"
     .well
       = yield
       #overlay
@@ -68,6 +69,7 @@ html
     #alert
       .text
       .close ×
-    input#currentUserUrl type="hidden" value=current_user.api_url
-    input#currentUserApiKey type="hidden" value=current_user.get_api_key
-    input#currentMagazineId type="hidden" value=current_user.magazine_id
+    - if current_user.present?
+      input#currentUserUrl type="hidden" value=current_user.api_url
+      input#currentUserApiKey type="hidden" value=current_user.get_api_key
+      input#currentMagazineId type="hidden" value=current_user.magazine_id

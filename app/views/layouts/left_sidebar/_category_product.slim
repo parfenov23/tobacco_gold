@@ -1,6 +1,0 @@
-.hide_product_in_category
-  - products = category.products
-  ul
-    - products.each do |product|
-      li.menu__item
-        a href="/?product_id=#{product.id}" = product.title

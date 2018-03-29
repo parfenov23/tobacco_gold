@@ -136,4 +136,8 @@ class ProductItem < ActiveRecord::Base
     search(query).where("similarity(title, ?) > #{val}", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
 
+  def company_id
+    product.company_id
+  end
+
 end

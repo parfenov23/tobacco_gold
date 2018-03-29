@@ -34,6 +34,10 @@ class Buy < ActiveRecord::Base
     where(["created_at > ?", start_day]).where(["created_at <= ?", end_day]).sum(:price)
   end
 
+  def company_id
+    magazine.company_id
+  end
+
   def self.tester
     p "teeeees"
   end

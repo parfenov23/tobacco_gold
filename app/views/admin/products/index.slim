@@ -4,7 +4,7 @@
       / a.btn.btn-success-material href="/admin/products/new"  Добавить производителя
       a.btn.btn-success-material.btn-margin-left href="/admin/categories" Добавить категорию
     .categories style="display: inline-block;margin-left: 8px;"
-      - Category.all.each do |category|
+      - current_company.categories.each do |category|
         a.btn.btn-info-material style="margin-left: 2px;" href="/admin/products?category=#{category.id}" = category.first_name  
   - @models.each do |product|
     .list-group-item.col-md-6.material

@@ -45,28 +45,6 @@ module ApplicationHelper
     current_user.magazine
   end
 
-  def all_pages
-    [
-      ["Как это работает", "how_it_works"],
-      ["Контакты", "contacts"],
-      ["Бонусы", "bonuses"],
-      ["Пополнить счет", "buy_rate"]
-    ]
-  end
-
-  def left_bar_links
-    all_menu = [
-      # {type: 'buy_rate', title: 'Пополнить счет', href: '/buy_rate'},
-      {type: 'how_it_works', title: 'Доставка и оплата', href: '/how_it_works'},
-      # {type: 'winners', title: 'Рейтинг', href: '/winners'},
-      {type: 'bonuses', title: 'Скидки и Акции', href: '/bonus'},
-      # {type: 'faq', title: 'F.A.Q', href: '/help'},
-      {type: 'contacts', title: 'Контакты', href: '/contacts'}
-    ]
-    all_menu << {type: 'participant', title: 'Админка', href: '/admin/admin'} if current_user_present_and_control
-    all_menu
-  end
-
   def rus_case(count, n1, n2, n3)
     "#{count} #{Russian.p(count, n1, n2, n3)}"
   end
@@ -76,7 +54,7 @@ module ApplicationHelper
   end
 
   def curr_title_admin_header
-    curr_title = ""
+    curr_title = nil
     all_navs_admin.each{|nav| curr_title = nav[:title] if nav[:url] == "/#{params[:controller]}" }
     curr_title
   end
@@ -96,15 +74,16 @@ module ApplicationHelper
       {url: "/admin/admin/sms_phone", title: "Смс банк"},
       {url: "/admin/cashbox", title: "Касса"},
       {url: '/admin/order_requests', title: 'Заявки'}, 
-      {url: '/admin/content_pages', title: 'Контент'}, 
+      # {url: '/admin/content_pages', title: 'Контент'}, 
       {url: '/admin/users', title: 'Пользователи'}, 
       {url: '/admin/contacts', title: 'Клиенты'},
       {url: '/admin/admin/manager_payments', title: 'Выплаты'},
       {url: '/admin/admin/search', title: 'Поиск'},
       {url: '/admin/providers', title: 'Поставщики'},
-      {url: '/admin/magazins', title: 'Магазины'},
+      {url: '/admin/magazins', title: 'Компания'},
       {url: '/admin/product_items', title: 'Вкусы', display: false},
-      {url: '/admin/product_prices', title: 'Цены', display: false}
+      {url: '/admin/product_prices', title: 'Цены', display: false},
+      {url: '/admin/provider_items', title: 'Цены поставщика', display: false}
     ]
   end
 
@@ -117,5 +96,9 @@ module ApplicationHelper
       all_navs.map{|nav| nav if aviable_page.include?(nav[:url].gsub("/admin/", ""))}.compact
     end
     
+  end
+
+  def current_company
+    @current_company
   end
 end
