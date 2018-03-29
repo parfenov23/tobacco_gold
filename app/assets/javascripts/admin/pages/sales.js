@@ -1,4 +1,5 @@
-var loadContent = function (type, id, end_func = function(){}) {
+var loadContent = function (type, id, end_func) {
+  if (end_func == undefined) end_func = function(){};
   var get_product_items = function(){
     var url = new URL(window.location.href)
     var type_sale = url.searchParams.get("type_sale") || ""
