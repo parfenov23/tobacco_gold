@@ -9,7 +9,8 @@ class Magazine < ActiveRecord::Base
   end
 
   def default_create_product_item_count
-    all_ids = ProductItem.all.ids
+    Cashbox.create(magazine_id: id, cash: 0, visa: 0)
+    all_ids = ProductItem.where(product_id: Product.where(company_id: company_id).ids).ids
     hash_array = all_ids.map{|id| {product_item_id: id, magazine_id: self.id, count: 0} }
     ProductItemCount.create(hash_array)
   end

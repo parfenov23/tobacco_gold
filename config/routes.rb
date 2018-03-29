@@ -225,7 +225,11 @@ Rails.application.routes.draw do
 
     resources :cashbox
     resources :order_requests
-    resources :product_items
+    resources :product_items do
+      collection do
+        get :get_search
+      end
+    end
     resources :categories do
       member do 
         get :products

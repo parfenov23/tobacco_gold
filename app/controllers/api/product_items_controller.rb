@@ -17,6 +17,11 @@ module Api
       render json: ProductItem.find(params[:id]).transfer_to_json
     end
 
+    def get_search
+      product_item = ProductItem.where(barcode: params[:barcode], product_id: Product.where(company_id: 1).ids).last
+      render text: "<p>" + (product_item.present? ? product_item.get_description : "Нет описания") + "<p>"
+    end
+
     def get_img_url
 
     end

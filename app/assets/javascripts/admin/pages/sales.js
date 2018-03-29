@@ -25,33 +25,6 @@ var loadContent = function (type, id, end_func = function(){}) {
 
 };
 
-var scanBarCode = function(){
-  var pressed = false; 
-  var chars = []; 
-  $(window).keypress(function(e) {
-    if (e.which >= 48 && e.which <= 57) {
-      chars.push(String.fromCharCode(e.which));
-    }
-    // console.log(e.which + ":" + chars.join("|"));
-    if (pressed == false) {
-      setTimeout(function(){
-                // check we have a long length e.g. it is a barcode
-                if (chars.length >= 10) {
-                  var barcode = chars.join("");
-                  // console.log("Barcode Scanned: " + barcode);
-                  if ($(".search_discount_card").is(':focus')){
-                    search_contact($(".search_discount_card"));
-                  }else{
-                    addItemWhenBarcodeScan(barcode);
-                  }
-                }
-                chars = [];
-                pressed = false;
-              },500);
-    }
-    pressed = true;
-  });
-}
 
 var addItemWhenBarcodeScan = function(barcode){
   var findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
@@ -216,7 +189,17 @@ var changeSelectProductItem = function(select){
 }
 
 $(document).ready(function(){
-  scanBarCode();
+  if($("form[action='/admin/sales']").length){
+    scanBarCode(function(barcode){
+      if ($(".search_discount_card").is(':focus')){
+        search_contact($(".search_discount_card"));
+      }else{
+        addItemWhenBarcodeScan(barcode);
+      }
+    });
+  }
+
+
   installPusher();
   changeSelectPriceAndCount();
   $(document).on('click', '.addItemSale', addBlankBlockItem);

@@ -21,10 +21,14 @@ show_error = function (text, duration) {
   }
 };
 
-var loadContentInOtherPopup = function(btn){
+var getTitleAndHrefBtnInOtherPopup = function(btn){
   var title = $(btn).data('title');
+  var url = $(btn).attr("href");
+  loadContentInOtherPopup(title, url);
+}
+
+var loadContentInOtherPopup = function(title, url){
   openAllOtherPopup(title, function(){
-    var url = $(btn).attr("href");
     $.ajax({
       type   : 'get',
       url    : url,
@@ -69,8 +73,9 @@ var current_user_magazine_id = function(){
   return $("#currentMagazineId").val();
 }
 
-var ajaxApi = function(type, method, data, end_action){
-  if (data = undefined) data = {};
+var ajaxApi = function(type, method, data, end_action, view_error){
+  if (data == undefined) data = {};
+  if (view_error == undefined) view_error = true;
   var auth = {api_key: current_user_api_key};
   var params = $.extend(auth, data); 
 
@@ -80,7 +85,8 @@ var ajaxApi = function(type, method, data, end_action){
     data   : params,
     success: function (data) {
       if (end_action != undefined) end_action(data);
-      show_error('Успешно', 3000);
+      if (view_error) show_error('Успешно', 3000);
+      
     },
     error  : function () {
       show_error('Ошибка', 3000);
@@ -95,10 +101,32 @@ var btnAjaxRemove = function(btn_this){
   });
 }
 
+var scanBarCode = function(end_function){
+  var pressed = false; 
+  var chars = []; 
+  $(window).keypress(function(e) {
+    if (e.which >= 48 && e.which <= 57) {
+      chars.push(String.fromCharCode(e.which));
+    }
+    // console.log(e.which + ":" + chars.join("|"));
+    if (pressed == false) {
+      setTimeout(function(){
+                // check we have a long length e.g. it is a barcode
+                if (chars.length >= 10) {
+                  end_function(chars.join(""))
+                }
+                chars = [];
+                pressed = false;
+              },500);
+    }
+    pressed = true;
+  });
+}
+
 $(document).ready(function(){
   $(document).on('click', '.js_loadContentInOtherPopup', function(event){
     event.preventDefault();
-    loadContentInOtherPopup($(this));
+    getTitleAndHrefBtnInOtherPopup($(this));
   });
   $(document).on('click', '.js_submitNewModel', function(event){
     event.preventDefault();

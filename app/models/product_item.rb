@@ -57,6 +57,10 @@ class ProductItem < ActiveRecord::Base
     result
   end
 
+  def get_description
+    description.present? ? "#{product.title}(#{title}) - #{description}" : "Нет описания"
+  end
+
   def self.all_present(magazine_id, type=true)
     joins(:product_item_counts).where("product_item_counts.magazine_id"=> magazine_id).where(["product_item_counts.count #{type ? '>' : '<='} ?", 0]).uniq
   end

@@ -1,6 +1,10 @@
-- if current_user_admin?
-  a.btn.btn-success-material.addItemSale href='/admin/stock' В наличии
-  a.btn.btn-primary-material.addItemSale href="/admin/stock?type=not_available" Нет в наличии
+.titleFlex
+  .leftContent
+    - if current_user_admin?
+      a.btn.btn-success-material.addItemSale href='/admin/stock' В наличии
+      a.btn.btn-primary-material.addItemSale href="/admin/stock?type=not_available" Нет в наличии
+  .rightContent
+    input.material.form-control name="serach" placeholder="Поиск"
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
 - @products.each do |product|
   - product_items = params[:type] != "not_available" ? product.product_items.all_present(current_magazine.id) : product.product_items.all_present(current_magazine.id, false)

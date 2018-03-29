@@ -48,7 +48,7 @@ html
             |&#9776;
         .headerTitle 
           = curr_title_admin_header || "Hookah Stock Online"
-    .well
+    .well data-action=params[:controller]
       = yield
       #overlay
       .allOtherPopup
