@@ -6,6 +6,14 @@ var pusher = new Pusher('1a55ade886312565bd6d', {
   encrypted: true
 });
 
+var block_or_block = function(b1, b2){
+  if(b1.length){
+    return b1
+  }else{
+    return b2
+  }
+}
+
 
 show_error = function (text, duration) {
   var el = $('#alert');
@@ -117,7 +125,7 @@ var scanBarCode = function(end_function){
                 }
                 chars = [];
                 pressed = false;
-              },500);
+              },300);
     }
     pressed = true;
   });
