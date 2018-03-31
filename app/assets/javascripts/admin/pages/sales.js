@@ -147,8 +147,7 @@ var changeSelectPriceAndCount = function(){
   });
 }
 
-var search_contact = function(input){
-  var barcode_contact = $(input).val();
+var search_contact = function(barcode_contact){
   $.ajax({
     type   : 'POST',
     url    : '/admin/sales/search_contact',
@@ -202,7 +201,7 @@ $(document).ready(function(){
   if($("form[action='/admin/sales']").length){
     scanBarCode(function(barcode){
       if ($(".search_discount_card").is(':focus')){
-        search_contact($(".search_discount_card"));
+        search_contact(barcode);
       }else{
         addItemWhenBarcodeScan(barcode);
       }
@@ -225,9 +224,37 @@ $(document).ready(function(){
       changeSelectProductItem(this);
     });
 
-    $(document).on('change', '.search_discount_card', function () {
-      if(!$(this).val().length){
-        search_contact(this);
+    // $(document).on('change', '.search_discount_card', function () {
+    //   if(!$(this).val().length){
+    //     search_contact("");
+    //   }
+    // });
+
+    var timout_search_keyup = ""
+    $(document).on('keyup', '.search_discount_card', function(){
+      clearTimeout(timout_search_keyup);
+      var input = $(this);
+      if(input.val().length > 0){
+        timout_search_keyup = setTimeout(function(){
+          ajaxApi("get", "/api/contacts/search", {search: input.val()}, function(result){
+            var list_search = input.closest(".userContact").find(".findContact");
+            list_search.find("li").remove();
+            if (result.length > 0){
+              list_search.show();
+              $.each(result, function(n, r){
+                list_search.append($("<li data-barcode=" + r.barcode + ">" + r.first_name + "</li>"));
+              });
+              list_search.find("li").on('click', function(){
+                search_contact($(this).data('barcode'));
+                list_search.hide();
+              })
+            }else{
+              list_search.hide();
+            }
+          }, false)
+        }, 300);
+      }else{
+        search_contact("");
       }
     });
 

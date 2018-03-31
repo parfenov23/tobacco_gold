@@ -210,7 +210,11 @@ Rails.application.routes.draw do
         get :info
       end
     end
-    resources :contacts
+    resources :contacts do
+      collection do
+        get :search
+      end
+    end
 
     resources :sms do
       collection do
@@ -244,6 +248,9 @@ Rails.application.routes.draw do
       end
     end
     resources :products do
+      collection do
+        post :prices
+      end
       member do 
         get :product_items
       end

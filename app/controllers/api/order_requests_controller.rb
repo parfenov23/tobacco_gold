@@ -13,7 +13,7 @@ module Api
         user.update(contact_id: contact.id)
       end
       order = OrderRequest.create(user_id: (user.id rescue nil), user_name: params_r[:user_name], 
-        user_phone: params_r[:user_phone], status: "waiting", items: basket, comment: params_r[:comment])
+        user_phone: params_r[:user_phone], status: "waiting", items: basket, comment: params_r[:comment], company_id: current_company.id)
 
       order.update(contact_id: contact.id)
       order.notify if Rails.env.production?

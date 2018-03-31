@@ -24,6 +24,10 @@ module Api
       @current_magazine
     end
 
+    def current_company
+      current_magazine.company
+    end
+
     def current_cashbox
       current_magazine.present? ? Cashbox.find_by_magazine_id(current_magazine.id) : nil
     end

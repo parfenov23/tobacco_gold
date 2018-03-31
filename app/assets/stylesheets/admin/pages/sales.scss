@@ -1,0 +1,24 @@
+.discountCashBack{
+  .userContact{
+    position: relative;
+    .findContact{
+      display: none;
+      list-style-type: none;
+      padding-left: 0;
+      position: absolute;
+      background-color: white;
+      z-index: 9;
+      width: 100%;
+      padding: 8px 12px 8px 12px;
+      max-height: 140px;
+      overflow: auto;
+      li{
+        padding: 4px;
+        &:hover{
+          background-color: #ddd;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

@@ -55,21 +55,23 @@ class VkMessage
   end
 
   def self.message_price(get_params)
-    get_params[:object].delete(:date)
-    get_params = {type: get_params[:type], object: get_params[:object]}
-    unless HistoryVk.where(params_type: get_params.to_s).present?
-      body_text = (get_params[:object][:body].mb_chars.downcase.to_s) rescue nil
-      if body_text == "прайс"
-        message = Product.all.map{|product| "#{product.title}: #{product.current_price} рублей"}.join("\n")
-        run(message, type="group", {user_id: get_params[:object][:user_id]})
-      elsif body_text == "акция"
-        message = Magazine.find(1).special_offer
-        run(message, type="group", {user_id: get_params[:object][:user_id]})
-      elsif body_text.scan("прайс").blank? 
-        message = "Новое сообщение в группе\nПользователь: http://vk.com/id#{get_params[:object][:user_id]}\nСообщение: #{body_text}"
-        run(message, type="user", {chat_id: '72'})
+    if get_params[:object].present?
+      get_params[:object].delete(:date)
+      get_params = {type: get_params[:type], object: get_params[:object], api_key: get_params[:api_key]}
+      user = User.find_by_api_key(get_params[:api_key])
+      magazine = user.magazine
+      company = magazine.company
+      unless HistoryVk.where(params_type: get_params.to_s).present?
+        body_text = (get_params[:object][:body].mb_chars.downcase.to_s) rescue nil
+        if body_text == "прайс"
+          message = company.products.map{|product| "#{product.title}: #{product.current_price} рублей"}.join("\n")
+          run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.api_key})
+        elsif body_text == "акция"
+          message = magazine.special_offer
+          run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.api_key})
+        end
+        HistoryVk.create(params_type: get_params.to_s)
       end
-      HistoryVk.create(params_type: get_params.to_s)
     end
   end
 
