@@ -61,8 +61,8 @@ class OrderRequest < ActiveRecord::Base
 
   def notify
     message = "Клиент оставил заявку на сайте\nНомер: #{id}\nСумма: #{total_sum} рублей"
-    Magazine.where.not(api_key: nil).each do |magazine|
-      VkMessage.run(message, "user", {access_token: magazine.api_key})
+    Magazine.where.not(vk_api_key_user: nil).each do |magazine|
+      VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if Rails.env.production?
     end
   end
 

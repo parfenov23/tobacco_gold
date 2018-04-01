@@ -8,7 +8,7 @@ class OtherBuy < ActiveRecord::Base
 
   def notify_buy(cashbox=magazine.cashbox)
     message = "#{title} на #{price.to_i} рублей\nКасса: #{cashbox.curr_cash} рублей"
-    VkMessage.run(message, "user", {access_token: magazine.api_key}) if Rails.env.production?
+    VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if Rails.env.production?
   end
 
   def self.took_sum

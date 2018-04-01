@@ -47,7 +47,7 @@ class SmsPhone < ActiveRecord::Base
     message = "VISA SMS INFO: #{type_sms} #{sum.to_i} #{rub_title}\n"
 
     PusherIo.sender("enlistment", "sms_info", {message: message, sum: sum.to_i, magazine_id: magazine_id}) if type_sms == "зачисление"
-    VkMessage.run(message, "user", {access_token: magazine.api_key}) if sum > 0
+    VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if sum > 0
   end
 
   def clear_body
