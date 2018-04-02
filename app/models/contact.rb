@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
   has_many :orders, dependent: :destroy
   has_many :sales
+  has_many :contact_prices, dependent: :destroy
   has_one :user, dependent: :destroy
 
   include PgSearch
@@ -26,5 +27,12 @@ class Contact < ActiveRecord::Base
 
   def email
     user.present? ? user.email : nil
+  end
+
+  def transfer_to_json
+    as_json({
+      except: [:created_at, :updated_at],
+      include: [:contact_prices]
+      })
   end
 end

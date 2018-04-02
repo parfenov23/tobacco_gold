@@ -9,8 +9,7 @@ module ApplicationHelper
 
   # Заголовок страницы
   def layout_title
-    d = @page_title.nil? ? "" : " | "
-    @page_title.to_s + d + "Tobacco Gold Екатеринбург"
+    "#{curr_title_admin_header} | Hookah Stock"
   end
 
   def title(page_title=nil)
@@ -43,6 +42,10 @@ module ApplicationHelper
 
   def current_magazine
     current_user.magazine
+  end
+
+  def current_company
+    current_magazine.company
   end
 
   def rus_case(count, n1, n2, n3)
@@ -83,7 +86,8 @@ module ApplicationHelper
       {url: '/admin/magazins', title: 'Компания'},
       {url: '/admin/product_items', title: 'Вкусы', display: false},
       {url: '/admin/product_prices', title: 'Цены', display: false},
-      {url: '/admin/provider_items', title: 'Цены поставщика', display: false}
+      {url: '/admin/provider_items', title: 'Цены поставщика', display: false},
+      {url: '/admin/contact_prices', title: 'Цены клиента', display: false}
     ]
   end
 

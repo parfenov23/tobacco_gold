@@ -146,12 +146,12 @@ var changeSelectPriceAndCount = function(){
     priceItemSale();
   });
 }
-
-var search_contact = function(barcode_contact){
+var $currentContactPriceList;
+var search_contact = function(barcode_contact, id){
   $.ajax({
     type   : 'POST',
     url    : '/admin/sales/search_contact',
-    data   : {barcode: barcode_contact},
+    data   : {barcode: barcode_contact, id: id},
     success: function (data) {
       var card_block = $(".discountCashBack");
       if (data != null){
@@ -164,6 +164,8 @@ var search_contact = function(barcode_contact){
         }else{
           card_block.find("[name='cashback_type']").hide().find("[value='stash']").attr('selected', 'true');
         }
+        $currentContactPriceList = data.contact_prices
+        setContactPriceToProductPrice();
       }else{
         card_block.find("[name='cashback_bank']").val(0);
         card_block.find("[name='contact_id']").val("");
@@ -173,6 +175,19 @@ var search_contact = function(barcode_contact){
     error  : function () {
     }
   });
+}
+
+var setContactPriceToProductPrice = function(){
+  if ($currentContactPriceList != undefined && $currentContactPriceList.length){
+    $(".allItemsSale .saleProductIdSelect[data-price='not_change']").each(function(i, block){
+      var product_id = $(block).val();
+      var find_contact_price = $.grep($currentContactPriceList, function(e){ return e.product_id == product_id; })
+      if (find_contact_price.length){
+        selectedLi($(block).closest(".parentItemSale").find(".selectProductPrice"), find_contact_price[0].product_price_id);
+        $(block).attr('data-price', 'change');
+      }
+    })
+  }
 }
 
 var installPusher = function(){
@@ -195,6 +210,11 @@ var changeSelectProductItem = function(select){
   } else {
     selectedLi(block_select_price, block_select.data("deff_price"));
   }
+  var block_product_select = block_select.closest(".parentItemSale").find(".saleProductIdSelect");
+  if(block_product_select.attr("data-price") == "change") {
+    block_product_select.attr("data-price", "not_change");
+  }
+  setContactPriceToProductPrice();
 }
 
 $(document).ready(function(){
@@ -224,11 +244,6 @@ $(document).ready(function(){
       changeSelectProductItem(this);
     });
 
-    // $(document).on('change', '.search_discount_card', function () {
-    //   if(!$(this).val().length){
-    //     search_contact("");
-    //   }
-    // });
 
     var timout_search_keyup = ""
     $(document).on('keyup', '.search_discount_card', function(){
@@ -242,10 +257,10 @@ $(document).ready(function(){
             if (result.length > 0){
               list_search.show();
               $.each(result, function(n, r){
-                list_search.append($("<li data-barcode=" + r.barcode + ">" + r.first_name + "</li>"));
+                list_search.append($("<li data-barcode=" + r.barcode + " data-id="+ r.id +">" + r.first_name + "</li>"));
               });
               list_search.find("li").on('click', function(){
-                search_contact($(this).data('barcode'));
+                search_contact($(this).data('barcode'), $(this).data('id'));
                 list_search.hide();
               })
             }else{
@@ -255,6 +270,7 @@ $(document).ready(function(){
         }, 300);
       }else{
         search_contact("");
+        $(".allItemsSale .saleProductIdSelect[data-price='change']").attr('data-price', 'not_change');
       }
     });
 

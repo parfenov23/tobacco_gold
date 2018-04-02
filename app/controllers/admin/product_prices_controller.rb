@@ -11,6 +11,12 @@ module Admin
       redirect_to_index
     end
 
+    def create
+      current_company.products.where(id: params_model[:product_id]).last.product_prices.update_all(default: false) if params_model[:default] == "1"
+      model.create(params_model)
+      params[:typeAction] == "json" ? render_json_success : redirect_to_index
+    end
+
     def remove
       product_id = find_model.product_id
       find_model.update(archive: true)

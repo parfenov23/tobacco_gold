@@ -56,8 +56,12 @@ module Admin
       begin 
         model.find(params[:id])
       rescue
-        redirect_to "/404"
+        redirect_404
       end
+    end
+
+    def redirect_404
+      redirect_to "/404"
     end
 
     def params_model

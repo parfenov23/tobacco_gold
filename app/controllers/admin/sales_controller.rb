@@ -92,7 +92,9 @@ module Admin
     end
 
     def search_contact
-      render json: Contact.find_by_barcode(params[:barcode]).to_json
+      all_contacts = current_company.contacts
+      find_contact = all_contacts.where( params[:barcode].present? ? {barcode: params[:barcode]} : {id: params[:id]}).last
+      render json: (find_contact.present? ? find_contact.transfer_to_json : nil)
     end
 
     private

@@ -20,7 +20,7 @@ var include_mad_select = function(block, end_funct = function(){}){
     .append('<i class="material-icons">arrow_drop_down</i>', $ulDrop)
     .on({
       hover : function() { madSelectHover ^= 1; },
-      click : function() { 
+      click : function(e) { 
         $ulDrop.toggleClass("show");
         var size_block = 290;
         if ($ulDrop.find("li").length <= 2){ size_block = 160 }

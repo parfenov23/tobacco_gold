@@ -1,0 +1,7 @@
+- model_url = @models.first_url
+.list-group.row.material
+  - @models.each do |model|
+    .list-group-item.col-md-6.material
+      span = model.title
+      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование цены"}
+= render "admin/admin/common_popup_new_model", {model: ContactPrice.new, title: "Добавление новой цены"}

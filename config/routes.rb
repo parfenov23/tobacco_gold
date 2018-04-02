@@ -40,6 +40,11 @@ Rails.application.routes.draw do
         get :remove
       end
     end
+    resources :contact_prices do
+      member do
+        get :remove
+      end
+    end
     resources :hookah_cash do
       member do
         get :remove
