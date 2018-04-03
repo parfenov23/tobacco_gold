@@ -1,11 +1,10 @@
 // Изменяемая часть
-.form-group
-  label
-    | Товар:
-  = select_tag("provider_items[product_id]", options_for_select(Product.all.map{|pr| [pr.title, pr.id]}, @model.product_id), {:class => 'form-control'})
-.form-group
-  label
-    | Цена:
-  input.form-control name="provider_items[price]" type="text" value="#{@model.price}"
+.form-group.material-form-group.active
+  label Товар
+  - all_products = [["Не выбранно", 0]] + current_company.products.map{|prod| [prod.title, prod.id]} 
+
+  = render "common_select", {arr_li: all_products, default: (@model.product_id || all_products.first.last), name_input: "provider_items[product_id]", add_class: "defaultInitMdSelect"}
+
+= render "common_input", {title: "Цена", name: "provider_items[price]", value: @model.price}
 input type="hidden" name="provider_items[provider_id]" value=params[:provider_id]
 // ================

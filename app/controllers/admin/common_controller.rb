@@ -65,7 +65,7 @@ module Admin
     end
 
     def params_model
-      params.require(model.first_url.to_sym).permit(model.column_names).compact.select { |k, v| v != "" } rescue {}
+      params.require(model.first_url.to_sym).permit(model.column_names).compact rescue {}
     end
 
     def current_company

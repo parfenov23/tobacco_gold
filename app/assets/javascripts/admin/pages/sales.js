@@ -123,8 +123,8 @@ var priceItemSale = function(){
   }
   $(".titlePrice").text(result);
   if ($(".received_cash").length && $(".received_cash").val().length){
-    $(".titleDelivery").text("сдача: " + ($(".received_cash").val() - result) );
-    $(".titleDelivery").show();
+    $(".titleDelivery").val("Cдача " + ($(".received_cash").val() - result) + " руб.");
+    // $(".titleDelivery").show();
   }
   $(".parentItemSale").each(function(n, e){
     sumItemSale($(e));
@@ -160,16 +160,16 @@ var search_contact = function(barcode_contact, id){
         card_block.find("[name='contact_id']").val(data.id);
         card_block.find("[name='cashback_bank']").val(purse);
         if (purse >= 5){
-          card_block.find("[name='cashback_type']").show();
+          card_block.find(".mad-select").show();
         }else{
-          card_block.find("[name='cashback_type']").hide().find("[value='stash']").attr('selected', 'true');
+          card_block.find(".mad-select").hide().find("[value='stash']").attr('selected', 'true');
         }
         $currentContactPriceList = data.contact_prices
         setContactPriceToProductPrice();
       }else{
         card_block.find("[name='cashback_bank']").val(0);
         card_block.find("[name='contact_id']").val("");
-        card_block.find("[name='cashback_type']").hide().find("[value='stash']").attr('selected', 'true');
+        card_block.find(".mad-select").hide().find("[value='stash']").attr('selected', 'true');
       }
     },
     error  : function () {

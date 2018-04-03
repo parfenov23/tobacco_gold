@@ -1,28 +1,13 @@
 // Изменяемая часть
+= render "common_input", {title: "ФИО", name: "contacts[first_name]", value: @model.first_name}
+= render "common_input", {title: "Email", name: "contacts[email]", value: @model.email}
+= render "common_input", {title: "Телефон", name: "contacts[phone]", value: @model.phone}
+= render "common_input", {title: "Социальная ссылка", name: "contacts[social]", value: @model.social}
+= render "common_input", {title: "Код карты", name: "contacts[barcode]", value: @model.barcode}
+
 .form-group
-  label
-    | ФИО:
-  input.form-control name="contacts[first_name]" type="text" value="#{@model.first_name}"
-- if @model.email.blank?
-  .form-group
-    label
-      | Email:
-    input.form-control name="contacts[email]" type="text" value="#{@model.email}"
-.form-group
-  label
-    | Телефон:
-  input.form-control name="contacts[phone]" type="text" value="#{@model.phone}"
-.form-group
-  label
-    | Социальная ссылка:
-  input.form-control name="contacts[social]" type="text" value="#{@model.social}"
-.form-group
-  label
-    | Код карты:
-  input.form-control name="contacts[barcode]" type="text" value="#{@model.barcode}"
-.form-group
-  label
-    | Оптовый клиент?:
-  = check_box("contacts", "opt", {checked: check_if_true(@model.opt)})
+  = check_box("contacts", "opt", {checked: check_if_true(@model.opt), class: "checkbox-material", id: "filled-in-opt"})
+  label.checkbox-label-material for="filled-in-opt" Оптовый клиент?
+
 // ================
 input type="hidden" name="contacts[company_id]" value=current_company.id

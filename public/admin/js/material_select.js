@@ -30,7 +30,12 @@ var include_mad_select = function(block, end_funct = function(){}){
       }
     });
     // PRESELECT
-    $ul.add($ulDrop).find("li[data-value='"+ $input.val() +"']").addClass("selected");
+    if ($input.val() != undefined && $input.val().length){
+      $ul.add($ulDrop).find("li[data-value='"+ $input.val() +"']").addClass("selected");
+    }else{
+      $ul.add($ulDrop).find("li:first").addClass("selected");
+    }
+    
     // MAKE SELECTED
     $ulDrop.on("click", "li", function(evt) {
       evt.stopPropagation();

@@ -37,25 +37,23 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
       .btn.btn-primary-material.addItemSale Добавить позицию
     .list-group-item.col-md-3.block-material
       .moneyClacl
-        .titlePrice 0.00
-        .titleDelivery сдача: 99999
-      .form-group
-        input.received_cash.form-control placeholder="Получено наличными"
-      .form-group.discountCashBack
+        .titlePrice 0.0
+        / .titleDelivery сдача: 99999
+      = render "common_input", {title: "Получено наличными", add_class: "received_cash", label: false, add_class: "titleDelivery received_cash"}
+
+      .form-group.discountCashBack.material-form-group.no_label
         .userContact
-          input.form-control.search_discount_card placeholder="Поиск клиента"
+          input.form-control.search_discount_card placeholder="Поиск клиента" required=true
           ul.findContact.block-material
-            / - 5.times do 
-            /   li Афоня Багетовна
-            /   li Фрося Дося
-            /   li Клавдияs Петровна
-            /   li Вася Зашкваров
 
         input type="hidden" name="cashback_bank" value="0"
         input type="hidden" name="contact_id"
-        select.form-control  name="cashback_type" style="display: none;"
-          option value='stash' Накопить
-          option value='dickount' Скидка
+        - arr_type = [["Накопить", "stash"], ["Скидка", "dickount"]]
+        = render "common_select", {arr_li: arr_type, default: arr_type.first.last, name_input: "cashback_type", add_class: "displayNone"}
+
+        / select.form-control  name="cashback_type" style="display: none;"
+        /   option value='stash' Накопить
+        /   option value='dickount' Скидка
       = render "admin/admin/common_cashbox"
       .actionBtnSale
         .btn.btn-primary-material.priceItemSale Подсчет

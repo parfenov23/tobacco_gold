@@ -281,6 +281,62 @@ body {
   top: 0;
 }
 
+.form-group.material-form-group{
+  position: relative;
+  padding-top: 12px;
+  &.no_label{
+    padding-top: 0px;
+    margin-bottom: 8px;
+  }
+  label{
+    position: absolute;
+    padding: 4px 4px 6px 4px;
+    top: 14px;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+    margin-bottom: 2px;
+    color: #757575;
+    font-weight: 400;
+    pointer-events:none;
+    font-size: 16px;
+  }
+  input, textarea{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #757575;
+    font-size: 16px;
+    border-radius: 0;
+    box-shadow: initial;
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    resize: vertical; 
+  }
+  input:focus ~ label{
+
+  }
+  input:focus, input:valid, textarea:focus, textarea:valid{
+    border-bottom: 1px solid #26a69a;
+    & ~ label{
+      top: -12px;
+      margin-bottom: 0;
+      color: #26a69a;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+  &.active{
+    border-bottom: 1px solid #26a69a;
+    label{
+      top: -12px;
+      margin-bottom: 6px;
+      color: #26a69a;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+}
+
 @media only screen and (max-width: 991px) {
   .table-material {
     zoom: 0.8;
@@ -291,4 +347,8 @@ body {
   .table-mobile {
     padding: 0 !important;
   }
+}
+
+.displayNone{
+  display: none;
 }

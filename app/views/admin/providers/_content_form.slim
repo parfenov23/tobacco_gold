@@ -1,7 +1,4 @@
 // Изменяемая часть
-.form-group
-  label
-    | Название:
-  input.form-control name="providers[title]" type="text" value="#{@model.title}"
+= render "common_input", {title: "Название", name: "providers[title]", value: @model.title}
 input type="hidden" name="providers[company_id]" value=current_company.id
 // ================

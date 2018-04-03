@@ -6,25 +6,20 @@
 - method = from_model_present ? "post" : "put"
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
+  = render "common_input", {title: "Название", value: form_model.title, name: "product_prices[title]"}
+  = render "common_input", {title: "Цена", value: form_model.price, name: "product_prices[price]"}
+
   .form-group
-    label
-      | Название:
-    input.form-control name="product_prices[title]" type="text" value="#{form_model.title}"
+    = check_box("product_prices", "default", {checked: check_if_true(form_model.default), class: "checkbox-material", id: "filled-in-def"})
+    label.checkbox-label-material for="filled-in-def" Текущая?
+  
   .form-group
-    label
-      | Цена:
-    input.form-control name="product_prices[price]" type="text" value="#{form_model.price}"
-  .form-group
-    label
-      | Текущая?:
-    = check_box("product_prices", "default", {checked: check_if_true(form_model.default)})
-  .form-group
-    label
-      | Оптовая?:
-    = check_box("product_prices", "opt", {checked: check_if_true(form_model.opt)})
+    = check_box("product_prices", "opt", {checked: check_if_true(form_model.opt), class: "checkbox-material", id: "filled-in-opt"})
+    label.checkbox-label-material for="filled-in-opt" Оптовая?
+
 
   - product_id = from_model_present ? params[:product_id] : form_model.product_id
   input type="hidden" name="product_prices[product_id]" value="#{product_id}"
   input type="hidden" name="_method" value="#{method}"
   - class_submit = @model.id.present? ? "js_submitUpdateProduct" : "js_submitNewModel"
-  button.btn.btn-primary-material.submit class=class_submit type="submit" Сохранить
+  button.btn.btn-primary-material.submit class=class_submit formnovalidate=true type="submit" Сохранить

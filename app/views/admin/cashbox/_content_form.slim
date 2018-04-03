@@ -1,12 +1,6 @@
 // Изменяемая часть
-.form-group
-  label
-    | Наличные:
-  input.form-control name="cashbox[cash]" type="text" value="#{@model.cash}"
-.form-group
-  label
-    | Visa:
-  input.form-control name="cashbox[visa]" type="text" value="#{@model.visa}"
+= render "common_input", {title: "Наличные", name: "cashbox[cash]", value: @model.cash}
+= render "common_input", {title: "Visa", name: "cashbox[visa]", value: @model.visa}
 - if params[:magazine].present? 
   input type="hidden" name="cashbox[magazine_id]" value=params[:magazine]
 // ================

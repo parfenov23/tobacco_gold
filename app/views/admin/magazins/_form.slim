@@ -1,30 +1,19 @@
 - action_url = @model.id.nil? ? "/admin/magazins" : "/admin/magazins/#{@model.id}"
 - method = @model.id.nil? ? "post" : "put"
 form.form-horizontal action="#{action_url}" method="post"
-  .form_group
-    label.control-label Название:
-    input.form-control name="magazins[title]" type="text" value="#{@model.title}"
-  .form_group
-    label.control-label Адрес:
-    input.form-control name="magazins[address]" type="text" value="#{@model.address}"
-  .form_group
-    label.control-label Телефон:
-    input.form-control name="magazins[phone]" type="text" value="#{@model.phone}"
-  .form_group
-    label.control-label Текущая акция:
-    textarea.form-control name="magazins[special_offer]" type="text" 
+  = render "common_input", {title: "Получено наличными", name: "magazins[title]", value: @model.title}
+  = render "common_input", {title: "Адрес", name: "magazins[address]", value: @model.address}
+  = render "common_input", {title: "Телефон", name: "magazins[address]", value: @model.phone}
+
+  .form-group.material-form-group
+    textarea.form-control name="magazins[special_offer]" type="text" required=true
       = @model.special_offer
-  .form_group
-    label.control-label Vk api key group:
-    input.form-control name="magazins[api_key]" type="text" value="#{@model.api_key}"
-  
-  .form_group
-    label.control-label Vk api key user:
-    input.form-control name="magazins[vk_api_key_user]" type="text" value="#{@model.vk_api_key_user}"
-  .form_group
-    label.control-label Vk chat id:
-    input.form-control name="magazins[vk_chat_id]" type="text" value="#{@model.vk_chat_id}"
+    label Текущая акция
+  = render "common_input", {title: "Vk api key group", name: "magazins[api_key]", value: @model.api_key}
+  = render "common_input", {title: "Vk api key user", name: "magazins[vk_api_key_user]", value: @model.vk_api_key_user}
+  = render "common_input", {title: "Vk chat id", name: "magazins[vk_chat_id]", value: @model.vk_chat_id}
+
   
   input type="hidden" name="magazins[company_id]" value="#{current_company.id}"
   input type="hidden" name="_method" value="#{method}"
-  button.btn.btn-primary-material.submit type="submit"  Сохранить
+  button.btn.btn-primary-material.submit type="submit" formnovalidate=true Сохранить

@@ -42,7 +42,9 @@ var loadContentInOtherPopup = function(title, url){
       url    : url,
       data   : {typeAction: "json"},
       success: function (data) {
-        $(".allOtherPopup .conteinerPopup").html($(data));
+        $(".allOtherPopup .conteinerPopup").html($(data)).find(".defaultInitMdSelect").each(function(i, block){
+          include_mad_select($(block));
+        });
       },
       error  : function () {
         show_error('Ошибка', 3000);

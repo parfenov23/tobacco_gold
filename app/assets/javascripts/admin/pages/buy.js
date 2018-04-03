@@ -47,6 +47,21 @@ var allProductCalc = function(){
   }
 }
 
+var saveNewProductItem = function(){
+  var data = $("form.newTasteItem").serialize();
+  $.ajax({
+    type: 'POST',
+    url : '/admin/buy/new_item_product',
+    data: data
+  }).success(function (data) {
+    $("#contentSelect").html($(data));
+    $(".addFormNewItem").hide();
+    $("form.newTasteItem input[name='buy[title]']").val('');
+    $("#overlay").click();
+  }).error(function (data) {
+  });
+};
+
 $(document).ready(function(){
   if($("form[action='/admin/buy']").length){
     scanBarCode(function(barcode){
@@ -67,6 +82,8 @@ $(document).ready(function(){
     });
 
     changeSelectPriceAndCount();
+
+    $(document).on('click', '.js_saveNewProductItem', saveNewProductItem);
 
     $(document).on('click', '.deleteItemSale', function(){
       $(this).closest(".parentItemSale").remove();

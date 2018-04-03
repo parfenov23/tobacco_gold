@@ -2,19 +2,15 @@
 - method = @model.id.nil? ? "post" : "put"
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .form-group
-    label
-      | Название:
-    input.form-control name="products[title]" type="text" value="#{@model.title}"
-  .form-group
-    label
-      | Картинка:
-    input.form-control name="products[default_img]" type="text" value="#{@model.default_img}"
-  .form-group
-    label
-      | Категория:
-    - all_categories = current_company.categories
-    = select_tag("products[category_id]", options_for_select([["Нет", nil]] + all_categories.map{|category| [category.first_name, category.id]}, @model.category_id), {:class => 'form-control'})
+  = render "common_input", {title: "Название", value: @model.title, name: "products[title]"}
+  = render "common_input", {title: "Картинка", value: @model.default_img, name: "products[default_img]"}
+
+  .form-group.material-form-group.active
+    label Категория
+    - all_categories = [["Не выбранно", 0]] + current_company.categories.map{|cat| [cat.first_name, cat.id]} 
+
+    = render "common_select", {arr_li: all_categories, default: (@model.category_id || all_categories.first.last), name_input: "products[category_id]", add_class: "defaultInitMdSelect"}
+    
   input type="hidden" name="products[company_id]" value=current_company.id
   input type="hidden" name="_method" value="#{method}"
-  button.btn.btn-primary-material.submit type="submit" Сохранить
+  button.btn.btn-primary-material.submit type="submit" formnovalidate=true Сохранить

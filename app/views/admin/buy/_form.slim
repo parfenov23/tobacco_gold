@@ -72,16 +72,13 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
 - @popup = "Добавление нового вкуса"
 - content_for :popup do
   form.newTasteItem
-    .form-group
-      .mad-select
-        ul
-          li data-value="0" Не выбрано
-          - @products.each do |product|
-            li data-value=product.id = product.title
-        input.changeSelectContent type="hidden" value="0" name="buy[product_id]"
-    .form-group
-      input.form-control name="buy[title]" type="text" placeholder="Название"
-    .form-group
-      input.form-control name="buy[barcode]" type="text" placeholder="Код товара"
+    .form-group.material-form-group.active
+      label Товар
+      - all_products = [["Не выбранно", 0]] + @products.map{|prod| [prod.title, prod.id]} 
+
+      = render "common_select", {arr_li: all_products, default: all_products.first.last, name_input: "buy[product_id]", add_class: "defaultInitMdSelect"}
+    = render "common_input", {title: "Название", name: "buy[title]"}
+    = render "common_input", {title: "Код товара", name: "buy[barcode]"}
+
     .btn.btn-primary-material.js_saveNewProductItem.submit Сохранить
 

@@ -1,10 +1,7 @@
 - action_url = @model.id.nil? ? "/admin/categories" : "/admin/categories/#{@model.id}"
 - method = @model.id.nil? ? "post" : "put"
 form.form-horizontal action="#{action_url}" method="post"
-    .form_group
-        label.control-label Название:
-        input.form-control name="categories[first_name]" type="text" value="#{@model.first_name }"
-    hr
-    input type="hidden" name="categories[company_id]" value=current_company.id
-    input type="hidden" name="_method" value="#{method}"
-    button.btn.btn-primary-material.submit type="submit"  Сохранить
+  = render "common_input", {title: "Название", name: "categories[first_name]", value: @model.first_name}
+  input type="hidden" name="categories[company_id]" value=current_company.id
+  input type="hidden" name="_method" value="#{method}"
+  button.btn.btn-primary-material.submit type="submit"  Сохранить

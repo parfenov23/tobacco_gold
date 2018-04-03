@@ -14,6 +14,7 @@ module Admin
     def update
       product_item = find_model
       product_item.update(params_model)
+      product_item.update(price_id: params[:product_items][:price_id])
       if params[:product_items][:count].present?
         product_item.product_item_counts.find_by_magazine_id(magazine_id).update(count: params[:product_items][:count])
       end
