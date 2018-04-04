@@ -52,7 +52,7 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
         .btn.btn-primary-material.priceItemSale Подсчет
         input type="hidden" name="buy_param[provider_id]" value="#{params[:provider_id]}"
         input type="hidden" name="_method" value="#{method}"
-        button.btn.btn-success-material type="submit" Расчет
+        button.btn.btn-success-material type="submit" formnovalidate=true Расчет
       .allProductCalc style="display: none;"
         table.table
           thead
