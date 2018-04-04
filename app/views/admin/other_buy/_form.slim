@@ -2,21 +2,14 @@
 - method = @model.id.nil? ? "post" : "put"
 
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .form-group
-    label
-      | Название:
-    input.form-control name="other_buy[title]" type="text" value="#{@model.title}"
-  .form-group
-    label
-      | Тип:
-    select.form-control name="other_buy[type_mode]"
-      option value="0"  Ушло
-      option value="1"  Пришло
-  .form-group
-    label
-      | Сумма:
-    input.form-control name="other_buy[price]" type="text" value="#{@model.price}"
+  = render "common_input", {title: "Название", name: "other_buy[title]", value: @model.title}
+  = render "common_input", {title: "Сумма", name: "other_buy[price]", value: @model.price}
+ 
+  .form-group.material-form-group.active
+    / label Тип
+    = render "common_select", {arr_li: [["Ушло", "0"], ["Пришло", "1"]], default: "0", name_input: "other_buy[type_mode]", add_class: "defaultInitMdSelect"}
+
   = render "admin/admin/common_cashbox"
   input type="hidden" name="other_buy[magazine_id]" value="#{current_user.magazine.id}"
   input type="hidden" name="_method" value="#{method}"
-  button.btn.btn-primary-material.submit type="submit" Сохранить
+  button.btn.btn-primary-material.submit formnovalidate=true type="submit" Сохранить
