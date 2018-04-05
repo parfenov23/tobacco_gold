@@ -26,6 +26,21 @@ var loadContent = function (type, id, end_func) {
 
 };
 
+var $hash_product_prices = {};
+var add_hash_product_prices = function(id, price, type){
+  if (type == undefined) type = "add";
+  find_pc = $hash_product_prices[id];
+  if(type == "add"){
+    if (typeof find_pc == "object"){
+      find_pc.count += 1;
+    }else{
+      $hash_product_prices[id] = {count: 1, price: price}
+    }
+  }else{
+    delete $hash_product_prices[id];
+  }
+}
+
 
 var addItemWhenBarcodeScan = function(barcode){
   var findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
@@ -47,6 +62,7 @@ var addItemWhenBarcodeScan = function(barcode){
         findItem.find("td.barcode span").text(barcode);
         changeSelectProductItem(findItem.find(".changeSelectProductItem"));
         sumItemSale(findItem);
+        // add_hash_product_prices
         priceItemSale();
       }
 
@@ -98,19 +114,15 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
     });
     include_mad_select(priceSelect);
     changeSelectProductItem(productItemSelect.find("input"));
+
+    sumItemSale($(curr_block).closest(".parentItemSale"));
     priceItemSale();
   });
 }
 
 var priceItemSale = function(){
-  var all_select_ptice = block_or_block($(".selectProductPrice .mad-select-drop .selected"), $(".allItemsSale .selectProductPrice"));
   var result = 0;
-  all_select_ptice.each(function(i, block){
-    var price = parseInt( block_or_block($(block).text(), $(block).val()) );
-    var parent_block = $(block).closest(".parentItemSale");
-    var count = parseInt(parent_block.find(".countItems").val());
-    result += price*count;
-  });
+  $(".endSumPosition:visible").each(function(n, block){ result+= parseInt($(block).text())});
   var discountBlock = $(".discountCashBack");
   var cashback_type = discountBlock.find("[name='cashback_type']").val();
   var cashback_bank = parseInt(discountBlock.find("[name='cashback_bank']").val());
@@ -126,16 +138,19 @@ var priceItemSale = function(){
     $(".titleDelivery").val("Cдача " + ($(".received_cash").val() - result) + " руб.");
     // $(".titleDelivery").show();
   }
-  $(".parentItemSale").each(function(n, e){
-    sumItemSale($(e));
-  })
+  // $(".parentItemSale").each(function(n, e){
+  //   sumItemSale($(e));
+  // })
 }
 
 var sumItemSale = function(block){
-  var curr_block = block_or_block(block.find(".selectProductPrice .mad-select-drop .selected"), block.find(".selectProductPrice"));
+  var curr_block = block_or_block(block.find(".selectProductPrice .mad-select-drop .selected"), 
+    block.find(".selectProductPrice"));
   var curr_price = parseInt(block_or_block( curr_block.text(), curr_block.val() ) );
-  var curr_count = parseInt(block_or_block(block.find("[name='sales[][count]']"), block.find("[name='buy[][count]']")).val());
+  var curr_count = parseInt(block_or_block(block.find("[name='sales[][count]']"), 
+    block.find("[name='buy[][count]']")).val());
   block.find(".endSumPosition").text(curr_price*curr_count);
+
 }
 
 
