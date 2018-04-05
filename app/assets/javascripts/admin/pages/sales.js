@@ -26,22 +26,6 @@ var loadContent = function (type, id, end_func) {
 
 };
 
-var $hash_product_prices = {};
-var add_hash_product_prices = function(id, price, type){
-  if (type == undefined) type = "add";
-  find_pc = $hash_product_prices[id];
-  if(type == "add"){
-    if (typeof find_pc == "object"){
-      find_pc.count += 1;
-    }else{
-      $hash_product_prices[id] = {count: 1, price: price}
-    }
-  }else{
-    delete $hash_product_prices[id];
-  }
-}
-
-
 var addItemWhenBarcodeScan = function(barcode){
   var findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
   if (!findItem.length){
@@ -62,8 +46,6 @@ var addItemWhenBarcodeScan = function(barcode){
         findItem.find("td.barcode span").text(barcode);
         changeSelectProductItem(findItem.find(".changeSelectProductItem"));
         sumItemSale(findItem);
-        // add_hash_product_prices
-        priceItemSale();
       }
 
     })
@@ -71,7 +53,6 @@ var addItemWhenBarcodeScan = function(barcode){
   }else{
     var input_count = block_or_block(findItem.find("input[name='sales[][count]']"), findItem.find("input[name='buy[][count]']"));
     input_count.val( parseInt(input_count.val()) + 1 );
-    priceItemSale();
     sumItemSale(findItem);
   }
 }
@@ -107,16 +88,26 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
       $(curr_block).closest('.parentItemSale').find('.formLoadContentTaste').html('');
       $(curr_block).closest('.parentItemSale').find('.formLoadContentPrice').html('');
     }
-    var priceSelect = $(curr_block).closest(".parentItemSale").find(".formLoadContentPrice").find(".mad-select").removeClass("noInit");
-    var productItemSelect = $(curr_block).closest(".parentItemSale").find(".formLoadContentTaste").find(".mad-select").removeClass("noInit");
+    var priceSelect = block_or_block($(curr_block).closest(".parentItemSale").find(".formLoadContentPrice .mad-select").removeClass("noInit"), 
+      $(curr_block).closest(".parentItemSale").find(".formLoadContentPrice input.selectProductPrice"));
+    var productItemSelect = $(curr_block).closest(".parentItemSale").find(".formLoadContentTaste .mad-select").removeClass("noInit");
     include_mad_select(productItemSelect, function(block){
       changeSelectProductItem(block);
     });
-    include_mad_select(priceSelect);
+    if (priceSelect.prop("tagName") != "INPUT"){
+      include_mad_select(priceSelect, function(block){
+        sumItemSale($(block).closest(".parentItemSale"));
+      });
+    }else{
+      $(priceSelect).on('change', function(){
+        sumItemSale( $(this).closest(".parentItemSale") );
+
+      });
+    }
+
     changeSelectProductItem(productItemSelect.find("input"));
 
     sumItemSale($(curr_block).closest(".parentItemSale"));
-    priceItemSale();
   });
 }
 
@@ -136,11 +127,7 @@ var priceItemSale = function(){
   $(".titlePrice").text(result);
   if ($(".received_cash").length && $(".received_cash").val().length){
     $(".titleDelivery").val("Cдача " + ($(".received_cash").val() - result) + " руб.");
-    // $(".titleDelivery").show();
   }
-  // $(".parentItemSale").each(function(n, e){
-  //   sumItemSale($(e));
-  // })
 }
 
 var sumItemSale = function(block){
@@ -150,7 +137,7 @@ var sumItemSale = function(block){
   var curr_count = parseInt(block_or_block(block.find("[name='sales[][count]']"), 
     block.find("[name='buy[][count]']")).val());
   block.find(".endSumPosition").text(curr_price*curr_count);
-
+  priceItemSale();
 }
 
 
@@ -158,7 +145,6 @@ var changeSelectPriceAndCount = function(){
   $(document).on('change', '.selectPrice, .countItems', function () {
     var block = $(this).closest(".parentItemSale");
     sumItemSale(block);
-    priceItemSale();
   });
 }
 var $currentContactPriceList;
