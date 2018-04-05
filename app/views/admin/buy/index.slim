@@ -18,7 +18,7 @@
       - if !buy.def_pay
         form.def_pay action="/admin/buy/#{buy.id}/def_pay" method="get" enctype="multipart/form-data"
           .type_cashbox
-            = render "admin/admin/common_cashbox"
+            = render "admin/admin/common_cashbox", {material: false}
           input type="hidden" name="_method" value="get"
           button.btn.btn-success-material.pull-right type="submit"
             | ✔

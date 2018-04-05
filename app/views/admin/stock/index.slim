@@ -17,7 +17,7 @@
           | #{product.current_price.to_i} рублей
       - product_items.each do |item|
         - item_count = item.current_count(current_magazine)
-        - if item_count.to_i > 0
+        - if item_count.to_i > 0 || params[:type] == "not_available"
           .list-group-item.col-md-3.material
             span
               = item.title
