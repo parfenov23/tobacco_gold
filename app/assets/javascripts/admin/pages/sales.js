@@ -93,6 +93,7 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
     var productItemSelect = $(curr_block).closest(".parentItemSale").find(".formLoadContentTaste .mad-select").removeClass("noInit");
     include_mad_select(productItemSelect, function(block){
       changeSelectProductItem(block);
+      sumItemSale($(block).closest(".parentItemSale"));
     });
     if (priceSelect.prop("tagName") != "INPUT"){
       include_mad_select(priceSelect, function(block){
@@ -101,7 +102,6 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
     }else{
       $(priceSelect).on('change', function(){
         sumItemSale( $(this).closest(".parentItemSale") );
-
       });
     }
 
