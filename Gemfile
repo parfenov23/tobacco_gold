@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0'
-gem 'pg'
+gem 'rails', '4.2.5.2'
+gem 'pg', '0.20.0'
 gem 'nested-hstore'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier'
@@ -28,7 +28,7 @@ gem 'wkhtmltopdf-binary'
 
 gem 'therubyracer', :platforms => :ruby
 
-gem 'pg_search' # поиск по базе
+gem 'pg_search', '2.1.1' # поиск по базе
 gem 'string-similarity'
 
 #========== sms center

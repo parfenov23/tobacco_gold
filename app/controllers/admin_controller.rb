@@ -1,7 +1,7 @@
 class AdminController < ActionController::Base
   
   def index
-    # redirect_to "/stock" if current_user.admin rescue false
+    # redirect_to "/admin/adm" if current_user.admin rescue false
   end
 
   def all_categories

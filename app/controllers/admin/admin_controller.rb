@@ -50,7 +50,7 @@ module Admin
     private
 
     def redirect_to_stock
-      redirect_to "/users/sign_in" if (current_user.blank? || !current_user.is_admin? && !current_user.is_manager?)
+      redirect_to "/" if (current_user.blank? || !current_user.is_admin? && !current_user.is_manager?)
     end
 
     def current_cashbox

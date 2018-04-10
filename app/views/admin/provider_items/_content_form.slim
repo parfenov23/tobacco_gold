@@ -6,5 +6,5 @@
   = render "common_select", {arr_li: all_products, default: (@model.product_id || all_products.first.last), name_input: "provider_items[product_id]", add_class: "defaultInitMdSelect"}
 
 = render "common_input", {title: "Цена", name: "provider_items[price]", value: @model.price}
-input type="hidden" name="provider_items[provider_id]" value=params[:provider_id]
+input type="hidden" name="provider_items[provider_id]" value=(@model.provider_id || params[:provider_id])
 // ================
