@@ -18,6 +18,6 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     = select_tag("users[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"]], @model.role.to_s), {:class => 'form-control'})
   .form-group
     |Магазин:
-    = select_tag("users[magazine_id]", options_for_select(Magazine.all.map{|magaz| [magaz.title, magaz.id]}, @model.magazine_id), {:class => 'form-control'})
+    = select_tag("users[magazine_id]", options_for_select(current_company.magazines.map{|magaz| [magaz.title, magaz.id]}, @model.magazine_id), {:class => 'form-control'})
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary-material.submit type="submit"  Сохранить
