@@ -11,3 +11,5 @@
       a.btn.btn-danger-material.pull-right.js__remove href="/api/sms/#{sms.id}/remove" data-method='delete'
         | &#10006;
       / = render "admin/admin/common_btn", {url: "/admin/product_items/#{item.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование вкуса"}
+
+= render "common_blank_page",{text_deff: "Здесь будут отображаться все ваши необработанные транзакции по карте"} if @all_sms.blank?

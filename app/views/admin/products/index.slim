@@ -5,7 +5,7 @@
       a.btn.btn-success-material.btn-margin-left href="/admin/categories" Добавить категорию
     .categories style="display: inline-block;margin-left: 8px;"
       - current_company.categories.each do |category|
-        a.btn.btn-info-material style="margin-left: 2px;" href="/admin/products?category=#{category.id}" = category.first_name  
+        a.btn.btn-info-material style="margin-left: 2px;" href="/admin/products?category=#{category.id}" = category.first_name 
   - @models.each do |product|
     .list-group-item.col-md-6.material
       span
@@ -16,5 +16,6 @@
         | Цены
       = render "admin/admin/common_btn", {url: "/admin/products/#{product.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование производителя"}
 
+= render "common_blank_page" if @models.blank?
 - if current_user.is_admin?
   = render "admin/admin/common_popup_new_model", {model: Product.new, title: "Добавление нового производителя"}

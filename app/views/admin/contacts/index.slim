@@ -1,3 +1,4 @@
+= render "common_blank_page" if @models.blank?
 - model_url = @models.first_url
 .list-group.row.material
   - @models.each do |model|

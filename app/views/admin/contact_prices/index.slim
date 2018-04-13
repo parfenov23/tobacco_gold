@@ -4,4 +4,5 @@
     .list-group-item.col-md-6.material
       span = model.title
       = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование цены"}
+= render "common_blank_page" if @models.blank?
 = render "admin/admin/common_popup_new_model", {model: ContactPrice.new, title: "Добавление новой цены"}

@@ -14,3 +14,4 @@
       - if current_user.is_admin?
         a.btn.btn-danger-material.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
           | &#10006;
+= render "common_blank_page", {title_deff: "", text_deff: "Что бы добавить первую продажу, нажми кнопку 'ДОБАВИТЬ ПРОДАЖУ'"} if @sales.blank?

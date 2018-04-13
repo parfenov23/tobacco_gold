@@ -15,7 +15,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     input.form-control name="users[procent_sale]" type="text" value=@model.procent_sale
   .form-group
     |Права:
-    = select_tag("users[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"], ["Пользователь", "user"]], @model.role.to_s), {:class => 'form-control'})
+    = select_tag("users[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"]], @model.role.to_s), {:class => 'form-control'})
   .form-group
     |Магазин:
     = select_tag("users[magazine_id]", options_for_select(Magazine.all.map{|magaz| [magaz.title, magaz.id]}, @model.magazine_id), {:class => 'form-control'})

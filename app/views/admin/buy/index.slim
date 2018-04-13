@@ -2,13 +2,14 @@
   .list-group-item.panel_gray_common style="display: flex;justify-content: space-between;"
     form action="/admin/buy/new" method="get" style="margin-bottom: 0; display: flex;"
       button.btn.btn-success-material href="/admin/buy/new"  Добавить закуп
-      .selectInlineProvider
-        .mad-select  
-          ul
-            - all_providers = current_company.providers
-            - all_providers.each do |pr|
-              li data-value="#{pr.id}" = pr.title
-          input type="hidden" name="provider_id" value="#{all_providers.first.id}"
+      - all_providers = current_company.providers
+      - if all_providers.present?
+        .selectInlineProvider
+          .mad-select  
+            ul
+              - all_providers.each do |pr|
+                li data-value="#{pr.id}" = pr.title
+            input type="hidden" name="provider_id" value="#{all_providers.first.id}"
     a.btn.btn-success-material href="/admin/buy/search" Поиск
   - @buys.each do |buy|
     .list-group-item.col-md-6
@@ -26,3 +27,5 @@
         | &#10006;
       /a.btn.btn-success.pull-right href="/sales/#{sale.id}/edit" style="margin-right: 5px;"
       /  | &#9998;
+
+= render "common_blank_page", {title_deff: "", text_deff: "Что бы добавить первый закуп, нажми кнопку 'ДОБАВИТЬ ЗАКУП'"} if @buys.blank?

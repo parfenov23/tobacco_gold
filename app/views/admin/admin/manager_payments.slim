@@ -5,5 +5,4 @@
       .list-group-item.col-md-6.material
         span
           = user.title
-          a.btn.btn-success-material.pull-right href="/admin/admin/paid_manager_payments?user_payment=#{user.balance_payments}&user_id=#{user.id}"
-            | Выплатить #{user.balance_payments} руб.
+          a.btn.btn-success-material.pull-right href="/admin/admin/paid_manager_payments?user_payment=#{user.balance_payments}&user_id=#{user.id}" Выплатить #{user.balance_payments} руб.

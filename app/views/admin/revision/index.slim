@@ -1,4 +1,5 @@
 script src="/admin/js/revision.js"
+= render "common_blank_page", {text_deff: "Псоле добавления первого товара, здесь появится возможность проводить ревизию :)"} if @products.blank?
 - @products.each do |product|
   - product_items = product.product_items.all_present(current_magazine.id)
   - if product_items.present?

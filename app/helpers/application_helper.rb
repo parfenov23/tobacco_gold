@@ -58,7 +58,7 @@ module ApplicationHelper
 
   def curr_title_admin_header
     curr_title = nil
-    all_navs_admin.each{|nav| curr_title = nav[:title] if nav[:url] == "/#{params[:controller]}" }
+    all_navs_admin.each{|nav| curr_title = nav[:title] if nav[:url] == request.env["PATH_INFO"] }
     curr_title
   end
 
@@ -78,9 +78,9 @@ module ApplicationHelper
       {url: "/admin/cashbox", title: "Касса"},
       {url: '/admin/order_requests', title: 'Заявки'}, 
       # {url: '/admin/content_pages', title: 'Контент'}, 
-      {url: '/admin/users', title: 'Пользователи'}, 
+      {url: '/admin/users', title: 'Сотрудники'}, 
       {url: '/admin/contacts', title: 'Клиенты'},
-      {url: '/admin/admin/manager_payments', title: 'Выплаты'},
+      {url: '/admin/admin/manager_payments', title: 'Выплаты', display: false},
       # {url: '/admin/admin/search', title: 'Поиск'},
       {url: '/admin/providers', title: 'Поставщики'},
       {url: '/admin/magazins', title: 'Компания'},
