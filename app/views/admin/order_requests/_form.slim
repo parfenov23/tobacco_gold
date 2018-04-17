@@ -3,7 +3,7 @@
 - action_url = model_present ? "/admin/#{model_url}" : "/admin/#{model_url}/#{@model.id}"
 - method = model_present ? "post" : "put"
 - @all_items = []
-- Product.all.map{|product| product.product_items.map{|item| @all_items << ["#{product.title} - #{item.title}", item.id] }}
+- current_company.products.map{|product| product.product_items.all_present(current_magazine.id).map{|item| @all_items << ["#{product.title} - #{item.title}", item.id] }}
 
 javascript:
   var onClickRemoveItem = function(){

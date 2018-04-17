@@ -1,12 +1,3 @@
-// Изменяемая часть
-/ .form-group
-/   label
-/     | Имя:
-/   input.form-control name="contact[first_name]" type="text" value="#{@model.user_name}"
-/ .form-group
-/   label
-/     | Телефон:
-/   input.form-control name="contact[phone]" type="text" value="#{@model.user_phone}"
 div 
   b Имя: 
   = @model.contact.first_name
@@ -27,8 +18,3 @@ div
             input name="count[]" value=item_hash[:count]
             .btn.btn-danger-material.js__removeItemOrder &#10006;
   .btn.btn-success-material.js__addItemOrder Добавить
-/ .form-group
-/   label
-/     | Социальная ссылка:
-/   input.form-control name="contact[social]" type="text" value="#{@model.social}"
-// ================
