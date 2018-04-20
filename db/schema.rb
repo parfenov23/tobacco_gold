@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401125119) do
+ActiveRecord::Schema.define(version: 20180417163601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -292,6 +292,7 @@ ActiveRecord::Schema.define(version: 20180401125119) do
     t.integer  "sum"
     t.boolean  "archive",     default: false
     t.integer  "magazine_id"
+    t.text     "full_text"
   end
 
   create_table "users", force: :cascade do |t|

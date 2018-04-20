@@ -100,8 +100,8 @@ class ProductItem < ActiveRecord::Base
     public_url = dir_url+img_url
 
     if (base64.to_s.scan("http://").present? || base64.to_s.scan("https://").present? )
-      img = open(base64)
-      base64 = Base64.encode64(img.read)
+      img = (open(base64) rescue nil)
+      base64 = Base64.encode64(img.present? ? img.read.to_s : "")
     end
 
     if (base64.present? && base64.to_s.scan("/attachment/").blank?)
