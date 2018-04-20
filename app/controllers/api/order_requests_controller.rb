@@ -8,7 +8,7 @@ module Api
       contact = user.contact
       if contact.blank?
         contact_phone = params_r[:user_phone].gsub(/\D/, '')
-        contact = Contact.new(first_name: params_r[:user_name], phone: contact_phone)
+        contact = Contact.new(first_name: params_r[:user_name], phone: contact_phone, company_id: current_company.id)
         contact = contact.save ? contact : Contact.find_by_phone(contact_phone)
         user.update(contact_id: contact.id)
       end
