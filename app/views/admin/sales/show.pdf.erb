@@ -61,7 +61,7 @@
           <% @sale.sale_items.each do |sale_item| %>
             <tr>
               <td><%= num+=1 %></td>
-              <td><%= sale_item.product_item.product.title %> <%= sale_item.product_item.title %></td>
+              <td><%= sale_item.product_item.product.title %> - <%= sale_item.product_item.title %></td>
               <td class="text_center">шт</td>
               <td class="text_right"><%= sale_item.count %></td>
               <td class="text_right"><%= sale_item.price %></td>

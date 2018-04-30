@@ -172,6 +172,7 @@ Rails.application.routes.draw do
       end
       collection do
         post :search_contact
+        post :save_order_request
         get :load_content_product_items
       end
     end

@@ -21,6 +21,15 @@ class Contact < ActiveRecord::Base
     first_name
   end
 
+  # def current_price_item(item)
+  #   item_product = item.product
+  #   if item.price_id.blank?
+  #     opt ? item_product.current_price : item_product.current_price_opt
+  #   else
+  #     item.price.price
+  #   end
+  # end
+
   def self.first_url
     "contacts"
   end
@@ -29,10 +38,27 @@ class Contact < ActiveRecord::Base
     user.present? ? user.email : nil
   end
 
+  def current_price_item(item)
+    if item.default_price.blank?
+      contact_price = find_contact_price(item)
+      contact_price.present? ? contact_price["price"] : ((!contact.opt rescue true) ? item.product.current_price : item.product.current_price_opt)
+    else
+      item.default_price
+    end
+  end
+
+  def find_contact_price(item)
+    all_contact_prices.select{|k| k["product_id"] == item.product_id}.last
+  end
+
+  def all_contact_prices
+    contact_prices.map{|contact_price| {product_id: contact_price.product_id, price: contact_price.product_price.price}}
+  end
+
   def transfer_to_json
     as_json({
       except: [:created_at, :updated_at],
-      include: [:contact_prices]
+      methods: [:all_contact_prices]
       })
   end
 end

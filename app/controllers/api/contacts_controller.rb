@@ -3,7 +3,7 @@ module Api
 
     def show
       contact = Contact.where(id: params[:id]).last
-      render json: (contact.present? ? contact.as_json : nil)
+      render json: (contact.present? ? contact.transfer_to_json : nil)
     end
 
     def search

@@ -20,5 +20,20 @@
         }
       }
     }
+    .deleteContactBtn{
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin-right: 8px;
+      margin-top: 8px;
+      cursor: pointer;
+      display: none;
+    }
   }
+}
+
+.saveOrderRequest{
+  margin-left: 4px;
+  display: none;
 }

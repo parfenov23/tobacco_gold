@@ -11,9 +11,10 @@ class OrderRequest < ActiveRecord::Base
   def total_sum
     sum = 0
     items.map {|k, v| 
-      item_product = ProductItem.find(k).product
-      curr_price = !contact.opt ? item_product.current_price : item_product.current_price_opt
-      sum += (curr_price * v.to_i) 
+      item_product = ProductItem.find(k)
+      item_hash = item(k)
+      curr_price = item_hash[:price_id].blank? ? contact.current_price_item(item_product) : ProductPrice.where(id: item_hash[:price_id]).last.price
+      sum += (curr_price * item_hash[:count].to_i)
     }
     sum
   end
@@ -37,6 +38,11 @@ class OrderRequest < ActiveRecord::Base
     sale.notify_buy
   end
 
+  def item(id_item)
+    result = eval(items[id_item.to_s]) rescue {count: items[id_item.to_s]}
+    result.is_a?(Hash) ? result : {count: result}
+  end
+
   def price
     result = 0
     items.each do |id, count|
@@ -52,7 +58,8 @@ class OrderRequest < ActiveRecord::Base
     new_hash = {}
     items.each do |k, v|
       product_item = ProductItem.find(k)
-      item_hash = [{product_item: product_item, count: v}]
+      item_info = item(k)
+      item_hash = [{product_item: product_item, count: item_info[:count], price_id: item_info[:price_id]}]
       new_hash[product_item.product_id] = new_hash[product_item.product_id].present? ? (new_hash[product_item.product_id] + item_hash) : item_hash
     end
     new_hash.sort

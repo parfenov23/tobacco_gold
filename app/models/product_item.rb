@@ -118,7 +118,7 @@ class ProductItem < ActiveRecord::Base
   def transfer_to_json
     as_json({
       except: [:created_at, :updated_at, :image_url],
-      methods: [:count, :magazine_count, :count_sales, :default_img]
+      methods: [:count, :magazine_count, :count_sales, :default_img, :default_price]
       })
   end
 
@@ -136,12 +136,24 @@ class ProductItem < ActiveRecord::Base
     result
   end
 
+  def default_price
+    price.present? ? price.price : nil
+  end
+
   def self.text_search(query, val = "0.4")
     search(query).where("similarity(title, ?) > #{val}", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
 
   def company_id
     product.company_id
+  end
+
+  def price
+    product.product_prices.where(id: price_id).last rescue nil
+  end
+
+  def current_price(contact)
+    contact.current_price_item(self)
   end
 
 end

@@ -158,8 +158,10 @@ var search_contact = function(barcode_contact, id){
       if (data != null){
         var purse = data.purse;
         card_block.find(".search_discount_card").val("На карте: " + purse + " руб.");
+        card_block.find(".search_discount_card").attr("readonly", true);
         card_block.find("[name='contact_id']").val(data.id);
         card_block.find("[name='cashback_bank']").val(purse);
+        $(".saveOrderRequest").css('display', 'inline-block');
         if (purse >= 5){
           card_block.find(".mad-select").show();
         }else{
@@ -167,7 +169,13 @@ var search_contact = function(barcode_contact, id){
         }
         $currentContactPriceList = data.contact_prices
         setContactPriceToProductPrice();
+        card_block.find(".deleteContactBtn").show();
+
       }else{
+        $(".saveOrderRequest").css('display', 'none');
+         card_block.find(".deleteContactBtn").hide();
+        card_block.find(".search_discount_card").attr("readonly", false);
+        card_block.find(".search_discount_card").val('');
         card_block.find("[name='cashback_bank']").val(0);
         card_block.find("[name='contact_id']").val("");
         card_block.find(".mad-select").hide().find("[value='stash']").attr('selected', 'true');
@@ -258,10 +266,11 @@ $(document).ready(function(){
             if (result.length > 0){
               list_search.show();
               $.each(result, function(n, r){
-                list_search.append($("<li data-barcode=" + r.barcode + " data-id="+ r.id +">" + r.first_name + "</li>"));
+                var barcode = 
+                list_search.append($("<li data-id="+ r.id +">" + r.first_name + "</li>"));
               });
               list_search.find("li").on('click', function(){
-                search_contact($(this).data('barcode'), $(this).data('id'));
+                search_contact(null, $(this).data('id'));
                 list_search.hide();
               })
             }else{
@@ -284,4 +293,38 @@ $(document).ready(function(){
       }
     });
   }
+
+  $(".orderRequestToSaleBlock .saleProductIdSelect").closest(".mad-select").removeClass("noInit").each(function(n, block){
+    include_mad_select($(block), function(input){
+      var bl_val = parseInt(input.val());
+      addProductItemToProductBlock(input, bl_val);
+    });
+  });
+
+  if( $(".orderRequestToSaleContact").length ){ 
+    search_contact(null, $(".orderRequestToSaleContact").data("id"));
+    priceItemSale();
+  }
+
+  $(document).on('click', '.saveOrderRequest', function(){
+    $.ajax({
+      type   : 'POST',
+      url    : '/admin/sales/save_order_request',
+      data   : $("form.formCreate").serialize(),
+      success: function (data) {
+        history.pushState({}, null, "/admin/sales/new?type_sale=opt&order_request=" + data.id);
+        $(".idOrderRequest").val(data.id);
+        show_error("Заявка сохранена", 3000);
+      },
+      error  : function () {
+        show_error("Ошибка", 3000);
+      }
+    });
+  });
+
+  $(document).on('click', '.deleteContactBtn', function(){
+    search_contact("");
+  })
 });
+
+

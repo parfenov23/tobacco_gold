@@ -8,7 +8,7 @@ module Admin
 
     def new
       @sale = model.new
-      @products = current_company.products.joins(product_items: :product_item_counts).where(product_item_counts: {magazine_id: magazine_id}).where("product_item_counts.count > 0").uniq
+      @products = current_company.products.all_present(magazine_id)
     end
 
     def info
@@ -33,11 +33,14 @@ module Admin
       sales_arr = params[:sales]
       sale = Sale.create(user_id: current_user.id, contact_id: params[:contact_id])
       result = 0
+      hash_order = {}
       sales_arr.each do |sale_param|
         count = sale_param[:count].to_i
         item = ProductItem.find(sale_param[:item_id])
         price = ProductPrice.find(sale_param[:price_id])
         result += price.price*count
+        hash_order["#{item.id}"] = {count: hash_order["#{item.id}"].to_i + count, price_id: sale_param[:price_id].to_i}
+
         current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
         curr_count = current_item_count.count
         current_item_count.update(count: (curr_count - count) )
@@ -64,11 +67,35 @@ module Admin
         contact.update(purse: purse)
       end
 
+      if params[:order_request].present?
+        order = current_company.order_requests.where(id: params[:order_request]).last
+        order.update(status: "paid", items: hash_order) if order.present?
+      end
+
       sale.update(price: result, profit: sale_profit, visa: params[:cashbox_type] == "visa", magazine_id: params[:magazine_id])
       current_cashbox.calculation(params[:cashbox_type], result, true)
       current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
       sale.notify_buy
       redirect_to_index
+    end
+
+    def save_order_request
+      sales_arr = params[:sales]
+      hash_order = {}
+      sales_arr.each do |sale_param|
+        item = ProductItem.find(sale_param[:item_id])
+        count = sale_param[:count].to_i
+        hash_order["#{item.id}"] = {count: hash_order["#{item.id}"].to_i + count, price_id: sale_param[:price_id].to_i}
+      end
+      if params[:order_request].present?
+        order_request = current_company.order_requests.where(id: params[:order_request]).last
+      else
+         order_request = OrderRequest.new(company_id: current_company.id, user_id: current_user.id, contact_id: params[:contact_id], status: "waiting")
+      end
+
+      order_request.items = hash_order
+      order_request.save
+      render json: {id: order_request.id}
     end
 
     def load_content_product_items
