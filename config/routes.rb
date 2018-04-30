@@ -200,7 +200,11 @@ Rails.application.routes.draw do
 
   # Api Routes
   namespace :api do
-    resources :api
+    resources :api do
+      collection do
+        get :company
+      end
+    end
     resources :auth do
       collection do
         get :user_info

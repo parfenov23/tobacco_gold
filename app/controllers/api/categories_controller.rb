@@ -1,7 +1,7 @@
 module Api
   class CategoriesController < ApiController
     def index
-      render json: Category.all.to_json
+      render json: Category.all.where(company_id: current_company.id).to_json
     end
 
     def show

@@ -6,6 +6,10 @@ module Api
       render json: {success: true, user_id: current_user.id}
     end
 
+    def company
+      render json: current_company.as_json
+    end
+
     private
 
     def auth
