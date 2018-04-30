@@ -86,7 +86,7 @@
           Отпустил
           <span>______________</span>
           <span style="margin-left: 14px; text-decoration: underline;">&nbsp;&nbsp;Менеджер&nbsp;&nbsp;</span>
-          <span style="margin-left: 14px; text-decoration: underline;">&nbsp;&nbsp;<%= @sale.user.email %>&nbsp;&nbsp;</span>
+          <span style="margin-left: 14px; text-decoration: underline;">&nbsp;&nbsp;<%= (@sale.user.email rescue nil)%>&nbsp;&nbsp;</span>
         </div>
       </div>
     </div>
