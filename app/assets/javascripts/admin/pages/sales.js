@@ -314,6 +314,7 @@ $(document).ready(function(){
       success: function (data) {
         history.pushState({}, null, "/admin/sales/new?type_sale=opt&order_request=" + data.id);
         $(".idOrderRequest").val(data.id);
+        $("input[name='order_request']").val(data.id);
         show_error("Заявка сохранена", 3000);
       },
       error  : function () {
