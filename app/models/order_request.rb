@@ -19,20 +19,21 @@ class OrderRequest < ActiveRecord::Base
     sum
   end
 
-  def paid(user_id=nil, contact_id=nil)
+  def paid(user_id=nil)
     sale = Sale.create(user_id: user_id, contact_id: contact_id)
     result = 0
     curr_user = User.find(user_id)
     items.each do |id, count|
       item = ProductItem.find(id)
+      item_hash = self.item(id)
       product = item.product
-      price = !contact.opt ? product.current_price_model : product.current_price_opt_model
-      result += price.price.to_i*count.to_i
+      price = current_price(item)
+      result += price*item_hash[:count].to_i
       current_item_count = item.product_item_counts.find_by_magazine_id(curr_user.magazine_id)
       curr_count = current_item_count.count
-      current_item_count.update({count: (curr_count - count.to_i) })
-      item.update({count: (item.count - count.to_i) })
-      SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count.to_i, product_price_id: price.id, curr_count: curr_count})
+      current_item_count.update({count: (curr_count - item_hash[:count].to_i) })
+      price_id = product.product_prices.where(price: price).last.id
+      SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: item_hash[:count].to_i, product_price_id: price_id, curr_count: curr_count})
     end
     sale.update(price: result, profit: sale.find_profit, magazine_id: curr_user.magazine_id)
     sale.notify_buy
@@ -41,6 +42,10 @@ class OrderRequest < ActiveRecord::Base
   def item(id_item)
     result = eval(items[id_item.to_s]) rescue {count: items[id_item.to_s]}
     result.is_a?(Hash) ? result : {count: result}
+  end
+
+  def current_price(product_item)
+    item(product_item.id)[:price_id].blank? ? contact.current_price_item(product_item) : ProductPrice.where(id: item(product_item.id)[:price_id]).last.price
   end
 
   def price

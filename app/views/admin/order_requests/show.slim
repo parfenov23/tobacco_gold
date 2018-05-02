@@ -26,7 +26,7 @@
           - items_hash.each do |item_hash|
             - item = item_hash[:product_item]
             - item_product = item.product
-            - curr_price = item_hash[:price_id].blank? ? @model.contact.current_price_item(item) : ProductPrice.where(id: item_hash[:price_id]).last.price
+            - curr_price = @model.current_price(item)
             - count = item_hash[:count]
             tr.active
               td #{item.product.title} - #{item.title}
