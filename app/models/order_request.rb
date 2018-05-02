@@ -51,10 +51,11 @@ class OrderRequest < ActiveRecord::Base
   def price
     result = 0
     items.each do |id, count|
-      item = ProductItem.find(id)
-      product = item.product
-      price = product.current_price_model
-      result += price.price.to_i*count.to_i
+      product_item = ProductItem.find(id)
+      product = product_item.product
+      item_hash = item(id)
+      price = current_price(product_item)
+      result += price.to_i*item_hash[:count].to_i
     end
     result
   end
