@@ -41,14 +41,14 @@ class Contact < ActiveRecord::Base
   def current_price_item(item)
     if item.default_price.blank?
       contact_price = find_contact_price(item)
-      contact_price.present? ? contact_price["price"] : ((!contact.opt rescue true) ? item.product.current_price : item.product.current_price_opt)
+      contact_price.present? ? contact_price[:price] : ((!opt rescue true) ? item.product.current_price : item.product.current_price_opt)
     else
       item.default_price
     end
   end
 
   def find_contact_price(item)
-    all_contact_prices.select{|k| k["product_id"] == item.product_id}.last
+    all_contact_prices.select{|k| k[:product_id] == item.product_id}.last
   end
 
   def all_contact_prices

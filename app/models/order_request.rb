@@ -13,7 +13,7 @@ class OrderRequest < ActiveRecord::Base
     items.map {|k, v| 
       item_product = ProductItem.find(k)
       item_hash = item(k)
-      curr_price = item_hash[:price_id].blank? ? contact.current_price_item(item_product) : ProductPrice.where(id: item_hash[:price_id]).last.price
+      curr_price = current_price(item_product)
       sum += (curr_price * item_hash[:count].to_i)
     }
     sum
