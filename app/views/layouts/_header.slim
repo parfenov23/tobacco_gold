@@ -1,0 +1,18 @@
+nav.navbar.navbar-default.block-material
+  .allNavElem
+    - if current_user.present?
+      .btnOpenleftBar onclick="openNav()"
+        |&#9776;
+    .headerTitle 
+      = curr_title_admin_header || "Hookah Stock Online"
+    .user_info
+      .ava.js_openUserPopupInfo
+        img src=user_ava(current_user.avatar)
+      .popupUserAvaInfo.block-material
+        .triangle
+        .info
+          ul
+            li 
+              a href="/" Главная
+            li 
+              a href="/users/sign_out" Выход

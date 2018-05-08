@@ -8,36 +8,36 @@
 #contentSelect style="display:none;"
   = render "select_product_items"
 
-table.referenceItemSale style="display: none;"
-  tr.parentItemSale.active
-    td.inlineBlock
+.referenceItemSale style="display: none;"
+  .parentItemSale.active.tableCol7
+    .inlineBlock.col1
       = render "select_product"
-    td.formLoadContentTaste
-    td.barcode
+    .formLoadContentTaste.col2
+    .form-group.barcode.col3.material-form-group
       input.form-control name="buy[][barcode]" placeholder='Код товара'
       span style="display:none;" Код товара
-    td.formLoadContentPrice
-    td.form-group
+    .form-group.formLoadContentPrice.col4.material-form-group
+    .form-group.col5.material-form-group
       input.form-control.countItems name="buy[][count]" type="text" value="1"
-    td.endSumPosition 0
-    td
+    .endSumPosition.col6 0
+    .col7
       .btn.btn-danger-material.deleteItemSale.pull-right ✖
 
 
 form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="multipart/form-data"
   .saleAllItemCashbox
     .list-group-item.col-md-9
-      table.table.table-material
-        thead
-          tr
-            th Производитель
-            th Вкус
-            th Код
-            th Цена
-            th Кол-во
-            th Сумма
-            th 
-        tbody.allItemsSale
+      .table.table-material.tableCol7
+        .headerTableSale
+          .th.col1 Производитель
+          .th.col2 Вкус
+          .th.col3 Код
+          .th.col4 Цена
+          .th.col5 Кол-во
+          .th.col6 Сумма
+          .th.col7
+
+        .allItemsSale
       .btn.btn-primary-material.addItemSale Добавить позицию
       / .btn.btn-primary-material.js_openFormNewItem style='margin-left: 5px;' Добавить Вкус
     .list-group-item.col-md-3.block-material

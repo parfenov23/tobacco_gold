@@ -204,4 +204,73 @@
   }
 }
 
+nav.navbar{
+  .user_info{
+    .ava{
+      padding-top: 8px;
+      cursor: pointer;
+      img{
+        border-radius: 50%;
+        height: 34px;
+      }
+    }
+  }
+}
+
+.popupUserAvaInfo{
+  position: absolute;
+  background-color: white;
+  right: 0;
+  margin-right: 8px;
+  margin-top: 12px;
+  display: none;
+  .triangle{
+    border-color: transparent;
+    border-bottom-color: #fff;
+    border-style: dashed dashed solid;
+    border-width: 0 8.5px 8.5px;
+    position: absolute;
+    height: 0;
+    width: 0;
+    right: 12px;
+    top: -8px;
+  }
+  .info{
+    width: 128px;
+    ul{
+      padding-left: 0;
+      margin-top: 8px;
+      margin-left: 4px;
+      margin-right: 4px;
+      li{
+        list-style: none;
+        text-align: right;
+        padding: 4px 8px 4px 8px;
+        border-bottom: 1px solid #d8d8d8;
+
+
+        &:first-child {
+
+        }
+
+        &:last-child{
+          border-bottom: none;
+        }
+        a{
+          text-decoration: none;
+          color: #333;
+          display: block;
+        }
+        &:hover{
+          background-color: #424242;
+          a{
+            color: white;
+          }
+          
+        }
+      }
+    }
+  }
+
+}
 

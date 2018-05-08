@@ -87,7 +87,9 @@ module ApplicationHelper
       {url: '/admin/product_items', title: 'Вкусы', display: false},
       {url: '/admin/product_prices', title: 'Цены', display: false},
       {url: '/admin/provider_items', title: 'Цены поставщика', display: false},
-      {url: '/admin/contact_prices', title: 'Цены клиента', display: false}
+      {url: '/admin/contact_prices', title: 'Цены клиента', display: false},
+      {url: '/admin/sales/new', title: 'Продажа', display: false}, 
+      {url: '/admin/buy/new', title: 'Закуп', display: false}
     ]
   end
 

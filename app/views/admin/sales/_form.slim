@@ -8,32 +8,32 @@
 #contentSelect style="display:none;"
   / = render "select_product_items"
 
-table.referenceItemSale style="display: none;"
-  tr.parentItemSale.active
-    td.inlineBlock
+.referenceItemSale style="display: none;"
+  .parentItemSale.active
+    .inlineBlock.col1
       = render "select_products"
 
-    td.formLoadContentTaste
-    td.formLoadContentPrice
-    td.form-group
+    .formLoadContentTaste.col2
+    .formLoadContentPrice.col3
+    .form-group.col4.material-form-group
       input.form-control.countItems name="sales[][count]" type="text" value="1"
-    td.endSumPosition 0
-    td
+    .endSumPosition.col5 0
+    .col6
       .btn.btn-danger-material.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
 
 form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="multipart/form-data"
   .saleAllItemCashbox
     .list-group-item.col-md-9
-      table.table.table-material
-        thead
-          tr
-            th Производитель
-            th Вкус
-            th Цена
-            th Кол-во
-            th Сумма
-            th 
-        tbody.allItemsSale
+      .table.table-material
+        .headerTableSale
+          .th.col1 Производитель
+          .th.col2 Вкус
+          .th.col3 Цена
+          .th.col4 Кол-во
+          .th.col5 Сумма
+          .th.col6
+
+        .allItemsSale
           = render "order_request"
       .btn.btn-primary-material.addItemSale Добавить позицию
       input.idOrderRequest type="hidden" name="order_request" value=params[:order_request]

@@ -12,26 +12,26 @@
       - order_item_hash = order_request.item(current_product_item.id)
       - order_item_price_id = order_item_hash[:price_id]
       - curr_price =  order_item_price_id.present? ? product.product_prices.where(id: order_item_price_id).last.price : current_product_item.current_price(order_request.contact)
-      tr.parentItemSale.active.orderRequestToSaleBlock class=("barcode[object Object]") 
-        td.inlineBlock
+      .parentItemSale.active.orderRequestToSaleBlock class=("barcode[object Object]") 
+        .inlineBlock.col1
           - arr_type = @products.map{|product| [product.title, product.id] }
           = render "common_select", {arr_li: arr_type, default: product.id, class_input: "changeSelectContent saleProductIdSelect", add_class: "noInit"}
-        td.formLoadContentTaste
+        .formLoadContentTaste.col2
           .mad-select.selectProductItem
             ul
               - product.product_items.all_present(current_magazine.id).each do |item|
                 li data-value=item.id data-barcode=item.barcode data-product=item.product_id data-price_id=item.price_id data-deff_price=curr_price = item.title
             input.changeSelectContent.changeSelectProductItem type="hidden" name="sales[][item_id]" value=current_product_item.id
 
-        td.formLoadContentPrice
+        .formLoadContentPrice.col3
           - item_price_id = product.product_prices.where(price: curr_price).last.id
           .mad-select.selectProductPrice
             ul
               - all_prices_arr.each do |price|
                 li data-value=price.last = price.first
             input.changeSelectContent.selectPrice type="hidden" name="sales[][price_id]" value=item_price_id
-        td.form-group
+        .form-group.col4.material-form-group
           input.form-control.countItems name="sales[][count]" type="text" value=order_item_hash[:count]
-        td.endSumPosition = curr_price*order_item_hash[:count].to_i
-        td
+        .endSumPosition.col5 = curr_price*order_item_hash[:count].to_i
+        .col6
           .btn.btn-danger-material.deleteItemSale.pull-right style=("margin-bottom: 5px;")  ✖

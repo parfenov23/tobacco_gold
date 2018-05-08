@@ -146,11 +146,26 @@ $(document).ready(function(){
     event.preventDefault();
     btnAjaxRemove(this);
   });
+
+  $(document).on('click', '.js_openUserPopupInfo', function(){
+    if ($(".popupUserAvaInfo:visible").length){
+      $(".popupUserAvaInfo").hide();
+    }else{
+      $(".popupUserAvaInfo").show();
+    }
+    
+  })
   
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
       event.preventDefault();
       return false;
+    }
+  });
+  $(document).on('click', 'body', function(e){
+    var block = $(e.target);
+    if(!block.closest(".user_info").length){
+      $(".popupUserAvaInfo").hide();
     }
   });
 })

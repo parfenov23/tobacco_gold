@@ -59,7 +59,7 @@ var addItemWhenBarcodeScan = function(barcode){
 
 var addBlankBlockItem = function(bc){
 
-  var refer = $($(".referenceItemSale tbody").html());
+  var refer = $($(".referenceItemSale").html());
 
   include_mad_select($(refer).find(".mad-select").removeClass("noInit"), function(input){
     var bl_val = parseInt(input.val());

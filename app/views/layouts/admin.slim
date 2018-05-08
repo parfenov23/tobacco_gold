@@ -41,13 +41,7 @@ html
             a href="#{li_nav[:url]}" 
               = li_nav[:title]
 
-    nav.navbar.navbar-default.block-material
-      .allNavElem
-        - if current_user.present?
-          .btnOpenleftBar onclick="openNav()"
-            |&#9776;
-        .headerTitle 
-          = curr_title_admin_header || "Hookah Stock Online"
+    = render "layouts/header"
     .well data-action=params[:controller]
       = yield
       #overlay

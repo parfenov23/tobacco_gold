@@ -34,6 +34,8 @@ gem 'string-similarity'
 #========== sms center
 gem 'smsc'
 #==========
+gem 'bing-search' # web search image
+gem 'image_suckr'
 
 gem 'pusher' # Pusher.Io
 
