@@ -5,14 +5,15 @@ nav.navbar.navbar-default.block-material
         |&#9776;
     .headerTitle 
       = curr_title_admin_header || "Hookah Stock Online"
-    .user_info
-      .ava.js_openUserPopupInfo
-        img src=user_ava(current_user.avatar)
-      .popupUserAvaInfo.block-material
-        .triangle
-        .info
-          ul
-            li 
-              a href="/" Главная
-            li 
-              a href="/users/sign_out" Выход
+    - if current_user.present?
+      .user_info
+        .ava.js_openUserPopupInfo
+          img src=user_ava(current_user.avatar)
+        .popupUserAvaInfo.block-material
+          .triangle
+          .info
+            ul
+              li 
+                a href="/" Главная
+              li 
+                a href="/users/sign_out" Выход
