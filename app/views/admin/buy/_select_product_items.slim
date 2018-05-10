@@ -1,15 +1,10 @@
 - @products.each do |product|
   - product_items = product.product_items
-  table id="select#{product.id}"
-    tr
-      td
-        .mad-select.noInit.selectProductItem
-          ul
-            - product_items.each do |item|
-              li data-value=item.id data-barcode=item.barcode data-product=product.id = item.title
-          input.changeSelectContent type="hidden" name="buy[][item_id]" value=product_items.first.id
-        / select.form-control name="buy[][item_id]"
-        /   - product.product_items.each do |item|
-        /     option data-barcode=item.barcode data-product=product.id value=item.id = item.title
-      td
-        input.selectProductPrice.form-control name="buy[][price_id]" placeholder='стоимость'
+  div id="select#{product.id}"
+    .mad-select.noInit.selectProductItem
+      ul
+        - product_items.each do |item|
+          li data-value=item.id data-barcode=item.barcode data-product=product.id = item.title
+      input.changeSelectContent type="hidden" name="buy[][item_id]" value=product_items.first.id
+    div
+      input.selectProductPrice.form-control name="buy[][price_id]" placeholder='стоимость'
