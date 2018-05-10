@@ -16,7 +16,7 @@ var saveNewProductItem = function(){
 var allProductCalc = function(){
   var all_product = {}
   $(".allProductCalc .referencePaste").remove();
-  $(".allItemsSale tr").each(function(n, e){
+  $(".allItemsSale .parentItemSale").each(function(n, e){
     var product = $(e).find(".inlineBlock .mad-select .selected:first").text();
     var count = parseInt($(e).find(".countItems").val());
     var price = parseInt($(e).find(".selectProductPrice").val());
