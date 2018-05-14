@@ -11,10 +11,9 @@ class ManagerShift < ActiveRecord::Base
     current_day_close = user.manager_shifts.current_day.where(status: "close")
     if manager_shift.status == "close" && current_day_close.blank?
       user.manager_payments.create({price: user.sum_shift, magazine_id: user.magazine_id})
-    end
-    desc = 
-    
+    end    
     manager_shift.save
+    manager_shift.notify
   end
 
   def time
