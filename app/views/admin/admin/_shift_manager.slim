@@ -1,0 +1,4 @@
+form.form-horizontal action="/admin/admin/create_shift_manager" method="post" enctype="multipart/form-data"
+  = render "common_input", {title: "Наличные", name: "shift[cash]", value: "0"}
+  input type="hidden" name='shift[status]' value=params[:type]
+  button.btn.btn-primary-material.submit formnovalidate=true type="submit" =(params[:type] == "open" ? "Открыть смену" : "Закрыть смену")

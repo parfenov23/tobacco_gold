@@ -14,6 +14,9 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     |Процент от продаж:
     input.form-control name="users[procent_sale]" type="text" value=@model.procent_sale
   .form-group
+    |Выход на смену:
+    input.form-control name="users[sum_shift]" type="text" value=@model.sum_shift
+  .form-group
     |Права:
     = select_tag("users[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"]], @model.role.to_s), {:class => 'form-control'})
   .form-group

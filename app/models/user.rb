@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :sales
   has_many :contacts
   has_many :manager_payments
+  has_many :manager_shifts
   belongs_to :magazine
   belongs_to :contact
 
@@ -52,6 +53,10 @@ class User < ActiveRecord::Base
   def get_api_key
     update(api_key: SecureRandom.hex(16)) if api_key.blank?
     api_key
+  end
+
+  def manager_shifts_open
+    manager_shifts.where(status: "open")
   end
 
   # Баланс

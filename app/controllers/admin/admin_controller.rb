@@ -36,7 +36,18 @@ module Admin
       all_manager_pay = ManagerPayment.where(user_id: params[:user_id], payment: false, magazine_id: magazine_id)
       current_cashbox.calculation('cash', all_manager_pay.sum(:price), false)
       all_manager_pay.update_all(payment: true)
-      redirect_to "/admin/admin/manager_payments"
+      redirect_to "/admin/users"
+    end
+
+    def shift_manager
+      html_form = render_to_string "/admin/admin/_shift_manager", :layout => false, :locals => {:current_user => current_user}
+      render text: html_form
+    end
+
+    def create_shift_manager
+      params_shift = {user_id: current_user.id, visa: current_cashbox.visa, sum_sales: current_user.manager_payment_today.sum(:price)}.merge(params[:shift])
+      ManagerShift.open_or_close(current_user, params_shift)
+      redirect_to "/admin/admin" 
     end
 
     def search

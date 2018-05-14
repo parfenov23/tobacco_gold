@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :admin do
       collection do
         get :manager_payments
+        get :shift_manager
+        post :create_shift_manager
         get :paid_manager_payments
         get :search
         get :api_sms

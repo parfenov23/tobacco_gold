@@ -1,4 +1,5 @@
 module Admin
+  require 'send_sms'
   class ContactsController < CommonController
     def create
       params_r = params_model
@@ -12,7 +13,7 @@ module Admin
         user.password = SecureRandom.hex(3)
         user.save
 
-        #SendSms.sender([params_r[:phone]], "Логин: #{email}\nПароль: #{pass}\n#{request.base_url}")
+        SendSms.sender([params_r[:phone]], "Логин: #{email}\nПароль: #{pass}\n#{request.base_url}") if Rails.env.production?
       end
       redirect_to_index
     end

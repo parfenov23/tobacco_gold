@@ -3,7 +3,9 @@
     .user_info
       .ava
         img src=user_ava(current_user.avatar)
-      .changeUserInfo Смена №5 от 30.10.2017 14:40
+      - if current_user.manager_shifts_open.count > 0
+        - shift_time = Russian::strftime(current_user.manager_shifts_open.last.time, "%d.%m.%y %H:%M")
+        .changeUserInfo Смена №#{current_user.manager_shifts_open.count} от #{shift_time}
       .changeUserInfo Остаток: #{current_user.balance_payments} руб.
 
     .userMenu
@@ -33,6 +35,8 @@
         tr
           td Заработано
           td #{@manager_balance} руб.
+    - hash_shift = current_user.manager_shifts.current_day.present? ? {title: "Закрытие смены", type: "close", btn: "Закрыть смену"} : {title: "Открытие смены", type: "open", btn: "Открыть смену"}
+    a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title=hash_shift[:title] href="/admin/admin/shift_manager?type=#{hash_shift[:type]}" = hash_shift[:btn]
     / hr
     / - if params[:stat] == "all"
     /   = render "sale_profit_chart"
