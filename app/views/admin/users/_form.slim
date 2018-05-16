@@ -11,6 +11,9 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     |Пароль(6):
     input.form-control name="users[password]" type="text"
   .form-group
+    |Телефон:
+    input.form-control name="users[phone]" type="text" value=@model.phone
+  .form-group
     |Процент от продаж:
     input.form-control name="users[procent_sale]" type="text" value=@model.procent_sale
   .form-group
@@ -22,5 +25,8 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .form-group
     |Магазин:
     = select_tag("users[magazine_id]", options_for_select(current_company.magazines.map{|magaz| [magaz.title, magaz.id]}, @model.magazine_id), {:class => 'form-control'})
+  .form-group
+    = check_box("users", "auto_payment", {checked: check_if_true(@model.auto_payment), class: "checkbox-material", id: "filled-in-auto_payment"})
+    label.checkbox-label-material for="filled-in-auto_payment" Авто выплата?
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary-material.submit type="submit"  Сохранить

@@ -13,8 +13,9 @@ module Api
     private
 
     def auth
-      if params[:api_key].present?
-        @current_user = User.find_by_api_key(params[:api_key])
+      auth_key = params[:api_key].to_s.gsub("?", "").gsub(/(task=send|task=sent|task=result)/, '')
+      if auth_key.present?
+        @current_user = User.find_by_api_key(auth_key)
         @current_magazine = @current_user.magazine if @current_user.present?
       end
       render json: {auth: false, code: '401'} if @current_user.blank?

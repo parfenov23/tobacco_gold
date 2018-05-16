@@ -24,22 +24,27 @@ class SmsPhone < ActiveRecord::Base
     find_sms = where(id_sms: sms_hash[:id_sms]).last || where(body: sms_hash[:body]).last
     if find_sms.blank? && sms_hash[:address] == "900"
       sms = create(sms_hash.merge({magazine_id: magazine_id}))
-      sms.type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
+      if sms.type_sms != "отправьте код"
+        sms.type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
+      else
+        SmsPhoneTask.create(phone: sms_hash[:address], body: sms_hash[:sum], magazine_id: magazine_id, sms_id: Time.now.to_i.to_s)
+      end
     end
   end
 
   def self.params_to_hash_sms(sms)
-    sum = match_body_sms(sms["body"]).to_s.gsub(/(списание|покупка|зачисление) /, '').gsub("р", "").to_i
+    sum = match_body_sms(sms["body"]).to_s.gsub(/(списание|покупка|зачисление|отправьте код) /, '').gsub("р", "").to_i
     {id_sms: sms["id"].scan(/[0-9]+/).join.to_i, body: sms["body"], sum: sum, date_time: sms["created_at"], address: sms["number"]}
   end
 
   def self.match_body_sms(body)
-    regexp = Regexp.new(/(списание|покупка|зачисление) [+-]?([0-9]*[.])?[0-9]+р/)
+    regexp = Regexp.new(/(списание|покупка|зачисление|отправьте код)[+-]?([0-9]*[.])? [0-9]+(р| )/)
     body.match(regexp)
   end
 
   def type_sms
-    SmsPhone.match_body_sms(body)[1]
+    type = SmsPhone.match_body_sms(body)
+    type.present? ? type[1] : "прочее"
   end
 
   def notify_sms

@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def balance_payments
-    manager_payments.sum(:price) - manager_payments.where(payment: true).sum(:price)
+    manager_payments.where(payment: false).sum(:price)
   end
 
   def meneger_procent
@@ -66,6 +66,13 @@ class User < ActiveRecord::Base
 
   def manager_balance_today
     manager_payments.where(["created_at > ?", Time.now.beginning_of_day]).where(["created_at < ?", Time.now.end_of_day]).sum(:price)
+  end
+
+  def manager_payment_cash(type_cash='cash')
+    all_manager_pay = manager_payments.where(payment: false)
+    current_cashbox = magazine.cashbox
+    current_cashbox.calculation(type_cash, balance_payments, false)
+    all_manager_pay.update_all(payment: true)
   end
 
   # Средний Чек

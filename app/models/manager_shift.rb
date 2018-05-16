@@ -11,6 +11,10 @@ class ManagerShift < ActiveRecord::Base
     current_day_close = user.manager_shifts.current_day.where(status: "close")
     if manager_shift.status == "close" && current_day_close.blank?
       user.manager_payments.create({price: user.sum_shift, magazine_id: user.magazine_id})
+      if user.balance_payments > 0 && user.phone.present? && user.auto_payment
+        SmsPhoneTask.create(phone: "900", body: "ПЕРЕВОД #{user.phone} #{user.balance_payments}", magazine_id: user.magazine_id, sms_id: Time.now.to_i.to_s)
+        user.manager_payment_cash('visa') if user.magazine.cashbox.visa >= user.balance_payments
+      end
     end    
     manager_shift.save
     manager_shift.notify

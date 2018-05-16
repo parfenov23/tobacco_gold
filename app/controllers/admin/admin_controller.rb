@@ -33,9 +33,7 @@ module Admin
     end
 
     def paid_manager_payments
-      all_manager_pay = ManagerPayment.where(user_id: params[:user_id], payment: false, magazine_id: magazine_id)
-      current_cashbox.calculation('cash', all_manager_pay.sum(:price), false)
-      all_manager_pay.update_all(payment: true)
+      User.where(id: params[:user_id], magazine_id: magazine_id).last.manager_payment_cash
       redirect_to "/admin/users"
     end
 

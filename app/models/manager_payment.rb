@@ -6,7 +6,7 @@ class ManagerPayment < ActiveRecord::Base
     all_others = where(["updated_at > ?", start_day]).where(payment: true)
     all_others.sum(:price)
   end
-
+  
   def self.curr_day_price
     start_day = Time.now.beginning_of_day
     where(["updated_at > ?", start_day]).where(payment: true).sum(:price)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514163754) do
+ActiveRecord::Schema.define(version: 20180515224722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -292,6 +292,16 @@ ActiveRecord::Schema.define(version: 20180514163754) do
     t.integer  "magazine_id"
   end
 
+  create_table "sms_phone_tasks", force: :cascade do |t|
+    t.string   "phone"
+    t.string   "body"
+    t.boolean  "status",      default: false
+    t.integer  "magazine_id"
+    t.string   "sms_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "sms_phones", force: :cascade do |t|
     t.string   "address"
     t.text     "body"
@@ -328,6 +338,8 @@ ActiveRecord::Schema.define(version: 20180514163754) do
     t.integer  "contact_id"
     t.string   "api_key"
     t.integer  "sum_shift",              default: 0
+    t.string   "phone"
+    t.boolean  "auto_payment",           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
