@@ -47,12 +47,12 @@ class ProductItem < ActiveRecord::Base
     Magazine.all.map{|magaz| ProductItemCount.create({product_item_id: id, magazine_id: magaz.id, count: 0}) }
   end
 
-  def self.accurate_search_title(query)
+  def self.accurate_search_title(query, procent=0.8)
     result = title_search(query).first
     if result.present?
       reg = Regexp.new "\([А-я].+?\)"
       r_title = result.title.gsub(reg, "").gsub("(", "").gsub(")", "")
-      result = String::Similarity.cosine(r_title, query) > 0.8 ? result : nil
+      result = String::Similarity.cosine(r_title, query) > procent ? result : nil
     end
     result
   end
