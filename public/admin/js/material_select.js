@@ -16,6 +16,7 @@ var include_mad_select = function(block, end_funct = function(){}){
     var $input = $(block).find("input"),
     $ul = $(block).find("> ul"),
     $ulDrop =  $ul.clone().addClass("mad-select-drop");
+    $ul.remove();
     $(block)
     .append('<i class="material-icons">arrow_drop_down</i>', $ulDrop)
     .on({
@@ -26,21 +27,28 @@ var include_mad_select = function(block, end_funct = function(){}){
         if ($ulDrop.find("li").length <= 2){ size_block = 160 }
         var top_block = $(window).innerHeight() - ($ulDrop.closest(".mad-select").position().top + size_block) - 100;
         if (top_block < 0) { $ulDrop.css({top: top_block}) }
-
       }
     });
     // PRESELECT
+    // $ul.add($ulDrop).find("li[data-value='"+ $input.val() +"']").addClass("selected");
     if ($input.val() != undefined && $input.val().length){
-      $ul.add($ulDrop).find("li[data-value='"+ $input.val() +"']").addClass("selected");
+      $ulDrop.find("li[data-value='"+ $input.val() +"']").addClass("selected");
+      if(!$(block).find(".titleSelect").length){
+        $(block).prepend($("<div class='titleSelect'>Не выбрано</div>"))
+      }
+      var title = $ulDrop.find("li[data-value='"+ $input.val() +"']").text();
+      $(block).find(".titleSelect").text(title);
     }else{
-      $ul.add($ulDrop).find("li:first").addClass("selected");
+      var title = $ulDrop.find("li:first").text();
+      $(block).find(".titleSelect").text(title);
     }
     
     // MAKE SELECTED
     $ulDrop.on("click", "li", function(evt) {
       evt.stopPropagation();
       $input.val($(this).data("value")); // Update hidden input value
-      $ul.find("li").eq($(this).index()).add(this).addClass("selected")
+      $(block).find(".titleSelect").text($(this).text());
+      $(this).add(this).addClass("selected")
       .siblings("li").removeClass("selected");
       end_funct($input);
     });

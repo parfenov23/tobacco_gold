@@ -19,8 +19,8 @@ class OrderRequest < ActiveRecord::Base
     sum
   end
 
-  def paid(user_id=nil)
-    sale = Sale.create(user_id: user_id, contact_id: contact_id)
+  def paid(user_id=nil, type_cash="cash")
+    sale = Sale.create(user_id: user_id, contact_id: contact_id, visa: (type_cash == "visa"))
     result = 0
     curr_user = User.find(user_id)
     items.each do |id, count|

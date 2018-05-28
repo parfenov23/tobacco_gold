@@ -11,6 +11,7 @@
         - text += "-> #{sale.profit} руб." if current_user.is_admin?
         a.link-material href='/admin/sales/#{sale.id}.pdf' 
           = text
+      i.iconCashbox class=(sale.visa ? "icon-credit-card" : "icon-coin-dollar")
       - if current_user.is_admin?
         a.btn.btn-danger-material.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
           | &#10006;

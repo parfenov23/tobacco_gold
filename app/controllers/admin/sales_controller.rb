@@ -72,7 +72,7 @@ module Admin
         order.update(status: "paid", items: hash_order) if order.present?
       end
 
-      sale.update(price: result, profit: sale_profit, visa: params[:cashbox_type] == "visa", magazine_id: params[:magazine_id])
+      sale.update(price: result, profit: sale_profit, visa: (params[:cashbox_type] == "visa"), magazine_id: params[:magazine_id])
       current_cashbox.calculation(params[:cashbox_type], result, true)
       current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
       sale.notify_buy

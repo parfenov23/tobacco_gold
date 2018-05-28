@@ -112,22 +112,24 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
 }
 
 var priceItemSale = function(){
-  var result = 0;
-  $(".endSumPosition:visible").each(function(n, block){ result+= parseInt($(block).text())});
-  var discountBlock = $(".discountCashBack");
-  var cashback_type = discountBlock.find("[name='cashback_type']").val();
-  var cashback_bank = parseInt(discountBlock.find("[name='cashback_bank']").val());
-  if (cashback_type == "dickount"){
-    if (result >= cashback_bank){
-      result -= cashback_bank
-    }else{
-      result = 0
+  $.queue(function() {
+    var result = 0;
+    $(".endSumPosition:visible").each(function(n, block){ result+= parseInt($(block).text())});
+    var discountBlock = $(".discountCashBack");
+    var cashback_type = discountBlock.find("[name='cashback_type']").val();
+    var cashback_bank = parseInt(discountBlock.find("[name='cashback_bank']").val());
+    if (cashback_type == "dickount"){
+      if (result >= cashback_bank){
+        result -= cashback_bank
+      }else{
+        result = 0
+      }
     }
-  }
-  $(".titlePrice").text(result);
-  if ($(".received_cash").length && $(".received_cash").val().length){
-    $(".titleDelivery").val("Cдача " + ($(".received_cash").val() - result) + " руб.");
-  }
+    $(".titlePrice").text(result);
+    if ($(".received_cash").length && $(".received_cash").val().length){
+      $(".titleDelivery").val("Cдача " + ($(".received_cash").val() - result) + " руб.");
+    }
+  })
 }
 
 var sumItemSale = function(block){
@@ -173,7 +175,7 @@ var search_contact = function(barcode_contact, id){
 
       }else{
         $(".saveOrderRequest").css('display', 'none');
-         card_block.find(".deleteContactBtn").hide();
+        card_block.find(".deleteContactBtn").hide();
         card_block.find(".search_discount_card").attr("readonly", false);
         card_block.find(".search_discount_card").val('');
         card_block.find("[name='cashback_bank']").val(0);

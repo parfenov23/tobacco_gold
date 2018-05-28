@@ -145,6 +145,20 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding-right: 8px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .titleSelect{
+    display: inline-block;
+    max-width: calc(100% - 24px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+    height: 24px;
+    line-height: 24px;
+    padding: 8px 16px;
+    box-sizing: initial;
+  }
   ul {
     list-style: none;
     display: inline-block;
@@ -206,6 +220,7 @@ body {
       cursor: pointer;
       &.selected {
         background: rgba(0, 0, 0, 0.07);
+        width: 100%;
       }
       &:hover {
         background: rgba(0, 0, 0, 0.04);
