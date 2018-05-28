@@ -17,6 +17,18 @@ module Admin
       redirect_to_show
     end
 
+    def reserve
+      find_model.sorty_by_product.each do |id, items_hash|
+        items_hash.each do |item_hash|
+          item = item_hash[:product_item]
+          item_count = item.product_item_counts.where(magazine_id: current_user.magazine_id).last
+          item_count.update(count: (find_model.reserve ? (item_count.count + item_hash[:count]) : (item_count.count - item_hash[:count]) ) )
+        end
+      end
+      find_model.update(reserve: !find_model.reserve)
+      redirect_to "/admin/order_requests/#{find_model.id}"
+    end
+
     private
 
     def model

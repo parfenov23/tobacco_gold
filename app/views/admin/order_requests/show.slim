@@ -40,14 +40,18 @@
       .list-group.row.material.noBorderListGroup
         .list-group-item.col-md-6.material
           / a.btn.btn-primary-material.js_loadContentInOtherPopup data-title="Редактирование заявки" href="/admin/#{model_url}/#{@model.id}/edit" Редактировать
-          - type_sale = @model.contact.opt ? "opt" : "retail"
-          a.btn.btn-primary-material href="/admin/sales/new?type_sale=#{type_sale}&order_request=#{@model.id}" Редактировать
-        .list-group-item.col-md-6.inlineBlockOrder.rightContent
-          form.form-horizontal action="/admin/#{model_url}/#{@model.id}" method="post" enctype="multipart/form-data"
-            = render "admin/admin/common_cashbox"
-            input type="hidden" name="order_requests[status]" value="paid"
-            input type="hidden" name="_method" value="put"
-            button.btn.btn-success-material type="submit" Оплачено
+          - if !@model.reserve
+            - type_sale = @model.contact.opt ? "opt" : "retail"
+            a.btn.btn-primary-material href="/admin/sales/new?type_sale=#{type_sale}&order_request=#{@model.id}" Редактировать
+          - text_reserve = @model.reserve ? "Снять с резерва" : "Поставить на резерв"
+          a.btn.btn-success-material href="/admin/order_requests/#{@model.id}/reserve" = text_reserve
+        - if !@model.reserve
+          .list-group-item.col-md-6.inlineBlockOrder.rightContent
+            form.form-horizontal action="/admin/#{model_url}/#{@model.id}" method="post" enctype="multipart/form-data"
+              = render "admin/admin/common_cashbox"
+              input type="hidden" name="order_requests[status]" value="paid"
+              input type="hidden" name="_method" value="put"
+              button.btn.btn-success-material type="submit" Оплачено
 
         
 

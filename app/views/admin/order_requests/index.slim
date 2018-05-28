@@ -9,5 +9,5 @@
       span
         a href="/admin/#{model_url}/#{model.id}" = model.title
       - if model.status == "waiting"
-        = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}"}
+        = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование заявки"}
 = render "common_blank_page", {title_deff: "", text_deff: "Новых заявок, пока что нет :("} if @models.blank?
