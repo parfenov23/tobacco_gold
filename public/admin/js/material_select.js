@@ -63,6 +63,8 @@ var include_mad_select = function(block, end_funct = function(){}){
 var selectedLi = function(block, val){
   var ul = block.find("ul");
   ul.find(".selected").removeClass("selected");
-  ul.find("li[data-value='" + val + "']").addClass("selected");
+  var curr_li = ul.find("li[data-value='" + val + "']");
+  curr_li.addClass("selected");
+  ul.closest(".mad-select").find(".titleSelect").text(curr_li.text());
   ul.closest(".mad-select").find("input").val(val);
 }
