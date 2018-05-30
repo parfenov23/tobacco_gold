@@ -76,7 +76,8 @@ module Admin
         page = agent.post("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{key}&text=#{query}&lang=ru-en")
         title = JSON.parse(page.body)["text"].first
         title = query if params[:product_id].to_i == 2
-        result = ProductItem.where(product_id: params[:product_id]).accurate_search_title(title)
+        procent = params[:product_id].to_i == 2 ? 0.1 : 0.8
+        result = ProductItem.where(product_id: params[:product_id]).accurate_search_title(title, procent)
         @find_arr += [ { full_title: query_title, title: title, min_title: query, result: (result.present? ? result.id : nil) } ]
       end 
     end
