@@ -5,10 +5,8 @@ table.table
       th Название
       th Количество
   tbody
-    - i = -1
-    - params[:title].each do |title|
-      - count = params[:count][i+=1].to_i
-      - if count > 0
-        tr
-          td = title
-          td = count
+    - p @arr_hash
+    - @arr_hash.sort_by{|a| a[:title]}.each do |item|
+      tr
+        td = item[:title]
+        td = item[:count]

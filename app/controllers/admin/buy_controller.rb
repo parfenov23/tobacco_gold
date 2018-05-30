@@ -75,10 +75,19 @@ module Admin
         query = clear_query_search(query_title, Product.find(params[:product_id]).title)
         page = agent.post("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{key}&text=#{query}&lang=ru-en")
         title = JSON.parse(page.body)["text"].first
+        title = query if params[:product_id].to_i == 2
         result = ProductItem.where(product_id: params[:product_id]).accurate_search_title(title)
         @find_arr += [ { full_title: query_title, title: title, min_title: query, result: (result.present? ? result.id : nil) } ]
+      end 
+    end
+
+    def form_search_result
+      @arr_hash = []
+      i = -1
+      params[:title].each do |title|
+        count = params[:count][i+=1].to_i
+        @arr_hash << {title: title.gsub("  ", " "), count: count} if count > 0
       end
-      
     end
 
     private
