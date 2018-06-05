@@ -17,15 +17,8 @@
         a href='/admin/buy/#{buy.id}/info'
           = buy.created_at.strftime("%d-%m-%Y") + " (#{buy.price}р.) | #{buy.provider_title}"
       - if !buy.def_pay
-        form.def_pay action="/admin/buy/#{buy.id}/def_pay" method="get" enctype="multipart/form-data"
-          .type_cashbox
-            = render "admin/admin/common_cashbox", {material: false}
-          input type="hidden" name="_method" value="get"
-          button.btn.btn-success-material.pull-right type="submit"
-            | ✔
+        a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="Выплата поставщику" href="/admin/buy/#{buy.id}/paid_out" ✔
       a.btn.btn-danger-material.pull-right href="/admin/buy/#{buy.id}/remove" data-method='delete'
         | &#10006;
-      /a.btn.btn-success.pull-right href="/sales/#{sale.id}/edit" style="margin-right: 5px;"
-      /  | &#9998;
 
 = render "common_blank_page", {title_deff: "", text_deff: "Что бы добавить первый закуп, нажми кнопку 'ДОБАВИТЬ ЗАКУП'"} if @buys.blank?

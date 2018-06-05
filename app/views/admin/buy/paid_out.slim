@@ -1,0 +1,7 @@
+form.form-horizontal action="/admin/buy/#{@model.id}/def_pay" method="post" enctype="multipart/form-data"
+
+  = render "common_input", {title: "Сумма", name: "sum_cash", value: @model.balance_of_pay}
+  = render "admin/admin/common_cashbox", {add_class_select: "defaultInitMdSelect"}
+
+  input type="hidden" name="_method" value="post"
+  button.btn.btn-primary-material.submit type="submit" formnovalidate=true Выллатить

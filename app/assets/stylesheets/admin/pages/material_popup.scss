@@ -60,6 +60,7 @@
     bottom: 0;
     left: 0;
     height: 100% !important;
+    padding-top: 50px;
   }
   .fab.active .fab-hdr a, .allOtherPopup .fab-hdr a {
     position: absolute;
@@ -68,6 +69,7 @@
     color: #fff;
     display: block !important;
     text-decoration: none;
+    line-height: 46px;
   }
   .fab.active .fab-hdr h3, .allOtherPopup .fab-hdr h3 {
     padding-right: 36px;

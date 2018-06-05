@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180528153901) do
+ActiveRecord::Schema.define(version: 20180605114015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20180528153901) do
     t.boolean  "def_pay",     default: false
     t.integer  "provider_id"
     t.integer  "magazine_id"
+    t.integer  "paid_out"
   end
 
   create_table "cachbox_items", force: :cascade do |t|

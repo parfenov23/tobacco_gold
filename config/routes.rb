@@ -184,7 +184,8 @@ Rails.application.routes.draw do
       member do
         get :remove
         get :info
-        get :def_pay
+        post :def_pay
+        get :paid_out
       end
       collection do
         get :search

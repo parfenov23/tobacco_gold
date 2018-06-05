@@ -23,6 +23,10 @@ class Buy < ActiveRecord::Base
     where(["created_at > ?", start_day]).sum(:price)
   end
 
+  def balance_of_pay
+    price.to_i - paid_out.to_i
+  end
+
   def self.curr_day_price
     start_day = Time.now.beginning_of_day
     where(["created_at > ?", start_day]).sum(:price)

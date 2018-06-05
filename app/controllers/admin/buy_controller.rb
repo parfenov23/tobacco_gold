@@ -33,8 +33,13 @@ module Admin
     end
 
     def def_pay
-      find_model.update(def_pay: true)
-      current_cashbox.calculation(params[:cashbox_type], find_model.price, false)
+      sum_cash = params[:sum_cash].to_i
+      buy = find_model
+      buy.update(paid_out: buy.paid_out.to_i + sum_cash)
+      current_cashbox.calculation(params[:cashbox_type], sum_cash, false)
+      if buy.balance_of_pay <= 0
+        find_model.update(def_pay: true)
+      end
       redirect_to_index
     end
 
@@ -89,6 +94,12 @@ module Admin
         count = params[:count][i+=1].to_i
         @arr_hash << {title: title.gsub("  ", " "), count: count} if count > 0
       end
+    end
+
+    def paid_out
+      @model = find_model
+      html_form = render_to_string "/admin/buy/paid_out", :layout => false, :locals => {:current_company => current_company}
+      render text: @model.magazine_id == current_user.magazine_id ? html_form : "404"
     end
 
     private
