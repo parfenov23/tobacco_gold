@@ -39,7 +39,8 @@
   .listInfo
     / - binding.pry
     - current_company.providers.each do |provider|
-      - all_sum_buys = provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).sum(:price)
+      - all_sum_buys = 0
+      - provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).map{|buy| all_sum_buys += buy.balance_of_pay}
       .item
         i.user-tie.iconCashbox
         span.title #{provider.title}
