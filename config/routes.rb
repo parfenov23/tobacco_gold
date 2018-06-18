@@ -190,6 +190,7 @@ Rails.application.routes.draw do
       collection do
         get :search
         post :search_result
+        post :search_result_update
         post :form_search_result
         post :new_item_product
       end

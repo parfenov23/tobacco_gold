@@ -87,6 +87,14 @@ module Admin
       end 
     end
 
+    def search_result_update
+      find_title = BuySearch.where(title: params[:title], company_id: current_company.id).last
+      has_update = {product_item_id: params[:product_item_id], title: params[:title], company_id: current_company.id}
+      find_title.present? ? find_title.update(has_update) : BuySearch.create(has_update)
+      find_product_item_count = ProductItem.find(params[:product_item_id]).current_count(current_user.magazine)
+      render json: {count: find_product_item_count}
+    end
+
     def form_search_result
       @arr_hash = []
       i = -1
