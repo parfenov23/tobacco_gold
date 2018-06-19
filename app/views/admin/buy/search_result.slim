@@ -11,21 +11,19 @@ form action="/admin/buy/form_search_result" method="post" enctype="multipart/for
     tbody
       - product = Product.find(params[:product_id])
       - all_items = product.product_items.map{|pi| [pi.title, pi.id] }
-      - @find_arr.sort_by{|a| a[:result].to_i}.reverse.each do |arr|
+      - @find_arr.sort_by{|a| a[:count_pi].to_i}.each do |arr|
         - full_title = (product.title + " - " + arr[:title])
-        - find_buy_search = BuySearch.where(title: full_title, company_id: current_company.id).last
 
-        - product_item = find_buy_search.blank? ? ProductItem.where(id: arr[:result]).last : find_buy_search.product_item
+        - product_item = ProductItem.where(id: arr[:result]).last
         - product_title = product_item.present? ? product_item.product.title : "Не найдено"
-        - count_pi = product_item.present? ? product_item.current_count(current_user.magazine).to_i : nil
-        - curr_class = product_item.present? ? (count_pi > 0 ? "success" : "info") : "danger"
+        - curr_class = product_item.present? ? (arr[:count_pi] > 0 ? "success" : "info") : "danger"
         tr class=(curr_class + " currentItem")
           td = product_title
           td 
             = render "common_select", {arr_li: [["Не найдено", "0"]] + all_items, default: (product_item.id rescue "0"), name_input: "pi_search_select", add_class: "initSelectBuySearch noInit"}
           td.title data-title=full_title
             = arr[:min_title]
-          td.current_count = count_pi
+          td.current_count = arr[:count_pi]
           td
             input type="hidden" name="title[]" value=arr[:full_title] 
             input.form-control style="width: 45px;" name="count[]" value=0

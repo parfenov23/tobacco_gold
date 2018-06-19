@@ -75,15 +75,20 @@ module Admin
       key = "trnsl.1.1.20171111T163230Z.04bdb3d7a3cc5cc3.ba4f5477c9fa02e2c6c9febb79947b65de104637"
       @find_arr = []
       query_arr = params[:query].gsub("\r\n", ",").split(",").uniq
-      
+      product = Product.find(params[:product_id])
       query_arr.each do |query_title|
-        query = clear_query_search(query_title, Product.find(params[:product_id]).title)
+        query = clear_query_search(query_title, product.title)
         page = agent.post("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{key}&text=#{query}&lang=ru-en")
         title = JSON.parse(page.body)["text"].first
         title = query if params[:product_id].to_i == 2
         procent = params[:product_id].to_i == 2 ? 0.1 : 0.8
-        result = ProductItem.where(product_id: params[:product_id]).accurate_search_title(title, procent)
-        @find_arr += [ { full_title: query_title, title: title, min_title: query, result: (result.present? ? result.id : nil) } ]
+
+        full_title = (product.title + " - " + title)
+        find_buy_search = BuySearch.where(title: full_title, company_id: current_company.id).last
+        result = find_buy_search.blank? ?ProductItem.where(product_id: params[:product_id]).accurate_search_title(title, procent) : find_buy_search.product_item
+        count_pi = result.present? ? result.current_count(current_user.magazine).to_i : 0
+
+        @find_arr += [ { full_title: query_title, title: title, min_title: query, result: (result.present? ? result.id : nil) , count_pi: count_pi} ]
       end 
     end
 
