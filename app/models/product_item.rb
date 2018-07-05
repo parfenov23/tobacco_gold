@@ -47,6 +47,15 @@ class ProductItem < ActiveRecord::Base
     Magazine.all.map{|magaz| ProductItemCount.create({product_item_id: id, magazine_id: magaz.id, count: 0}) }
   end
 
+  def must_be_ordered(deff_count_stock, magazine)
+    p1 = sale_items.where(["created_at >= ?", (Time.now - 2.week).beginning_of_day]).
+          where(["created_at <= ?", (Time.now - 1.week).end_of_day]).sum(:count)
+    p2 = sale_items.where(["created_at >= ?", (Time.now - 1.week).beginning_of_day]).sum(:count)
+    current_count_stock = current_count(magazine)
+    change_sale = p2 - p1
+    to_order = (change_sale + deff_count_stock ) < deff_count_stock ? deff_count_stock : (change_sale + deff_count_stock ) - current_count_stock
+  end
+
   def self.accurate_search_title(query, procent=0.8)
     result = title_search(query).first
     if result.present?

@@ -26,5 +26,5 @@ form action="/admin/buy/form_search_result" method="post" enctype="multipart/for
           td.current_count = arr[:count_pi]
           td
             input type="hidden" name="title[]" value=arr[:full_title] 
-            input.form-control style="width: 45px;" name="count[]" value=0
+            input.form-control style="width: 45px;" name="count[]" value=product_item.must_be_ordered(2, current_magazine)
   button.btn.btn-primary type="submit" Сформировать

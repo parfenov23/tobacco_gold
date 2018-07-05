@@ -1,7 +1,7 @@
 form action="/admin/buy/search_result" method="post" enctype="multipart/form-data"
   .form-group
     select.form-control name="product_id"
-      - Product.all.each do |item|
+      - Product.where(company_id: current_company.id).all.each do |item|
         option value=item.id = item.title
   .form-group
     textarea rows="20" class="form-control" name="query" type="text"
