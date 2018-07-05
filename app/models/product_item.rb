@@ -48,9 +48,9 @@ class ProductItem < ActiveRecord::Base
   end
 
   def must_be_ordered(deff_count_stock, magazine)
-    p1 = pi.sale_items.where(["created_at >= ?", (Time.now - 2.week).beginning_of_day]).
+    p1 = sale_items.where(["created_at >= ?", (Time.now - 2.week).beginning_of_day]).
           where(["created_at <= ?", (Time.now - 1.week).end_of_day]).sum(:count)
-    p2 = pi.sale_items.where(["created_at >= ?", (Time.now - 1.week).beginning_of_day]).sum(:count)
+    p2 = sale_items.where(["created_at >= ?", (Time.now - 1.week).beginning_of_day]).sum(:count)
     current_count_stock = current_count(magazine)
     change_sale = p2 - p1
     to_order = (change_sale + deff_count_stock ) < deff_count_stock ? deff_count_stock : (change_sale + deff_count_stock ) - current_count_stock
