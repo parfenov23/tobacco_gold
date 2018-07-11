@@ -42,12 +42,13 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
       .moneyClacl
         .titlePrice 0.0
         / .titleDelivery сдача: 99999
-      = render "common_input", {title: "Получено наличными", add_class: "received_cash", label: false, add_class: "titleDelivery received_cash"}
+      = render "common_input", {title: "Получено наличными", add_class: "received_cash", label: false, add_class: "titleDelivery received_cash", clear_btn: true}
 
       .form-group.discountCashBack.material-form-group.no_label
         .userContact
           input.form-control.search_discount_card placeholder="Поиск клиента" required=true
           .deleteContactBtn ✖
+          .contactAdd.plusBtn ✖
           ul.findContact.block-material
 
         input type="hidden" name="cashback_bank" value="0"

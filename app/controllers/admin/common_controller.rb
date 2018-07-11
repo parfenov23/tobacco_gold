@@ -12,8 +12,8 @@ module Admin
     end
 
     def create
-      model.create(params_model)
-      params[:typeAction] == "json" ? render_json_success : redirect_to_index
+      create_model = model.create(params_model)
+      params[:typeAction] == "json" ? render_json_success(create_model) : redirect_to_index
     end
 
     def show
@@ -48,8 +48,8 @@ module Admin
       end
     end
 
-    def render_json_success
-      render json: {success: true}
+    def render_json_success(model=nil)
+      render json: {success: true, model: model.to_json}
     end
 
     def find_model

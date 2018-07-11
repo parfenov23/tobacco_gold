@@ -9,7 +9,8 @@
         - product_items.each do |item|
           li data-value=item.id data-barcode=item.barcode data-product=item.product_id data-price_id=item.price_id data-deff_price=curr_price
               = item.title
-      input.changeSelectContent.changeSelectProductItem type="hidden" name="sales[][item_id]" value=product_items.first.id
+      - if product_items.present?
+        input.changeSelectContent.changeSelectProductItem type="hidden" name="sales[][item_id]" value=product_items.first.id
 
     .mad-select.noInit.selectProductPrice
       ul

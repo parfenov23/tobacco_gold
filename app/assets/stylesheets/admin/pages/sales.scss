@@ -21,16 +21,46 @@
       }
     }
     .deleteContactBtn{
-      display: inline-block;
+      display: none;
+    }
+    .deleteContactBtn, .contactAdd{
       position: absolute;
       right: 0;
       top: 0;
       margin-right: 8px;
       margin-top: 8px;
       cursor: pointer;
-      display: none;
     }
   }
+}
+.searchProductItem{
+  display: none;
+  list-style-type: none;
+  padding-left: 0;
+  position: absolute;
+  background-color: white;
+  z-index: 9;
+  width: 100%;
+  padding: 8px 12px 8px 12px;
+  max-height: 140px;
+  overflow: auto;
+  li{
+    padding: 4px;
+    &:hover{
+      background-color: #ddd;
+      cursor: pointer;
+    }
+  }
+}
+
+.received_cash + .clearInput{
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 8px;
+  margin-top: 8px;
+  cursor: pointer;
 }
 
 .saveOrderRequest{

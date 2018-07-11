@@ -303,6 +303,9 @@ body {
     padding-top: 0px;
     margin-bottom: 8px;
   }
+  .form-control[disabled]{
+    background-color: initial;
+  }
   label{
     position: absolute;
     padding: 4px 4px 6px 4px;

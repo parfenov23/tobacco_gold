@@ -15,7 +15,11 @@ module Admin
 
         SendSms.sender([params_r[:phone]], "Логин: #{email}\nПароль: #{pass}\n#{request.base_url}") if Rails.env.production?
       end
-      redirect_to_index
+      params[:typeAction] == "json" ? render_json_success(contact) : redirect_to_index
+    end
+
+    def render_json_success(create_model)
+      render json: create_model.to_json
     end
 
     private

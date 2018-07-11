@@ -246,6 +246,7 @@ Rails.application.routes.draw do
     resources :order_requests
     resources :product_items do
       collection do
+        get :search
         get :get_search
       end
     end

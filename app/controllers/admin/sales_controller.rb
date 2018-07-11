@@ -99,7 +99,11 @@ module Admin
     end
 
     def load_content_product_items
-      @products = params[:id].present? ? Product.where(id: params[:id], company_id: current_company.id) : Product.where(id: (ProductItem.where(barcode: params[:barcode]).last.product_id rescue nil), company_id: current_company.id)
+
+      @products = Product.where(id: params[:id], company_id: current_company.id) if params[:id].present?
+      @products = Product.where(id: (ProductItem.where(barcode: params[:barcode]).last.product_id rescue nil), company_id: current_company.id) if params[:barcode].present?
+      @products = Product.where(id: ProductItem.find(params[:product_item_id]).product_id, company_id: current_company.id) if params[:product_item_id].present?
+
       html_form = render_to_string "/admin/sales/_select_product_items", :layout => false
       render text: html_form
     end

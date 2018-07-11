@@ -2,7 +2,7 @@ class ProductItem < ActiveRecord::Base
   require 'string/similarity'
   include PgSearch
   pg_search_scope :search,
-  :against => :title,
+  :against => [:title, :barcode],
   :using => {
     :tsearch => {:normalization => 2, :negation => true},
     :dmetaphone => {},
@@ -10,6 +10,7 @@ class ProductItem < ActiveRecord::Base
       :threshold => 0.2
     }
   }
+
 
   belongs_to :product
   has_many :buy_items, dependent: :destroy
@@ -25,7 +26,7 @@ class ProductItem < ActiveRecord::Base
   	products.find(
   		products.map{ |m| 
   			[m.id, m.sale_items.count] 
-        }.to_h.sort_by(&:last).reverse.first(count_first).to_h.keys)
+      }.to_h.sort_by(&:last).reverse.first(count_first).to_h.keys)
   end
 
   def self.first_url
@@ -49,7 +50,7 @@ class ProductItem < ActiveRecord::Base
 
   def must_be_ordered(deff_count_stock, magazine)
     p1 = sale_items.where(["created_at >= ?", (Time.now - 2.week).beginning_of_day]).
-          where(["created_at <= ?", (Time.now - 1.week).end_of_day]).sum(:count)
+    where(["created_at <= ?", (Time.now - 1.week).end_of_day]).sum(:count)
     p2 = sale_items.where(["created_at >= ?", (Time.now - 1.week).beginning_of_day]).sum(:count)
     current_count_stock = current_count(magazine)
     change_sale = p2 - p1
@@ -84,6 +85,16 @@ class ProductItem < ActiveRecord::Base
   #     hash["magazine_count"] = product_item_counts.map{|pic| {id: pic.magazine_id, count: pic.count}}
   #   end
   # end
+
+  def self.search_title_or_barcode(company_id, title)
+    ids_products = Product.where(company_id: company_id).ids
+    ids_search_items = ProductItem.where(product_id: ids).where("similarity(barcode, ?) > 0.1 OR similarity(title, ?) > 0.1", title, title).uniq.map(&:id)
+    ProductItem.where(id: ids_search_items)
+  end
+
+  def product_title
+    product.title
+  end
 
   def default_img
     image_url.present? ? image_url : (product.default_img rescue nil)
@@ -127,8 +138,8 @@ class ProductItem < ActiveRecord::Base
   def transfer_to_json
     as_json({
       except: [:created_at, :updated_at, :image_url],
-      methods: [:count, :magazine_count, :count_sales, :default_img, :default_price]
-      })
+      methods: [:count, :magazine_count, :count_sales, :default_img, :default_price, :product_title]
+    })
   end
 
   def self.transfer_to_json
