@@ -88,7 +88,7 @@ class ProductItem < ActiveRecord::Base
 
   def self.search_title_or_barcode(company_id, title)
     ids_products = Product.where(company_id: company_id).ids
-    ids_search_items = ProductItem.where(product_id: ids).where("similarity(barcode, ?) > 0.1 OR similarity(title, ?) > 0.1", title, title).uniq.map(&:id)
+    ids_search_items = ProductItem.where(product_id: ids_products).where("similarity(barcode, ?) > 0.1 OR similarity(title, ?) > 0.2", title, title).uniq.map(&:id)
     ProductItem.where(id: ids_search_items)
   end
 
