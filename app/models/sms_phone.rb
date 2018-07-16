@@ -38,7 +38,7 @@ class SmsPhone < ActiveRecord::Base
   end
 
   def self.match_body_sms(body)
-    regexp = Regexp.new(/(списание|покупка|зачисление|отправьте код)[+-]?([0-9]*[.])? [0-9]+(р| )/)
+    regexp = Regexp.new(/(списание|покупка|зачисление|отправьте код)[+-]?([0-9]*[.])? ([0-9]+|[0-9]+.[0-9]+)(р| )/)
     body.match(regexp)
   end
 
