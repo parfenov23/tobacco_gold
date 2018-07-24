@@ -15,7 +15,7 @@ module Api
     end
 
     def product_items
-      render json: Product.find(params[:id]).product_items.transfer_to_json
+      render json: Product.find(params[:id]).product_items.all_present(current_magazine).transfer_to_json
     end
   end
 end
