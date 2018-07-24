@@ -29,6 +29,10 @@ class ProductItem < ActiveRecord::Base
       }.to_h.sort_by(&:last).reverse.first(count_first).to_h.keys)
   end
 
+  def self.all_company(company)
+    where(product_id: company.products.ids)
+  end
+
   def self.first_url
     "product_items"
   end

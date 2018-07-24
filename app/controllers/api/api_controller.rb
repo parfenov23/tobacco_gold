@@ -10,13 +10,17 @@ module Api
       render json: current_company.as_json
     end
 
+    def all_magazines
+      render json: current_company.magazines.as_json
+    end
+
     private
 
     def auth
       auth_key = params[:api_key].to_s.gsub("?", "").gsub(/(task=send|task=sent|task=result)/, '')
       if auth_key.present?
-        @current_user = User.find_by_api_key(auth_key)
-        @current_magazine = @current_user.magazine if @current_user.present?
+        @current_user = User.first
+        @current_magazine = Magazine.find_by_api_key(auth_key)
       end
       render json: {auth: false, code: '401'} if @current_user.blank?
     end

@@ -208,6 +208,7 @@ Rails.application.routes.draw do
     resources :api do
       collection do
         get :company
+        get :all_magazines
       end
     end
     resources :auth do

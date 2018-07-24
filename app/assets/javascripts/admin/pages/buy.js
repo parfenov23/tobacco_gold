@@ -17,12 +17,14 @@ var allProductCalc = function(){
   var all_product = {}
   $(".allProductCalc .referencePaste").remove();
   $(".allItemsSale .parentItemSale").each(function(n, e){
-    var product = $(e).find(".inlineBlock .mad-select .selected:first").text();
+    var product_block = $(e).find(".inlineBlock .mad-select .selected:first");
+    var product_id = product_block.data("value");
+    var product = product_block.text();
     var count = parseInt($(e).find(".countItems").val());
     var price = parseInt($(e).find(".selectProductPrice").val());
     var curr_block = all_product[product];
     if (curr_block == undefined){
-      all_product[product] = {count: count, price: [price], sum: (count*price)}
+      all_product[product] = {id: product_id, count: count, price: [price], sum: (count*price)}
     }else{
       curr_block.count = curr_block.count + count;
       curr_block.price.push(price);
@@ -35,15 +37,28 @@ var allProductCalc = function(){
     referenceCopy.find(".product").text(key);
     referenceCopy.find(".count").text(curr_hb.count);
 
+
     var sum_price = curr_hb.price.reduce(function(previousValue, currentValue, index, array) {
       return previousValue + currentValue;
     });
     var text_price = sum_price/curr_hb.price.length;
-    referenceCopy.find(".price").text(text_price);
-    referenceCopy.find(".sum").text(curr_hb.sum);
+    referenceCopy.data("id", curr_hb.id);
+    referenceCopy.find(".price").text(text_price.toFixed(0));
+    referenceCopy.find(".sum").text(curr_hb.sum.toFixed(0));
     referenceCopy.show();
     referenceCopy.removeClass("referenceCopy").addClass("referencePaste");
     $(".allProductCalc tbody").append(referenceCopy);
+    var editable = $(".allProductCalc tbody .price:visible")[0];
+    editable.addEventListener('blur', function(e){ 
+      var curr_block = $(e.target)
+      var sum = parseInt(curr_block.text());
+      var product_id = curr_block.closest(".referencePaste").data("id");
+      $(".allItemsSale .col1 .changeSelectContent[value='"+ product_id +"']").each(function(n, e){
+        $(e).closest(".parentItemSale").find(".selectProductPrice").val(sum);
+        sumItemSale($(e).closest(".parentItemSale"));
+      });
+      allProductCalc();
+    }, false);
   }
 }
 

@@ -1,14 +1,15 @@
 module Api
   class ProductItemsController < ApiController
     def index
+      all_product_items = ProductItem.all_company(current_company)
       product_items = if params[:type] == "all"
-        ProductItem.all 
+        all_product_items
       elsif params[:type] == "present"
-        ProductItem.all_present(Magazine.ids)
+        all_product_items.all_present(current_magazine)
       elsif params[:type] == "top"
-        ProductItem.where(top: true)
+        all_product_items.all_present(current_magazine).where(top: true)
       elsif params[:type] == "where"
-        ProductItem.where(JSON.parse(params[:where]))
+        all_product_items.where(JSON.parse(params[:where]))
       end
       render json: product_items.transfer_to_json
     end
