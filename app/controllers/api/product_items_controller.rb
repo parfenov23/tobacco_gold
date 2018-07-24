@@ -7,7 +7,7 @@ module Api
       elsif params[:type] == "present"
         all_product_items.all_present(current_magazine)
       elsif params[:type] == "top"
-        all_product_items.all_present(current_magazine).where(top: true)
+        all_product_items.where(top: true)
       elsif params[:type] == "where"
         all_product_items.where(JSON.parse(params[:where]))
       end
