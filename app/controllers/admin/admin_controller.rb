@@ -62,6 +62,10 @@ module Admin
       redirect_to "/" if (current_user.blank? || !current_user.is_admin? && !current_user.is_manager?)
     end
 
+    def current_magazine
+      Magazine.find(magazine_id)
+    end
+
     def current_cashbox
       magazine_id.present? ? Cashbox.find_by_magazine_id(magazine_id) : nil
     end

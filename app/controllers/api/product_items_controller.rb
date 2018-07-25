@@ -9,7 +9,7 @@ module Api
       elsif params[:type] == "top"
         all_product_items.where(top: true)
       elsif params[:type] == "where"
-        all_product_items.where(JSON.parse(params[:where]))
+        all_product_items.all_present(current_magazine).where(JSON.parse(params[:where]))
       end
       render json: product_items.transfer_to_json
     end

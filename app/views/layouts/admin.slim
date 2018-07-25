@@ -65,5 +65,5 @@ html
       .close ×
     - if current_user.present?
       input#currentUserUrl type="hidden" value=current_user.api_url
-      input#currentUserApiKey type="hidden" value=current_user.get_api_key
+      input#currentUserApiKey type="hidden" value=current_magazine.api_key
       input#currentMagazineId type="hidden" value=current_user.magazine_id

@@ -2,6 +2,10 @@ module Admin
   class OrderRequestsController < CommonController
     require 'vk_message'
 
+    def index
+      @models = current_magazine.order_requests
+    end
+
     def update
       items = {}
       if params[:item_id].present? && params[:count].present?

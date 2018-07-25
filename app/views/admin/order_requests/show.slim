@@ -32,7 +32,7 @@
               td #{item.product.title} - #{item.title}
               td #{curr_price} руб
               td #{count} шт
-              td #{item.count} шт
+              td #{item.current_count(current_magazine)} шт
               td #{curr_price*count.to_i} руб
 
     - model_url = @model.class.first_url
