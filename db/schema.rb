@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180726134038) do
+ActiveRecord::Schema.define(version: 20180726134416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,13 +128,14 @@ ActiveRecord::Schema.define(version: 20180726134038) do
     t.string   "title"
     t.string   "address"
     t.string   "phone"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.text     "special_offer"
     t.string   "api_key"
     t.integer  "company_id"
     t.text     "vk_api_key_user"
     t.string   "vk_chat_id"
+    t.string   "vk_api_key_group"
   end
 
   create_table "manager_payments", force: :cascade do |t|
