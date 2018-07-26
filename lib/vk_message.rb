@@ -64,10 +64,10 @@ class VkMessage
         body_text = (get_params[:object][:body].mb_chars.downcase.to_s) rescue nil
         if body_text == "прайс"
           message = company.products.map{|product| "#{product.title}: #{product.current_price} рублей"}.join("\n")
-          run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.api_key})
+          run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.vk_api_key_group})
         elsif body_text == "акция"
           message = magazine.special_offer
-          run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.api_key})
+          run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.vk_api_key_group})
         end
         HistoryVk.create(params_type: get_params.to_s)
       end
