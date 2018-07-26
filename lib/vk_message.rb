@@ -58,8 +58,7 @@ class VkMessage
     if get_params[:object].present?
       get_params[:object].delete(:date)
       get_params = {type: get_params[:type], object: get_params[:object], api_key: get_params[:api_key]}
-      user = User.find_by_api_key(get_params[:api_key])
-      magazine = user.magazine
+      magazine = Magazine.find_by_api_key(get_params[:api_key])
       company = magazine.company
       unless HistoryVk.where(params_type: get_params.to_s).present?
         body_text = (get_params[:object][:body].mb_chars.downcase.to_s) rescue nil
