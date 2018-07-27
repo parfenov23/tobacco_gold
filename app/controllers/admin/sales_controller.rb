@@ -35,20 +35,21 @@ module Admin
       result = 0
       hash_order = {}
       sales_arr.each do |sale_param|
-        begin
+        # begin
           count = sale_param[:count].to_i
           item = ProductItem.find(sale_param[:item_id])
           price = ProductPrice.find(sale_param[:price_id])
           result += price.price*count
-          hash_order["#{item.id}"] = {count: hash_order["#{item.id}"].to_i + count, price_id: sale_param[:price_id].to_i}
+          curr_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i + count : count
+          hash_order["#{item.id}"] = {count: curr_count, price_id: sale_param[:price_id].to_i}
 
           current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
           curr_count = current_item_count.count
           current_item_count.update(count: (curr_count - count) )
           item.update({count: (item.count - count)})
           SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id, curr_count: curr_count})
-        rescue 
-        end
+        # rescue 
+        # end
       end
       contact = sale.contact
       sale_profit = sale.find_profit
