@@ -2,6 +2,7 @@ require 'vk_message'
 class OrderRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :contact
+  belongs_to :magazine
   # serialize :basket, ActiveRecord::Coders::NestedHstore
 
   def title

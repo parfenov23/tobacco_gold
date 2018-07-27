@@ -52,6 +52,7 @@
               input type="hidden" name="order_requests[status]" value="paid"
               input type="hidden" name="_method" value="put"
               button.btn.btn-success-material type="submit" Оплачено
+          a.btn.btn-info-material href="/order_invoice/#{@model.id}.pdf?key=#{@model.created_at.to_i}" Накладная
 
         
 

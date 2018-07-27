@@ -35,21 +35,18 @@ module Admin
       result = 0
       hash_order = {}
       sales_arr.each do |sale_param|
-        # begin
-          count = sale_param[:count].to_i
-          item = ProductItem.find(sale_param[:item_id])
-          price = ProductPrice.find(sale_param[:price_id])
-          result += price.price*count
-          curr_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i + count : count
-          hash_order["#{item.id}"] = {count: curr_count, price_id: sale_param[:price_id].to_i}
+        count = sale_param[:count].to_i
+        item = ProductItem.find(sale_param[:item_id])
+        price = ProductPrice.find(sale_param[:price_id])
+        result += price.price*count
+        curr_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i + count : count
+        hash_order["#{item.id}"] = {count: curr_count, price_id: sale_param[:price_id].to_i}
 
-          current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
-          curr_count = current_item_count.count
-          current_item_count.update(count: (curr_count - count) )
-          item.update({count: (item.count - count)})
-          SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id, curr_count: curr_count})
-        # rescue 
-        # end
+        current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
+        curr_count = current_item_count.count
+        current_item_count.update(count: (curr_count - count) )
+        item.update({count: (item.count - count)})
+        SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id, curr_count: curr_count})
       end
       contact = sale.contact
       sale_profit = sale.find_profit
@@ -94,61 +91,61 @@ module Admin
       if params[:order_request].present?
         order_request = current_company.order_requests.where(id: params[:order_request]).last
       else
-         order_request = OrderRequest.new(company_id: current_company.id, user_id: current_user.id, contact_id: params[:contact_id], status: "waiting")
-      end
+       order_request = OrderRequest.new(company_id: current_company.id, user_id: current_user.id, contact_id: params[:contact_id], status: "waiting")
+     end
 
-      order_request.items = hash_order
-      order_request.save
-      render json: {id: order_request.id}
-    end
+     order_request.items = hash_order
+     order_request.save
+     render json: {id: order_request.id}
+   end
 
-    def load_content_product_items
+   def load_content_product_items
 
-      @products = Product.where(id: params[:id], company_id: current_company.id) if params[:id].present?
-      @products = Product.where(id: (ProductItem.where(barcode: params[:barcode]).last.product_id rescue nil), company_id: current_company.id) if params[:barcode].present?
-      @products = Product.where(id: ProductItem.find(params[:product_item_id]).product_id, company_id: current_company.id) if params[:product_item_id].present?
+    @products = Product.where(id: params[:id], company_id: current_company.id) if params[:id].present?
+    @products = Product.where(id: (ProductItem.where(barcode: params[:barcode]).last.product_id rescue nil), company_id: current_company.id) if params[:barcode].present?
+    @products = Product.where(id: ProductItem.find(params[:product_item_id]).product_id, company_id: current_company.id) if params[:product_item_id].present?
 
-      html_form = render_to_string "/admin/sales/_select_product_items", :layout => false
-      render text: html_form
-    end
-
-    def edit
-      @sale = find_model
-    end
-
-    def update
-      find_model.update(params_model)
-      redirect_to_index
-    end
-
-    def remove
-      find_model.destroy
-      redirect_to_index
-    end
-
-    def search_contact
-      all_contacts = current_company.contacts
-      find_contact = all_contacts.where( params[:barcode].present? ? {barcode: params[:barcode]} : {id: params[:id]}).last
-      render json: (find_contact.present? ? find_contact.transfer_to_json : nil)
-    end
-
-    private
-
-    def find_model
-      model.find(params[:id])
-    end
-
-    def redirect_to_index
-      redirect_to '/admin/sales'
-    end
-
-    def params_model
-      params.require(:sale).permit(:title).compact rescue {}
-    end
-
-    def model
-      Sale
-    end
-
+    html_form = render_to_string "/admin/sales/_select_product_items", :layout => false
+    render text: html_form
   end
+
+  def edit
+    @sale = find_model
+  end
+
+  def update
+    find_model.update(params_model)
+    redirect_to_index
+  end
+
+  def remove
+    find_model.destroy
+    redirect_to_index
+  end
+
+  def search_contact
+    all_contacts = current_company.contacts
+    find_contact = all_contacts.where( params[:barcode].present? ? {barcode: params[:barcode]} : {id: params[:id]}).last
+    render json: (find_contact.present? ? find_contact.transfer_to_json : nil)
+  end
+
+  private
+
+  def find_model
+    model.find(params[:id])
+  end
+
+  def redirect_to_index
+    redirect_to '/admin/sales'
+  end
+
+  def params_model
+    params.require(:sale).permit(:title).compact rescue {}
+  end
+
+  def model
+    Sale
+  end
+
+end
 end

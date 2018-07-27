@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get '/admin', to: redirect('/admin/admin')
+  get 'order_invoice/:id' => "home#order_invoice"
   
   resources :session do
     collection do
