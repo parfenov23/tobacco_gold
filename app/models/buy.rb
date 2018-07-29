@@ -10,7 +10,7 @@ class Buy < ActiveRecord::Base
   end
 
   def notify_buy(cashbox=magazine.cashbox)
-    message = "Закуп: #{self.price.to_i} рублей\nКасса: #{cashbox.curr_cash} рублей"
+    message = "Закуп: #{self.price.to_i} рублей\n ===== Касса =====\nНаличные: #{cashbox.cash} рублей\nVisa: #{cashbox.visa}"
     VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if Rails.env.production?
   end
 

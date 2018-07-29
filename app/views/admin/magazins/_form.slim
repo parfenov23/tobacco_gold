@@ -3,7 +3,7 @@
 form.form-horizontal action="#{action_url}" method="post"
   = render "common_input", {title: "Получено наличными", name: "magazins[title]", value: @model.title}
   = render "common_input", {title: "Адрес", name: "magazins[address]", value: @model.address}
-  = render "common_input", {title: "Телефон", name: "magazins[address]", value: @model.phone}
+  = render "common_input", {title: "Телефон", name: "magazins[phone]", value: @model.phone}
 
   .form-group.material-form-group
     textarea.form-control name="magazins[special_offer]" type="text" required=true
