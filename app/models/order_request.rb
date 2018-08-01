@@ -36,6 +36,8 @@ class OrderRequest < ActiveRecord::Base
       price_id = product.product_prices.where(price: price).last.id
       SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: item_hash[:count].to_i, product_price_id: price_id, curr_count: curr_count})
     end
+    purse = contact.purse + (result.to_f/100*contact.current_cashback).round
+    contact.update(purse: purse)
     sale.update(price: result, profit: sale.find_profit, magazine_id: curr_user.magazine_id)
     sale.notify_buy
   end

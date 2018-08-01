@@ -54,7 +54,7 @@ module Admin
       if contact.present?
         purse = contact.purse
         if params[:cashback_type] == "stash"
-          purse = contact.purse + (result.to_f/100*contact.cashback).round 
+          purse = contact.purse + (result.to_f/100*contact.current_cashback).round 
         elsif params[:cashback_type] == "dickount"
           sale_profit = sale_profit >= purse ? (sale_profit - purse) : 0
           if result >= purse

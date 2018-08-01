@@ -38,6 +38,13 @@ class Contact < ActiveRecord::Base
     user.present? ? user.email : nil
   end
 
+  def current_cashback
+    curr_time = Time.now - 1.month
+    all_sum_price = sales.where(["created_at > ? AND created_at < ?", curr_time.beginning_of_month, curr_time.end_of_month]).sum(:price)
+    curr_proc = cashback + (all_sum_price/1500).floor
+    curr_proc
+  end
+
   def current_price_item(item)
     if item.default_price.blank?
       contact_price = find_contact_price(item)
