@@ -59,6 +59,10 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
         / select.form-control  name="cashback_type" style="display: none;"
         /   option value='stash' Накопить
         /   option value='dickount' Скидка
+      .form-group.saleDiscount.material-form-group.no_label
+        input.form-control.sale_discount placeholder="Скидка" name="sale_discount" required=true
+        - arr_type = [["Руб.", "rub"], ["Проц.", "proc"]]
+        = render "common_select", {arr_li: arr_type, default: arr_type.first.last, name_input: "sale_disckount_select"}
       = render "admin/admin/common_cashbox"
       .actionBtnSale
         .btn.btn-primary-material.priceItemSale Подсчет

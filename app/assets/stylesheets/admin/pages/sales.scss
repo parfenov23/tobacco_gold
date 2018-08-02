@@ -33,6 +33,13 @@
     }
   }
 }
+.saleDiscount{
+  display: flex;
+  justify-content: space-between;
+  .sale_discount{
+    height: 41px;
+  }
+}
 .searchProductItem{
   display: none;
   list-style-type: none;

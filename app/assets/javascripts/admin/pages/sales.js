@@ -126,11 +126,23 @@ var priceItemSale = function(){
   var discountBlock = $(".discountCashBack");
   var cashback_type = discountBlock.find("[name='cashback_type']").val();
   var cashback_bank = parseInt(discountBlock.find("[name='cashback_bank']").val());
+  var sale_discount = $(".saleDiscount .sale_discount");
+  var sale_discount_val = parseInt(sale_discount.val());
   if (cashback_type == "dickount"){
     if (result >= cashback_bank){
       result -= cashback_bank
     }else{
       result = 0
+    }
+  }
+
+  if(sale_discount_val > 0){
+    var type_sale_disc = sale_discount.closest(".saleDiscount").find("input[name='sale_disckount_select']").val();
+    if (type_sale_disc == "rub"){
+      result -= sale_discount_val;
+    }
+    if (type_sale_disc == "proc"){
+      result -= (result/100*sale_discount_val);
     }
   }
   $(".titlePrice").text(result);
@@ -251,15 +263,17 @@ $(document).ready(function(){
 
     $(document).keypress(function( event ) { 
       if((event.which == 104 || event.which == 1088) && $(".allOtherPopup .conteinerPopup:hidden").length){
-        event.preventDefault();
-        openAllOtherPopup("Поиск позиции", function(){
-          var content_popup = $(".allOtherPopup .conteinerPopup");
-          content_popup.html("<div class='form-group material-form-group'>" +
-            "<input class='form-control search_product_item' type='text'>"+
-            "<label>Название или barcode</label><ul class='searchProductItem block-material'></ul></div>");
-          content_popup.find(".search_product_item").focus();
-          content_popup.find(".search_product_item").val('');
-        });
+        if (!$(event.target).closest(".userContact").length){
+          event.preventDefault();
+          openAllOtherPopup("Поиск позиции", function(){
+            var content_popup = $(".allOtherPopup .conteinerPopup");
+            content_popup.html("<div class='form-group material-form-group'>" +
+              "<input class='form-control search_product_item' type='text'>"+
+              "<label>Название или barcode</label><ul class='searchProductItem block-material'></ul></div>");
+            content_popup.find(".search_product_item").focus();
+            content_popup.find(".search_product_item").val('');
+          });
+        }
       }
     })
 
