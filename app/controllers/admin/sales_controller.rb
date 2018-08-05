@@ -99,7 +99,7 @@ module Admin
       if params[:order_request].present?
         order_request = current_company.order_requests.where(id: params[:order_request]).last
       else
-       order_request = OrderRequest.new(company_id: current_company.id, user_id: current_user.id, contact_id: params[:contact_id], status: "waiting")
+       order_request = OrderRequest.new(company_id: current_company.id, user_id: current_user.id, contact_id: params[:contact_id], status: "waiting", magazine_id: magazine_id)
      end
 
      order_request.items = hash_order
