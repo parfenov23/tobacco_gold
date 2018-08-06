@@ -48,17 +48,18 @@ var allProductCalc = function(){
     referenceCopy.show();
     referenceCopy.removeClass("referenceCopy").addClass("referencePaste");
     $(".allProductCalc tbody").append(referenceCopy);
-    var editable = $(".allProductCalc tbody .price:visible")[0];
-    editable.addEventListener('blur', function(e){ 
-      var curr_block = $(e.target)
-      var sum = parseInt(curr_block.text());
-      var product_id = curr_block.closest(".referencePaste").data("id");
-      $(".allItemsSale .col1 .changeSelectContent[value='"+ product_id +"']").each(function(n, e){
-        $(e).closest(".parentItemSale").find(".selectProductPrice").val(sum);
-        sumItemSale($(e).closest(".parentItemSale"));
-      });
-      allProductCalc();
-    }, false);
+    $(".allProductCalc tbody .price:visible").each(function(n, editable){
+      editable.addEventListener('blur', function(e){ 
+        var curr_block = $(e.target)
+        var sum = parseInt(curr_block.text());
+        var product_id = curr_block.closest(".referencePaste").data("id");
+        $(".allItemsSale .col1 .changeSelectContent[value='"+ product_id +"']").each(function(n, e){
+          $(e).closest(".parentItemSale").find(".selectProductPrice").val(sum);
+          sumItemSale($(e).closest(".parentItemSale"));
+        });
+        allProductCalc();
+      }, false);
+    })
   }
 }
 
@@ -86,13 +87,13 @@ var initSelectBuySearch = function(block){
     url : '/admin/buy/search_result_update',
     data: {product_item_id: product_item_id, title: title}
   }).success(function (data) {
-      parent_block.removeClass("info").removeClass("success").removeClass("danger");
-      if (data.count > 0) { 
-        parent_block.addClass("success"); 
-      }else{
-        parent_block.addClass("info"); 
-      } 
-      parent_block.find(".current_count").text(data.count);
+    parent_block.removeClass("info").removeClass("success").removeClass("danger");
+    if (data.count > 0) { 
+      parent_block.addClass("success"); 
+    }else{
+      parent_block.addClass("info"); 
+    } 
+    parent_block.find(".current_count").text(data.count);
   }).error(function (data) {});
 }
 
