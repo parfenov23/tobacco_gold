@@ -1,8 +1,15 @@
 form action="/admin/buy/search_result" method="post" enctype="multipart/form-data"
-  .form-group
-    select.form-control name="product_id"
-      - Product.where(company_id: current_company.id).all.each do |item|
-        option value=item.id = item.title
+  .form-group.material-form-group.active
+      label Поставщик
+      - all_providers = current_company.providers.map{|provider| [provider.title, provider.id]}
+
+      = render "common_select", {arr_li: all_providers, default: all_providers.first.last, name_input: "provider_id", add_class: "defaultInitMdSelect"}
+  .form-group.material-form-group.active
+      label Позиция
+      - all_providers = Product.where(company_id: current_company.id).all.map{|product| [product.title, product.id]}
+
+      = render "common_select", {arr_li: all_providers, default: all_providers.first.last, name_input: "product_id", add_class: "defaultInitMdSelect"}
+
   .form-group
     textarea rows="20" class="form-control" name="query" type="text"
   .form-group

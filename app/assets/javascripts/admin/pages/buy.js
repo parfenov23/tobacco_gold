@@ -103,6 +103,13 @@ $(document).ready(function(){
       addItemWhenBarcodeScan(barcode);
     });
 
+    $(document).keypress(function( event ) {  
+      if (event.which == 103 || event.which == 1087) {
+        var product_item_id = parseInt($(".parentItemSale:last .selectProductItem .changeSelectContent").val());
+        if (product_item_id > 0) autoAddItem('product_item_id', product_item_id);
+      }
+    })
+
     $(document).on('click', '.addItemSale', addBlankBlockItem);
 
     $(document).on('change', '.changeSelectContent', function () {

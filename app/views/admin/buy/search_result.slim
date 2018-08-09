@@ -28,4 +28,6 @@ form action="/admin/buy/form_search_result" method="post" enctype="multipart/for
             input type="hidden" name="title[]" value=arr[:full_title] 
             - count = product_item.present? ? product_item.must_be_ordered(2, current_magazine) : 0
             input.form-control style="width: 45px;" name="count[]" value=count
+  input type="hidden" name="provider_id" value=params[:provider_id]
+  input type="hidden" name="product_id" value=params[:product_id]
   button.btn.btn-primary type="submit" Сформировать

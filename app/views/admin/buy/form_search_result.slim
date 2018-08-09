@@ -6,7 +6,11 @@ table.table
       th Количество
   tbody
     - p @arr_hash
+    - all_count = 0
     - @arr_hash.sort_by{|a| a[:title]}.each do |item|
       tr
         td = item[:title]
+        - all_count += item[:count]
         td = item[:count]
+- curr_sum = Provider.find(4).provider_items.where(product_id: 21).last.price rescue 0
+h4 Итого: #{all_count} позиций | Цена: #{curr_sum} рублей | Cумма: #{curr_sum * all_count} рублей

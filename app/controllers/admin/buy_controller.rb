@@ -14,11 +14,13 @@ module Admin
       sales_arr = params[:buy]
       buy = Buy.create
       result = 0
+      hash_update_price = {}
       sales_arr.each do |sale_param|
         count = sale_param[:count].to_i
         item = ProductItem.find(sale_param[:item_id])
         price = sale_param[:price_id].to_i
         result += price*count
+        hash_update_price[item.product_id.to_s] = price if hash_update_price[item.product_id.to_s].to_i < price
         current_item_count = item.product_item_counts.where(magazine_id: magazine_id).last
         curr_count = current_item_count.count
         current_item_count.update(count: (curr_count + count) )
@@ -28,6 +30,15 @@ module Admin
       end
       buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:buy_param][:provider_id], magazine_id: magazine_id)
       current_cashbox.calculation('cash', result, false) if params[:buy_param][:def_pay] == "1"
+      hash_update_price.each do |k, v| 
+        provider = Provider.find(params[:buy_param][:provider_id])
+        curr_item = provider.provider_items.where(product_id: k).last
+        if curr_item.present?
+          curr_item.update(price: v) if curr_item.price != v
+        else
+          provider.provider_items.create(price: v, product_id: k)
+        end
+      end
       buy.notify_buy
       redirect_to_index
     end
@@ -74,7 +85,7 @@ module Admin
       agent = Mechanize.new
       key = "trnsl.1.1.20171111T163230Z.04bdb3d7a3cc5cc3.ba4f5477c9fa02e2c6c9febb79947b65de104637"
       @find_arr = []
-      query_arr = params[:query].gsub("\r\n", ",").split(",").uniq
+      query_arr = params[:query].split("\r\n").uniq
       product = Product.find(params[:product_id])
       query_arr.each do |query_title|
         query = clear_query_search(query_title, product.title)
@@ -85,7 +96,7 @@ module Admin
 
         full_title = (product.title + " - " + title)
         find_buy_search = BuySearch.where(title: full_title, company_id: current_company.id).last
-        result = find_buy_search.blank? ?ProductItem.where(product_id: params[:product_id]).accurate_search_title(title, procent) : find_buy_search.product_item
+        result = find_buy_search.blank? ? ProductItem.where(product_id: params[:product_id]).accurate_search_title(title, procent) : find_buy_search.product_item
         count_pi = result.present? ? result.current_count(current_user.magazine).to_i : 0
 
         @find_arr += [ { full_title: query_title, title: title, min_title: query, result: (result.present? ? result.id : nil) , count_pi: count_pi} ]
@@ -130,20 +141,8 @@ module Admin
     end
 
     def clear_query_search(query, product)
-      case product
-      when "Adalya"
-        query.gsub("\"Адалья\"", "Адалья").gsub(/Табак [а-я].+? (Адалья|Адалия) /, "").gsub("Табак Adalya (50гр) ", "")
-      when "Serbetli"
-        query.gsub("\"Щербетли\"", "Щербетли").gsub(/Табак [а-я].+? (Щербетли|Щербет) /, "").gsub("Табак Serbetli (50гр) ", "")
-      when "Smyrna"
-        query.gsub("\"Смирна\"", "Смирна").gsub(/Табак [а-я].+? (Смирна|Смирна) /, "").gsub("Табак SMYRNA (50гр) ", "")
-      when "Afzal"
-        query.gsub("\"Афзал\"", "Афзал").gsub(/Табак [а-я].+? (Афзал|Афзал) /, "").gsub("Табак Афзал (50 гр) ", "")
-      when "AL Fakher" 
-        query.gsub("\"Аль Факер\"", "Аль Факер").gsub(/Табак [а-я].+? (Аль Факер|Аль Факер) /, "").gsub("Табак Al Fakher (50гр) ", "")
-      when "Fasil" 
-        query.gsub("\"Fasil\"", "Fasil").gsub(/Табак [а-я].+? (Fasil|Fasil) /, "").gsub("Табак Fasil (50гр) ", "")
-      end
+      reg = Regexp.new(/Табак ([а-яА-Я].+?|[a-zA-Z].+?) (\(50гр\)|\(50 гр\)|\"[а-яА-Я].+?\")/)
+      query.gsub(reg, "").gsub("-", "")
     end
 
   end
