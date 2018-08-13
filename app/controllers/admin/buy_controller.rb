@@ -141,8 +141,8 @@ module Admin
     end
 
     def clear_query_search(query, product)
-      reg = Regexp.new(/Табак ([а-яА-Я].+?|[a-zA-Z].+?) (\(50гр\)|\(50 гр\)|\"[а-яА-Я].+?\")/)
-      query.gsub(reg, "").gsub("-", "")
+      reg = Regexp.new(/Табак ([а-яА-Я].+?|[a-zA-Z].+?) (\(50гр\)|\(50 гр\)|\"([а-яА-Я].+?|[a-zA-Z].+?)\")/)
+      query.gsub(reg, "").gsub("-", " ").gsub("  ", "")
     end
 
   end
