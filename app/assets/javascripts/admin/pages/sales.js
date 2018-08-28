@@ -252,7 +252,7 @@ var changeSelectProductItem = function(select){
 }
 
 $(document).ready(function(){
-  if($("form[action='/admin/sales']").length){
+  if($("form[action^='/admin/sales']").length){
     scanBarCode(function(barcode){
       if ($(".search_discount_card").is(':focus')){
         search_contact(barcode);

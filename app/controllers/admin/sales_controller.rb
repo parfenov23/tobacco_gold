@@ -11,6 +11,11 @@ module Admin
       @products = current_company.products.all_present(magazine_id)
     end
 
+    def edit
+      @sale = find_model
+      @products = current_company.products.all_present(magazine_id)
+    end
+
     def info
       @sale = find_model
     end
@@ -30,60 +35,8 @@ module Admin
     end
 
     def create
-      sales_arr = params[:sales]
       sale = Sale.create(user_id: current_user.id, contact_id: params[:contact_id])
-      result = 0
-      hash_order = {}
-      sales_arr.each do |sale_param|
-        count = sale_param[:count].to_i
-        item = ProductItem.find(sale_param[:item_id])
-        price = ProductPrice.find(sale_param[:price_id])
-        result += price.price*count
-        curr_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i + count : count
-        hash_order["#{item.id}"] = {count: curr_count, price_id: sale_param[:price_id].to_i}
-
-        current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
-        curr_count = current_item_count.count
-        current_item_count.update(count: (curr_count - count) )
-        item.update({count: (item.count - count)})
-        SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id, curr_count: curr_count})
-      end
-      contact = sale.contact
-      sale_profit = sale.find_profit
-
-      if contact.present?
-        purse = contact.purse
-        if params[:cashback_type] == "stash"
-          purse = contact.purse + (result.to_f/100*contact.current_cashback).round 
-        elsif params[:cashback_type] == "dickount"
-          sale_profit -= purse
-          if result >= purse
-            result -= purse
-            purse = 0
-          else
-            purse -= result
-            result = 0
-          end
-        end
-        contact.update(purse: purse)
-      end
-      sale_discount = params[:sale_discount].to_i
-      if sale_discount > 0
-        if params[:sale_disckount_select] == "proc"
-          sale_discount = result/100*sale_discount
-        end
-        sale_profit -= sale_discount
-        result -= sale_discount
-      end
-
-      if params[:order_request].present?
-        order = current_company.order_requests.where(id: params[:order_request]).last
-        order.update(status: "paid", items: hash_order) if order.present?
-      end
-
-      sale.update(price: result, profit: sale_profit, visa: (params[:cashbox_type] == "visa"), magazine_id: params[:magazine_id])
-      current_cashbox.calculation(params[:cashbox_type], result, true)
-      current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
+      create_or_update(sale)
       sale.notify_buy
       redirect_to_index
     end
@@ -117,16 +70,16 @@ module Admin
     render text: html_form
   end
 
-  def edit
-    @sale = find_model
-  end
-
   def update
-    find_model.update(params_model)
+    find_model.close
+    find_model.sale_items.destroy_all
+    find_model.update(contact_id: params[:contact_id])
+    create_or_update(find_model, "update")
     redirect_to_index
   end
 
   def remove
+    find_model.close
     find_model.destroy
     redirect_to_index
   end
@@ -138,6 +91,63 @@ module Admin
   end
 
   private
+
+  def create_or_update(sale, type_sale="create")
+    sales_arr = params[:sales]
+    result = 0
+    hash_order = {}
+    sales_arr.each do |sale_param|
+      count = sale_param[:count].to_i
+      item = ProductItem.find(sale_param[:item_id])
+      price = ProductPrice.find(sale_param[:price_id])
+      result += price.price*count
+      curr_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i + count : count
+      hash_order["#{item.id}"] = {count: curr_count, price_id: sale_param[:price_id].to_i}
+
+      current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
+      curr_count = current_item_count.count
+      current_item_count.update(count: (curr_count - count) )
+      item.update({count: (item.count - count)})
+      SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id, curr_count: curr_count})
+    end
+    contact = sale.contact
+    sale_profit = sale.find_profit
+
+    if contact.present? && type_sale == "create"
+      purse = contact.purse
+      if params[:cashback_type] == "stash"
+        purse = contact.purse + (result.to_f/100*contact.current_cashback).round 
+      elsif params[:cashback_type] == "dickount"
+        sale_profit -= purse
+        if result >= purse
+          result -= purse
+          purse = 0
+        else
+          purse -= result
+          result = 0
+        end
+      end
+      contact.update(purse: purse)
+    end
+
+    sale_discount = params[:sale_discount].to_i
+    if sale_discount > 0
+      if params[:sale_disckount_select] == "proc"
+        sale_discount = result/100*sale_discount
+      end
+      sale_profit -= sale_discount
+      result -= sale_discount
+    end
+
+    if params[:order_request].present?
+      order = current_company.order_requests.where(id: params[:order_request]).last
+      order.update(status: "paid", items: hash_order) if order.present?
+    end
+
+    sale.update(price: result, profit: sale_profit, visa: (params[:cashbox_type] == "visa"), magazine_id: params[:magazine_id])
+    current_cashbox.calculation(params[:cashbox_type], result, true)
+    current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
+  end
 
   def find_model
     model.find(params[:id])

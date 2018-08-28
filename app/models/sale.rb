@@ -29,6 +29,14 @@ class Sale < ActiveRecord::Base
     sum(:price) + OtherBuy.it_sum - OtherBuy.took_sum - Buy.all_sum - ManagerPayment.where(payment: true).sum(:price)
   end
 
+  def close
+    magazine.cashbox.calculation(visa ? "visa" : "cash" , price, false)
+    sale_items.each do |sale_item|
+      current_count = sale_item.product_item.product_item_counts.where(magazine_id: magazine_id).last
+      current_count.update(count: current_count.count + sale_item.count)
+    end
+  end
+
   def self.current_day
     where(["created_at > ? ", Time.current.beginning_of_day]).where(["created_at < ? ", Time.current.end_of_day])
   end

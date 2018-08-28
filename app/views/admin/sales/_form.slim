@@ -35,9 +35,11 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
 
         .allItemsSale
           = render "order_request"
+          = render "edit_sale"
       .btn.btn-primary-material.addItemSale Добавить позицию
       input.idOrderRequest type="hidden" name="order_request" value=params[:order_request]
-      .btn.btn-success-material.saveOrderRequest Сохранить заявку
+      - if from_model_present
+        .btn.btn-success-material.saveOrderRequest Сохранить заявку
     .list-group-item.col-md-3.block-material
       .moneyClacl
         .titlePrice 0.0
