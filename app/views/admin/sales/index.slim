@@ -13,7 +13,13 @@
           = text
       i.iconCashbox class=(sale.visa ? "icon-credit-card" : "icon-coin-dollar")
       - if current_user.is_admin?
-        = render "admin/admin/common_btn", {url: "/admin/sales/#{sale.id}"}
-        / a.btn.btn-danger-material.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
-        /   | &#10006;
+        - if !sale.in_stock
+          a.btn.btn-success-material.btn-margin-left href="/admin/sales/#{sale.id}/close"
+            i.icon-cart.iconCashbox.close_sale
+        - else
+          a.btn.btn-info-material.btn-margin-left  href="/admin/sales/#{sale.id}/edit" style="margin-right: 5px;"
+            | &#9998;
+
+        a.btn.btn-danger-material.pull-right href="/admin/sales/#{sale.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
+          | &#10006;
 = render "common_blank_page", {title_deff: "", text_deff: "Что бы добавить первую продажу, нажми кнопку 'ДОБАВИТЬ ПРОДАЖУ'"} if @sales.blank?

@@ -34,6 +34,11 @@ module Admin
       end
     end
 
+    def close
+      find_model.close if !find_model.in_stock
+      redirect_to "/admin/sales/#{find_model.id}/edit"
+    end
+
     def create
       sale = Sale.create(user_id: current_user.id, contact_id: params[:contact_id])
       create_or_update(sale)

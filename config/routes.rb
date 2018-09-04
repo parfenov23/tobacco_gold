@@ -173,6 +173,7 @@ Rails.application.routes.draw do
       member do
         get :remove
         get :info
+        get :close
       end
       collection do
         post :search_contact

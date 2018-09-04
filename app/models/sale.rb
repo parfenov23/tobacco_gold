@@ -35,6 +35,7 @@ class Sale < ActiveRecord::Base
       current_count = sale_item.product_item.product_item_counts.where(magazine_id: magazine_id).last
       current_count.update(count: current_count.count + sale_item.count)
     end
+    update(in_stock: true)
   end
 
   def self.current_day
