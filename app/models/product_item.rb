@@ -49,7 +49,7 @@ class ProductItem < ActiveRecord::Base
   end
 
   def default_create_product_item_count
-    Magazine.all.map{|magaz| ProductItemCount.create({product_item_id: id, magazine_id: magaz.id, count: 0}) }
+    product.company.magazines.map{|magaz| ProductItemCount.create({product_item_id: id, magazine_id: magaz.id, count: 0}) }
   end
 
   def must_be_ordered(deff_count_stock, magazine)

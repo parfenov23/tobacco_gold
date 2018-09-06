@@ -4,7 +4,7 @@ module Admin
     before_action :redirect_to_stock
     def index
       @products = current_company.products
-      @products = @products.select { |product| product.product_items.where(count: 0).present? } if params[:type] == "not_available"
+      @products = @products.select { |product| product.product_items.joins(:product_item_counts).where("product_item_counts.count" => 0).uniq.present? } if params[:type] == "not_available"
     end
 
     def info

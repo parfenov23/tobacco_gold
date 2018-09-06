@@ -35,8 +35,9 @@
         tr
           td Заработано
           td #{@manager_balance} руб.
-    - hash_shift = current_user.manager_shifts.current_day.present? ? {title: "Закрытие смены", type: "close", btn: "Закрыть смену"} : {title: "Открытие смены", type: "open", btn: "Открыть смену"}
-    a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title=hash_shift[:title] href="/admin/admin/shift_manager?type=#{hash_shift[:type]}" = hash_shift[:btn]
+    - if !current_user.manager_shifts.current_day.where(status: "close").present?
+      - hash_shift = current_user.manager_shifts.current_day.present? ? {title: "Закрытие смены", type: "close", btn: "Закрыть смену"} : {title: "Открытие смены", type: "open", btn: "Открыть смену"}
+      a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title=hash_shift[:title] href="/admin/admin/shift_manager?type=#{hash_shift[:type]}" = hash_shift[:btn]
     / hr
     / - if params[:stat] == "all"
     /   = render "sale_profit_chart"
