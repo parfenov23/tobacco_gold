@@ -76,7 +76,7 @@ module Admin
   end
 
   def update
-    find_model.close
+    # find_model.close
     find_model.sale_items.destroy_all
     find_model.update(contact_id: params[:contact_id])
     create_or_update(find_model, "update")
@@ -108,11 +108,11 @@ module Admin
       result += price.price*count
       curr_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i + count : count
       hash_order["#{item.id}"] = {count: curr_count, price_id: sale_param[:price_id].to_i}
-
       current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
       curr_count = current_item_count.count
       current_item_count.update(count: (curr_count - count) )
       item.update({count: (item.count - count)})
+
       SaleItem.create({sale_id: sale.id, product_item_id: item.id, count: count, product_price_id: price.id, curr_count: curr_count})
     end
     contact = sale.contact
@@ -148,8 +148,7 @@ module Admin
       order = current_company.order_requests.where(id: params[:order_request]).last
       order.update(status: "paid", items: hash_order) if order.present?
     end
-
-    sale.update(price: result, profit: sale_profit, visa: (params[:cashbox_type] == "visa"), magazine_id: params[:magazine_id])
+    sale.update(price: result, profit: sale_profit, visa: (params[:cashbox_type] == "visa"), magazine_id: params[:magazine_id], in_stock: false)
     current_cashbox.calculation(params[:cashbox_type], result, true)
     current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
   end
