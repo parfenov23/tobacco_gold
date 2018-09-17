@@ -128,13 +128,13 @@ var priceItemSale = function(){
   var cashback_bank = parseInt(discountBlock.find("[name='cashback_bank']").val());
   var sale_discount = $(".saleDiscount .sale_discount");
   var sale_discount_val = parseInt(sale_discount.val());
-  if (cashback_type == "dickount"){
-    if (result >= cashback_bank){
-      result -= cashback_bank
-    }else{
-      result = 0
-    }
-  }
+  // if (cashback_type == "dickount"){
+  //   if (result >= cashback_bank){
+  //     result -= cashback_bank
+  //   }else{
+  //     result = 0
+  //   }
+  // }
 
   if(sale_discount_val > 0){
     var type_sale_disc = sale_discount.closest(".saleDiscount").find("input[name='sale_disckount_select']").val();
@@ -185,11 +185,11 @@ var search_contact = function(barcode_contact, id){
         card_block.find("[name='contact_id']").val(data.id);
         card_block.find("[name='cashback_bank']").val(purse);
         $(".saveOrderRequest").css('display', 'inline-block');
-        if (purse >= 5){
-          card_block.find(".mad-select").show();
-        }else{
-          card_block.find(".mad-select").hide().find("[value='stash']").attr('selected', 'true');
-        }
+        // if (purse >= 5){
+        //   card_block.find(".mad-select").show();
+        // }else{
+        //   card_block.find(".mad-select").hide().find("[value='stash']").attr('selected', 'true');
+        // }
         $currentContactPriceList = data.contact_prices
         setContactPriceToProductPrice();
         card_block.find(".deleteContactBtn").show();
@@ -203,7 +203,7 @@ var search_contact = function(barcode_contact, id){
         card_block.find(".search_discount_card").val('');
         card_block.find("[name='cashback_bank']").val(0);
         card_block.find("[name='contact_id']").val("");
-        card_block.find(".mad-select").hide().find("[value='stash']").attr('selected', 'true');
+        // card_block.find(".mad-select").hide().find("[value='stash']").attr('selected', 'true');
       }
     },
     error  : function () {

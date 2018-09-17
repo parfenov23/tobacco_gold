@@ -118,23 +118,6 @@ module Admin
     contact = sale.contact
     sale_profit = sale.find_profit
 
-    if contact.present? && type_sale == "create"
-      purse = contact.purse
-      if params[:cashback_type] == "stash"
-        purse = contact.purse + (result.to_f/100*contact.current_cashback).round 
-      elsif params[:cashback_type] == "dickount"
-        sale_profit -= purse
-        if result >= purse
-          result -= purse
-          purse = 0
-        else
-          purse -= result
-          result = 0
-        end
-      end
-      contact.update(purse: purse)
-    end
-
     sale_discount = params[:sale_discount].to_i
     if sale_discount > 0
       if params[:sale_disckount_select] == "proc"
@@ -142,6 +125,16 @@ module Admin
       end
       sale_profit -= sale_discount
       result -= sale_discount
+    end
+
+    if contact.present? && type_sale == "create"
+      purse = contact.purse
+      if sale_discount == 0
+        purse = contact.purse + (result.to_f/100*contact.current_cashback).round 
+      elsif sale_discount > 0
+        purse -= sale_discount
+      end
+      contact.update(purse: purse)
     end
 
     if params[:order_request].present?

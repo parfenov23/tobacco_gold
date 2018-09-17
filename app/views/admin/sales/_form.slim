@@ -55,8 +55,8 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
 
         input type="hidden" name="cashback_bank" value="0"
         input type="hidden" name="contact_id"
-        - arr_type = [["Накопить", "stash"], ["Скидка", "dickount"]]
-        = render "common_select", {arr_li: arr_type, default: arr_type.first.last, name_input: "cashback_type", add_class: "displayNone"}
+        / - arr_type = [["Накопить", "stash"], ["Скидка", "dickount"]]
+        / = render "common_select", {arr_li: arr_type, default: arr_type.first.last, name_input: "cashback_type", add_class: "displayNone"}
 
         / select.form-control  name="cashback_type" style="display: none;"
         /   option value='stash' Накопить
