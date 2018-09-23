@@ -1,0 +1,11 @@
+- @products.each do |product|
+  - product_items = product.all_present_items(current_magazine.id)
+  - if product_items.present?
+    div id="select#{product.id}"
+      .mad-select.noInit.selectProductItem
+        ul
+          - product_items.each do |item|
+            li data-value=item.id data-barcode=item.barcode data-product=product.id = item.title
+        input.changeSelectContent type="hidden" name="transfers[][item_id]" value=product_items.first.id
+      div
+        input.selectProductPrice.form-control name="transfers[][price_id]" placeholder='стоимость'

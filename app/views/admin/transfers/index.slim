@@ -1,0 +1,20 @@
+.list-group.row.material
+  .list-group-item.panel_gray_common
+    form.material action="/admin/transfers/new" method="get" style="margin-bottom: 0; display: flex;"
+      button.btn.btn-success-material  Добавить трансфер
+      .selectInlineProvider
+        - all_magazine = current_company.magazines.map{|magazine| [magazine.title, magazine.id] if current_magazine.id != magazine.id}.compact
+        = render "common_select", {arr_li: all_magazine, default: (all_magazine.first.last rescue nil), name_input: "magazine_to"}
+  - @models.each do |transfer|
+    .list-group-item.col-md-6.material
+      span
+        - text = "#{transfer.created_at.strftime("%d-%m-%Y")} сумма: #{transfer.sum} руб. "
+        a.link-material href='/admin/transfers/#{transfer.id}.pdf' 
+          = text
+      / i.iconCashbox class=(transfer.visa ? "icon-credit-card" : "icon-coin-dollar")
+      - if current_user.is_admin?
+        - if !transfer.paid
+            a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="Оплата трансфера" href="/admin/transfers/#{transfer.id}/paid_out" ✔
+        a.btn.btn-danger-material.pull-right href="/admin/transfers/#{transfer.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
+          | &#10006;
+= render "common_blank_page", {title_deff: "", text_deff: "Что бы добавить первый трансфер между складами, нажми кнопку 'ДОБАВИТЬ ТРАНСФЕР'"} if @models.blank?

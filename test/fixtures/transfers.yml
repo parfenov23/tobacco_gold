@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  magazine_id_from: 1
+  magazine_id_to: 1
+  sum: 1
+  company_id: 1
+  paid: false
+
+two:
+  magazine_id_from: 1
+  magazine_id_to: 1
+  sum: 1
+  company_id: 1
+  paid: false

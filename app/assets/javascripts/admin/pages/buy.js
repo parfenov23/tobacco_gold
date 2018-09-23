@@ -98,7 +98,7 @@ var initSelectBuySearch = function(block){
 }
 
 $(document).ready(function(){
-  if($("form[action='/admin/buy']").length){
+  if($("form[action='/admin/buy']").length || $("form[action='/admin/transfers']").length ){
     scanBarCode(function(barcode){
       addItemWhenBarcodeScan(barcode);
     });

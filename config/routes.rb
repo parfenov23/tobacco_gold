@@ -182,6 +182,19 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :transfers do
+      member do
+        get :remove
+        get :info
+        get :close
+        post :def_pay
+        get :paid_out
+      end
+      collection do
+        get :load_content_product_items
+      end
+    end
+
     resources :buy do
       member do
         get :remove

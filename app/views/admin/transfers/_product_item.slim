@@ -1,0 +1,5 @@
+- item = @item
+- product_item_count = item.product_item_counts.where(magazine_id: current_magazine.id).last
+- if product_item_count.present? && product_item_count.count.to_i > 0
+  li data-value=item.id data-barcode=item.barcode data-product=item.product_id data-price_id=item.price_id data-deff_price=curr_price
+    = item.title

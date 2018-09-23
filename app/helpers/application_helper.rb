@@ -69,12 +69,13 @@ module ApplicationHelper
       {url: '/admin/categories', title: 'Категории', display: false}, 
       # {url: '/admin/mix_boxes', title: 'Миксы'}, 
       {url: "/admin/stock", title: "Склад"},
-      {url: "/admin/sales", title: "Продажа"},
+      {url: "/admin/sales", title: "Продажи"},
+      {url: "/admin/transfers", title: "Трансферы"},
       {url: "/admin/revision", title: "Ревизия"},
       # {url: "/admin/hookah_cash", title: "Кальяны"},
-      {url: "/admin/buy", title: "Закуп"},
+      {url: "/admin/buy", title: "Закупы"},
       {url: "/admin/other_buy", title: "Прочие расходы", display: false},
-      {url: "/admin/admin/sms_phone", title: "Смс банк"},
+      # {url: "/admin/admin/sms_phone", title: "Смс банк"},
       {url: "/admin/cashbox", title: "Касса"},
       {url: '/admin/order_requests', title: 'Заявки'}, 
       # {url: '/admin/content_pages', title: 'Контент'}, 
@@ -89,7 +90,8 @@ module ApplicationHelper
       {url: '/admin/provider_items', title: 'Цены поставщика', display: false},
       {url: '/admin/contact_prices', title: 'Цены клиента', display: false},
       {url: '/admin/sales/new', title: 'Продажа', display: false}, 
-      {url: '/admin/buy/new', title: 'Закуп', display: false}
+      {url: '/admin/buy/new', title: 'Закуп', display: false},
+      {url: '/admin/transfers/new', title: 'Трансфер', display: false}
     ]
   end
 

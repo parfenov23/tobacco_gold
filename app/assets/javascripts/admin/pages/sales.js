@@ -60,7 +60,7 @@ var addItemWhenBarcodeScan = function(barcode){
     autoAddItem('barcode', barcode)
 
   }else{
-    var input_count = block_or_block(findItem.find("input[name='sales[][count]']"), findItem.find("input[name='buy[][count]']"));
+    var input_count = block_or_block(findItem.find("input[name='sales[][count]']"), findItem.find("input.countItems"));
     input_count.val( parseInt(input_count.val()) + 1 );
     sumItemSale(findItem);
   }
@@ -90,7 +90,7 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
       var parent_item = $(curr_block).closest('.parentItemSale');
       if (parent_item.length){
         var price = $(curr_block).closest(".mad-select").find(".selected").data('price');
-        var input_price =  parent_item.find("input[name='buy[][price_id]']");
+        var input_price =  parent_item.find("input.selectProductPrice");
         if (input_price.length) input_price.val(price);
       }
     } else {
@@ -157,8 +157,9 @@ var sumItemSale = function(block){
   var curr_block = block_or_block(block.find(".selectProductPrice .mad-select-drop .selected"), 
     block.find(".selectProductPrice"));
   var curr_price = parseInt(block_or_block( curr_block.text(), curr_block.val() ) );
-  var curr_count = parseInt(block_or_block(block.find("[name='sales[][count]']"), 
-    block.find("[name='buy[][count]']")).val());
+  // var curr_count = parseInt(block_or_block(block.find("[name='sales[][count]']"), 
+  //   block.find("[name='buy[][count]']")).val());
+  var curr_count = parseInt(block.find("input.countItems").val());
   block.find(".endSumPosition").text(curr_price*curr_count);
   priceItemSale();
 }

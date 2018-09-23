@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180904143034) do
+ActiveRecord::Schema.define(version: 20180920184035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,6 +326,26 @@ ActiveRecord::Schema.define(version: 20180904143034) do
     t.boolean  "archive",     default: false
     t.integer  "magazine_id"
     t.text     "full_text"
+  end
+
+  create_table "transfer_items", force: :cascade do |t|
+    t.integer  "transfer_id"
+    t.integer  "product_item_id"
+    t.integer  "count"
+    t.integer  "price"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "transfers", force: :cascade do |t|
+    t.integer  "magazine_id_from"
+    t.integer  "magazine_id_to"
+    t.integer  "sum"
+    t.integer  "company_id"
+    t.boolean  "paid",             default: false
+    t.boolean  "visa",             default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "users", force: :cascade do |t|

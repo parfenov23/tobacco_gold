@@ -5,4 +5,5 @@ class Company < ActiveRecord::Base
   has_many :categories
   has_many :contacts
   has_many :order_requests
+  has_many :transfers
 end

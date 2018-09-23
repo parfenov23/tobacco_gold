@@ -28,6 +28,10 @@ class Product < ActiveRecord::Base
     joins(product_items: :product_item_counts).where(product_item_counts: {magazine_id: magazine_id}).where("product_item_counts.count > 0").uniq
   end
 
+  def all_present_items(magazine_id)
+    product_items.joins(:product_item_counts).where(product_item_counts: {magazine_id: magazine_id}).where("product_item_counts.count > 0").uniq
+  end
+
   def current_price
     price = product_prices.find_by_default(true)
     (price.price rescue product_prices.minimum(:price)).to_i
