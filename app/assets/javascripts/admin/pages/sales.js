@@ -43,7 +43,7 @@ var autoAddItem = function(type, id){
       product_select.val(product_id);
       selectedLi(product_select.closest(".mad-select"), product_id);
       addProductItemToProductBlock(product_select, product_id);
-      var block_item = block_or_block(productSaleBlock.find(".changeSelectContent[name='sales[][item_id]']"), productSaleBlock.find(".changeSelectContent[name='buy[][item_id]']"))
+      var block_item = productSaleBlock.find(".selectProductItem .changeSelectContent")
       selectedLi(block_item.closest(".mad-select"), item.data("value"));
       findItem = $(".allItemsSale .parentItemSale.barcode" + id);
       findItem.addClass("createFromBarcodeScan");
@@ -57,7 +57,7 @@ var autoAddItem = function(type, id){
 var addItemWhenBarcodeScan = function(barcode){
   var findItem = $(".allItemsSale .parentItemSale.barcode" + barcode);
   if (!findItem.length){
-    autoAddItem('barcode', barcode)
+    autoAddItem('barcode', barcode);
 
   }else{
     var input_count = block_or_block(findItem.find("input[name='sales[][count]']"), findItem.find("input.countItems"));
