@@ -164,6 +164,9 @@
 .displayFlex {
   display: flex;
   justify-content: space-between;
+  &.normal{
+    justify-content: normal;
+  }
 }
 
 #alert {

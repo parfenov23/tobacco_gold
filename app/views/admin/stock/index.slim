@@ -1,13 +1,18 @@
-.titleFlex
-  .leftContent
+- curr_magazine = params[:magazine_id].present? ? current_company.magazines.where(id: params[:magazine_id]).last.id : current_magazine.id 
+.titleFlex.panel_gray_common.list-group-item.stockHeader
+  .leftContent.displayFlex.normal
     - if current_user_admin?
       a.btn.btn-success-material.addItemSale href='/admin/stock' В наличии
       a.btn.btn-primary-material.addItemSale href="/admin/stock?type=not_available" Нет в наличии
+      .selectInlineProvider
+        - arr_magazines = current_company.magazines.map{|magazine| [magazine.title, magazine.id]}
+        = render "common_select", {arr_li: arr_magazines, default: curr_magazine, add_class: "noInit"}
   .rightContent
     input.material.form-control name="serach" placeholder="Поиск"
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
+
 - @products.each do |product|
-  - product_items = params[:type] != "not_available" ? product.product_items.all_present(current_magazine.id) : product.product_items.all_present(current_magazine.id, false)
+  - product_items = params[:type] != "not_available" ? product.product_items.all_present(curr_magazine) : product.product_items.all_present(curr_magazine, false)
   - if product_items.present?
     .list-group.row.material
       .list-group-item.panel_gray_common
