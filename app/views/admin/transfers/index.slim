@@ -13,7 +13,7 @@
           = text
       / i.iconCashbox class=(transfer.visa ? "icon-credit-card" : "icon-coin-dollar")
       - if current_user.is_admin?
-        - if !transfer.paid
+        - if !transfer.paid && trasfer.magazine_id_to == current_magazine.id
             a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="Оплата трансфера" href="/admin/transfers/#{transfer.id}/paid_out" ✔
         a.btn.btn-danger-material.pull-right href="/admin/transfers/#{transfer.id}/remove" data-method='delete' onclick="return confirm('Вы уверены?')"
           | &#10006;
