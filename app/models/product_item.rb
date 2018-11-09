@@ -103,7 +103,7 @@ class ProductItem < ActiveRecord::Base
   end
 
   def default_img
-    image_url.present? ? image_url : (product.default_img rescue nil)
+    image_url.present? ? image_url.to_s : (product.default_img rescue nil)
   end
 
   def count
