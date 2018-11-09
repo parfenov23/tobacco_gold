@@ -19,6 +19,7 @@ gem 'mechanize'
 gem 'anti_captcha'
 gem 'russian'
 gem 'mini_magick'
+gem 'carrierwave'
 
 gem 'devise', '3.4.1'
 gem 'bcrypt', '3.1.10'

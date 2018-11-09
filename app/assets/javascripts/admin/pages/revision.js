@@ -27,7 +27,7 @@ var from_revision = function(){
         content_popup.find("form").append("<div class='blockItem parentListItem'>"+
           "<span>" + $(block).find("span").text() + "</span>" +
           "<input class='revisionCount' name=" + curr_input.attr("name") + " value=" + curr_count + ">" +
-          "<div class='btn btn-success-material pull-right js_pasteCountItem' data-count='2'>" + should_count + "</div>");
+          "<div class='btn btn-success-material pull-right js_pasteCountItem' data-count='"+ should_count +"'>" + should_count + "</div>");
       }
     });
     content_popup.find("form").append("<button class='btn btn-primary-material submit' formnovalidate='' type='submit'>Сохранить</button>")

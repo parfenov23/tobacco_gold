@@ -1,3 +1,4 @@
+require 'carrierwave/orm/activerecord'
 class ProductItem < ActiveRecord::Base
   require 'string/similarity'
   include PgSearch
@@ -19,7 +20,9 @@ class ProductItem < ActiveRecord::Base
   scope :total_sum, -> { map{|pi| pi.product.current_price}.sum }
   has_many :product_item_counts, dependent: :destroy
   after_create :default_create_product_item_count
-  after_update :get_image_url
+  # after_update :get_image_url
+
+  mount_uploader :image_url, ImageUrlUploader
 
   def self.popular_sort(count_first=3)
   	products = self.all

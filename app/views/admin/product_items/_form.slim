@@ -8,7 +8,11 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   - if current_user.is_admin?
     = render "common_input", {title: "Количество", value: @model.current_count(current_magazine), name: "product_items[count]"}
   
-  = render "common_input", {title: "Картинка", value: @model.image_url, name: "product_items[image_url]"}
+  / = render "common_input", {title: "Картинка", value: @model.image_url, name: "product_items[image_url]"}
+  .form-group.material-form-group class="no_label"
+    input.form-control id="file" type="file" name="product_items[image_url]" accept="image/*,image/jpeg"
+    label for="file" Картинка товара
+
 
   .form-group.material-form-group
     textarea.form-control name="product_items[description]" type="text" required=true
@@ -31,7 +35,9 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .form-group
     = check_box("product_items", "top", {checked: check_if_true(@model.top), class: "checkbox-material", id: "filled-in-top"})
     label.checkbox-label-material for="filled-in-top" Хит продаж?
-
+  - if @model.image_url.present?
+    .form-group
+      img.center src=@model.image_url
 
   - product_id = product_present ? params[:product_id] : @model.product_id
   input type="hidden" name="product_items[product_id]" value="#{product_id}"
