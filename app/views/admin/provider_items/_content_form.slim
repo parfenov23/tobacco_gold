@@ -1,9 +1,9 @@
 // Изменяемая часть
 .form-group.material-form-group.active
   label Товар
-  - all_products = [["Не выбранно", 0]] + current_company.products.map{|prod| [prod.title, prod.id]} 
+  - all_products = [{title: "Не выбранно", id: 0}] + current_company.products.map{|prod| {title: prod.title, id: prod.id} } 
 
-  = render "common_select", {arr_li: all_products, default: (@model.product_id || all_products.first.last), name_input: "provider_items[product_id]", add_class: "defaultInitMdSelect"}
+  = render "common_select_new", {arr_li: all_products, default: (@model.product_id || all_products.first[:id]), name_input: "provider_items[product_id]", add_class: "defaultInitMdSelect"}
 
 = render "common_input", {title: "Цена", name: "provider_items[price]", value: @model.price}
 input type="hidden" name="provider_items[provider_id]" value=(@model.provider_id || params[:provider_id])

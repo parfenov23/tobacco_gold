@@ -4,6 +4,7 @@ class Product < ActiveRecord::Base
   belongs_to :category
   belongs_to :company
   default_scope { order("title ASC") }
+  default_scope { where(archive: false) }
 
   def self.first_url
     "products"

@@ -5,11 +5,9 @@
       - all_providers = current_company.providers
       - if all_providers.present?
         .selectInlineProvider
-          .mad-select  
-            ul
-              - all_providers.each do |pr|
-                li data-value="#{pr.id}" = pr.title
-            input type="hidden" name="provider_id" value="#{all_providers.first.id}"
+          - all_pr = all_providers.map{|pr| {title: pr.title, id: pr.id} }
+          = render "common_select_new", {arr_li: all_pr, default: all_providers.first.id, name_input: "provider_id"}
+
     a.btn.btn-success-material href="/admin/buy/search" Поиск
   - @buys.each do |buy|
     .list-group-item.col-md-6

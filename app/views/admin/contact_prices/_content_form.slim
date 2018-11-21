@@ -3,18 +3,20 @@ javascript:
 
 .blockContactPrice data-type=(@model.id.present? ? "edit" : "new")
   - all_products = current_company.products
-  .form-group 
-    - arr_products = [["Не выбранно", 0]] + all_products.map{|pr| [pr.title, pr.id]}  
-    = render "common_select", {arr_li: arr_products, default: (@model.product_id || arr_products.first.last), name_input: "contact_prices[product_id]", add_class: "contactPriceProductSelect noInit"}
-  .form-group
+  .form-group.material-form-group.active
+    label Производитель 
+    - arr_products = [{title: "Не выбранно", id: 0}] + all_products.map{|pr| {title: pr.title, id: pr.id} }  
+    = render "common_select_new", {arr_li: arr_products, default: (@model.product_id || arr_products.first[:id]), name_input: "contact_prices[product_id]", add_class: "contactPriceProductSelect defaultInitMdSelect"}
+  .form-group.material-form-group.active 
+    label Цена
     .currentPrice
       - if @model.id.present?
-        - prices = [["Не выбранно", 0]] + @model.product.product_prices.map{|pr| [pr.title, pr.id]}  
-        = render "common_select", {arr_li: prices, default: (@model.product_price.id || prices.first.last), name_input: "price_id"}
+        - prices = [{title: "Не выбранно", id: 0}] + @model.product.product_prices.map{|pr| {title: pr.title, id: pr.id} }  
+        = render "common_select_new", {arr_li: prices, default: (@model.product_price.id || prices.first[:id]), name_input: "price_id", add_class: "defaultInitMdSelect"}
   .form-copy-md-select style="display: none;"
     - all_products.each do |product|
-      - prices = [["Не выбранно", 0]] + product.product_prices.map{|pr| [pr.title, pr.id]}  
+      - prices = [{title: "Не выбранно", id: 0}] + product.product_prices.map{|pr| {title: pr.title, id: pr.id} }  
       - if prices.present?
-        = render "common_select", {arr_li: prices, default: (prices.first.last), name_input: "price_id", add_class: "product_#{product.id} noInit"}
+        = render "common_select_new", {arr_li: prices, default: (prices.first[:id]), name_input: "price_id", add_class: "product_#{product.id}"}
   input type="hidden" name="contact_prices[product_price_id]" value=@model.product_price_id
   input type="hidden" name="contact_prices[contact_id]" value=(@model.contact_id || params[:contact_id])

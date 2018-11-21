@@ -8,7 +8,7 @@ var includeEditSelect = function(){
 }
 
 var findAndShowPrice = function(block){
-  var product_id = $(block).closest(".mad-select").find("input").val();
+  var product_id = $(block).closest(".parentSelectMd").find("input").val();
   var find_price = $(block).closest(".blockContactPrice").find(".form-copy-md-select .product_" + product_id);
   block.closest(".blockContactPrice").find(".currentPrice .mad-select").remove();
   if (find_price.length){
@@ -22,7 +22,7 @@ var findAndShowPrice = function(block){
 }
 
 $(document).ready(function(){
-  $("div[data-type='new'] .form-group .mad-select").removeClass("noInit").each(function(i, e){
+  $("div[data-type='new'] .form-group .parentSelectMd").removeClass("noInit").each(function(i, e){
     include_mad_select($(e), function(block){
       findAndShowPrice(block);
     });

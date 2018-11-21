@@ -9,10 +9,12 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     = render "common_input", {title: "Количество", value: @model.current_count(current_magazine), name: "product_items[count]"}
   
   / = render "common_input", {title: "Картинка", value: @model.image_url, name: "product_items[image_url]"}
-  .form-group.material-form-group class="no_label"
-    input.form-control id="file" type="file" name="product_items[image_url]" accept="image/*,image/jpeg"
-    label for="file" Картинка товара
-
+  / .form-group.material-form-group class="no_label"
+  /   input.form-control id="file" type="file" name="product_items[image_url]" accept="image/*,image/jpeg"
+  /   label for="file" Картинка товара
+  .custom-file.form-group.material-form-group.hideLabel class="no_label"
+    input#validatedCustomFile.custom-file-input required="" type="file" name="product_items[image_url]" accept="image/*,image/jpeg"
+    label.custom-file-label for="validatedCustomFile"  Выбрать картинку
 
   .form-group.material-form-group
     textarea.form-control name="product_items[description]" type="text" required=true
@@ -23,8 +25,8 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     .form-group.material-form-group.active
       label Цена:
       - all_prices = @model.product.product_prices.where(archive: false)
-      - all_prices_arr = [["Нет", nil]] + all_prices.map{|first_price| [first_price.price, first_price.id]}
-      = render "common_select", {arr_li: all_prices_arr, default: (@model.price_id || all_prices_arr.first.last), name_input: "product_items[price_id]", add_class: "defaultInitMdSelect"}
+      - all_prices_arr = [{title: "Нет", id: nil}] + all_prices.map{|first_price| {title: first_price.price, id: first_price.id} }
+      = render "common_select_new", {arr_li: all_prices_arr, default: (@model.price_id || all_prices_arr.first[:id]), name_input: "product_items[price_id]", add_class: "defaultInitMdSelect"}
   
   = render "common_input", {title: "Код товара", value: @model.barcode, name: "product_items[barcode]"}
 

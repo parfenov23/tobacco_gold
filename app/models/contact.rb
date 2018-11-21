@@ -2,7 +2,7 @@ class Contact < ActiveRecord::Base
   has_many :orders, dependent: :destroy
   has_many :sales
   has_many :contact_prices, dependent: :destroy
-  has_one :user, dependent: :destroy
+  belongs_to :user, dependent: :destroy
 
   include PgSearch
   pg_search_scope :search,

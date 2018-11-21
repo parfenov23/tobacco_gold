@@ -8,7 +8,7 @@ module Admin
     def update
       find_model.update_default if params_model[:default] == "1"
       find_model.update(params_model)
-      redirect_to_index
+      render_json_success(find_model)
     end
 
     def create

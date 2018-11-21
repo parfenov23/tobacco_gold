@@ -45,7 +45,7 @@ module Admin
     def create_shift_manager
       params_shift = {user_id: current_user.id, visa: current_cashbox.visa, sum_sales: current_user.manager_payment_today.sum(:price)}.merge(params[:shift])
       ManagerShift.open_or_close(current_user, params_shift)
-      redirect_to "/admin/admin" 
+      render json: {success: true, url: "/admin/admin" }
     end
 
     def search

@@ -1,7 +1,2 @@
-.mad-select.noInit
-  ul
-    li data-value="0" Не выбрано
-    - @products.each do |product|
-      - price = product.current_purchase_price(params[:provider_id])
-      li data-value=product.id data-price=price = product.title
-  input.changeSelectContent type="hidden" value="0"
+- all_pr = [{title: "Не выбрано", id: 0}] + @products.map{|pr| {title: pr.title, id: pr.id, add_data: {"data-price" => pr.current_purchase_price(provider_id)} } }
+= render "common_select_new", {arr_li: all_pr, default: 0, add_class: "noInit"}

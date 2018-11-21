@@ -11,7 +11,7 @@
 .referenceItemSale style="display: none;"
   .parentItemSale.active.tableCol7
     .inlineBlock.col1
-      = render "select_product"
+      = render "select_product", {provider_id: params[:provider_id]}
     .formLoadContentTaste.col2
     .form-group.barcode.col3.material-form-group
       input.form-control name="buy[][barcode]" placeholder='Код товара'

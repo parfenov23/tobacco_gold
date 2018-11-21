@@ -12,7 +12,7 @@ module Admin
 
     def update
       find_model.update(params_model)
-      redirect_to "/admin/#{model.first_url}?provider_id=#{find_model.provider_id}"
+      render_json_success(find_model)
     end
 
     private

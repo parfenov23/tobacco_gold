@@ -1,7 +1,4 @@
 $(document).ready(function(){
-  include_mad_select($(".stockHeader .mad-select").removeClass("noInit"), function(input){
-    window.location.assign(window.location.pathname + "?magazine_id=" + input.val());
-  });
   if($(".well[data-action='admin/stock']").length){
     scanBarCode(function(barcode){
       if ($("input[name='serach']").is(':focus')){

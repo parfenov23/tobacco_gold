@@ -35,6 +35,24 @@ var getTitleAndHrefBtnInOtherPopup = function(btn){
   loadContentInOtherPopup(title, url);
 }
 
+var submitUpdateModel = function(btn){
+  var form = btn.closest("form");
+  var data = form.serializeFile();
+  data.push({name: 'typeAction', value: "json"})
+
+  $.ajax({
+    type   : 'PUT',
+    url    : form.attr("action"),
+    data   : data,
+    success: function (data) {
+      show_error('Сохранено', 3000);
+    },
+    error  : function () {
+      show_error('Ошибка', 3000);
+    }
+  });
+}
+
 var loadContentInOtherPopup = function(title, url){
   openAllOtherPopup(title, function(){
     $.ajax({
@@ -42,9 +60,17 @@ var loadContentInOtherPopup = function(title, url){
       url    : url,
       data   : {typeAction: "json"},
       success: function (data) {
-        $(".allOtherPopup .conteinerPopup").html($(data)).find(".defaultInitMdSelect").each(function(i, block){
+        var pasteContent = $(".allOtherPopup .conteinerPopup").html($(data));
+        pasteContent.find(".defaultInitMdSelect").each(function(i, block){
           include_mad_select($(block));
         });
+        pasteContent.find("button[type='submit']").on('click', function(event){
+          event.preventDefault();
+          submitUpdateModel($(event.target));
+        });
+        pasteContent.find("input[accept='image/*,image/jpeg']").on('change', function(){
+          $(this).closest(".custom-file").find("label").text(this.files[0].name)
+        })
       },
       error  : function () {
         show_error('Ошибка', 3000);
@@ -53,21 +79,28 @@ var loadContentInOtherPopup = function(title, url){
   });
 }
 
-var submitNewModel = function(btn){
-  var btn = $(btn);
-  var form = btn.closest("form");
-  var data = form.serializeArray();
-  data.push({name: 'typeAction', value: "json"})
-
+var submitUpdateModel = function(btn){
+  var form = $(btn).closest("form");
+  var url = form.attr("action");
+  var data = form.serializefiles();
+  data.append('typeAction', "json");
   $.ajax({
-    type   : 'POST',
-    url    : form.attr("action"),
-    data   : data,
-    success: function (data) {
-      location.reload();
+    url: url,
+    type: form.find("input[name='_method']").val(),
+    dataType: "JSON",
+    data: data,
+    processData: false,
+    contentType: false,
+    success: function (data, status)
+    {
+      show_error("Сохранено", 3000);
+      if(data.url != undefined){
+        window.location.href = data.url
+      }
     },
-    error  : function () {
-      show_error('Ошибка', 3000);
+    error: function (xhr, desc, err)
+    {
+      show_error("Ошибка", 3000);
     }
   });
 }
@@ -133,7 +166,72 @@ var scanBarCode = function(end_function){
   });
 }
 
+var selectedLi = function(block, val){
+  console.log(block);
+  var ul = block.find("ul");
+  ul.find(".selected").removeClass("selected");
+  var curr_li = ul.find("li[data-value='" + val + "']");
+  curr_li.addClass("selected");
+  ul.closest(".parentSelectMd").find(".titleSelect").text(curr_li.text());
+  ul.closest(".parentSelectMd").find("input").val(val);
+}
+
+var include_mad_select = function(block, end_funct = function(){}){
+  if (!$(block).hasClass("noInit")){
+    var $input = $(block).find("input"),
+    $ul = $(block).find(".listSelectMd > ul"),
+    $ulDrop =  $ul;
+    $(block)
+    .on({
+      hover : function() { madSelectHover ^= 1; },
+      click : function(e) { 
+        $ulDrop.addClass("show");
+        // $(block).addClass("includeMad");
+        var size_block = 290;
+        if ($ulDrop.find("li").length <= 2){ size_block = 160 }
+        var top_block = $(window).innerHeight() - ($ulDrop.closest(".parentSelectMd").position().top + size_block) - 100;
+        if (top_block < 0) { $ulDrop.css({top: top_block}) }
+      }
+    });
+    // PRESELECT
+    // $ul.add($ulDrop).find("li[data-value='"+ $input.val() +"']").addClass("selected");
+    if ($input.val() != undefined && $input.val().length){
+      $ulDrop.find("li[data-value='"+ $input.val() +"']").addClass("selected");
+      var title = $ulDrop.find("li[data-value='"+ $input.val() +"']").text();
+      $(block).find(".titleSelect").text(title);
+    }else{
+      var title = $ulDrop.find("li:first").text();
+      $(block).find(".titleSelect").text(title);
+    }
+    
+    // MAKE SELECTED
+    $ulDrop.on("click", "li", function(evt) {
+      evt.stopPropagation();
+      $input.val($(this).data("value")); // Update hidden input value
+      $(block).find(".titleSelect").text($(this).text());
+      $(this).add(this).addClass("selected")
+      .siblings("li").removeClass("selected");
+      $ul.removeClass("show");
+      end_funct($input);
+    });
+    // UPDATE LIST SCROLL POSITION
+    $ul.on("click", function() {
+      var liTop = $ulDrop.find("li.selected").position().top;
+      $ulDrop.scrollTop(liTop + $ulDrop[0].scrollTop);
+    });
+  }
+}
+
 $(document).ready(function(){
+  $(".parentSelectMd").not(".noInit").each(function() {
+    include_mad_select(this);
+  });
+  include_mad_select($(".userHeader .parentSelectMd").removeClass("noInit"), function(input){
+    window.location.assign(window.location.pathname + "?type=" + input.val());
+  });
+  include_mad_select($(".stockHeader .parentSelectMd").removeClass("noInit"), function(input){
+    window.location.assign(window.location.pathname + "?magazine_id=" + input.val());
+  });
   $(document).on('click', '.js_loadContentInOtherPopup', function(event){
     event.preventDefault();
     getTitleAndHrefBtnInOtherPopup($(this));
@@ -154,7 +252,9 @@ $(document).ready(function(){
       $(".popupUserAvaInfo").show();
     }
     
-  })
+  });
+
+  $()
   
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
@@ -162,10 +262,19 @@ $(document).ready(function(){
       return false;
     }
   });
+
+  $(".inputSearchContent").keydown(function(event){ if(event.keyCode == 13) {
+    window.location.href = "?search=" + $(event.target).val();
+  } })
+
   $(document).on('click', 'body', function(e){
     var block = $(e.target);
     if(!block.closest(".user_info").length){
       $(".popupUserAvaInfo").hide();
     }
+    if(!block.closest(".parentSelectMd").length){
+      $(".parentSelectMd ul.show").removeClass("show");
+    }
   });
-})
+});
+

@@ -130,7 +130,7 @@
         display: initial !important;
       }
     }
-    .mad-select ul.mad-select-drop.show {
+    .parentSelectMd ul.mad-select-drop.show {
       max-height: 290px;
     }
     .parentItemSale .formLoadContentTaste .mad-select {
@@ -289,5 +289,52 @@ img.center{
     }
   }
 
+}
+
+form.form-horizontal {
+  .custom-file{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 34px;
+    input{
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 34px;
+      margin: 0;
+      opacity: 0;
+    }
+    label{
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1;
+      height: 34px;
+      padding: .375rem .75rem;
+      line-height: 25px;
+      color: #555;
+      background-color: #fff;
+      border: 1px solid #26a69a;
+      border-radius: .25rem;
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        display: block;
+        height: 32px;
+        padding: .375rem .75rem;
+        line-height: 25px;
+        color: white;
+        content: "Browse";
+        background-color: #26a69a;
+        border-left: 1px solid #ced4da;
+        border-radius: 0 .25rem .25rem 0;
+      }
+    }
+  }
 }
 

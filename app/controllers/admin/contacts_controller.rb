@@ -12,6 +12,7 @@ module Admin
         user = User.create(email: email, contact_id: contact.id, magazine_id: current_company.magazines.first.id)
         user.password = SecureRandom.hex(3)
         user.save
+        contact.update(user_id: user.id)
 
         SendSms.sender([params_r[:phone]], "Логин: #{email}\nПароль: #{pass}\n#{request.base_url}") if Rails.env.production?
       end

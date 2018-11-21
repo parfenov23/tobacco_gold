@@ -21,6 +21,7 @@ class ProductItem < ActiveRecord::Base
   has_many :product_item_counts, dependent: :destroy
   after_create :default_create_product_item_count
   # after_update :get_image_url
+  default_scope { where(archive: false) }
 
   mount_uploader :image_url, ImageUrlUploader
 

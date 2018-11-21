@@ -17,7 +17,7 @@ var allProductCalc = function(){
   var all_product = {}
   $(".allProductCalc .referencePaste").remove();
   $(".allItemsSale .parentItemSale").each(function(n, e){
-    var product_block = $(e).find(".inlineBlock .mad-select .selected:first");
+    var product_block = $(e).find(".inlineBlock .parentSelectMd .selected:first");
     var product_id = product_block.data("value");
     var product = product_block.text();
     var count = parseInt($(e).find(".countItems").val());
@@ -132,7 +132,7 @@ $(document).ready(function(){
     });
   }
 
-  $(".mad-select.initSelectBuySearch").each(function(i, e){
+  $(".parentSelectMd.initSelectBuySearch").each(function(i, e){
     $(e).removeClass("noInit")
     include_mad_select($(e), function(block){
       initSelectBuySearch(block);

@@ -27,7 +27,7 @@ module Admin
 
     def update
       find_model.update(params_model) if ((find_model.company_id == current_company.id) rescue true )
-      redirect_to_index
+      params[:typeAction] == "json" ? render_json_success(find_model) : redirect_to_index
     end
 
     def remove

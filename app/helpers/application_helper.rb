@@ -79,7 +79,7 @@ module ApplicationHelper
       {url: "/admin/cashbox", title: "Касса"},
       {url: '/admin/order_requests', title: 'Заявки'}, 
       # {url: '/admin/content_pages', title: 'Контент'}, 
-      {url: '/admin/users', title: 'Сотрудники'}, 
+      {url: '/admin/users', title: 'Пользователи'}, 
       {url: '/admin/contacts', title: 'Клиенты'},
       {url: '/admin/admin/manager_payments', title: 'Выплаты', display: false},
       # {url: '/admin/admin/search', title: 'Поиск'},

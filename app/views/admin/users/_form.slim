@@ -1,30 +1,21 @@
 - action_url = @model.id.nil? ? "/admin/users" : "/admin/users/#{@model.id}"
 - method = @model.id.nil? ? "post" : "put"
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .form-group
-    |Email:
-    input.form-control name="users[email]" type="text" value="#{@model.email}"
-  .form-group
-    |Логин:
-    input.form-control name="users[login]" type="text" value="#{@model.login}"
-  .form-group
-    |Пароль(6):
-    input.form-control name="users[password]" type="text"
-  .form-group
-    |Телефон:
-    input.form-control name="users[phone]" type="text" value=@model.phone
-  .form-group
-    |Процент от продаж:
-    input.form-control name="users[procent_sale]" type="text" value=@model.procent_sale
-  .form-group
-    |Выход на смену:
-    input.form-control name="users[sum_shift]" type="text" value=@model.sum_shift
-  .form-group
-    |Права:
-    = select_tag("users[role]", options_for_select([["Администратор", "admin"], ["Менеджер", "manager"]], @model.role.to_s), {:class => 'form-control'})
-  .form-group
-    |Магазин:
-    = select_tag("users[magazine_id]", options_for_select(current_company.magazines.map{|magaz| [magaz.title, magaz.id]}, @model.magazine_id), {:class => 'form-control'})
+  = render "common_input", {title: "Email", value: @model.email, name: "users[email]"}
+  = render "common_input", {title: "Логин", value: @model.login, name: "users[login]"}
+  = render "common_input", {title: "Пароль(6)", value: "", name: "users[password]"}
+  = render "common_input", {title: "Телефон", value: @model.phone, name: "users[phone]"}
+  = render "common_input", {title: "Процент от продаж", value: @model.procent_sale, name: "users[procent_sale]"}
+  = render "common_input", {title: "Выход на смену", value: @model.sum_shift, name: "users[sum_shift]"}
+  .form-group.material-form-group.active
+    label Права
+    - all_role = [{title: "Клиент", id: "user"}, {title: "Администратор", id: "admin"}, {title: "Менеджер", id: "manager"}]
+    = render "common_select_new", {arr_li: all_role, default: (@model.role.to_s || all_role.first[:id]), name_input: "users[role]", add_class: "defaultInitMdSelect"}
+  .form-group.material-form-group.active
+    label Магазин
+    - all_magazines = current_company.magazines.map{|magaz| {title: magaz.title, id: magaz.id} }
+    = render "common_select_new", {arr_li: all_magazines, default: (@model.magazine_id.to_s || all_magazines.first[:id]), name_input: "users[magazine_id]", add_class: "defaultInitMdSelect"}
+
   .form-group
     = check_box("users", "auto_payment", {checked: check_if_true(@model.auto_payment), class: "checkbox-material", id: "filled-in-auto_payment"})
     label.checkbox-label-material for="filled-in-auto_payment" Авто выплата?

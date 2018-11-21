@@ -3,8 +3,8 @@
     form.material action="/admin/transfers/new" method="get" style="margin-bottom: 0; display: flex;"
       button.btn.btn-success-material  Добавить трансфер
       .selectInlineProvider
-        - all_magazine = current_company.magazines.map{|magazine| [magazine.title, magazine.id] if current_magazine.id != magazine.id}.compact
-        = render "common_select", {arr_li: all_magazine, default: (all_magazine.first.last rescue nil), name_input: "magazine_to"}
+        - all_magazine = current_company.magazines.map{|magazine| {title: magazine.title, id: magazine.id} if current_magazine.id != magazine.id}.compact
+        = render "common_select_new", {arr_li: all_magazine, default: (all_magazine.first[:id] rescue nil), name_input: "magazine_to"}
   - @models.each do |transfer|
     .list-group-item.col-md-6.material
       span
