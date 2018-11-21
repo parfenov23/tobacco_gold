@@ -176,7 +176,7 @@ var selectedLi = function(block, val){
   ul.closest(".parentSelectMd").find("input").val(val);
 }
 
-var include_mad_select = function(block, end_funct = function(){}){
+var include_mad_select = function(block, end_funct){
   if (!$(block).hasClass("noInit")){
     var $input = $(block).find("input"),
     $ul = $(block).find(".listSelectMd > ul"),
@@ -212,7 +212,7 @@ var include_mad_select = function(block, end_funct = function(){}){
       $(this).add(this).addClass("selected")
       .siblings("li").removeClass("selected");
       $ul.removeClass("show");
-      end_funct($input);
+      if (end_funct != undefined) end_funct($input);
     });
     // UPDATE LIST SCROLL POSITION
     $ul.on("click", function() {
