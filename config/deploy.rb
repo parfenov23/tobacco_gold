@@ -17,7 +17,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log',
                                                'tmp/cache',
                                                'tmp/sockets',
                                                'vendor/bundle',
-                                               'public/system')
+                                               'public/system',
+                                               'public/uploads')
 
 set :pty, false
 set :keep_releases, 3
