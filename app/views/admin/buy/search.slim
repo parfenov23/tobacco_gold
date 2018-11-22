@@ -3,12 +3,12 @@ form action="/admin/buy/search_result" method="post" enctype="multipart/form-dat
       label Поставщик
       - all_providers = current_company.providers.map{|provider| {title: provider.title, id: provider.id} }
 
-      = render "common_select_new", {arr_li: all_providers, default: all_providers.first.last, name_input: "provider_id", add_class: "defaultInitMdSelect"}
+      = render "common_select_new", {arr_li: all_providers, default: all_providers.first[:id], name_input: "provider_id", add_class: "defaultInitMdSelect"}
   .form-group.material-form-group.active
       label Позиция
       - all_providers = Product.where(company_id: current_company.id).all.map{|product| {title: product.title, id: product.id} }
 
-      = render "common_select_new", {arr_li: all_providers, default: all_providers.first.last, name_input: "product_id", add_class: "defaultInitMdSelect"}
+      = render "common_select_new", {arr_li: all_providers, default: all_providers.first[:id], name_input: "product_id", add_class: "defaultInitMdSelect"}
 
   .form-group
     textarea rows="20" class="form-control" name="query" type="text"

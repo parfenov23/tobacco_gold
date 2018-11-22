@@ -12,5 +12,6 @@
       span = user.email
       - if user.balance_payments > 0
         a.btn.btn-success-material.pull-right href="/admin/admin/paid_manager_payments?user_payment=#{user.balance_payments}&user_id=#{user.id}" Выплатить #{user.balance_payments} руб.
+      
       = render "admin/admin/common_btn", {url: "/admin/users/#{user.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование пользователя"}
 = render "admin/admin/common_popup_new_model", {model: User.new, title: "Добавление нового пользователя"}
