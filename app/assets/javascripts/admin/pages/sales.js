@@ -82,7 +82,6 @@ var addBlankBlockItem = function(bc){
 var addProductItemToProductBlock = function(curr_block, bl_val){
   loadContent("id", bl_val, function() {
     var id = "#select" + bl_val;
-    console.log(id);
     var block_content = $("#contentSelect " + id).html();
     if (bl_val > 0){
       var load_content_selests = $("<div>"+ block_content + "</div>");

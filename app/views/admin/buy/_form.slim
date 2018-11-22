@@ -75,9 +75,9 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
   form.newTasteItem
     .form-group.material-form-group.active
       label Товар
-      - all_products = [["Не выбранно", 0]] + @products.map{|prod| [prod.title, prod.id]} 
+      - all_products = [{title: "Не выбранно", id: 0}] + @products.map{|prod| {title: prod.title, id: prod.id} } 
 
-      = render "common_select", {arr_li: all_products, default: all_products.first.last, name_input: "buy[product_id]", add_class: "defaultInitMdSelect"}
+      = render "common_select_new", {arr_li: all_products, default: all_products.first[:id], name_input: "buy[product_id]", add_class: "defaultInitMdSelect"}
     = render "common_input", {title: "Название", name: "buy[title]"}
     = render "common_input", {title: "Код товара", name: "buy[barcode]"}
 

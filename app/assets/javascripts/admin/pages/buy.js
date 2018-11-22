@@ -105,7 +105,7 @@ $(document).ready(function(){
 
     $(document).keypress(function( event ) {  
       if (event.which == 103 || event.which == 1087) {
-        var product_item_id = parseInt($(".parentItemSale:last .selectProductItem .changeSelectContent").val());
+        var product_item_id = parseInt($(".parentItemSale:last .selectProductItem input").val());
         if (product_item_id > 0) autoAddItem('product_item_id', product_item_id);
       }
     })

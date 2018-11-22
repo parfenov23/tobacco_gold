@@ -167,7 +167,6 @@ var scanBarCode = function(end_function){
 }
 
 var selectedLi = function(block, val){
-  console.log(block);
   var ul = block.find("ul");
   ul.find(".selected").removeClass("selected");
   var curr_li = ul.find("li[data-value='" + val + "']");
