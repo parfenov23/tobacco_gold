@@ -10,7 +10,7 @@ form action="/admin/buy/form_search_result" method="post" enctype="multipart/for
 
     tbody
       - product = Product.find(params[:product_id])
-      - all_items = product.product_items.map{|pi| [pi.title, pi.id] }
+      - all_items = product.product_items.map{|pi| {title: pi.title, id: pi.id} }
       - @find_arr.sort_by{|a| a[:count_pi].to_i}.each do |arr|
         - full_title = (product.title + " - " + arr[:title])
 
@@ -20,7 +20,7 @@ form action="/admin/buy/form_search_result" method="post" enctype="multipart/for
         tr class=(curr_class + " currentItem")
           td = product_title
           td 
-            = render "common_select", {arr_li: [["Не найдено", "0"]] + all_items, default: (product_item.id rescue "0"), name_input: "pi_search_select", add_class: "initSelectBuySearch noInit"}
+            = render "common_select_new", {arr_li: [{title: "Не найдено", id: "0"} ] + all_items, default: (product_item.id rescue "0"), name_input: "pi_search_select", add_class: "initSelectBuySearch noInit"}
           td.title data-title=full_title
             = arr[:min_title]
           td.current_count = arr[:count_pi]
