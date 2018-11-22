@@ -1,2 +1,2 @@
 - all_products = [{title: "Не выбрано", id: 0}] + @products.map{|product| {title: product.title, id: product.id} }
-= render "common_select_new", {arr_li: all_products, default: 0, add_class: "noInit"}
+= render "common_select_new", {arr_li: all_products, default: 0, add_class: "noInit changeSelectContent"}
