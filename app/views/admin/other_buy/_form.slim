@@ -7,7 +7,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
  
   .form-group.material-form-group.active
     / label Тип
-    = render "common_select", {arr_li: [["Ушло", "0"], ["Пришло", "1"]], default: "0", name_input: "other_buy[type_mode]", add_class: "defaultInitMdSelect"}
+    = render "common_select_new", {arr_li: [{title: "Ушло", id: "0"}, {title: "Пришло", id: "1"}], default: "0", name_input: "other_buy[type_mode]", add_class: "defaultInitMdSelect"}
 
   = render "admin/admin/common_cashbox"
   input type="hidden" name="other_buy[magazine_id]" value="#{current_user.magazine.id}"

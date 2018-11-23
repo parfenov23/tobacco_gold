@@ -51,7 +51,7 @@ module Admin
       if buy.balance_of_pay <= 0
         find_model.update(def_pay: true)
       end
-      redirect_to_index
+      render_json_success(buy)
     end
 
     def new_item_product

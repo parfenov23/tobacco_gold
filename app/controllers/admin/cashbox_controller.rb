@@ -81,7 +81,7 @@ module Admin
         OtherBuy.create(param_visa)
       end
 
-      redirect_to "/admin/cashbox"
+      render_json_success(current_cashbox)
     end
 
     private

@@ -94,6 +94,7 @@ var submitUpdateModel = function(btn){
     success: function (data, status)
     {
       show_error("Сохранено", 3000);
+      closeAllOtherPopup();
       if(data.url != undefined){
         window.location.href = data.url
       }
