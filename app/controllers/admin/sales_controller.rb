@@ -3,7 +3,7 @@ module Admin
 
     def index
       @sales = current_user.is_admin? ? model.where(magazine_id: magazine_id) : model.where(user_id: current_user.id, magazine_id: magazine_id)
-      @sales = @sales.where(["created_at > ?", Time.now.beginning_of_year])
+      @sales = @sales.where(["created_at > ?", (Time.now - 2.month)])
       redirect_to "/admin/admin" if current_user.manager_shifts.current_day.blank? 
     end
 
