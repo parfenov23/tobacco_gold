@@ -10,5 +10,9 @@
         a href="/admin/#{model_url}/#{model.id}" = model.title
       - if model.status == "waiting"
         - type_sale = model.contact.opt ? "opt" : "retail"
-        = render "admin/admin/common_btn", {url: "/admin/sales/new?type_sale=#{type_sale}&order_request=#{model.id}"}
+        a.btn.btn-success-material.btn-margin-left  href="/admin/sales/new?type_sale=#{type_sale}&order_request=#{model.id}" style="margin-right: 5px;" class=(class_edit rescue "") data-title=(data_title rescue "")
+          | &#9998;
+        a.btn.btn-danger-material href="/admin/#{model_url}/#{model.id}/remove" data-method='delete' style="margin-right: 5px;" onclick="return confirm('Вы уверены?')" class=(class_remove rescue "")
+          | &#10006;
+
 = render "common_blank_page", {title_deff: "", text_deff: "Новых заявок, пока что нет :("} if @models.blank?
