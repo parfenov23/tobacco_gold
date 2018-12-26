@@ -238,7 +238,7 @@ $(document).ready(function(){
   });
   $(document).on('click', '.js_submitNewModel', function(event){
     event.preventDefault();
-    submitNewModel($(this));
+    submitNewModel($(event.target));
   });
   $(document).on('click', '.js__remove', function(event) {
     event.preventDefault();
