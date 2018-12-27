@@ -189,8 +189,8 @@ var include_mad_select = function(block, end_funct){
         // $(block).addClass("includeMad");
         var size_block = 290;
         if ($ulDrop.find("li").length <= 2){ size_block = 160 }
-        var top_block = $(window).innerHeight() - ($ulDrop.closest(".parentSelectMd").position().top + size_block) - 100;
-        if (top_block < 0) { $ulDrop.css({top: top_block}) }
+        var top_block = $(window).innerHeight() - ($ulDrop.closest(".parentSelectMd").position().top + size_block) - 80;
+        if (top_block < 0) { $ulDrop.closest(".listSelectMd").css({top: top_block}) }
       }
     });
     // PRESELECT
