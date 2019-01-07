@@ -9,7 +9,7 @@ form.form-horizontal action="#{action_url}" method="post"
     textarea.form-control name="magazins[special_offer]" type="text" required=true
       = @model.special_offer
     label Текущая акция
-  = render "common_input", {title: "Vk api key group", name: "magazins[api_key]", value: @model.api_key}
+  = render "common_input", {title: "Vk api key group", name: "magazins[vk_api_key_group]", value: @model.vk_api_key_group}
   = render "common_input", {title: "Vk api key user", name: "magazins[vk_api_key_user]", value: @model.vk_api_key_user}
   = render "common_input", {title: "Vk chat id", name: "magazins[vk_chat_id]", value: @model.vk_chat_id}
 

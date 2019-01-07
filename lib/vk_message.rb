@@ -5,7 +5,7 @@ class VkMessage
     params_get = params(type).merge({message: message, v: '5.92', random_id: random_id}).merge(get_params)
     params_get.merge!({captcha_sid: captcha_arr.first, captcha_key: captcha_arr.last}) if captcha_arr.present?
     response = JSON.parse(agent.post("https://api.vk.com/method/messages.send", params_get).body)
-    # binding.pry
+    binding.pry
     return_status = {status: true, code: "ok"}
     if response["error"].present?
       if response["error"]["error_code"] == 14
@@ -31,7 +31,7 @@ class VkMessage
       }
     when "group"
       {
-        access_token: "d2e5220ce29d44a450ccd93db9c38d95e6860c1e7f0fbbd059cb308eaf59e7668a0b9f798ff647ea71ab2",
+        access_token: "de9bf6eedc4ff2e22ae8dfadaa4693904a51344ecb15c6702a2b9d03e6896acf202994487ffbd727f1077",
       }
     when "user_bot"
       {
@@ -62,7 +62,6 @@ class VkMessage
       get_params = {type: get_params[:type], object: get_params[:object], api_key: get_params[:api_key]}
       magazine = Magazine.find_by_api_key(get_params[:api_key])
       company = magazine.company
-      # binding.pry
       unless HistoryVk.where(params_type: get_params.to_s).present?
         body_text = (get_params[:object][:text].mb_chars.downcase.to_s) rescue nil
         if body_text == "прайс"
@@ -72,8 +71,7 @@ class VkMessage
           message = magazine.special_offer
           run(message, type="group", {user_id: get_params[:object][:peer_id], access_token: magazine.vk_api_key_group})
         # else
-          # keybord = {buttons:[ { action: {type: 'text', payload: {button: "1"}, label: "hello world" }, color: "negative" }], one_time:false}.to_json
-          # sender("Вот ваши кнопки", type="group", {user_id: 13859193, access_token: magazine.vk_api_key_group, keybord: keybord})
+        #   sender("Вот ваши кнопки", type="group", {peer_id: get_params[:object][:peer_id], keybord: keybord.as_json})
         end
         HistoryVk.create(params_type: get_params.to_s)
       end
@@ -81,7 +79,7 @@ class VkMessage
   end
 
   def self.keybord
-    {keyboard: {"one_time"=>false, "buttons"=>[[{"action"=>{"type"=>"text", "payload"=>"{\"button\": \"1\"}", "label"=>"Red"}, "color"=>"negative"}]].to_s } }
+    {"one_time"=>false, "buttons"=>[[{"action"=>{"type"=>"text", "payload"=>"{\"button\": \"1\"}", "label"=>"Red"}, "color"=>"negative"}, {"action"=>{"type"=>"text", "payload"=>"{\"button\": \"2\"}", "label"=>"Green"}, "color"=>"positive"}], [{"action"=>{"type"=>"text", "payload"=>"{\"button\": \"3\"}", "label"=>"White"}, "color"=>"default"}, {"action"=>{"type"=>"text", "payload"=>"{\"button\": \"4\"}", "label"=>"Blue"}, "color"=>"primary"}]]} 
   end
 
   def self.anticaptcha(url)
