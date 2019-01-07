@@ -64,13 +64,13 @@ class VkMessage
       company = magazine.company
       # binding.pry
       unless HistoryVk.where(params_type: get_params.to_s).present?
-        body_text = (get_params[:object][:body].mb_chars.downcase.to_s) rescue nil
+        body_text = (get_params[:object][:text].mb_chars.downcase.to_s) rescue nil
         if body_text == "прайс"
           message = company.products.map{|product| "#{product.title}: #{product.current_price} рублей"}.join("\n")
-          run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.vk_api_key_group})
+          run(message, type="group", {user_id: get_params[:object][:peer_id], access_token: magazine.vk_api_key_group})
         elsif body_text == "акция"
           message = magazine.special_offer
-          run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.vk_api_key_group})
+          run(message, type="group", {user_id: get_params[:object][:peer_id], access_token: magazine.vk_api_key_group})
         # else
           # keybord = {buttons:[ { action: {type: 'text', payload: {button: "1"}, label: "hello world" }, color: "negative" }], one_time:false}.to_json
           # sender("Вот ваши кнопки", type="group", {user_id: 13859193, access_token: magazine.vk_api_key_group, keybord: keybord})
