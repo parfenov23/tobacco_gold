@@ -1,9 +1,11 @@
 class VkMessage
   def self.sender(message, type, captcha_arr=[], get_params)
     agent = Mechanize.new
-    params_get = params(type).merge({message: message, v: '5.73'}).merge(get_params)
+    random_id = Time.now.to_i
+    params_get = params(type).merge({message: message, v: '5.92', random_id: random_id}).merge(get_params)
     params_get.merge!({captcha_sid: captcha_arr.first, captcha_key: captcha_arr.last}) if captcha_arr.present?
     response = JSON.parse(agent.post("https://api.vk.com/method/messages.send", params_get).body)
+    # binding.pry
     return_status = {status: true, code: "ok"}
     if response["error"].present?
       if response["error"]["error_code"] == 14
@@ -60,6 +62,7 @@ class VkMessage
       get_params = {type: get_params[:type], object: get_params[:object], api_key: get_params[:api_key]}
       magazine = Magazine.find_by_api_key(get_params[:api_key])
       company = magazine.company
+      # binding.pry
       unless HistoryVk.where(params_type: get_params.to_s).present?
         body_text = (get_params[:object][:body].mb_chars.downcase.to_s) rescue nil
         if body_text == "прайс"
@@ -68,10 +71,17 @@ class VkMessage
         elsif body_text == "акция"
           message = magazine.special_offer
           run(message, type="group", {user_id: get_params[:object][:user_id], access_token: magazine.vk_api_key_group})
+        # else
+          # keybord = {buttons:[ { action: {type: 'text', payload: {button: "1"}, label: "hello world" }, color: "negative" }], one_time:false}.to_json
+          # sender("Вот ваши кнопки", type="group", {user_id: 13859193, access_token: magazine.vk_api_key_group, keybord: keybord})
         end
         HistoryVk.create(params_type: get_params.to_s)
       end
     end
+  end
+
+  def self.keybord
+    {keyboard: {"one_time"=>false, "buttons"=>[[{"action"=>{"type"=>"text", "payload"=>"{\"button\": \"1\"}", "label"=>"Red"}, "color"=>"negative"}]].to_s } }
   end
 
   def self.anticaptcha(url)

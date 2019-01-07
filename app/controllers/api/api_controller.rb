@@ -1,5 +1,6 @@
 module Api
   class ApiController < ActionController::Base
+    require 'vk_message'
     before_action :auth
 
     def index
@@ -12,6 +13,14 @@ module Api
 
     def all_magazines
       render json: current_company.magazines.as_json
+    end
+
+    def auth_domen_vk_group
+      VkMessage.message_price(params)
+      # binding.pry
+      
+      # render json: VkMessage.keybord
+      render text: params[:return]
     end
 
     private
