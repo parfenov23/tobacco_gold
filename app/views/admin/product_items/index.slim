@@ -3,7 +3,8 @@
     / - if current_user.is_admin?
     /   a.btn.btn-success-material href="/admin/product_items/new?product_id=#{params[:product_id]}"  Добавить вкус
   - @product_items.each do |item|
-    .list-group-item.material.col-md-6 class=(item.description.blank? ? "blankProductItemDescription" : nil)
+    - blank_desc = item.description.present? && item.image_url.present?
+    .list-group-item.material.col-md-6 class=(!blank_desc ? "blankProductItemDescription" : nil)
       span
         = item.title
       = render "admin/admin/common_btn", {url: "/admin/product_items/#{item.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование вкуса"}

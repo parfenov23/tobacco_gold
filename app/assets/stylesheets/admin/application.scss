@@ -34,6 +34,11 @@
     display: flex;
   }
 }
+
+.blankProductItemDescription{
+  background-color: #f9fbe7 !important;
+}
+
 .plusBtn{
   -moz-transform: rotate(45deg); /* Для Firefox */
   -ms-transform: rotate(45deg); /* Для IE */
