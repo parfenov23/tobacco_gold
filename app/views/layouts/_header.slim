@@ -4,7 +4,7 @@ nav.navbar.navbar-default.block-material
       .btnOpenleftBar onclick="openNav()"
         |&#9776;
     .headerTitle 
-      = curr_title_admin_header || "Hookah Stock Online"
+      = curr_title_admin_header(@add_title) || "Hookah Stock Online"
     - if current_user.present?
       .user_info
         .ava.js_openUserPopupInfo

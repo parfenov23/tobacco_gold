@@ -2,7 +2,9 @@ module Admin
   class ProviderItemsController < CommonController
 
     def index
-      @models = model.where(provider_id: params[:provider_id])
+      provider = Provider.find(params[:provider_id])
+      @models = model.where(provider_id: provider.id)
+      @add_title = "#{provider.title} - "
     end
 
     def create

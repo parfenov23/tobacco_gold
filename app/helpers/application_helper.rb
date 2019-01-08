@@ -56,10 +56,10 @@ module ApplicationHelper
     current_user.present? ? current_user.is_admin? || current_user.is_manager? : false
   end
 
-  def curr_title_admin_header
+  def curr_title_admin_header(add_title=nil)
     curr_title = nil
     all_navs_admin.each{|nav| curr_title = nav[:title] if nav[:url] == request.env["PATH_INFO"] }
-    curr_title
+    "#{add_title}#{curr_title}"
   end
 
   def all_navs_admin

@@ -3,6 +3,7 @@ module Admin
 
     def index
       @product_items = find_product.product_items
+      @add_title = "#{find_product.title} - "
     end
 
     def remove

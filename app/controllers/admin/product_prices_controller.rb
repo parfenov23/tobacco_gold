@@ -3,6 +3,7 @@ module Admin
 
     def index
       @product_prices = find_product.product_prices.where(archive: false)
+      @add_title = "#{find_product.title} - "
     end
 
     def update
