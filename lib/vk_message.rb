@@ -5,7 +5,7 @@ class VkMessage
     params_get = params(type).merge({message: message, v: '5.92', random_id: random_id}).merge(get_params)
     params_get.merge!({captcha_sid: captcha_arr.first, captcha_key: captcha_arr.last}) if captcha_arr.present?
     response = JSON.parse(agent.post("https://api.vk.com/method/messages.send", params_get).body)
-    binding.pry
+    # binding.pry
     return_status = {status: true, code: "ok"}
     if response["error"].present?
       if response["error"]["error_code"] == 14
