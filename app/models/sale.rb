@@ -8,7 +8,7 @@ class Sale < ActiveRecord::Base
 
   def notify_buy(cashbox=magazine.cashbox)
     message = "Продажа: #{self.price.to_i} рублей\nИнформация: #{sale_url}\n ===== Касса =====\nНаличные: #{cashbox.cash} рублей\nVisa: #{cashbox.visa}"
-    VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if (!Rails.env.production? && magazine.vk_api_key_user.present?)
+    VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if (Rails.env.production? && magazine.vk_api_key_user.present?)
   end
 
   def find_profit
