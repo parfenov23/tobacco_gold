@@ -26,7 +26,16 @@ class ManagerShift < ActiveRecord::Base
 
   def notify
     magazine = user.magazine
-    message = "Менеджер: #{user.email} #{status == 'open' ? 'открыл' : 'закрыл'} смену\nСумма продаж: #{sum_sales}\nНаличные: #{cash}\nVisa: #{visa}"
+    sale_today = magazine.sale_today
+    sale_today_visa = sale_today.where(visa: true).sum(:price)
+    sale_today_cash = sale_today.where(visa: false).sum(:price)
+    message = "Менеджер: #{user.email} #{status == 'open' ? 'открыл' : 'закрыл'} смену\n
+    ---- Информация по продажам ---- \n
+    Общая сумма продаж: #{sum_sales} \n
+    Наличные: #{sale_today_cash} | Visa: #{sale_today_visa})\n\n
+    ---- Касса ----\n
+    Наличные: #{cash} | Должно быть: #{magazine.cashbox.cash}\n 
+    Visa: #{visa}"
     VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if (Rails.env.production? && magazine.vk_api_key_user.present?)
   end
 end

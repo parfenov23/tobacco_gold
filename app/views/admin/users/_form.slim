@@ -19,5 +19,9 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   .form-group
     = check_box("users", "auto_payment", {checked: check_if_true(@model.auto_payment), class: "checkbox-material", id: "filled-in-auto_payment"})
     label.checkbox-label-material for="filled-in-auto_payment" Авто выплата?
+
+  - if @model.present? && @model.contact.present?
+    a.btn.btn-success-material.btn-margin-left.js_loadContentInOtherPopup data-title="Редактирование клиента" href="/admin/contacts/#{@model.contact.id}/edit" Редактирование клиента
+
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary-material.submit type="submit"  Сохранить

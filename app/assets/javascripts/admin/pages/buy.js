@@ -50,10 +50,10 @@ var allProductCalc = function(){
     $(".allProductCalc tbody").append(referenceCopy);
     $(".allProductCalc tbody .price:visible").each(function(n, editable){
       editable.addEventListener('blur', function(e){ 
-        var curr_block = $(e.target)
+        var curr_block = $(e.target);
         var sum = parseInt(curr_block.text());
         var product_id = curr_block.closest(".referencePaste").data("id");
-        $(".allItemsSale .col1 .changeSelectContent[value='"+ product_id +"']").each(function(n, e){
+        $(".allItemsSale .col1 .changeSelectContent .listSelectMd input[value='"+ product_id +"']").closest(".changeSelectContent").each(function(n, e){
           $(e).closest(".parentItemSale").find(".selectProductPrice").val(sum);
           sumItemSale($(e).closest(".parentItemSale"));
         });

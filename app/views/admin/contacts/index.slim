@@ -5,7 +5,9 @@
     .list-group-item.col-md-6.material
       span
         a href="/admin/#{model_url}/#{model.id}" = model.title
-      a.btn.btn-info-material.pull-right href="/admin/contact_prices?contact_id=#{model.id}" style="margin-right: 5px;"
-        | Цены
-      = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование контакта"}
-= render "admin/admin/common_popup_new_model", {model: Contact.new, title: "Добавление нового контакта"}
+      - if current_user.is_admin?
+        a.btn.btn-info-material.pull-right href="/admin/contact_prices?contact_id=#{model.id}" style="margin-right: 5px;"
+          | Цены
+        = render "admin/admin/common_btn", {url: "/admin/#{model_url}/#{model.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование контакта"}
+- if current_user.is_admin?
+  = render "admin/admin/common_popup_new_model", {model: Contact.new, title: "Добавление нового контакта"}

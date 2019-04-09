@@ -1,7 +1,7 @@
 - action_url = @model.id.nil? ? "/admin/magazins" : "/admin/magazins/#{@model.id}"
 - method = @model.id.nil? ? "post" : "put"
 form.form-horizontal action="#{action_url}" method="post"
-  = render "common_input", {title: "Получено наличными", name: "magazins[title]", value: @model.title}
+  = render "common_input", {title: "Название", name: "magazins[title]", value: @model.title}
   = render "common_input", {title: "Адрес", name: "magazins[address]", value: @model.address}
   = render "common_input", {title: "Телефон", name: "magazins[phone]", value: @model.phone}
 

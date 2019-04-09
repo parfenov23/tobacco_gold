@@ -1,6 +1,7 @@
 // Изменяемая часть
 = render "common_input", {title: "ФИО", name: "contacts[first_name]", value: @model.first_name}
-= render "common_input", {title: "Email", name: "contacts[email]", value: @model.email}
+/ - if @model.email.present?
+/   = render "common_input", {title: "Email", name: "contacts[email]", value: @model.email}
 = render "common_input", {title: "Телефон", name: "contacts[phone]", value: @model.phone}
 = render "common_input", {title: "Социальная ссылка", name: "contacts[social]", value: @model.social}
 = render "common_input", {title: "Код карты", name: "contacts[barcode]", value: @model.barcode}
@@ -11,3 +12,5 @@
 
 // ================
 input type="hidden" name="contacts[company_id]" value=current_company.id
+- if @model.present? && @model.user.present?
+  a.btn.btn-success-material.btn-margin-left.js_loadContentInOtherPopup data-title="Редактирование пользователя" href="/admin/users/#{@model.user.id}/edit" Редактирование пользователя
