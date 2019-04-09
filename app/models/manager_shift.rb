@@ -26,7 +26,7 @@ class ManagerShift < ActiveRecord::Base
 
   def notify
     magazine = user.magazine
-    sale_today = magazine.sale_today
+    sale_today = magazine.today_sales
     sale_today_visa = sale_today.where(visa: true).sum(:price)
     sale_today_cash = sale_today.where(visa: false).sum(:price)
     message = "Менеджер: #{user.email} #{status == 'open' ? 'открыл' : 'закрыл'} смену\n
