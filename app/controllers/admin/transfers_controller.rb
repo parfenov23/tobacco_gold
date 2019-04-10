@@ -79,7 +79,7 @@ module Admin
   private
 
   def create_or_update(transfer)
-    trabsfers_arr = params[:transfers]
+    trabsfers_arr = params[:buy]
     result = 0
     hash_order = {}
     magazine_to = transfer.magazine_to
