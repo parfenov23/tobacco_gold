@@ -1,7 +1,7 @@
 // Изменяемая часть
 = render "common_input", {title: "ФИО", name: "contacts[first_name]", value: @model.first_name}
-/ - if @model.email.present?
-/   = render "common_input", {title: "Email", name: "contacts[email]", value: @model.email}
+- if @model.id.blank?
+  = render "common_input", {title: "Email", name: "contacts[email]", value: @model.email}
 = render "common_input", {title: "Телефон", name: "contacts[phone]", value: @model.phone}
 = render "common_input", {title: "Социальная ссылка", name: "contacts[social]", value: @model.social}
 = render "common_input", {title: "Код карты", name: "contacts[barcode]", value: @model.barcode}
