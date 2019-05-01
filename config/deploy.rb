@@ -30,8 +30,7 @@ set :copy_cache, false
 # load 'lib/tasks/resque.rake'
 
 namespace :deploy do
-  after 'deploy:publishing', 'deploy:restart'
-  # , 'deploy:websocket_restart'
+  after 'deploy:publishing', 'deploy:restart', 'deploy:ws_sms_pushable_restart'
   #
   # task :resque_restart do
   #   `RAILS_ENV=production bundle exec rake resque:restart_workers`
@@ -49,10 +48,9 @@ namespace :deploy do
     invoke 'unicorn:stop'
   end
 
-  # task :websocket_restart do
-  #   `ps aux | grep websocket_rails | awk '{print $2}' | xargs kill -9`
-  #   `RAILS_ENV=production bundle exec rake websocket_rails:start_server`
-  # end
+  task :ws_sms_pushable_restart do
+    `curl --request POST http://hookah-stock.ru/api/sms`
+  end
   #
   #
   # task :websocket_stop do

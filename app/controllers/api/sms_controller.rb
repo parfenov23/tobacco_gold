@@ -1,5 +1,6 @@
 module Api
   class SmsController < ApiController
+    before_action :auth, except: [:create]
     def index
       all_messages = SmsPhoneTask.where(magazine_id: current_magazine.id, status: false)
       all_messages_arr = all_messages.map{|spt|
@@ -18,12 +19,7 @@ module Api
     end
 
     def create
-      # if params_task != "sent"
-      SmsPhone.create_new_sms(current_magazine.id, SmsPhone.params_to_hash_sms(params))
-      # else
-      #   SmsPhoneTask.where(sms_id: params[:queued_messages]).update_all(status: true)
-      # end
-      # SmsPhone.create_new_sms(current_magazine.id)
+      sms_start_ws
       render json: {success: true}
     end
 
