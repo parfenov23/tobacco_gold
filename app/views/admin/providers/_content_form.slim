@@ -1,4 +1,5 @@
 // Изменяемая часть
 = render "common_input", {title: "Название", name: "providers[title]", value: @model.title}
+= render "common_input", {title: "Телефон", name: "providers[phone]", value: @model.phone}
 input type="hidden" name="providers[company_id]" value=current_company.id
 // ================

@@ -46,5 +46,12 @@ module Api
       SmsPhone.find(params[:id]).update(archive: true)
       render json: {success: true}
     end
+
+    def self.sms_start_ws
+      Magazine.where.not(api_key_pushbullet: nil).each do |magazine|
+        magazine.sms_start_ws
+      end
+    end
+
   end
 end

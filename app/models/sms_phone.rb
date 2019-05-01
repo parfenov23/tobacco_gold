@@ -27,7 +27,8 @@ class SmsPhone < ActiveRecord::Base
       if sms.type_sms != "отправьте код"
         sms.type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
       else
-        SmsPhoneTask.create(phone: sms_hash[:address], body: sms_hash[:sum], magazine_id: magazine_id, sms_id: Time.now.to_i.to_s)
+        send_sms(sms.magazine, sms_hash[:address], sms_hash[:sum])
+        # SmsPhoneTask.create(phone: sms_hash[:address], body: sms_hash[:sum], magazine_id: magazine_id, sms_id: Time.now.to_i.to_s)
       end
     end
   end
@@ -58,6 +59,37 @@ class SmsPhone < ActiveRecord::Base
   def clear_body
     r = Regexp.new(/VISA[0-9]+ /)
     body.gsub(r, '').gsub('Сбербанк Онлайн.', '')
+  end
+
+  def self.send_sms(magazine, phone, body)
+    if magazine.api_key_pushbullet.present?
+      request = JSON.dump({
+        "push" => {
+          "conversation_iden" => phone,
+          "message" => body,
+          "package_name" => "com.pushbullet.android",
+          "source_user_iden" => pushbullet_info(magazine)["iden"],
+          "target_device_iden" => magazine.api_key_pushbullet_mobile,
+          "type" => "messaging_extension_reply"
+        },
+        "type" => "push"
+      })
+
+      SmsGateway.send_request(magazine.api_key_pushbullet, "https://api.pushbullet.com/v2/ephemerals", request, "post")
+    end
+  end
+
+  def self.pushbullet_info(magazine)
+    result_json = {}
+    user_info = JSON.parse(SmsGateway.send_request(magazine.api_key_pushbullet, "https://api.pushbullet.com/v2/users/me") )
+    result_json.merge!(user_info)
+    devices_info = JSON.parse(SmsGateway.send_request(magazine.api_key_pushbullet, "https://api.pushbullet.com/v2/users/devices") )
+    result_json.merge!(devices_info)
+    result_json
+  end
+
+  def self.transfer_cash(magazine, phone, sum)
+    send_sms(magazine, "900", "ПЕРЕВОД #{phone} #{sum}")
   end
 
   def self.first_url

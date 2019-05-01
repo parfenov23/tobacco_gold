@@ -44,6 +44,9 @@ gem 'localtunnel'
 
 gem 'whenever', :require => false
 gem 'unicorn'
+
+gem 'faye-websocket'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'

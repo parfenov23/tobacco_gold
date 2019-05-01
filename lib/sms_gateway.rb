@@ -17,4 +17,21 @@ class SmsGateway
   def self.param_auth
     {email: "parfenov407@gmail.com", password: "lolopo123"}
   end
+
+  def self.send_request(api_key, url, body = "", type="get")
+    uri = URI.parse(url)
+    request = type == "get" ? Net::HTTP::Get.new(uri) : Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request["Access-Token"] = api_key
+    request.body = body
+
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+    response.body
+  end
 end

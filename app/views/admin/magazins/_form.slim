@@ -12,6 +12,8 @@ form.form-horizontal action="#{action_url}" method="post"
   = render "common_input", {title: "Vk api key group", name: "magazins[vk_api_key_group]", value: @model.vk_api_key_group}
   = render "common_input", {title: "Vk api key user", name: "magazins[vk_api_key_user]", value: @model.vk_api_key_user}
   = render "common_input", {title: "Vk chat id", name: "magazins[vk_chat_id]", value: @model.vk_chat_id}
+  = render "common_input", {title: "api key pushbullet", name: "magazins[api_key_pushbullet]", value: @model.api_key_pushbullet}
+  = render "common_input", {title: "api key pushbullet mobile", name: "magazins[api_key_pushbullet_mobile]", value: @model.api_key_pushbullet_mobile}
 
   
   input type="hidden" name="magazins[company_id]" value="#{current_company.id}"

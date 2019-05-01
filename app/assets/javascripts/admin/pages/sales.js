@@ -228,9 +228,11 @@ var setContactPriceToProductPrice = function(){
 
 var installPusher = function(){
   var channel = pusher.subscribe('enlistment');
+  console.log("start pusher");
   channel.bind('sms_info', function(data) {
     var sum_sale = parseInt($(".moneyClacl .titlePrice").text());
-    if( $("input[name='cashbox_type']").val() == "visa" && data.sum == sum_sale && current_user_magazine_id() == data.magazine_id){
+    console.log(data);
+    if( $("input[name='cashbox_type']").val() == "visa" && current_user_magazine_id() == data.magazine_id){
       show_error(data.message, 3000);
     }
   });
