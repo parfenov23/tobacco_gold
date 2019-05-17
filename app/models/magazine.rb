@@ -24,10 +24,9 @@ class Magazine < ActiveRecord::Base
         Thread.current[:name]  = "sms_start_ws_id_#{id}"
         EventMachine.run do
           ws = Faye::WebSocket::Client.new("wss://stream.pushbullet.com/websocket/#{api_key_pushbullet}")
-          p "start em"
           ws.on :message do |event|
             data_json = JSON.parse(event.data)
-            if data_json["type"] == "push" && data_json["push"]["type"] == "sms_changed"
+            if data_json["type"] == "push" && data_json["push"]["type"] == "sms_changed" && data_json["push"]["source_device_iden"] == api_key_pushbullet_mobile
               sms_notif = data_json["push"]["notifications"].first
               if sms_notif.present?
                 correct_json = {"id" => sms_notif["timestamp"].to_s, "body" => sms_notif["body"], "created_at" => sms_notif["timestamp"], "number" => sms_notif["title"]}
