@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190501172400) do
+ActiveRecord::Schema.define(version: 20190812162753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,8 @@ ActiveRecord::Schema.define(version: 20190501172400) do
     t.string   "vk_api_key_group"
     t.string   "api_key_pushbullet"
     t.string   "api_key_pushbullet_mobile"
+    t.string   "phone_sms"
+    t.string   "cart_number"
   end
 
   create_table "manager_payments", force: :cascade do |t|

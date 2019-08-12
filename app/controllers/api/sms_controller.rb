@@ -19,7 +19,7 @@ module Api
     end
 
     def create
-      sms_start_ws
+      SmsPhone.create_new_sms(SmsPhone.params_to_hash_sms(correct_json))
       render json: {success: true}
     end
 
@@ -43,11 +43,21 @@ module Api
       render json: {success: true}
     end
 
-    def self.sms_start_ws
-      Magazine.where.not(api_key_pushbullet: nil).each do |magazine|
-        magazine.sms_start_ws
-      end
+    def correct_json
+      {
+        "id" => params["timestamp"].to_s, 
+        "body" => params["message"], 
+        "created_at" => params["timestamp"], 
+        "number" => params["from"],
+        "mobile_phone" => params["phone_number"]
+      }
     end
+
+    # def self.sms_start_ws
+    #   Magazine.where.not(api_key_pushbullet: nil).each do |magazine|
+    #     magazine.sms_start_ws
+    #   end
+    # end
 
   end
 end

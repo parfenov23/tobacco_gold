@@ -14,6 +14,8 @@ form.form-horizontal action="#{action_url}" method="post"
   = render "common_input", {title: "Vk chat id", name: "magazins[vk_chat_id]", value: @model.vk_chat_id}
   = render "common_input", {title: "api key pushbullet", name: "magazins[api_key_pushbullet]", value: @model.api_key_pushbullet}
   = render "common_input", {title: "api key pushbullet mobile", name: "magazins[api_key_pushbullet_mobile]", value: @model.api_key_pushbullet_mobile}
+  = render "common_input", {title: "phone sms", name: "magazins[phone_sms]", value: @model.phone_sms}
+  = render "common_input", {title: "cart number", name: "magazins[cart_number]", value: @model.cart_number}
 
   
   input type="hidden" name="magazins[company_id]" value="#{current_company.id}"

@@ -20,22 +20,31 @@ class SmsPhone < ActiveRecord::Base
     result_sms
   end
 
-  def self.create_new_sms(magazine_id, sms_hash = {})
+  def self.create_new_sms(sms_hash = {})
     find_sms = where(id_sms: sms_hash[:id_sms]).last || where(body: sms_hash[:body]).last
     if find_sms.blank? && sms_hash[:address] == "900"
-      sms = create(sms_hash.merge({magazine_id: magazine_id}))
-      if sms.type_sms != "отправьте код"
-        sms.type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
-      else
-        send_sms(sms.magazine, sms_hash[:address], sms_hash[:sum])
-        # SmsPhoneTask.create(phone: sms_hash[:address], body: sms_hash[:sum], magazine_id: magazine_id, sms_id: Time.now.to_i.to_s)
+      magazine = Magazine.where(phone_sms: sms_hash[:mobile_phone], cart_number: sms_hash[:number_card]).last
+      if magazine.present?
+        sms = create(sms_hash.merge({magazine_id: magazine.id}).except(:mobile_phone, :number_card))
+        if sms.type_sms != "отправьте код"
+          sms.type_sms == "покупка" ? sms.pay_to_other_by("down") : sms.notify_sms
+        else
+          send_sms(sms.magazine, sms_hash[:address], sms_hash[:sum])
+        end
       end
     end
   end
 
+  def self.find_number_card(body)
+    scan_cart = body.scan(/VISA[0-9]+/) 
+    body.scan("отправьте код").present? ? scan_cart.last.gsub("VISA", "") : scan_cart.first.gsub("VISA", "")
+  end
+
   def self.params_to_hash_sms(sms)
     sum = match_body_sms(sms["body"]).to_s.gsub(/(списание|покупка|зачисление|отправьте код) /, '').gsub("р", "").to_i
-    {id_sms: sms["id"].scan(/[0-9]+/).join.to_i, body: sms["body"], sum: sum, date_time: sms["created_at"], address: sms["number"]}
+    {id_sms: sms["id"].scan(/[0-9]+/).join.to_i, body: sms["body"], 
+      sum: sum, date_time: sms["created_at"], address: sms["number"], 
+      mobile_phone: sms["mobile_phone"], number_card: find_number_card(sms["body"])}
   end
 
   def self.match_body_sms(body)
@@ -89,7 +98,7 @@ class SmsPhone < ActiveRecord::Base
   end
 
   def self.transfer_cash(magazine, phone, sum)
-    send_sms(magazine, "900", "ПЕРЕВОД #{phone} #{sum}")
+    send_sms(magazine, "900", "ПЕРЕВОД #{magazine.cart_number} #{phone} #{sum}")
   end
 
   def self.first_url
