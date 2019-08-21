@@ -124,6 +124,7 @@ Rails.application.routes.draw do
       end
       collection do 
         get :sms
+        get :table
         post :sms_send
         get :vk
         post :vk_send

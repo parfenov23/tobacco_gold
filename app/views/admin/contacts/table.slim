@@ -1,0 +1,24 @@
+table border="1"
+  tr
+    td Телефон
+    td ФИО
+    td Кол-во покупок
+    td Последний визит
+    td Сумма последней покупки
+    td Средний чек
+    td Комментарий
+  - current_magazine.company.contacts.each do |contact|
+    tr
+      td = contact.phone.insert(1, '-').insert(5, '-').insert(9, '-').insert(12, '-')
+      td = contact.first_name
+      - all_sales = contact.sales
+      td = all_sales.count
+      - if all_sales.present?
+        td = all_sales.first.created_at.strftime("%m.%d.%Y")
+        td = all_sales.first.price.to_i.to_s + " руб."
+        td = (all_sales.sum(:price)/all_sales.count).round.to_s + " руб."
+      - else
+        td = '-'
+        td = '-'
+        td = '-'  
+      td 
