@@ -9,7 +9,7 @@ table border="1"
     td Комментарий
   - current_magazine.company.contacts.each do |contact|
     tr
-      td = contact.phone.insert(1, '-').insert(5, '-').insert(9, '-').insert(12, '-')
+      td = contact.phone.insert(1, '-').insert(5, '-').insert(9, '-').insert(12, '-')с
       td = contact.first_name
       - all_sales = contact.sales
       td = all_sales.count
@@ -21,4 +21,4 @@ table border="1"
         td = '-'
         td = '-'
         td = '-'  
-      td 
+      td
