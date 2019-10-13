@@ -23,9 +23,11 @@
       - product_items.each do |item|
         - item_count = item.current_count(curr_magazine)
         - if item_count.to_i > 0 || params[:type] == "not_available"
-          .list-group-item.col-md-3.material
+          - blank_desc = item.description.present? && item.image_url.present?
+          .list-group-item.col-md-3.material class=(!blank_desc ? "blankProductItemDescription" : nil)
             span
               = item.title
             - if current_user_admin? || params[:pub] == "true"
               a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="#{product.title} - #{item.title}" href="/admin/stock/#{item.id}/info"
                 = item_count
+              = render "admin/admin/common_btn", {url: "/admin/product_items/#{item.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование вкуса", class_remove: "displayNone"}
