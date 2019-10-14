@@ -2,7 +2,7 @@ module Api
   class ProductsController < ApiController
     require 'vk_message'
     def index
-      render json: Product.all.as_json
+      render json: current_company.products.current_presents_items.as_json
     end
 
     def show

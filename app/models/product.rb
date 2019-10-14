@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
   belongs_to :company
   default_scope { order("title ASC") }
   default_scope { where(archive: false) }
+  scope :current_presents_items, -> { select { |product| product.product_items.joins(:product_item_counts).where(["product_item_counts.count > ?", 0]).uniq.present? }}
 
   def self.first_url
     "products"
