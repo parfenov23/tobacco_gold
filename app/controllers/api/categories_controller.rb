@@ -9,7 +9,7 @@ module Api
     end
 
     def products
-      render json: Category.find(params[:id]).products.transfer_to_json
+      render json: Category.find(params[:id]).products.current_presents_items.transfer_to_json
     end
   end
 end
