@@ -41,12 +41,13 @@
     - current_company.providers.each do |provider|
       - all_sum_buys = 0
       - provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).map{|buy| all_sum_buys += buy.balance_of_pay}
-      .item
-        i.user-tie.iconCashbox
-        span.title #{provider.title}
-      .item.under
-        i.icon-coin-dollar.iconCashbox
-        span.title #{number_with_delimiter(all_sum_buys, delimiter: " ")} рублей
+      - if all_sum_buys > 0
+        .item
+          i.user-tie.iconCashbox
+          span.title #{provider.title}
+        .item.under
+          i.icon-coin-dollar.iconCashbox
+          span.title #{number_with_delimiter(all_sum_buys, delimiter: " ")} рублей
 = render "curr_statistic"
 .headerBar.block-material
   .displayFlex
