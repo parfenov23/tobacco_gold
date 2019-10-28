@@ -8,7 +8,7 @@ module Admin
 
     def remove
       product_id = find_model.product_id
-       find_model.update(archive: true)
+      find_model.update(archive: true)
       redirect_to '/admin/product_items?product_id=' + product_id.to_s
     end
 
@@ -18,7 +18,9 @@ module Admin
       if params[:product_items][:count].present?
         product_item.product_item_counts.find_by_magazine_id(magazine_id).update(count: params[:product_items][:count])
       end
-       params[:typeAction] == "json" ? render_json_success(find_model) : redirect_to_index
+      blank_item = product_item.description.blank? && product_item.image_url.blank?
+      jq_script = "$('.btn_item_#{product_item.id}').closest('.blankProductItemDescription').removeClass('blankProductItemDescription');"
+      params[:typeAction] == "json" ? render_json_success(find_model, (!blank_item ? jq_script : nil)) : redirect_to_index
     end
 
     private

@@ -30,4 +30,4 @@
             - if current_user_admin? || params[:pub] == "true"
               a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="#{product.title} - #{item.title}" href="/admin/stock/#{item.id}/info"
                 = item_count
-              = render "admin/admin/common_btn", {url: "/admin/product_items/#{item.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование вкуса", class_remove: "displayNone"}
+              = render "admin/admin/common_btn", {url: "/admin/product_items/#{item.id}", class_edit: "js_loadContentInOtherPopup btn_item_#{item.id}", data_title: "Редактирование вкуса", class_remove: "displayNone"}

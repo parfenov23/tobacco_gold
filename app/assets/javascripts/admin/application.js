@@ -95,6 +95,9 @@ var submitUpdateModel = function(btn){
     {
       show_error("Сохранено", 3000);
       closeAllOtherPopup();
+      if(data.jq.length){
+        eval(data.jq);
+      }
       if(data.url != undefined){
         window.location.href = data.url
       }

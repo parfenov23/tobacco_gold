@@ -29,7 +29,7 @@ module Admin
         BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price, curr_count: curr_count})
       end
       buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:buy_param][:provider_id], magazine_id: magazine_id)
-      current_cashbox.calculation('cash', result, false) if params[:buy_param][:def_pay] == "1"
+      current_cashbox.calculation(params[:cashbox_type], result, false) if params[:buy_param][:def_pay] == "1"
       hash_update_price.each do |k, v| 
         provider = Provider.find(params[:buy_param][:provider_id])
         curr_item = provider.provider_items.where(product_id: k).last
@@ -59,7 +59,8 @@ module Admin
       else
         find_model.update(def_pay: true)
       end
-      render_json_success(buy)
+      jq_sript = "$('a.btn_def_pay_#{buy.id}').hide();"
+      render_json_success(buy, jq_sript)
     end
 
     def new_item_product
