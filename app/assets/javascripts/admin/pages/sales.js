@@ -46,9 +46,10 @@ var autoAddItem = function(type, id){
       var block_item = productSaleBlock.find(".selectProductItem .changeSelectContent")
       selectedLi(block_item.closest(".parentSelectMd"), item.data("value"));
       findItem = $(".allItemsSale .parentItemSale.barcode" + id);
-      findItem.addClass("createFromBarcodeScan");
+      // findItem.addClass("createFromBarcodeScan");
       findItem.find("td.barcode span").text(id);
       changeSelectProductItem(findItem.find(".changeSelectProductItem"));
+      if(type == "barcode") findItem.find("input[name='buy[][barcode]']").val(id);
       sumItemSale(findItem);
     }
   });
@@ -262,6 +263,15 @@ $(document).ready(function(){
         search_contact(barcode);
       }else{
         addItemWhenBarcodeScan(barcode);
+      }
+    });
+
+    $(document).keypress(function( event ) {  
+      if (event.which == 103 || event.which == 1087) {
+        if(!$(".search_discount_card").is(':focus') && !$(".allOtherPopup:visible").length ){
+          var product_item_id = parseInt($(".parentItemSale:last .selectProductItem input").val());
+          if (product_item_id > 0) autoAddItem('product_item_id', product_item_id);
+        }
       }
     });
 
