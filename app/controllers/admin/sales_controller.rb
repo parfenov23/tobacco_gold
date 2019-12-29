@@ -51,9 +51,10 @@ module Admin
       sales_arr = params[:sales]
       hash_order = {}
       sales_arr.each do |sale_param|
-        item = ProductItem.find(sale_param[:item_id])
-        count = sale_param[:count].to_i
-        hash_order["#{item.id}"] = {count: hash_order["#{item.id}"].to_i + count, price_id: sale_param[:price_id].to_i}
+        item = ProductItem.find(sale_param["item_id"])
+        count = sale_param["count"].to_i
+        hash_order_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i : 0
+        hash_order["#{item.id}"] = {count: hash_order_count + count, price_id: sale_param["price_id"].to_i}
       end
       if params[:order_request].present?
         order_request = current_company.order_requests.where(id: params[:order_request]).last
