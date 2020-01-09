@@ -46,6 +46,7 @@ gem 'whenever', :require => false
 gem 'unicorn'
 
 gem 'faye-websocket'
+gem 'to_regexp'
 
 group :development, :test do
   gem 'byebug'

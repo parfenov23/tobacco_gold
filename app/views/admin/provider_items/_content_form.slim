@@ -6,5 +6,6 @@
   = render "common_select_new", {arr_li: all_products, default: (@model.product_id || all_products.first[:id]), name_input: "provider_items[product_id]", add_class: "defaultInitMdSelect"}
 
 = render "common_input", {title: "Цена", name: "provider_items[price]", value: @model.price}
+= render "common_input", {title: "Regexp", name: "provider_items[text_replace]", value: @model.text_replace}
 input type="hidden" name="provider_items[provider_id]" value=(@model.provider_id || params[:provider_id])
 // ================

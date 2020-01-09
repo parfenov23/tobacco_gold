@@ -96,8 +96,11 @@ module Admin
       @find_arr = []
       query_arr = params[:query].split("\r\n").uniq
       product = Product.find(params[:product_id])
+      provider = Provider.find(params[:provider_id])
+      provider_item = provider.provider_items.find_by_product_id(params[:product_id])
+      text_replace = provider_item.present? ? provider_item.text_replace : nil
       query_arr.each do |query_title|
-        query = clear_query_search(query_title, product.title)
+        query = clear_query_search(query_title, product.title, text_replace)
         page = agent.post("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{key}&text=#{query}&lang=ru-en")
         title = JSON.parse(page.body)["text"].first
         title = query if params[:product_id].to_i == 2
@@ -149,9 +152,13 @@ module Admin
       Buy
     end
 
-    def clear_query_search(query, product)
+    def clear_query_search(query, product, text_replace=nil)
+      query = query.mb_chars.downcase.to_s
       reg = Regexp.new(/Табак ([а-яА-Я].+?|[a-zA-Z].+?) (\(50гр\)|\(50 гр\)|\"([а-яА-Я].+?|[a-zA-Z].+?)\")/)
-      query.gsub(reg, "").gsub("-", " ").gsub("  ", "")
+      reg2 = text_replace.present? ? text_replace.to_s.match(/.*/).to_a.first.to_regexp : Regexp.new(/.*/)
+      query = query.gsub(reg, "").gsub("-", " ").gsub("  ", " ")
+      reg_filter = query.match(reg2).to_a.last rescue nil
+      (reg_filter || query)
     end
 
   end
