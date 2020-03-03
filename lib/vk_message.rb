@@ -65,7 +65,9 @@ class VkMessage
       unless HistoryVk.where(params_type: get_params.to_s).present?
         body_text = (get_params[:object][:text].mb_chars.downcase.to_s) rescue nil
         if body_text == "прайс"
-          message = company.products.map{|product| "#{product.title}: #{product.current_price} рублей"}.join("\n")
+          message = company.products.all_present(magazine.id).map{|product| 
+            "#{product.title}: #{product.current_price} рублей"
+          }.join("\n")
           run(message, type="group", {user_id: get_params[:object][:peer_id], access_token: magazine.vk_api_key_group})
         elsif body_text == "акция"
           message = magazine.special_offer
