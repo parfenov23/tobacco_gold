@@ -23,6 +23,20 @@ module Admin
       params[:typeAction] == "json" ? render_json_success(find_model, (!blank_item ? jq_script : nil)) : redirect_to_index
     end
 
+    def show
+      @item = find_model if ((find_model.company_id == current_company.id) rescue true )
+      if @item.blank?
+        redirect_to "/404"
+      else
+        respond_to do |format|
+          format.html
+          format.pdf{
+            render pdf: "#{@item.id}_#{Time.now.to_i}"
+          }
+        end
+      end
+    end
+
     private
 
     def model
