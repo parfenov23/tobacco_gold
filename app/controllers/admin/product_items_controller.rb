@@ -35,7 +35,7 @@ module Admin
                     margin:  {   
                       top:               0,                     # default 10 (mm)
                       bottom:            0,
-                      left:              0,
+                      left:              4,
                       right:             0 
                     }
           }
