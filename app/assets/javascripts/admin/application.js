@@ -159,7 +159,7 @@ var scanBarCode = function(end_function){
     if (pressed == false) {
       setTimeout(function(){
                 // check we have a long length e.g. it is a barcode
-                if (chars.length >= 10) {
+                if (chars.length >= 7) {
                   end_function(chars.join(""))
                 }
                 chars = [];
