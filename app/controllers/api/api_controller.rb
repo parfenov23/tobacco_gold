@@ -17,7 +17,7 @@ module Api
     end
 
     def find_api_key
-      render json: Company.find_by_domain(params[:domain]).magazines.first.api_key
+      render json: {api_key: Company.find_by_domain(params[:domain]).magazines.first.api_key}
     end
 
     def all_content_pages
