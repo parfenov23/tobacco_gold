@@ -234,6 +234,7 @@ Rails.application.routes.draw do
     resources :api do
       collection do
         get :company
+        post :company
         post :auth_domen_vk_group
         get :all_magazines
         get :all_content_pages
