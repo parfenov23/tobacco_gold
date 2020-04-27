@@ -8,7 +8,7 @@ class SessionController < ActionController::Base
   def registration
     if params[:password] == params[:confirm_password]
       company = Company.create({title: params[:company]})
-      magazine = Magazine.create({title: params[:company], company_id: company.id})
+      magazine = company.magazines.create({title: params[:company], api_key: SecureRandom.hex})
       user = User.create({email: params[:email], admin: true, role: "admin", magazine_id: magazine.id})
       user.password = params[:password]
       if user.save
