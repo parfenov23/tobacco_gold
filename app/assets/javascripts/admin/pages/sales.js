@@ -124,12 +124,12 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
 
 var priceItemSale = function(){
   var result = 0;
-  $(".endSumPosition:visible").each(function(n, block){ result+= parseInt($(block).text())});
+  $(".endSumPosition:visible").each(function(n, block){ result+= parseFloat($(block).text())});
   var discountBlock = $(".discountCashBack");
   var cashback_type = discountBlock.find("[name='cashback_type']").val();
-  var cashback_bank = parseInt(discountBlock.find("[name='cashback_bank']").val());
+  var cashback_bank = parseFloat(discountBlock.find("[name='cashback_bank']").val());
   var sale_discount = $(".saleDiscount .sale_discount");
-  var sale_discount_val = parseInt(sale_discount.val());
+  var sale_discount_val = parseFloat(sale_discount.val());
   // if (cashback_type == "dickount"){
   //   if (result >= cashback_bank){
   //     result -= cashback_bank
@@ -158,10 +158,10 @@ var priceItemSale = function(){
 var sumItemSale = function(block){
   var curr_block = block_or_block(block.find(".selectProductPrice .listSelectMd .selected"), 
     block.find(".selectProductPrice"));
-  var curr_price = parseInt(block_or_block( curr_block.text(), curr_block.val() ) );
+  var curr_price = parseFloat(block_or_block( curr_block.text(), curr_block.val() ) );
   // var curr_count = parseInt(block_or_block(block.find("[name='sales[][count]']"), 
   //   block.find("[name='buy[][count]']")).val());
-  var curr_count = parseInt(block.find("input.countItems").val());
+  var curr_count = parseFloat(block.find("input.countItems").val());
   block.find(".endSumPosition").text(curr_price*curr_count);
   priceItemSale();
 }

@@ -145,6 +145,16 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :tags do
+      member do
+        get :remove
+      end
+      collection do
+        get :search
+        post :remove_product_item
+      end
+    end
+
     resources :product_prices do
       member do
         get :remove
@@ -226,6 +236,7 @@ Rails.application.routes.draw do
         get :company
         post :auth_domen_vk_group
         get :all_magazines
+        get :all_content_pages
       end
     end
     resources :auth do
@@ -266,6 +277,7 @@ Rails.application.routes.draw do
       collection do
         get :search
         get :get_search
+        post :load
       end
     end
     resources :categories do

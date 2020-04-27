@@ -15,7 +15,9 @@ class ProductItem < ActiveRecord::Base
 
   belongs_to :product
   has_many :buy_items, dependent: :destroy
+  has_many :product_item_magazine_prices, dependent: :destroy
   has_many :sale_items, dependent: :destroy
+  has_and_belongs_to_many :tags
   default_scope { order('title ASC') }
   scope :total_sum, -> { map{|pi| pi.product.current_price}.sum }
   has_many :product_item_counts, dependent: :destroy
@@ -142,14 +144,16 @@ class ProductItem < ActiveRecord::Base
     public_url
   end
 
-  def transfer_to_json
+  def transfer_to_json(api_key=nil)
+    $api_key = api_key if api_key.present?
     as_json({
       except: [:created_at, :updated_at, :image_url],
       methods: [:count, :magazine_count, :count_sales, :default_img, :default_price, :product_title]
     })
   end
 
-  def self.transfer_to_json
+  def self.transfer_to_json(api_key=nil)
+    $api_key = api_key if api_key.present?
     all.map(&:transfer_to_json)
   end
 
@@ -176,7 +180,17 @@ class ProductItem < ActiveRecord::Base
   end
 
   def price
-    product.product_prices.where(id: price_id).last rescue nil
+    magazine_id = $api_key.present? ? (Magazine.where(api_key: $api_key).last.id rescue nil) : nil
+    product.product_prices.where(id: price_id(magazine_id)).last rescue nil
+  end
+
+  def price_id(magazine_id=nil, params=nil)
+    if params.blank?
+      curr_price = product_item_magazine_prices.where(magazine_id: magazine_id).last if magazine_id.present?
+      curr_price.price_id if curr_price.present?
+    else
+      product_item_magazine_prices.create(params).price_id
+    end
   end
 
   def current_price(contact)

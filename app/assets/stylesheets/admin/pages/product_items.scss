@@ -1,0 +1,42 @@
+.block__tags{
+  position: relative;
+  .find_tags{
+    list-style-type: none;
+    padding-left: 0;
+    position: absolute;
+    background-color: white;
+    z-index: 9;
+    width: 100%;
+    padding: 8px 12px 8px 12px;
+    max-height: 140px;
+    overflow: auto;
+    top: 46px;
+    display: none;
+    li{
+      padding: 4px;
+      &:hover {
+        background-color: #ddd;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.all__tags{
+  margin-bottom: 12px;
+  .tag{
+    margin-right: 6px;
+    background-color: #bdbdbd;
+    padding: 4px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 4px;
+    .title_tag{
+      padding-right: 4px;
+    }
+    .remove_tag{
+      color: #F44336;
+      cursor: pointer;
+    }
+  }
+}

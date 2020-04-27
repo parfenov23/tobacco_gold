@@ -15,6 +15,10 @@ module Api
       render json: current_company.magazines.as_json
     end
 
+    def all_content_pages
+      render json: ContentPage.where(magazine_id: current_magazine.id).as_json
+    end
+
     def auth_domen_vk_group
       VkMessage.message_price(params)
       # binding.pry

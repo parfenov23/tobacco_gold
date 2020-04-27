@@ -26,9 +26,19 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
       label Цена:
       - all_prices = @model.product.product_prices.where(archive: false)
       - all_prices_arr = [{title: "Нет", id: nil}] + all_prices.map{|first_price| {title: first_price.price, id: first_price.id} }
-      = render "common_select_new", {arr_li: all_prices_arr, default: (@model.price_id || all_prices_arr.first[:id]), name_input: "product_items[price_id]", add_class: "defaultInitMdSelect"}
+      = render "common_select_new", {arr_li: all_prices_arr, default: (@model.price_id(current_magazine.id) || all_prices_arr.first[:id]), name_input: "product_items[price_id]", add_class: "defaultInitMdSelect"}
   
   = render "common_input", {title: "Код товара", value: @model.barcode, name: "product_items[barcode]"}
+
+  .block__tags
+    = render "common_input", {title: "Теги", add_class: "add_new_tag", data_id: @model.id}
+    ul.find_tags.block-material
+    .all__tags
+      - @model.tags.each do |tag|
+        .tag
+          span.title_tag
+            = tag.title
+          span.remove_tag data-id=tag.id ✖
 
   .form-group
     = check_box("product_items", "in_stock", {checked: check_if_true(@model.in_stock), class: "checkbox-material", id: "filled-in-stock"})
@@ -43,6 +53,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
 
   - product_id = product_present ? params[:product_id] : @model.product_id
   input type="hidden" name="product_items[product_id]" value="#{product_id}"
+  input.current_id type="hidden" value="#{@model.id}"
   input type="hidden" name="_method" value="#{method}"
   - class_submit = @model.id.present? ? "js_submitUpdateProduct" : "js_submitNewModel"
   button.btn.btn-primary-material.submit class=class_submit type="submit" formnovalidate=true Сохранить

@@ -4,7 +4,7 @@
   - curr_price = params[:type_sale] != "opt" ? all_prices.curr_default_id : all_prices.curr_opt_id
   div id="select#{product.id}"
     - product_items = product.product_items.all_present(current_magazine.id)
-    - all_product_items = product_items.map{|item| {title: item.title, id: item.id, add_data: {'data-barcode' => item.barcode, 'data-product' => product.id, 'data-price_id' => item.price_id, 'data-deff_price' => curr_price} } }
+    - all_product_items = product_items.map{|item| {title: item.title, id: item.id, add_data: {'data-barcode' => item.barcode, 'data-product' => product.id, 'data-price_id' => item.price_id(current_magazine.id), 'data-deff_price' => curr_price} } }
     
     = render "common_select_new", {arr_li: all_product_items, default: all_product_items.first[:id], add_class: "noInit selectProductItem", name_input: "sales[][item_id]", class_input: 'changeSelectContent changeSelectProductItem'}
     

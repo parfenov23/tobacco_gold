@@ -14,10 +14,17 @@ module Admin
 
     def update
       product_item = find_model
-      product_item.update(params_model.merge({price_id: params[:product_items][:price_id]}))
+      product_item.update(params_model)
+      find_price = product_item.product_item_magazine_prices.where(magazine_id: current_magazine.id).last
+      if params[:product_items][:price_id].present?
+        find_price.present? ? find_price.update(price_id: params[:product_items][:price_id]) : product_item.price_id(nil, {magazine_id: current_magazine.id, price_id: params[:product_items][:price_id]})
+      else
+        find_price.destroy if find_price.present?
+      end
       if params[:product_items][:count].present?
         product_item.product_item_counts.find_by_magazine_id(magazine_id).update(count: params[:product_items][:count])
       end
+
       blank_item = product_item.description.blank? && product_item.image_url.blank?
       jq_script = "$('.btn_item_#{product_item.id}').closest('.blankProductItemDescription').removeClass('blankProductItemDescription');"
       params[:typeAction] == "json" ? render_json_success(find_model, (!blank_item ? jq_script : nil)) : redirect_to_index

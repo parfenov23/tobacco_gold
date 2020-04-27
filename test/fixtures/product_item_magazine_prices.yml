@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_item_id: MyString
+  integer: MyString
+  magazine_id: 1
+  price_id: 1
+
+two:
+  product_item_id: MyString
+  integer: MyString
+  magazine_id: 1
+  price_id: 1

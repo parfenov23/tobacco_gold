@@ -1,6 +1,7 @@
 module Admin
   class AdminController < ActionController::Base
     before_action :redirect_to_stock, except: [:api_sms]
+    before_action :current_company
     layout "admin"
     
     def index
@@ -72,6 +73,11 @@ module Admin
 
     def magazine_id
       current_user.present? ? current_user.magazine_id : nil
+    end
+
+    def current_company
+      @current_company = current_user.magazine.company
+      @current_company
     end
 
   end

@@ -2,20 +2,25 @@
 javascript:
   tinymce.init({
     selector: "textarea.js_TinyMce",
-    height  : 300
+    height  : 300,
+    plugins: "code",
+      toolbar: 'undo redo | formatselect | ' +
+  'bold italic backcolor | alignleft aligncenter ' +
+  'alignright alignjustify | bullist numlist outdent indent | ' +
+  'removeformat | code'
   });
 - action_url = @model.id.nil? ? "/admin/content_pages" : "/admin/content_pages/#{@model.id}"
 - method = @model.id.nil? ? "post" : "put"
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
-  .form-group
-    label Категория:
-    - arr_pages = all_pages
-    = select_tag("content[name_page]",
-                 options_for_select(arr_pages, @model.name_page), {:class => 'form-control'})
+  = render "common_input", {title: "Название", name: "content_pages[title]", value: @model.title}
+  = render "common_input", {title: "URL", name: "content_pages[url]", value: @model.url}
+
   .form-group
     label
       |Описание:
-    textarea.form-control.js_TinyMce name="content[description]"
+    textarea.form-control.js_TinyMce name="content_pages[description]"
       = @model.description
+
+  input type="hidden" name="content_pages[magazine_id]" value="#{current_magazine.id}"
   input type="hidden" name="_method" value="#{method}"
   button.btn.btn-primary-material.submit type="submit"  Сохранить

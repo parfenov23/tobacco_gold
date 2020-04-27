@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200109122626) do
+ActiveRecord::Schema.define(version: 20200427131700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,8 +76,9 @@ ActiveRecord::Schema.define(version: 20200109122626) do
   create_table "companies", force: :cascade do |t|
     t.string   "title"
     t.text     "contact"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "setting_nav"
   end
 
   create_table "contact_prices", force: :cascade do |t|
@@ -108,6 +109,8 @@ ActiveRecord::Schema.define(version: 20200109122626) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "magazine_id"
+    t.string   "url"
   end
 
   create_table "history_vks", force: :cascade do |t|
@@ -140,6 +143,7 @@ ActiveRecord::Schema.define(version: 20200109122626) do
     t.string   "api_key_pushbullet_mobile"
     t.string   "phone_sms"
     t.string   "cart_number"
+    t.text     "logo"
   end
 
   create_table "manager_payments", force: :cascade do |t|
@@ -230,6 +234,15 @@ ActiveRecord::Schema.define(version: 20200109122626) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "product_item_magazine_prices", force: :cascade do |t|
+    t.string   "product_item_id"
+    t.string   "integer"
+    t.integer  "magazine_id"
+    t.integer  "price_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "product_items", force: :cascade do |t|
     t.string   "title"
     t.integer  "product_id"
@@ -243,6 +256,14 @@ ActiveRecord::Schema.define(version: 20200109122626) do
     t.string   "barcode"
     t.integer  "price_id"
     t.boolean  "archive",     default: false
+    t.string   "uid"
+  end
+
+  create_table "product_items_tags", force: :cascade do |t|
+    t.integer  "product_item_id"
+    t.integer  "tag_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "product_prices", force: :cascade do |t|
@@ -334,6 +355,13 @@ ActiveRecord::Schema.define(version: 20200109122626) do
     t.boolean  "archive",     default: false
     t.integer  "magazine_id"
     t.text     "full_text"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transfer_items", force: :cascade do |t|

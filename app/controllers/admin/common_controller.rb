@@ -1,6 +1,5 @@
 module Admin
   class CommonController < AdminController
-    before_action :current_company
 
     def index
       @models = model.columns_hash["company_id"].present? ? model.where(company_id: current_company.id) : model.all
@@ -66,11 +65,6 @@ module Admin
 
     def params_model
       params.require(model.first_url.to_sym).permit(model.column_names).compact rescue {}
-    end
-
-    def current_company
-      @current_company = current_user.magazine.company
-      @current_company
     end
   end
 end

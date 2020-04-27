@@ -78,14 +78,13 @@ module ApplicationHelper
       # {url: "/admin/admin/sms_phone", title: "Смс банк"},
       {url: "/admin/cashbox", title: "Касса"},
       {url: '/admin/order_requests', title: 'Заявки'}, 
-      # {url: '/admin/content_pages', title: 'Контент'}, 
+      {url: '/admin/content_pages', title: 'Контент'}, 
       {url: '/admin/users', title: 'Пользователи'}, 
       {url: '/admin/contacts', title: 'Клиенты'},
       {url: '/admin/admin/manager_payments', title: 'Выплаты', display: false},
-      # {url: '/admin/admin/search', title: 'Поиск'},
       {url: '/admin/providers', title: 'Поставщики'},
       {url: '/admin/magazins', title: 'Компания'},
-      {url: '/admin/product_items', title: 'Вкусы', display: false},
+      {url: '/admin/product_items', title: 'Позиции', display: false},
       {url: '/admin/product_prices', title: 'Цены', display: false},
       {url: '/admin/provider_items', title: 'Цены поставщика', display: false},
       {url: '/admin/contact_prices', title: 'Цены клиента', display: false},
@@ -100,10 +99,14 @@ module ApplicationHelper
     if current_user.is_admin?
       all_navs
     elsif current_user.is_manager?
-      aviable_page = ["admin", "sales", "stock", "order_requests", "contacts", "admin/search"]
-      all_navs.map{|nav| nav if aviable_page.include?(nav[:url].gsub("/admin/", ""))}.compact
+      aviable_page = ["admin", "sales", "stock", "order_requests", "contacts"]
+      all_navs = all_navs.map{|nav| nav if aviable_page.include?(nav[:url].gsub("/admin/", ""))}.compact
     end
-    
+    if current_company.setting_nav.present?
+      arr_setting = current_company.setting_nav.split(",")
+      all_navs = all_navs.map{|nav| nav if arr_setting.include?(nav[:url])}.compact
+    end
+    all_navs 
   end
 
   def current_company

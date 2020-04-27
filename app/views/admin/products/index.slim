@@ -11,7 +11,7 @@
       span
         = product.title
       a.btn.btn-primary-material.pull-right href="/admin/product_items?product_id=#{product.id}" style="margin-right: 5px;"
-        | Вкусы
+        | Позиции
       a.btn.btn-info-material.pull-right href="/admin/product_prices?product_id=#{product.id}" style="margin-right: 5px;"
         | Цены
       = render "admin/admin/common_btn", {url: "/admin/products/#{product.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование производителя"}
