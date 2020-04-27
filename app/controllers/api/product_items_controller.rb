@@ -69,7 +69,7 @@ module Api
         current_count.save
 
       end
-      render json: params.as_json
+      render json: {success: params.as_json}
     end
 
     def get_img_url
