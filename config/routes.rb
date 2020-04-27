@@ -237,6 +237,7 @@ Rails.application.routes.draw do
         post :auth_domen_vk_group
         get :all_magazines
         get :all_content_pages
+        get :find_api_key
       end
     end
     resources :auth do

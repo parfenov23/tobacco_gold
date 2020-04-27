@@ -1,7 +1,8 @@
 module Api
   class ApiController < ActionController::Base
     require 'vk_message'
-    before_action :auth
+    before_action :auth, except: [:find_api_key]
+
 
     def index
       render json: {success: true, user_id: current_user.id}
@@ -13,6 +14,10 @@ module Api
 
     def all_magazines
       render json: current_company.magazines.as_json
+    end
+
+    def find_api_key
+      render json: Company.find_by_domain(params[:domain]).magazines.first.api_key
     end
 
     def all_content_pages
