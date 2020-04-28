@@ -33,7 +33,7 @@ module Api
       arr_product_items = params[:load]
       arr_product_items.each do |json_product_item|
         find_product_item = ProductItem.where(uid: json_product_item["uid"]).last
-        product_item = find_product_item.present? ? find_product_item : ProductItem.new
+        product_item = find_product_item.present? ? find_product_item : ProductItem.new(uid: json_product_item["uid"])
         product_item.title = json_product_item["title"]
         product_item.barcode = json_product_item["barcode"]
         
