@@ -17,6 +17,7 @@ class ProductItem < ActiveRecord::Base
   has_many :buy_items, dependent: :destroy
   has_many :product_item_magazine_prices, dependent: :destroy
   has_many :sale_items, dependent: :destroy
+  has_many :product_item_top_magazines
   has_and_belongs_to_many :tags
   default_scope { order('title ASC') }
   scope :total_sum, -> { map{|pi| pi.product.current_price}.sum }
@@ -168,7 +169,7 @@ class ProductItem < ActiveRecord::Base
   end
 
   def default_price
-    price.present? ? price.price : nil
+    price.present? ? price.price : product.current_price
   end
 
   def self.text_search(query, val = "0.4")

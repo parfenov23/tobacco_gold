@@ -24,6 +24,10 @@ module Api
       render json: ContentPage.where(magazine_id: current_magazine.id).as_json
     end
 
+    def all_top_magazine
+      render json: ProductItem.where(id: ProductItemTopMagazine.where(magazine_id: current_magazine.id).ids).transfer_to_json
+    end
+
     def auth_domen_vk_group
       VkMessage.message_price(params)
       # binding.pry

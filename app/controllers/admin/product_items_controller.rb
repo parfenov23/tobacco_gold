@@ -25,6 +25,13 @@ module Admin
         product_item.product_item_counts.find_by_magazine_id(magazine_id).update(count: params[:product_items][:count])
       end
 
+      find_product_item_top_magazine = product_item.product_item_top_magazines.where(magazine_id: current_magazine.id).last
+      if (params[:product_items][:top] == "1" && find_product_item_top_magazine.blank?)
+        product_item.product_item_top_magazines.create(magazine_id: current_magazine.id)
+      elsif find_product_item_top_magazine.present?
+        find_product_item_top_magazine.destroy
+      end
+
       blank_item = product_item.description.blank? && product_item.image_url.blank?
       jq_script = "$('.btn_item_#{product_item.id}').closest('.blankProductItemDescription').removeClass('blankProductItemDescription');"
       params[:typeAction] == "json" ? render_json_success(find_model, (!blank_item ? jq_script : nil)) : redirect_to_index

@@ -45,7 +45,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     label.checkbox-label-material for="filled-in-stock" Товар в наличии?
   
   .form-group
-    = check_box("product_items", "top", {checked: check_if_true(@model.top), class: "checkbox-material", id: "filled-in-top"})
+    = check_box("product_items", "top", {checked: check_if_true(@model.product_item_top_magazines.where(magazine_id: current_magazine.id).last.present?), class: "checkbox-material", id: "filled-in-top"})
     label.checkbox-label-material for="filled-in-top" Хит продаж?
   - if @model.image_url.present?
     .form-group
