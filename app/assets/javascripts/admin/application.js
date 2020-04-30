@@ -95,7 +95,7 @@ var submitUpdateModel = function(btn){
     {
       show_error("Сохранено", 3000);
       closeAllOtherPopup();
-      if(data.jq.length){
+      if(data.jq != null){
         eval(data.jq);
       }
       if(data.url != undefined){
