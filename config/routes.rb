@@ -301,6 +301,8 @@ Rails.application.routes.draw do
         post :prices
       end
       member do 
+        get :find_tags
+        get :tag_product_items
         get :product_items
       end
     end
