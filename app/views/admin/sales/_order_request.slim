@@ -11,7 +11,7 @@
       - all_prices_arr = all_prices.map{|first_price| [first_price.price, first_price.id]}
       - order_item_hash = order_request.item(current_product_item.id)
       - order_item_price_id = order_item_hash[:price_id]
-      - curr_price =  order_item_price_id.present? ? product.product_prices.where(id: order_item_price_id).last.price : current_product_item.current_price(order_request.contact)
+      - curr_price =  order_item_price_id.present? ? product.product_prices.where(id: order_item_price_id).last.price : current_product_item.price(current_magazine.api_key).price
       .parentItemSale.active.orderRequestToSaleBlock class=("barcode[object Object]") 
         .inlineBlock.col1
           - arr_type = @products.map{|product| {title: product.title, id: product.id} }

@@ -36,16 +36,20 @@ class Product < ActiveRecord::Base
 
   def current_price
     price = product_prices.find_by_default(true)
-    (price.price rescue product_prices.minimum(:price)).to_i
+    (price.price rescue product_prices.minimum(:price))
+  end
+
+  def minimum_price_model
+    product_prices.where(price: product_prices.minimum(:price)).last
   end
 
   def current_price_opt
     price = product_prices.find_by_opt(true)
-    (price.price rescue current_price).to_i
+    (price.price rescue current_price)
   end
 
   def current_price_model
-    product_prices.find_by_default(true)
+    product_prices.find_by_default(true) || minimum_price_model
   end
 
   def current_price_opt_model

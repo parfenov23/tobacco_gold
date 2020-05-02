@@ -180,9 +180,10 @@ class ProductItem < ActiveRecord::Base
     product.company_id
   end
 
-  def price
+  def price(api_key=nil)
+    $api_key = api_key if api_key.present?
     magazine_id = $api_key.present? ? (Magazine.where(api_key: $api_key).last.id rescue nil) : nil
-    product.product_prices.where(id: price_id(magazine_id)).last rescue nil
+    (product.product_prices.where(id: price_id(magazine_id)).last rescue nil) || product.current_price_model
   end
 
   def price_id(magazine_id=nil, params=nil)
