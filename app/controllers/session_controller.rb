@@ -6,7 +6,7 @@ class SessionController < ActionController::Base
   end
 
   def registration
-    if params[:password] == params[:confirm_password]
+    if params[:password] == params[:confirm_password] && params[:key_registration] == "hookahStockCrm2017"
       company = Company.create({title: params[:company]})
       magazine = company.magazines.create({title: params[:company], api_key: SecureRandom.hex})
       user = User.create({email: params[:email], admin: true, role: "admin", magazine_id: magazine.id})
