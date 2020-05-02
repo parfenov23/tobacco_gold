@@ -28,6 +28,10 @@ module Api
       render json: ProductItem.where(id: ProductItemTopMagazine.where(magazine_id: current_magazine.id).ids).transfer_to_json
     end
 
+    def current_price_delivery
+      render json: {current_price_delivery: current_magazine.current_price_delivery(params[:current_price].to_f)}
+    end
+
     def auth_domen_vk_group
       VkMessage.message_price(params)
       # binding.pry

@@ -240,6 +240,7 @@ Rails.application.routes.draw do
         get :all_content_pages
         get :all_top_magazine
         get :find_api_key
+        get :current_price_delivery
       end
     end
     resources :auth do

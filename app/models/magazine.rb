@@ -17,6 +17,16 @@ class Magazine < ActiveRecord::Base
     ProductItemCount.create(hash_array)
   end
 
+  def current_price_delivery(current_price)
+    arr_price_delivery = price_delivery.split(";").map{|d| {price: d.split("=").first.to_i, delivery: d.split("=").last.to_i}}
+
+    last_hash = arr_price_delivery.present? ? {} : {price: 0, delivery: 0}
+    arr_price_delivery.each do |t_hash|
+      last_hash = t_hash if current_price >= t_hash[:price]
+    end
+    last_hash[:delivery] || 0
+  end
+
   # def sms_start_ws
   #   Thread.list.each{|thread| Thread.kill(thread) if thread[:name] == "sms_start_ws_id_#{id}"}
   #   if api_key_pushbullet.present?

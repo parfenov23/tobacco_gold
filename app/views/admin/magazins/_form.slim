@@ -5,10 +5,16 @@ form.form-horizontal action="#{action_url}" method="post"
   = render "common_input", {title: "Адрес", name: "magazins[address]", value: @model.address}
   = render "common_input", {title: "Телефон", name: "magazins[phone]", value: @model.phone}
   = render "common_input", {title: " Логотип", name: "magazins[logo]", value: @model.logo}
+  = render "common_input", {title: "Минимальная сумма заказа", name: "magazins[min_price_order]", value: @model.min_price_order}
+  = render "common_input", {title: " Стоимость доставки (500=200;1000=100)", name: "magazins[price_delivery]", value: @model.price_delivery}
   .form-group.material-form-group
     textarea.form-control name="magazins[special_offer]" type="text" required=true
       = @model.special_offer
     label Текущая акция
+  hr style="border: 1px solid;"
+  = render "common_input", {title: "Виджет обратной связи", name: "magazins[vk_chat_widget]", value: @model.vk_chat_widget}
+  = render "common_input", {title: "Яндекс Метрика", name: "magazins[ya_metrika]", value: @model.ya_metrika}
+  hr style="border: 1px solid;"
   = render "common_input", {title: "Vk api key group", name: "magazins[vk_api_key_group]", value: @model.vk_api_key_group}
   = render "common_input", {title: "Vk api key user", name: "magazins[vk_api_key_user]", value: @model.vk_api_key_user}
   = render "common_input", {title: "Vk chat id", name: "magazins[vk_chat_id]", value: @model.vk_chat_id}

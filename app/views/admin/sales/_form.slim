@@ -66,6 +66,9 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
         - arr_type = [{title: "Руб.", id: "rub"}, {title: "Проц.", id: "proc"}]
         = render "common_select_new", {arr_li: arr_type, default: arr_type.first[:id], name_input: "sale_disckount_select"}
       = render "admin/admin/common_cashbox"
+      .delivery 
+        .title Доставка:
+        .price 200
       .actionBtnSale
         .btn.btn-primary-material.priceItemSale Подсчет
         input type="hidden" name="magazine_id" value="#{current_user.magazine_id}"

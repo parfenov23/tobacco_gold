@@ -15,9 +15,14 @@
     div 
       b Комментарий: 
       = @model.comment
+    - current_price_delivery = current_magazine.current_price_delivery(@model.total_sum)
+    - if current_price_delivery > 0
+      div 
+        b Доставка: 
+        = "#{current_price_delivery} руб."
     div
       b Общая сумма заявки: 
-      = @model.total_sum.to_s + " рублей"
+      = "#{(@model.total_sum + current_price_delivery)} рублей"
   .list-group-item.material.table-mobile
     table.table.table-material.border-right
       thead

@@ -75,7 +75,8 @@
       <% @model.items.each do |id, hash| %>
         <% item = ProductItem.find(id) %>
         <% params_item = @model.item(id) %>
-        <% price = ProductPrice.find(params_item[:price_id]).price %>
+        <% price_id = params_item[:price_id].present? ?  params_item[:price_id] : item.price(current_magazine.api_key).id %>
+        <% price =  ProductPrice.find(price_id).price %>
         <% curr_sum = params_item[:count] * price %>
         <% n_sum += curr_sum %>
         <tr>
@@ -87,18 +88,29 @@
           <td class="text_right"><%= curr_sum %></td>
         </tr>
       <% end %>
+      <% current_price_delivery = current_magazine.current_price_delivery(n_sum) %>
+      <% if current_price_delivery > 0 %>
+        <tr>
+          <td><%= num += 1 %></td>
+          <td>Доставка</td>
+          <td class="text_center">шт</td>
+          <td class="text_right">1</td>
+          <td class="text_right"><%= current_price_delivery %></td>
+          <td class="text_right"><%= current_price_delivery %></td>
+        </tr>
+      <% end %>
       <tr>
         <td class="noBorder"></td>
         <td class="noBorder"></td>
         <td class="noBorder"></td>
         <td class="noBorder"></td>
         <td class="noBorder text_right">Итого:</td>
-        <td class="text_right"><%= n_sum %></td>
+        <td class="text_right"><%= n_sum + current_price_delivery %></td>
       </tr>
     </tbody>
   </table>
   <div style="margin-top: 24px;"> 
-    Всего наименований <%= num %>, на сумму <%= n_sum %> руб. 
+    Всего наименований <%= num %>, на сумму <%= n_sum + current_price_delivery %> руб. 
   </div>
   <div>
     <div style="margin-top: 24px;">

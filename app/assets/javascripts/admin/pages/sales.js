@@ -122,6 +122,17 @@ var addProductItemToProductBlock = function(curr_block, bl_val){
   });
 }
 
+var ajax_current_price_delivery = function(current_price){
+  ajaxApi("get", "/api/api/current_price_delivery", {current_price: current_price}, function(result){
+    $(".saleAllItemCashbox .delivery .price").text(result.current_price_delivery + " руб.");
+    if (result.current_price_delivery > 0){
+      $(".saleAllItemCashbox .delivery").show();
+    }else{
+      $(".saleAllItemCashbox .delivery").hide();
+    }
+  }, false);
+}
+
 var priceItemSale = function(){
   var result = 0;
   $(".endSumPosition:visible").each(function(n, block){ result+= parseFloat($(block).text())});
@@ -130,13 +141,7 @@ var priceItemSale = function(){
   var cashback_bank = parseFloat(discountBlock.find("[name='cashback_bank']").val());
   var sale_discount = $(".saleDiscount .sale_discount");
   var sale_discount_val = parseFloat(sale_discount.val());
-  // if (cashback_type == "dickount"){
-  //   if (result >= cashback_bank){
-  //     result -= cashback_bank
-  //   }else{
-  //     result = 0
-  //   }
-  // }
+
 
   if(sale_discount_val > 0){
     var type_sale_disc = sale_discount.closest(".saleDiscount").find("input[name='sale_disckount_select']").val();
@@ -147,12 +152,17 @@ var priceItemSale = function(){
       result -= (result/100*sale_discount_val);
     }
   }
-  $(".titlePrice").text(result);
-  if ($(".received_cash").length && $(".received_cash").val().length && !$(".received_cash").prop('disabled')){
-    $(".received_cash").prop('disabled', true);
-    $(".received_cash + .clearInput").show();
-    $(".titleDelivery").val("Cдача " + ($(".received_cash").val() - result) + " руб.");
-  }
+  ajax_current_price_delivery(result);
+  setTimeout(function(){
+    result += parseInt($(".saleAllItemCashbox .delivery .price").text());
+    $(".titlePrice").text(result.toFixed(1));
+    if ($(".received_cash").length && $(".received_cash").val().length && !$(".received_cash").prop('disabled')){
+      $(".received_cash").prop('disabled', true);
+      $(".received_cash + .clearInput").show();
+      $(".titleDelivery").val("Cдача " + ($(".received_cash").val() - result) + " руб.");
+    }
+  }, 200);
+
 }
 
 var sumItemSale = function(block){
@@ -162,7 +172,7 @@ var sumItemSale = function(block){
   // var curr_count = parseInt(block_or_block(block.find("[name='sales[][count]']"), 
   //   block.find("[name='buy[][count]']")).val());
   var curr_count = parseFloat(block.find("input.countItems").val());
-  block.find(".endSumPosition").text(curr_price*curr_count);
+  block.find(".endSumPosition").text((curr_price*curr_count).toFixed(1));
   priceItemSale();
 }
 

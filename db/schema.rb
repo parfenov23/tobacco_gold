@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200501232910) do
+ActiveRecord::Schema.define(version: 20200502180510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,10 @@ ActiveRecord::Schema.define(version: 20200501232910) do
     t.string   "phone_sms"
     t.string   "cart_number"
     t.text     "logo"
+    t.integer  "min_price_order"
+    t.string   "price_delivery"
+    t.text     "vk_chat_widget"
+    t.text     "ya_metrika"
   end
 
   create_table "manager_payments", force: :cascade do |t|
