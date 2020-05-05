@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def api_url
-    Rails.env.production? ? "http://hookah-stock.ru" : "http://localhost:3000"
+    Rails.env.production? ? "http://crm-stock.ru" : "http://localhost:3000"
   end
 
   def is_admin?
