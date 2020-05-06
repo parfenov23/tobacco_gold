@@ -25,7 +25,7 @@ module Api
     end
 
     def all_top_magazine
-      render json: ProductItem.where(id: ProductItemTopMagazine.where(magazine_id: current_magazine.id).ids).transfer_to_json
+      render json: ProductItem.where(id: ProductItemTopMagazine.where(magazine_id: current_magazine.id).map(&:product_item_id)).transfer_to_json
     end
 
     def current_price_delivery
