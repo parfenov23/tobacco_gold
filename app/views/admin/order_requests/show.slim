@@ -22,7 +22,7 @@
         = "#{current_price_delivery} руб."
     div
       b Общая сумма заявки: 
-      = "#{(@model.total_sum + current_price_delivery)} рублей"
+      = "#{(@model.total_sum + current_price_delivery).round(1)} рублей"
   .list-group-item.material.table-mobile
     table.table.table-material.border-right
       thead
@@ -44,7 +44,7 @@
               td #{curr_price} руб
               td #{count} шт
               td #{item.current_count(current_magazine)} шт
-              td #{curr_price*count.to_i} руб
+              td #{(curr_price*count.to_i).round(1)} руб
 
     - model_url = @model.class.first_url
     - if @model.status == "waiting"

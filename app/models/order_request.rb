@@ -4,9 +4,10 @@ class OrderRequest < ActiveRecord::Base
   belongs_to :contact
   belongs_to :magazine
   # serialize :basket, ActiveRecord::Coders::NestedHstore
+  scope :waitings, -> {where(status: "waiting")}
 
   def title
-    "Заявка №#{id} от #{created_at.strftime('%d.%m.%y')}"
+    "Заявка №#{id} от #{(created_at + 3.hour).strftime('%d.%m.%y %H:%M')}"
   end
 
   def total_sum

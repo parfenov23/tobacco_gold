@@ -5,6 +5,7 @@ module Admin
     def index
       @products = current_company.products
       @products = @products.select { |product| product.product_items.joins(:product_item_counts).where("product_item_counts.count" => 0).uniq.present? } if params[:type] == "not_available"
+      @product_items_search = @products.product_items.search_everywhere(params[:search]) if params[:search].present?
     end
 
     def info

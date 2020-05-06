@@ -12,6 +12,7 @@ class ProductItem < ActiveRecord::Base
     }
   }
 
+  pg_search_scope :search_everywhere, against: [:title, :barcode]
 
   belongs_to :product
   has_many :buy_items, dependent: :destroy

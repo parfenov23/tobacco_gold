@@ -231,6 +231,16 @@ nav.navbar{
     .ava{
       padding-top: 8px;
       cursor: pointer;
+      &.notify:after{
+        content: " ";
+        background-color: #F44336;
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        border-radius: 50%;
+        bottom: 7px;
+        right: 9px;
+      }
       img{
         border-radius: 50%;
         height: 34px;
@@ -289,6 +299,13 @@ img.center{
           text-decoration: none;
           color: #333;
           display: block;
+          & .countNotify{
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            margin-right: 4px;
+          }
         }
         &:hover{
           background-color: #424242;

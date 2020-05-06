@@ -29,6 +29,6 @@
 
         .form-group.col4.material-form-group
           input.form-control.countItems name="sales[][count]" type="text" value=order_item_hash[:count]
-        .endSumPosition.col5 = curr_price*order_item_hash[:count].to_i
+        .endSumPosition.col5 = (curr_price*order_item_hash[:count].to_i).round(1)
         .col6
           .btn.btn-danger-material.deleteItemSale.pull-right style=("margin-bottom: 5px;")  ✖

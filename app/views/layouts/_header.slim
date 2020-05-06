@@ -6,8 +6,9 @@ nav.navbar.navbar-default.block-material
     .headerTitle 
       = curr_title_admin_header(@add_title) || "Hookah Stock Online"
     - if current_user.present?
+      - count_order_waiting = current_magazine.order_requests.waitings.count
       .user_info
-        .ava.js_openUserPopupInfo
+        .ava.js_openUserPopupInfo class=(count_order_waiting > 0 ? "notify" : "")
           img src=user_ava(current_user.avatar)
         .popupUserAvaInfo.block-material
           .triangle
@@ -15,5 +16,10 @@ nav.navbar.navbar-default.block-material
             ul
               li 
                 a href="/" Главная
+              li 
+                a href="/admin/order_requests"
+                  - if count_order_waiting > 0
+                    span.countNotify.btn-danger-material = count_order_waiting
+                  span Заявки
               li 
                 a href="/users/sign_out" Выход
