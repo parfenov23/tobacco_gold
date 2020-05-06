@@ -57,6 +57,49 @@ module Admin
       @all_sms = SmsPhone.where(archive: false, magazine_id: magazine_id)
     end
 
+    def update_photo
+      Thread.new do
+        # Rails.application.executor.wrap do
+          company_products_ids = Company.find(90).products.ids
+          product_items = ProductItem.where(product_id: company_products_ids).where(image_url: nil)
+          agent = Mechanize.new
+          p "Найдено: #{product_items.count} товаров"
+          count = 0
+          curr_folder = "#{Rails.root}/tmp/load_png/"
+          Dir.mkdir(curr_folder) unless File.exists?(curr_folder)
+          product_items.each do |product_item|
+            barcodes = product_item.barcode.split(",")
+            barcodes.each do |barcode|
+              bar_add = false
+              ["jpg", "JPG"].each do |type_jpg|
+                url = "http://svet2020.beget.tech/wp-content/uploads/product_items/#{barcode}.#{type_jpg}"
+                page = agent.get(url) rescue false
+                if page
+                  bar_add = true
+                  p "Добавляю картинку"
+                  count += 1
+                  time = Time.now.to_i.to_s
+                  path_img = "#{Rails.root}/tmp/load_png/"+time+"_img."+url.split(".").last
+                  myfile = IO.sysopen(path_img, "wb+")
+                  tmp_img = IO.new(myfile,"wb")
+                  tmp_img.write open(URI.encode(url)).read
+                  if File.exist?(path_img)
+                    product_item.image_url = File.open path_img
+                    product_item.save
+                  end
+                  break
+                end
+              end
+              break if bar_add
+            end
+            p "текущее количество: #{count}"
+          end
+          FileUtils.rm_rf(curr_folder)
+        # end
+      end
+      render json: {success: true}
+    end
+
     private
 
     def redirect_to_stock

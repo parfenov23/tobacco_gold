@@ -36,6 +36,7 @@ Rails.application.routes.draw do
         get :sms_phone
         get :sms_phone_to_other_by
         get :sms_phone_remove
+        get :update_photo
       end
     end
     resources :categories do
