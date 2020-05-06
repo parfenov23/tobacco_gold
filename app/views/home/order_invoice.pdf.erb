@@ -85,7 +85,7 @@
           <td class="text_center">шт</td>
           <td class="text_right"><%= params_item[:count] %></td>
           <td class="text_right"><%= price %></td>
-          <td class="text_right"><%= curr_sum %></td>
+          <td class="text_right"><%= curr_sum.round(1) %></td>
         </tr>
       <% end %>
       <% current_price_delivery = current_magazine.current_price_delivery(n_sum) %>
@@ -105,12 +105,12 @@
         <td class="noBorder"></td>
         <td class="noBorder"></td>
         <td class="noBorder text_right">Итого:</td>
-        <td class="text_right"><%= n_sum + current_price_delivery %></td>
+        <td class="text_right"><%= (n_sum + current_price_delivery).round(1) %></td>
       </tr>
     </tbody>
   </table>
   <div style="margin-top: 24px;"> 
-    Всего наименований <%= num %>, на сумму <%= n_sum + current_price_delivery %> руб. 
+    Всего наименований <%= num %>, на сумму <%= (n_sum + current_price_delivery).round(1) %> руб. 
   </div>
   <div>
     <div style="margin-top: 24px;">
