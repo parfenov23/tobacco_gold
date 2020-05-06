@@ -49,7 +49,8 @@ class OrderRequest < ActiveRecord::Base
   end
 
   def current_price(product_item)
-    item(product_item.id)[:price_id].blank? ? contact.current_price_item(product_item) : ProductPrice.where(id: item(product_item.id)[:price_id]).last.price
+    price_id = item(product_item.id)[:price_id].blank? ? product_item.price_id(magazine_id) : item(product_item.id)[:price_id]
+    ProductPrice.find(price_id).price
   end
 
   def price
