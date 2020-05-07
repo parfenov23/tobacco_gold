@@ -19,7 +19,7 @@ module Api
     end
 
     def tag_product_items
-      render json: all_tags.where(id: params[:tag_id]).last.product_items.transfer_to_json(params[:api_key])
+      render json: all_tags.where(id: params[:tag_id]).last.product_items.all_present(current_magazine).transfer_to_json(params[:api_key])
     end
 
     def product_items
