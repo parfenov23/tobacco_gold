@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     resources :order_requests do
       member do
         get :remove
+        get :update_new_price
         get :reserve
       end
     end

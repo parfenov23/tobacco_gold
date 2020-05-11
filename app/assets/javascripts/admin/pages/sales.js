@@ -425,6 +425,7 @@ $(document).ready(function(){
   $(document).on('click', '.deleteContactBtn', function(){
     search_contact("");
   });
+
   $(document).on("click", ".received_cash + .clearInput", function(){ 
     $(".received_cash").val(''); 
     $(".received_cash").prop('disabled', false);
@@ -461,7 +462,25 @@ $(document).ready(function(){
         }
       })
     })
-  })
+  });
+
+  $('.js_change_price_order[contenteditable=true]').focus(function() {
+    $(this).data("initialText", $(this).html());
+  }).blur(function() {
+    if ($(this).data("initialText") !== $(this).html()) {
+      var new_price = parseFloat($(this).text());
+      var item_id = $(this).data("item_id");
+      var order_id = $(this).data("order_id");
+      $.ajax({
+        type: "get",
+        url: '/admin/order_requests/'+order_id+"/update_new_price",
+        data: {new_price: new_price, item_id: item_id},
+        success: function(data){
+          document.location.reload(true);
+        }
+      });
+    }
+  });
 });
 
 

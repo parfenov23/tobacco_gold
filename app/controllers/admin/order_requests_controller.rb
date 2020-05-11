@@ -33,6 +33,18 @@ module Admin
       redirect_to "/admin/order_requests/#{find_model.id}"
     end
 
+    def update_new_price
+      product_item = ProductItem.find(params[:item_id])
+      product = product_item.product
+      curr_price = product.product_prices.find_or_create_by(price: params[:new_price], title: params[:new_price].to_s)
+      all_items_hash = find_model.items
+      curr_item = eval(all_items_hash[params[:item_id].to_s])
+      curr_count = (curr_item[:count] rescue curr_item).to_i
+      all_items_hash[params[:item_id].to_s] = {count: curr_count, price_id: curr_price.id}
+      find_model.update(items: all_items_hash)
+      render json: {success: true}
+    end
+
     private
 
     def model

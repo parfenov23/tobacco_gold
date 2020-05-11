@@ -41,7 +41,9 @@
             - count = item_hash[:count]
             tr.active
               td #{item.product.title} - #{item.title}
-              td #{curr_price} руб
+              td.currPrice
+                span.js_change_price_order style="display: inline;margin-right: 4px;" contenteditable="true" data-order_id=@model.id data-item_id=item.id #{curr_price}
+                | руб
               td #{count} шт
               td #{item.current_count(current_magazine)} шт
               td #{(curr_price*count.to_i).round(1)} руб
