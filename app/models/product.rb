@@ -20,8 +20,9 @@ class Product < ActiveRecord::Base
 
   def self.stock_price(magazine)
     result = 0
-    all.each do |product|
-      pi_count = product.product_items.inject(0){|sum, pi| sum + pi.current_count(magazine) }
+    where(company_id: magazine.company_id).each do |product|
+      pi_count = ProductItemCount.where(product_item: product.product_items.ids, magazine_id: magazine.id).sum(:count)
+      # pi_count = product.product_items.inject(0){|sum, pi| sum + pi.current_count(magazine) }
       result += (product.current_price * pi_count )
     end
     result
