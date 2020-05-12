@@ -12,10 +12,15 @@ module Api
 
     def reg_user
       result = {success: false}
-      if params[:password] == params[:password_confirmation]
-        user = User.new(email: params[:email])
-        user.password = params[:password]
+      user_params = params[:user]
+      contact_params = params[:contact]
+      if user_params[:password] == user_params[:password_confirmation]
+        user = User.find_or_create_by(email: user_params[:email], magazine_id: current_magazine.id)
+        user.password = user_params[:password]
         result = {success: user.save, api_key: user.get_api_key}
+        if result[:success]
+          user.update(contact_id: Contact.find_or_create_by(first_name: contact_params[:first_name], phone: contact_params[:phone], company_id: current_company.id).id )
+        end
       end
       render json: result
     end
