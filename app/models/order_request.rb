@@ -5,6 +5,7 @@ class OrderRequest < ActiveRecord::Base
   belongs_to :magazine
   # serialize :basket, ActiveRecord::Coders::NestedHstore
   scope :waitings, -> {where(status: "waiting")}
+  default_scope { order("created_at DESC") }
 
   def title
     "Заявка №#{id} от #{(created_at + 3.hour).strftime('%d.%m.%y %H:%M')}"
@@ -86,5 +87,18 @@ class OrderRequest < ActiveRecord::Base
 
   def self.first_url
     "order_requests"
+  end
+
+  def self.all_satuses
+    [
+      {title: "Новая", id: "waiting"}, 
+      {title: "В работе", id: "work"}, 
+      {title: "Передано в доставку", id: "delivery"}, 
+      {title: "Оплачено", id: "paid"}
+    ]
+  end
+
+  def self.next_status(status)
+    all_satuses[(all_satuses.index{|e| e[:id] == status} + 1)][:id]
   end
 end

@@ -1,15 +1,24 @@
 - model_url = @models.first_url
 .list-group.row
-  .list-group-item.panel_gray_common
-    a.btn.btn-success-material href="/admin/order_requests"  Не оплаченые
-    a.btn.btn-success-material href="/admin/order_requests?status=paid"  Оплаченые
-  - status = params[:status].present? ? params[:status] : "waiting"
+  .list-group-item.panel_gray_common.displayFlex
+    - arr_status = OrderRequest.all_satuses
+    - current_status = params[:status] || arr_status.first[:id]
+    .leftContent.displayFlex.normal
+      .selectInlineProvider.searchParamSelect data-param="status"
+        
+        = render "common_select_new", {arr_li: arr_status, default: current_status, add_class: "noInit"}
+    .rightContent
+      a.btn.btn-primary-material href="/admin/order_requests/update_all_status?status=#{current_status}"  Сменить статус
+    / a.btn.btn-success-material href="/admin/order_requests?status=paid"  Оплаченые
+  - status = params[:status] || "waiting"
   - @models.where(status: status).each do |model|
     .list-group-item.col-md-6
       span
         a href="/admin/#{model_url}/#{model.id}" = model.title
-      - if model.status == "waiting"
+      - if model.status != "paid"
         - type_sale = model.contact.opt ? "opt" : "retail"
+
+        a.btn.btn-primary-material.pull-right href="/admin/#{model_url}/#{model.id}/next_status" ✔
         a.btn.btn-success-material.btn-margin-left  href="/admin/sales/new?type_sale=#{type_sale}&order_request=#{model.id}" style="margin-right: 5px;" class=(class_edit rescue "") data-title=(data_title rescue "")
           | &#9998;
         a.btn.btn-danger-material href="/admin/#{model_url}/#{model.id}/remove" data-method='delete' style="margin-right: 5px;" onclick="return confirm('Вы уверены?')" class=(class_remove rescue "")

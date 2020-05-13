@@ -232,9 +232,15 @@ $(document).ready(function(){
   include_mad_select($(".userHeader .parentSelectMd").removeClass("noInit"), function(input){
     window.location.assign(window.location.pathname + "?type=" + input.val());
   });
-  include_mad_select($(".stockHeader .parentSelectMd").removeClass("noInit"), function(input){
-    window.location.assign(window.location.pathname + "?magazine_id=" + input.val());
-  });
+
+  $(".searchParamSelect .parentSelectMd").each(function(n, e){
+    var parent_block = $(e).closest(".searchParamSelect");
+    var param_search = parent_block.data("param");
+    include_mad_select($(e).removeClass("noInit"), function(input){
+      window.location.assign(window.location.pathname + "?" + param_search + "=" + input.val());
+    });
+  })
+
   $(document).on('click', '.js_loadContentInOtherPopup', function(event){
     event.preventDefault();
     getTitleAndHrefBtnInOtherPopup($(this));

@@ -14,10 +14,7 @@ module Admin
       end
       all_params = items.present? ? params_model.merge({items: items}) : params_model
       find_model.update(all_params)
-      if params_model[:status] == "paid"
-        find_model.paid(current_user.id, params[:cashbox_type])
-        current_cashbox.calculation(params[:cashbox_type], find_model.price, true)
-      end
+      model_paid(params[:cashbox_type]) if params_model[:status] == "paid"
       redirect_to_show
     end
 
@@ -45,10 +42,36 @@ module Admin
       render json: {success: true}
     end
 
+    def next_status
+      next_status = OrderRequest.next_status(find_model.status)
+      model_paid(find_model.type_payment) if next_status == "paid"
+      find_model.update(status: next_status)
+      redirect_to :back
+    end
+
+    def update_all_status
+      all_order_requests = current_magazine.order_requests.where(status: params[:status])
+      next_status = OrderRequest.next_status(params[:status])
+      if next_status == "paid"
+        all_order_requests.each do |order_request|
+          cashbox_type = order_request.type_payment
+          order_request.paid(current_user.id, cashbox_type)
+          current_cashbox.calculation(cashbox_type, order_request.price, true)
+        end
+      end
+      all_order_requests.update_all(status: next_status)
+      redirect_to :back
+    end
+
     private
 
     def model
       OrderRequest
+    end
+
+    def model_paid(cashbox_type="cash")
+      find_model.paid(current_user.id, cashbox_type)
+      current_cashbox.calculation(cashbox_type, find_model.price, true)
     end
 
     def redirect_to_show

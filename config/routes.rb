@@ -70,6 +70,10 @@ Rails.application.routes.draw do
         get :remove
         get :update_new_price
         get :reserve
+        get :next_status
+      end
+      collection do 
+        get :update_all_status
       end
     end
 
