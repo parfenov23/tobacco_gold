@@ -7,8 +7,9 @@
       .selectInlineProvider.searchParamSelect data-param="status"
         
         = render "common_select_new", {arr_li: arr_status, default: current_status, add_class: "noInit"}
-    .rightContent
-      a.btn.btn-primary-material href="/admin/order_requests/update_all_status?status=#{current_status}"  Сменить статус
+    - if model.status != "paid"
+      .rightContent
+        a.btn.btn-primary-material href="/admin/order_requests/update_all_status?status=#{current_status}"  Сменить статус
     / a.btn.btn-success-material href="/admin/order_requests?status=paid"  Оплаченые
   - status = params[:status] || "waiting"
   - @models.where(status: status).each do |model|
