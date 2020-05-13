@@ -2,13 +2,16 @@
   .list-group-item.material
     div 
       b Имя: 
-      = @model.contact.first_name
+      span.js_change_info_order_reuqest contenteditable="true" style="display: inline;margin-left: 4px;line-height: 20px;" data-type_update="first_name" data-order_id=@model.id
+        = @model.contact.first_name
     div 
       b Телефон: 
-      = @model.contact.phone
+      span.js_change_info_order_reuqest contenteditable="true" style="display: inline;margin-left: 4px;line-height: 20px;" data-type_update="phone" data-order_id=@model.id
+        = @model.contact.phone
     div 
-      b Адрес: 
-      = @model.address
+      b Адрес:
+      span.js_change_info_order_reuqest contenteditable="true" style="display: inline;margin-left: 4px;line-height: 20px;" data-type_update="address" data-order_id=@model.id
+        = @model.address
     div 
       b Способ оплаты: 
       = @model.type_payment == "cash" ? "Наличными при получении" : "Картой при получении"   

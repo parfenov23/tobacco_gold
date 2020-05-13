@@ -63,6 +63,13 @@ module Admin
       redirect_to :back
     end
 
+    def update_info
+      find_model.update(address: params[:val]) if params[:type_update] == "address"
+      find_model.contact.update(phone: params[:val])if params[:type_update] == "phone"
+      find_model.contact.update(first_name: params[:val])if params[:type_update] == "first_name"
+      render json: {success: true}
+    end
+
     private
 
     def model

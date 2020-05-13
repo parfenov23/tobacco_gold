@@ -481,6 +481,24 @@ $(document).ready(function(){
       });
     }
   });
+
+  $('.js_change_info_order_reuqest[contenteditable=true]').focus(function() {
+    $(this).data("initialText", $(this).html());
+  }).blur(function() {
+    if ($(this).data("initialText") !== $(this).html()) {
+      var type_update = $(this).data("type_update");
+      var val = $(this).text();
+      var order_id = $(this).data("order_id");
+      $.ajax({
+        type: "get",
+        url: '/admin/order_requests/'+order_id+"/update_info",
+        data: {type_update: type_update, val: val},
+        success: function(data){
+          // document.location.reload(true);
+        }
+      });
+    }
+  });
 });
 
 

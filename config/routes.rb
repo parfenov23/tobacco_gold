@@ -71,6 +71,7 @@ Rails.application.routes.draw do
         get :update_new_price
         get :reserve
         get :next_status
+        get :update_info
       end
       collection do 
         get :update_all_status
