@@ -29,7 +29,7 @@ module Api
     private
 
     def all_tags
-      Tag.joins(:product_items).where(["product_items.product_id = ?", params[:id]]).uniq
+      Tag.joins(product_items: :product_item_counts).where(["product_items.product_id = ? AND product_item_counts.count > ? AND product_item_counts.magazine_id = ?", params[:id], 0, current_magazine.id]).uniq
     end
   end
 end
