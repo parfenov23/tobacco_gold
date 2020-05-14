@@ -45,6 +45,7 @@ module Admin
     def next_status
       next_status = OrderRequest.next_status(find_model.status)
       model_paid(find_model.type_payment) if next_status == "paid"
+      notify_delivery(find_model) if next_status == "delivery"
       find_model.update(status: next_status)
       redirect_to :back
     end
@@ -59,6 +60,7 @@ module Admin
           current_cashbox.calculation(cashbox_type, order_request.price, true)
         end
       end
+      all_order_requests.map{|order| notify_delivery(order)} if next_status == "delivery"
       all_order_requests.update_all(status: next_status)
       redirect_to :back
     end
@@ -71,6 +73,10 @@ module Admin
     end
 
     private
+
+    def notify_delivery(order)
+      SendSms.sender([order.contact.phone], "Ваш заказ №#{order.id} передан в доставку!") rescue nil
+    end
 
     def model
       OrderRequest

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Новый заказ на сайте №<%= @order.id %></h1>
+  <div>
+    <b>Имя: </b>
+    <%= @order.contact.first_name %>
+
+  </div> 
+  <div> 
+    <b>Телефон: </b> 
+
+    <%= @order.contact.phone %>
+  </div> 
+  <div>
+    <b>Адрес:</b> 
+    <%= @order.address %>
+  </div> 
+  <div>
+    <b>Способ оплаты:</b>  
+    <%= @order.type_payment == "cash" ? "Наличными при получении" : "Картой при получении" %>
+  </div>  
+  <div>
+    <b>Комментарий:</b> 
+    <%= @order.comment %>
+  </div> 
+  <% current_price_delivery = @order.magazine.current_price_delivery(@order.total_sum) %>
+  <% if current_price_delivery > 0 %>
+  <div>
+    <b>Доставка: </b> 
+    <%= "#{current_price_delivery} руб." %>
+  </div> 
+  <% end %>
+  <div>
+    <b>Общая сумма заявки:</b> 
+    <%= "#{(@order.total_sum + current_price_delivery).round(1)} рублей" %>
+  </div>
+  <div>
+    <a href="http://crm-stock.ru/admin/order_requests/<%= @order.id %>">Перейти к заявке</a>
+  </div>
+</body>
+</html>

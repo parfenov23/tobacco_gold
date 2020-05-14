@@ -1,5 +1,6 @@
 module Admin
   class CommonController < AdminController
+    require 'send_sms'
 
     def index
       @models = model.columns_hash["company_id"].present? ? model.where(company_id: current_company.id) : model.all

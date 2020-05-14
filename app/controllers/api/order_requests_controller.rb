@@ -19,6 +19,7 @@ module Api
 
       order.update(contact_id: contact.id)
       order.notify if Rails.env.production?
+      
       render json: {id: order.id}
     end
 

@@ -1,4 +1,5 @@
 require 'vk_message'
+require 'send_sms'
 class OrderRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :contact
@@ -82,6 +83,12 @@ class OrderRequest < ActiveRecord::Base
     message = "Клиент оставил заявку на сайте\nНомер: #{id}\nИмя: #{contact.first_name}\nТелефон: #{contact.phone}\nСумма: #{total_sum} рублей"
     if magazine.vk_api_key_user.present?
       VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if Rails.env.production?
+    end
+    SendSms.sender([contact.phone], "Ваш заказ №#{id} принят!")
+    Thread.new do
+      magazine.users.where(role: "admin").each do |user|
+        OrderRequestMail.sample_email(self, user.email).deliver_now
+      end
     end
   end
 
