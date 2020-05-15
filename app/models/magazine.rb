@@ -5,6 +5,7 @@ class Magazine < ActiveRecord::Base
   has_many :order_requests, dependent: :destroy
   has_many :sales, dependent: :destroy
   has_many :users, dependent: :destroy
+  has_many :product_item_top_magazines
   after_create :default_create_product_item_count
   # after_update :sms_start_ws
   def self.first_url

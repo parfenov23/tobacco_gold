@@ -25,7 +25,7 @@ module Api
     end
 
     def all_top_magazine
-      render json: ProductItem.where(id: ProductItemTopMagazine.where(magazine_id: current_magazine.id).map(&:product_item_id)).transfer_to_json
+      render json: ProductItem.joins(:product_item_top_magazines).where("product_item_top_magazines.magazine_id = ?", current_magazine.id).uniq.transfer_to_json(current_magazine.api_key)
     end
 
     def current_price_delivery
