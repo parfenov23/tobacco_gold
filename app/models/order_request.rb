@@ -86,7 +86,7 @@ class OrderRequest < ActiveRecord::Base
     end
     SendSms.sender([contact.phone], "Ваш заказ №#{id} принят!")
     Thread.new do
-      magazine.users.where(role: "admin").each do |user|
+      magazine.users.where(role: "manager").each do |user|
         OrderRequestMail.sample_email(self, user.email).deliver_now
       end
     end
