@@ -75,7 +75,7 @@
       <% @model.items.each do |id, hash| %>
         <% item = ProductItem.find(id) %>
         <% params_item = @model.item(id) %>
-        <% price_id = params_item[:price_id].present? ?  params_item[:price_id] : item.price(current_magazine.api_key).id %>
+        <% price_id = params_item[:price_id].present? ?  params_item[:price_id] : item.price(@model.magazine.api_key).id %>
         <% price =  ProductPrice.find(price_id).price %>
         <% curr_sum = params_item[:count] * price %>
         <% n_sum += curr_sum %>
@@ -88,7 +88,7 @@
           <td class="text_right"><%= curr_sum.round(1) %></td>
         </tr>
       <% end %>
-      <% current_price_delivery = current_magazine.current_price_delivery(n_sum) %>
+      <% current_price_delivery = @model.magazine.current_price_delivery(n_sum) %>
       <% if current_price_delivery > 0 %>
         <tr>
           <td><%= num += 1 %></td>

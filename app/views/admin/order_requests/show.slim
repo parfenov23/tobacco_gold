@@ -1,4 +1,22 @@
+- @model.update(status: params[:status]) if params[:status].present?
+
 .list-group.row
+  .list-group-item.panel_gray_common.displayFlex
+    - model_url = @model.class.first_url
+    .leftContent.displayFlex.normal
+      - if @model.status != "paid" && !@model.reserve
+        - text_reserve = @model.reserve ? "Снять с резерва" : "Поставить на резерв"
+        a.btn.btn-success-material href="/admin/order_requests/#{@model.id}/reserve" = text_reserve
+      - arr_status = OrderRequest.all_satuses
+      - arr_status.delete({:title=>"Оплачено", :id=>"paid"})
+      .selectInlineProvider.searchParamSelect data-param="status"
+        = render "common_select_new", {arr_li: arr_status, default: @model.status, add_class: "noInit"}
+    .rightContent
+      a.btn.btn-info-material href="/order_invoice/#{@model.id}.pdf?key=#{@model.created_at.to_i}" 
+        i.icon.printer
+      - if !@model.reserve
+        - type_sale = @model.contact.opt ? "opt" : "retail"
+        = render "admin/admin/common_btn", {url_edit: "/admin/sales/new?type_sale=#{type_sale}&order_request=#{@model.id}", url_remove: "/admin/order_requests/#{@model.id}/remove"}
   .list-group-item.material
     div 
       b Имя: 
@@ -47,20 +65,15 @@
               td.currPrice
                 span.js_change_price_order style="display: inline;margin-right: 4px;" contenteditable="true" data-order_id=@model.id data-item_id=item.id #{curr_price}
                 | руб
-              td #{count} шт
+              td.currCount
+                span.js_change_count_order style="display: inline;margin-right: 4px;" contenteditable="true" data-order_id=@model.id data-item_id=item.id #{count}
+                |шт
               td #{item.current_count(current_magazine)} шт
               td #{(curr_price*count.to_i).round(1)} руб
 
-    - model_url = @model.class.first_url
-    - if @model.status == "waiting"
+    - if @model.status != "paid"
       .list-group.row.material.noBorderListGroup
         .list-group-item.col-md-6.material
-          / a.btn.btn-primary-material.js_loadContentInOtherPopup data-title="Редактирование заявки" href="/admin/#{model_url}/#{@model.id}/edit" Редактировать
-          - if !@model.reserve
-            - type_sale = @model.contact.opt ? "opt" : "retail"
-            a.btn.btn-primary-material href="/admin/sales/new?type_sale=#{type_sale}&order_request=#{@model.id}" Редактировать
-          - text_reserve = @model.reserve ? "Снять с резерва" : "Поставить на резерв"
-          a.btn.btn-success-material href="/admin/order_requests/#{@model.id}/reserve" = text_reserve
         - if !@model.reserve
           .list-group-item.col-md-6.inlineBlockOrder.rightContent
             form.form-horizontal action="/admin/#{model_url}/#{@model.id}" method="post" enctype="multipart/form-data"
@@ -68,7 +81,6 @@
               input type="hidden" name="order_requests[status]" value="paid"
               input type="hidden" name="_method" value="put"
               button.btn.btn-success-material type="submit" Оплачено
-          a.btn.btn-info-material href="/order_invoice/#{@model.id}.pdf?key=#{@model.created_at.to_i}" Накладная
 
         
 

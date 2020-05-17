@@ -61,9 +61,28 @@ i.burger:before{
 i.clock:before{
     content : "\e94e";
 }
+
 i.log_in:before{
     content : "\ea13";
 }
+
 i.log_out:before{
     content : "\ea14";
 }
+
+i.printer:before{
+    content : "\e901";
+}
+
+i.edit:before{
+    content : "\e7fc";
+}
+
+i.edit:before{
+    content : "\e7fc";
+}
+
+i.remove:before{
+    content : "\e902";
+}
+

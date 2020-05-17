@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       member do
         get :remove
         get :update_new_price
+        get :update_new_count
         get :reserve
         get :next_status
         get :update_info
@@ -263,6 +264,7 @@ Rails.application.routes.draw do
         get :auth_admin
         get :reg_user
         get :info
+        get :reset_password
       end
     end
     resources :contacts do
@@ -283,7 +285,11 @@ Rails.application.routes.draw do
     end
 
     resources :cashbox
-    resources :order_requests
+    resources :order_requests do
+      collection do
+        get :contact_order_request
+      end
+    end
     resources :product_items do
       collection do
         get :search

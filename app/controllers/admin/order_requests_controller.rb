@@ -42,6 +42,15 @@ module Admin
       render json: {success: true}
     end
 
+    def update_new_count
+      all_items_hash = find_model.items
+      curr_item = eval(all_items_hash[params[:item_id].to_s])
+      curr_count = params[:new_count].to_i
+      all_items_hash[params[:item_id].to_s] = {count: curr_count, price_id: (curr_item[:price_id] rescue nil)}.compact
+      find_model.update(items: all_items_hash)
+      render json: {success: true}
+    end
+
     def next_status
       next_status = OrderRequest.next_status(find_model.status)
       model_paid(find_model.type_payment) if next_status == "paid"

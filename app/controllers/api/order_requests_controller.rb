@@ -23,6 +23,10 @@ module Api
       render json: {id: order.id}
     end
 
+    def contact_order_request
+      render json: OrderRequest.where(contact_id: params[:contact_id]).map(&:transfer_to_json)
+    end
+
     # def show
     #   contact = Contact.where(id: params[:id]).last
     #   render json: (contact.present? ? contact.as_json : nil)

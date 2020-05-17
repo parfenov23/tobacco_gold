@@ -55,6 +55,19 @@ class OrderRequest < ActiveRecord::Base
     ProductPrice.find(price_id).price
   end
 
+  def transfer_to_json
+    as_json({
+      except: [:update_at, :basket],
+      methods: [:total_sum_and_delivery, :current_status]
+    })
+  end
+
+  def total_sum_and_delivery
+    sum = total_sum
+    delivery_price = magazine.current_price_delivery(sum)
+    (sum + delivery_price).round(1)
+  end
+
   def price
     result = 0
     items.each do |id, count|
@@ -96,12 +109,17 @@ class OrderRequest < ActiveRecord::Base
     "order_requests"
   end
 
+  def current_status
+    OrderRequest.all_satuses.select{|v| v[:id] == status}.first
+  end
+
   def self.all_satuses
     [
       {title: "Новая", id: "waiting"}, 
       {title: "В работе", id: "work"}, 
       {title: "Передано в доставку", id: "delivery"}, 
-      {title: "Оплачено", id: "paid"}
+      {title: "Оплачено", id: "paid"},
+      {title: "Отложено", id: "delayed"}
     ]
   end
 

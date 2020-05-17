@@ -44,6 +44,9 @@ form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="mu
       .moneyClacl
         .titlePrice 0.00
       = render "admin/admin/common_cashbox"
+      .delivery style="display: none;"
+        .title Доставка:
+        .price 0
       .form-group
         = check_box("buy_param", "def_pay", {checked: false, class: "checkbox-material", id: "filled-in-box"})
         label.checkbox-label-material for="filled-in-box" Оплачено?
