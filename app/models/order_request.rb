@@ -4,6 +4,7 @@ class OrderRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :contact
   belongs_to :magazine
+  belongs_to :company
   # serialize :basket, ActiveRecord::Coders::NestedHstore
   scope :waitings, -> {where(status: "waiting")}
   default_scope { order("created_at DESC") }
@@ -97,7 +98,7 @@ class OrderRequest < ActiveRecord::Base
     if magazine.vk_api_key_user.present?
       VkMessage.run(message, "user", {access_token: magazine.vk_api_key_user, chat_id: magazine.vk_chat_id}) if Rails.env.production?
     end
-    SendSms.sender([contact.phone], "Ваш заказ №#{id} принят!")
+    SendSms.sender([contact.phone], "Ваш заказ №#{id} принят! #{company.domain}")
     Thread.new do
       magazine.users.where(role: "manager").each do |user|
         OrderRequestMail.sample_email(self, user.email).deliver_now

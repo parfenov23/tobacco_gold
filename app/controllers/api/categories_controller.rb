@@ -1,7 +1,10 @@
 module Api
   class CategoriesController < ApiController
     def index
-      render json: current_company.categories.joins(products: {product_items: :product_item_counts}).where(["product_item_counts.count > ? AND product_item_counts.magazine_id = ?", 0, current_magazine.id]).uniq.to_json
+      render json: current_company.categories.
+                    joins(products: {product_items: :product_item_counts}).
+                    where(["product_item_counts.count > ? AND product_item_counts.magazine_id = ?", 0, current_magazine.id]).
+                    uniq.order("id ASC").to_json
     end
 
     def show
