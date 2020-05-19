@@ -63,13 +63,6 @@ class Product < ActiveRecord::Base
     Provider.find(provider_id).provider_items.where(product_id: id).last.price rescue 0
   end
 
-  def as_json(*)
-    super.except("created_at", "updated_at").tap do |hash|
-      hash["current_price"] = current_price
-      hash["current_price_opt"] = current_price_opt
-    end
-  end
-
   def transfer_to_json
     as_json({
       except: [:created_at, :updated_at]

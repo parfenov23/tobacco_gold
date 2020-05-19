@@ -85,7 +85,7 @@ class ProductItem < ActiveRecord::Base
   end
 
   def self.all_present(magazine_id, type=true)
-    joins(:product_item_counts).where("product_item_counts.magazine_id"=> magazine_id).where(["product_item_counts.count #{type ? '>' : '<='} ?", 0]).uniq
+    joins(:product_item_counts).where(["product_item_counts.magazine_id = ? AND product_item_counts.count #{type ? '>' : '<='} ?", magazine_id, 0]).uniq
   end
 
   # def as_json(*)
@@ -108,7 +108,8 @@ class ProductItem < ActiveRecord::Base
   end
 
   def default_img
-    image_url.present? ? image_url.to_s : (product.default_img rescue nil)
+    # image_url.present? ? image_url.to_s : (product.default_img rescue nil)
+    image_url.to_s
   end
 
   def count
@@ -149,14 +150,14 @@ class ProductItem < ActiveRecord::Base
   def transfer_to_json(api_key=nil)
     $api_key = api_key if api_key.present?
     as_json({
-      except: [:created_at, :updated_at, :image_url],
+      except: [:created_at, :updated_at, :image_url, :price_id],
       methods: [:count, :magazine_count, :count_sales, :default_img, :default_price, :product_title]
     })
   end
 
   def self.transfer_to_json(api_key=nil)
     $api_key = api_key if api_key.present?
-    all.map(&:transfer_to_json)
+    all.map{|pi| pi.transfer_to_json(api_key)}
   end
 
   def self.title_search(query)
