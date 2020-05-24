@@ -12,7 +12,18 @@ class ProductItem < ActiveRecord::Base
     }
   }
 
-  pg_search_scope :search_everywhere, against: [:title, :barcode]
+  pg_search_scope :search_everywhere, 
+  against: [:title, :barcode],
+  using: {
+    tsearch: {
+      dictionary: 'russian',
+      prefix: true
+    },
+    trigram: {
+      threshold: 0.2
+    }
+  }
+
 
   belongs_to :product
   has_many :buy_items, dependent: :destroy
@@ -176,6 +187,16 @@ class ProductItem < ActiveRecord::Base
 
   def self.text_search(query, val = "0.4")
     search(query).where("similarity(title, ?) > #{val}", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
+  end
+
+  def self.full_text_search(query)
+    arr_search = [query.mb_chars.downcase.to_s, query.mb_chars.capitalize.to_s, query.mb_chars.upcase.to_s]
+    ids_search = search_everywhere(arr_search[0]).ids
+    ids_search += search_everywhere(arr_search[1]).ids
+    ids_search += search_everywhere(arr_search[2]).ids
+
+    ids_search += where(arr_search.map{|i| "title ~* '#{i}'"}.join(" AND ")).ids
+    where(id: ids_search.uniq)
   end
 
   def company_id

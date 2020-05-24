@@ -63,7 +63,8 @@ module Admin
           company_products_ids = Company.find(90).products.ids
           product_items = ProductItem.where(product_id: company_products_ids).where(image_url: nil)
           agent = Mechanize.new
-          p "Найдено: #{product_items.count} товаров"
+          count_pi = product_items.count
+          p "Найдено: #{count_pi} товаров"
           count = 0
           curr_folder = "#{Rails.root}/tmp/load_png/"
           Dir.mkdir(curr_folder) unless File.exists?(curr_folder)
@@ -92,6 +93,8 @@ module Admin
               end
               break if bar_add
             end
+            count_pi -= 1
+            p "осталось: #{count_pi}"
             p "текущее количество: #{count}"
           end
           FileUtils.rm_rf(curr_folder)

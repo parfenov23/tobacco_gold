@@ -14,6 +14,11 @@ module Admin
       render text: html_form
     end
 
+    def clear
+      current_company.magazines.find(params[:id]).product_item_counts.update_all(count: 0)
+      redirect_to :back
+    end
+
     def to_excel
       @products = Product.all
       respond_to do |format|

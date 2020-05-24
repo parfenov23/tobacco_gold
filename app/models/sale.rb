@@ -71,7 +71,7 @@ class Sale < ActiveRecord::Base
   end
 
   def sale_url
-    "http://hookah-stock.ru/admin/sales/#{id}/info"
+    "http://crm-stock.ru/admin/sales/#{id}/info"
   end
 
   def self.curr_year_statistic(magaz_id=nil, type="current")

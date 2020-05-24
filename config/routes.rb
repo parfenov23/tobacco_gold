@@ -175,6 +175,7 @@ Rails.application.routes.draw do
       end
       member do 
         get :info
+        get :clear
       end
     end
 

@@ -4,7 +4,10 @@
   .leftContent{
     width: 100%;
   }
+  .rightContent{
+    display: flex;
+  }
   input{
-    max-width: 150px;
+    height: 100%;
   }
 }

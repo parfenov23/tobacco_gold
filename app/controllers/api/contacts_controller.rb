@@ -7,7 +7,15 @@ module Api
     end
 
     def update
-      render json: {success: Contact.find(params[:id]).update(params[:contacts].permit!)}
+      contact_params = params[:contacts].permit!
+      find_contact = Contact.find(params[:id])
+      if contact_params[:password].present?
+        user = find_contact.user
+        user.password = contact_params[:password]
+        user.save
+      end
+      contact_params.delete(:password)
+      render json: {success: find_contact.update(contact_params)}
     end
 
     def search

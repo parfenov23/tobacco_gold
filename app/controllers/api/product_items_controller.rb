@@ -72,6 +72,10 @@ module Api
       render json: {success: params.as_json}
     end
 
+    def search
+      render json: current_company.products.product_items.full_text_search(params[:search]).transfer_to_json
+    end
+
     def get_img_url
 
     end

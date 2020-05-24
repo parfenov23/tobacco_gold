@@ -9,6 +9,8 @@
         = render "common_select_new", {arr_li: arr_magazines, default: curr_magazine.id, add_class: "noInit"}
   .rightContent
     input.material.form-control name="serach" placeholder="Поиск"
+    a.btn.btn-danger-material href="/admin/stock/#{curr_magazine.id}/clear" data-method='delete' style="margin-left: 5px;" onclick="return confirm('Вы уверены?')"
+      i.icon.remove
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
 
 - @products.each do |product|
