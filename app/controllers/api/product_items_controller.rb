@@ -20,7 +20,7 @@ module Api
 
     def search
       search_items = ProductItem.search_title_or_barcode(current_company.id, params[:search])
-      search_items = search_items.all_present(current_magazine.id) if params[:type] == "present"
+      search_items = search_items.all_present(current_magazine.id)
       render json: search_items.transfer_to_json
     end
 
