@@ -211,7 +211,7 @@ class ProductItem < ActiveRecord::Base
 
   def price_id(magazine_id=nil, params=nil)
     if params.blank?
-      curr_price = product_item_magazine_prices.where(magazine_id: magazine_id).last if magazine_id.present?
+      curr_price = product_item_magazine_prices.find_by_magazine_id(magazine_id) if magazine_id.present?
       curr_price.present? ? curr_price.price_id : product.current_price_model.id
     else
       product_item_magazine_prices.create(params).price_id
