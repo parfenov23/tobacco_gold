@@ -152,7 +152,12 @@ var priceItemSale = function(){
       result -= (result/100*sale_discount_val);
     }
   }
-  ajax_current_price_delivery(result);
+  var time_timeout = 0;
+  if (window.location.href.search("order_request") > 0){
+    ajax_current_price_delivery(result);
+    time_timeout = 200;
+  }
+  
   setTimeout(function(){
     result += parseInt($(".saleAllItemCashbox .delivery .price").text());
     $(".titlePrice").text(result.toFixed(1));
@@ -161,7 +166,7 @@ var priceItemSale = function(){
       $(".received_cash + .clearInput").show();
       $(".titleDelivery").val("Cдача " + ($(".received_cash").val() - result) + " руб.");
     }
-  }, 200);
+  }, time_timeout);
 
 }
 
