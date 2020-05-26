@@ -31,7 +31,7 @@ class ProductItem < ActiveRecord::Base
   has_many :sale_items, dependent: :destroy
   has_many :product_item_top_magazines
   has_and_belongs_to_many :tags
-  default_scope { order('title ASC') }
+  # default_scope { order('title ASC') }
   scope :total_sum, -> { map{|pi| pi.product.current_price}.sum }
   has_many :product_item_counts, dependent: :destroy
   after_create :default_create_product_item_count
