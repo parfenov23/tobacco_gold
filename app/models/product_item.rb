@@ -214,7 +214,9 @@ class ProductItem < ActiveRecord::Base
       curr_price = product_item_magazine_prices.find_by_magazine_id(magazine_id) if magazine_id.present?
       curr_price.present? ? curr_price.price_id : product.current_price_model.id
     else
-      product_item_magazine_prices.create(params).price_id
+      find_price = product_item_magazine_prices.find_or_create_by(magazine_id: params[:magazine_id])
+      find_price.update(params)
+      params[:price_id]
     end
   end
 
