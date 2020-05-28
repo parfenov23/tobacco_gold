@@ -20,7 +20,10 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     textarea.form-control name="product_items[description]" type="text" required=true
       = @model.description
     label Описание
-
+  .form-group.material-form-group
+    textarea.form-control name="product_items[specification]" type="text" required=true
+      = @model.specification
+    label Характеристики
   - if @model.id.present?
     .form-group.material-form-group.active
       label Цена:
