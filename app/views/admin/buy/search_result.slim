@@ -10,7 +10,7 @@ form action="/admin/buy/form_search_result" method="post" enctype="multipart/for
 
     tbody
       - product = Product.find(params[:product_id])
-      - all_items = product.product_items.map{|pi| {title: pi.title, id: pi.id} }
+      - all_items = product.product_items.order('title ASC').map{|pi| {title: pi.title, id: pi.id} }
       - @find_arr.sort_by{|a| a[:count_pi].to_i}.each do |arr|
         - full_title = (product.title + " - " + arr[:title])
 
