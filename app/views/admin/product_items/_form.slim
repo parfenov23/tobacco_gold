@@ -59,4 +59,5 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   input.current_id type="hidden" value="#{@model.id}"
   input type="hidden" name="_method" value="#{method}"
   - class_submit = @model.id.present? ? "js_submitUpdateProduct" : "js_submitNewModel"
+  a.btn.btn-success-material href="http://#{current_company.domain}/all_mixs?id=#{@model.id}" target="_blank" Предпросмотр
   button.btn.btn-primary-material.submit class=class_submit type="submit" formnovalidate=true Сохранить

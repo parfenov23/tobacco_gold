@@ -25,43 +25,24 @@ module Api
 
     def load
       arr_product_items = params[:load]
-      arr_product_items.each do |json_product_item|
-        find_product_item = ProductItem.where(uid: json_product_item["uid"]).last
-        product_item = find_product_item.present? ? find_product_item : ProductItem.new(uid: json_product_item["uid"])
-        product_item.title = json_product_item["title"]
-        product_item.barcode = json_product_item["barcode"]
-        
-        find_category = Category.where(company_id: current_company.id, first_name: json_product_item["category"]).last
-        category = find_category.present? ? find_category : Category.new(company_id: current_company.id)
-        category.first_name = json_product_item["category"]
-        
-        find_product = Product.where(company_id: current_company.id, title: json_product_item["product"]).last
-        product = find_product.present? ? find_product : Product.new(company_id: current_company.id)
-        product.title = json_product_item["product"]
+      arr_product_items.each do |json_product_item|        
+        category = Category.find_or_create_by(company_id: current_company.id, first_name: json_product_item["category"])
+        product = Product.find_or_create_by(company_id: current_company.id, title: json_product_item["product"], category_id: category.id)
 
-        product.category = category
-        product_item.product = product
+        product_item = ProductItem.find_or_create_by(uid: json_product_item["uid"], product_id: product.id)
+        product_item.title = product_item.title.blank? ? json_product_item["title"] : product_item.title
+        product_item.barcode = json_product_item["barcode"] if json_product_item["barcode"].present?
 
         arr_tags = json_product_item["tag"].split(",")
         product_item.tags = arr_tags.map do |tag| 
-          find_tag = Tag.where(company_id: current_company.id, title: tag).last
-          find_tag.present? ? find_tag : Tag.create(company_id: current_company.id, title: tag)
+          Tag.find_or_create_by(company_id: current_company.id, title: tag)
         end
-
-        category.save
-        product.save
         product_item.save
 
-        find_price = product.product_prices.where(price: json_product_item["price"]).last
-        price = find_price.present? ? find_price : product.product_prices.create(price: json_product_item["price"], title: json_product_item["price"])
+        price = product.product_prices.find_or_create_by(price: json_product_item["price"], title: json_product_item["price"])
         product_item.price_id(nil, {magazine_id: current_magazine.id, price_id: price.id})
 
-
-        find_count = product_item.product_item_counts.where(magazine_id: current_magazine.id).last
-        current_count = find_count.present? ? find_count : product_item.product_item_counts.create(magazine_id: current_magazine.id)
-        current_count.count = json_product_item["count"]
-        current_count.save
-
+        product_item.product_item_counts.find_or_create_by(magazine_id: current_magazine.id).update(count: json_product_item["count"])
       end
       render json: {success: params.as_json}
     end
