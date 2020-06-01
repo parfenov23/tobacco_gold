@@ -2,7 +2,7 @@
   / .list-group-item.panel_gray_common
     / - if current_user.is_admin?
     /   a.btn.btn-success-material href="/admin/product_items/new?product_id=#{params[:product_id]}"  Добавить вкус
-  - @product_items.each do |item|
+  - @product_items.order('title ASC').each do |item|
     - blank_desc = item.description.present? && item.image_url.present?
     .list-group-item.material.col-md-6 class=(!blank_desc ? "blankProductItemDescription" : nil)
       span

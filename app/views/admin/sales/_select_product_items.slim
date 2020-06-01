@@ -8,7 +8,7 @@
       - curr_pimp = item.product_item_magazine_prices.select{|pimp| pimp.magazine_id == current_magazine.id}.last
       - {title: item.title, id: item.id, add_data: {'data-barcode' => item.barcode, 'data-product' => product.id, 'data-price_id' => (curr_pimp.present? ? curr_pimp.price_id : item.product.current_price_model.id), 'data-deff_price' => curr_price} }
 
-    
+    - all_product_items = all_product_items.sort {|a,b| a[:title] <=> b[:title]}
     = render "common_select_new", {arr_li: all_product_items, default: all_product_items.first[:id], add_class: "noInit selectProductItem", name_input: "sales[][item_id]", class_input: 'changeSelectContent changeSelectProductItem'}
     
     = render "common_select_new", {arr_li: all_prices_arr, default: all_prices_arr.first[:id], add_class: "noInit selectProductPrice", name_input: "sales[][price_id]", class_input: 'changeSelectContent selectPrice'}
