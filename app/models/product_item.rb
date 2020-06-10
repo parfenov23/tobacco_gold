@@ -123,6 +123,14 @@ class ProductItem < ActiveRecord::Base
     image_url.to_s
   end
 
+  def thumb_img
+    if image_url.present?
+      path_file = image_url.thumb.file.path
+      image_url.recreate_versions! if !File.exists?(path_file)
+      image_url.thumb.to_s
+    end
+  end
+
   def count
     product_item_counts.sum(:count)
   end
@@ -162,7 +170,7 @@ class ProductItem < ActiveRecord::Base
     $api_key = api_key if api_key.present?
     as_json({
       except: [:created_at, :updated_at, :image_url, :price_id],
-      methods: [:count, :magazine_count, :count_sales, :default_img, :default_price, :product_title]
+      methods: [:count, :magazine_count, :count_sales, :default_img, :default_price, :product_title, :thumb_img]
     })
   end
 
