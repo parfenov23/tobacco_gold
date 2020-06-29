@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Rails tobacco_gold: production" uuid="2468919c-2295-4c19-ae85-113924e09aa3">
+      <driver-ref>greenplum</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/tobacco_gold_production</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails tobacco_gold: development" uuid="49845fbe-b02d-42d0-950b-7a23dacab558">
+      <driver-ref>greenplum</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/tobacco_gold_development</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails tobacco_gold: test" uuid="38c02a12-d5bb-42f0-a50c-76deb5e2cea0">
+      <driver-ref>greenplum</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/tobacco_gold_test</jdbc-url>
+    </data-source>
+  </component>
+</project>

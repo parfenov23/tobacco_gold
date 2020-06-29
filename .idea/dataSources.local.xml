@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails tobacco_gold: production" uuid="2468919c-2295-4c19-ae85-113924e09aa3">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="GREENPLUM" exact-version="0" />
+      <user-name>tobacco_gold</user-name>
+      <schema-mapping />
+    </data-source>
+    <data-source name="Rails tobacco_gold: development" uuid="49845fbe-b02d-42d0-950b-7a23dacab558">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="GREENPLUM" exact-version="0" />
+      <schema-mapping />
+    </data-source>
+    <data-source name="Rails tobacco_gold: test" uuid="38c02a12-d5bb-42f0-a50c-76deb5e2cea0">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="GREENPLUM" exact-version="0" />
+      <schema-mapping />
+    </data-source>
+  </component>
+</project>
