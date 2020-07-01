@@ -283,6 +283,14 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+  &.col-md-6:hover, &.col-md-3:hover{
+    cursor: pointer;
+    background-color: #494949;
+    color: white;
+    a{
+      color:white;
+    }
+  }
 }
 
 .navbar.block-material {

@@ -7,14 +7,15 @@
       - current_company.categories.each do |category|
         a.btn.btn-info-material style="margin-left: 2px;" href="/admin/products?category=#{category.id}" = category.first_name 
   - @models.each do |product|
+    - url = "/admin/products/#{product.id}"
     .list-group-item.col-md-6.material
-      span
+      span.js_loadContentInOtherPopup href="#{url}/edit" data-title="Редактирование производителя"
         = product.title
       a.btn.btn-primary-material.pull-right href="/admin/product_items?product_id=#{product.id}" style="margin-right: 5px;"
         | Позиции
       a.btn.btn-info-material.pull-right href="/admin/product_prices?product_id=#{product.id}" style="margin-right: 5px;"
         | Цены
-      = render "admin/admin/common_btn", {url: "/admin/products/#{product.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование производителя"}
+      = render "admin/admin/common_btn", {url: url, class_edit: "displayNone"}
 
 = render "common_blank_page" if @models.blank?
 - if current_user.is_admin?

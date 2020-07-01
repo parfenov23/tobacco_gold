@@ -73,7 +73,7 @@
 
     - if @model.status != "paid"
       .list-group.row.material.noBorderListGroup
-        .list-group-item.col-md-6.material
+        .list-group-item.col-md-6
         - if !@model.reserve
           .list-group-item.col-md-6.inlineBlockOrder.rightContent
             form.form-horizontal action="/admin/#{model_url}/#{@model.id}" method="post" enctype="multipart/form-data"

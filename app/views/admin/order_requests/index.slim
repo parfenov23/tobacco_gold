@@ -13,9 +13,10 @@
     / a.btn.btn-success-material href="/admin/order_requests?status=paid"  Оплаченые
   - status = params[:status] || "waiting"
   - @models.where(status: status).each do |model|
-    .list-group-item.col-md-6
-      span
-        a href="/admin/#{model_url}/#{model.id}" = model.title
+    .list-group-item.col-md-6.material
+      span onclick="window.location.href='/admin/#{model_url}/#{model.id}'"
+        / a href="/admin/#{model_url}/#{model.id}" 
+        = model.title
       - if model.status != "paid"
         - type_sale = model.contact.opt ? "opt" : "retail"
 

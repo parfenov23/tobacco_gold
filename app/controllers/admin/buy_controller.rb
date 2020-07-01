@@ -88,6 +88,7 @@ module Admin
     def info
       @buy = find_model if ((find_model.company_id == current_company.id) rescue true )
       redirect_to "/404" if @buy.blank?
+      render layout: false
     end
 
     def search_result

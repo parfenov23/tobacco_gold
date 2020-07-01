@@ -10,10 +10,9 @@
 
     a.btn.btn-success-material href="/admin/buy/search" Поиск
   - @buys.each do |buy|
-    .list-group-item.col-md-6
-      span
-        a href='/admin/buy/#{buy.id}/info'
-          = buy.created_at.strftime("%d-%m-%Y") + " (#{buy.price}р.) | #{buy.provider_title}"
+    .list-group-item.col-md-6.material
+      span.js_loadContentInOtherPopup href="/admin/buy/#{buy.id}/info" data-title="Информация о закупе"
+        = buy.created_at.strftime("%d-%m-%Y") + " (#{buy.price}р.) | #{buy.provider_title}"
       - if !buy.def_pay
         a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="Выплата поставщику" href="/admin/buy/#{buy.id}/paid_out" class="btn_def_pay_#{buy.id}" ✔
       a.btn.btn-danger-material.pull-right href="/admin/buy/#{buy.id}/remove" data-method='delete'

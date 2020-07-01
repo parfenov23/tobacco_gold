@@ -3,9 +3,9 @@
   /   a.btn.btn-success href="/admin/product_prices/new?product_id=#{params[:product_id]}"  Добавить цену
   - @product_prices.each do |price|
     .list-group-item.col-md-6.material
-      span
+      span.js_loadContentInOtherPopup href="/admin/product_prices/#{price.id}/edit" data-title="Редактирование цены"
         = price.title
-      = render "admin/admin/common_btn", {url: "/admin/product_prices/#{price.id}", class_edit: "js_loadContentInOtherPopup", data_title: "Редактирование цены"}
+      = render "admin/admin/common_btn", {url: "/admin/product_prices/#{price.id}", class_edit: "displayNone"}
 
 
 = render "admin/admin/common_popup_new_model", {model: ProductPrice.new, title: "Добавление новой цены"}

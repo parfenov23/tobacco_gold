@@ -9,7 +9,7 @@
           .list-group-item.panel_gray_common
             / - product_min_price = product.product_prices.order("price ASC").first.price
             = product.title
-          - product_items.each do |item|
+          - product_items.order("title ASC").each do |item|
             - item_count = item.current_count(current_magazine)
             - if item_count.to_i > 0
               .list-group-item.col-md-2.parentListItem data-barcode=item.barcode style="display: flex;"

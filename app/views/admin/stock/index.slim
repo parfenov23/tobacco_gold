@@ -23,14 +23,14 @@
         = product.title
         line style="color: #5bc0de;float: right;"
           | #{product.current_price.to_i} рублей
-      - product_items.each do |item|
+      - product_items.order("title ASC").each do |item|
         - item_count = item.current_count(curr_magazine)
         - if item_count.to_i > 0 || params[:type] == "not_available"
           - blank_desc = item.description.present? && item.image_url.present?
           .list-group-item.col-md-3.material class=(!blank_desc ? "blankProductItemDescription" : nil)
-            span
+            span.js_loadContentInOtherPopup href="/admin/product_items/#{item.id}/edit" data-title="Редактирование вкуса"
               = item.title
             - if current_user_admin? || params[:pub] == "true"
               a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="#{product.title} - #{item.title}" href="/admin/stock/#{item.id}/info"
                 = item_count
-              = render "admin/admin/common_btn", {url: "/admin/product_items/#{item.id}", class_edit: "js_loadContentInOtherPopup btn_item_#{item.id}", data_title: "Редактирование вкуса", class_remove: "displayNone"}
+              / = render "admin/admin/common_btn", {url: "/admin/product_items/#{item.id}", class_edit: "js_loadContentInOtherPopup btn_item_#{item.id}", data_title: "Редактирование вкуса", class_remove: "displayNone"}

@@ -53,6 +53,12 @@
     <b>Способ оплаты:</b>
     <span><%= @model.type_payment == "cash" ? "Наличными при получении" : "Картой при получении" %></span>
   </div>
+  <% if @model.comment.present? %>
+    <div>
+      <b>Комментарий:</b>
+      <span><%= @model.comment %></span>
+    </div>
+  <% end %>
 
   <div style="text-align: center; margin-top: 24px;">
     <% date_sale = @model.created_at %>
