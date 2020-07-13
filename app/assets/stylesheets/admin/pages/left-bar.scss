@@ -1,0 +1,58 @@
+.well{
+  .left-bar{
+    position: fixed;
+    width: 42px;
+    top: 49px;
+    left: 0;
+    text-align: center;
+    height: 100%;
+    font-size: 28px;
+    z-index: 998;
+    .menu-ul{
+      padding-top: 4px;
+      .menu-li{
+        display: block;
+        color: white;
+        text-decoration: none;
+        position: relative;
+        .placeholder{
+          position: absolute;
+          left: 42px;
+          top: 0;
+          background: white;
+          color: black;
+          font-size: 16px;
+          padding: 9px;
+          /*          display: none;*/
+          opacity: 0;
+          visibility: hidden;
+          transition: .15s opacity, .15s visibility;
+          border-radius: 0px 5px 5px 0px;
+          box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.14), 2px 1px 5px 0 rgba(0, 0, 0, 0.12), 2px 3px 1px -2px rgba(0, 0, 0, 0.2);
+          
+        }
+        &:hover{
+          background: white;
+          color: black;
+          cursor: pointer;
+          .placeholder{
+            opacity: 1;
+            visibility: visible;
+            /*            display: block;*/
+          }
+        }
+      }
+    }
+  }
+  .content{
+    margin-left: 48px;
+  }
+  @media only screen and (max-width: 991px) {
+    .left-bar{
+      display: none;
+    }
+    .content{
+      margin-left: 0px;
+    }
+  }
+}

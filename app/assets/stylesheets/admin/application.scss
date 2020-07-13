@@ -35,9 +35,61 @@
     display: flex;
   }
 }
+.dropDownMore{
+  position: relative;
+  &:active .listMore {
+    display: block; /* Когда кликаем по вкладке, открываем содержимое content */
+  }
+  .btnMore{
+    font-size: 17px;
+    padding-top: 2px;
+    flex: 0 0 auto;
+    color: #000;
+    padding: 8px;
+    overflow: visible;
+    text-align: center;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 50%;
+    width: 40px;
+    cursor: pointer;
+    &:hover{
+      background-color: rgba(255, 255, 255, 0.35);
+      color: white;
+    }
+  }
+  .listMore{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: white;
+    display: none;
+    z-index: 9;
+    .liMore{
+      display: block;
+      padding: 8px;
+      color: black !important;
+      text-decoration: none;
+      &:hover{
+        background-color: rgba(0, 0, 0, 0.18);
+      }
+    }
+    &:hover {
+      display: block; 
+    }
+  }
+
+}
+
 
 .blankProductItemDescription{
   background-color: #c1d041 !important;
+}
+
+.btnBackPage{
+  font-size: 30px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  cursor: pointer;
 }
 
 .plusBtn{
@@ -208,6 +260,9 @@
 @media only screen and (max-width: 991px) {
   .displayFlex {
     display: block;
+  }
+  .btnBackPage{
+    display: none;
   }
 }
 

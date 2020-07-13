@@ -11,11 +11,11 @@
     .list-group-item.col-md-6.material
       span.js_loadContentInOtherPopup href="#{url}/edit" data-title="Редактирование производителя"
         = product.title
-      a.btn.btn-primary-material.pull-right href="/admin/product_items?product_id=#{product.id}" style="margin-right: 5px;"
-        | Позиции
-      a.btn.btn-info-material.pull-right href="/admin/product_prices?product_id=#{product.id}" style="margin-right: 5px;"
-        | Цены
-      = render "admin/admin/common_btn", {url: url, class_edit: "displayNone"}
+      / a.btn.btn-primary-material.pull-right href="/admin/product_items?product_id=#{product.id}" style="margin-right: 5px;"
+      /   | Позиции
+      / a.btn.btn-info-material.pull-right href="/admin/product_prices?product_id=#{product.id}" style="margin-right: 5px;"
+      /   | Цены
+      = render "admin/admin/common_btn", {url: url, class_edit: "displayNone", add_btn: [{href: "/admin/product_items?product_id=#{product.id}", title: "Позиции"}, {href: "/admin/product_prices?product_id=#{product.id}", title: "Цены"}]}
 
 = render "common_blank_page" if @models.blank?
 - if current_user.is_admin?

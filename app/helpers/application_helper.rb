@@ -9,7 +9,7 @@ module ApplicationHelper
 
   # Заголовок страницы
   def layout_title
-    "#{curr_title_admin_header} | Hookah Stock"
+    "#{curr_title_admin_header} | CRM Stock"
   end
 
   def title(page_title=nil)
@@ -56,34 +56,38 @@ module ApplicationHelper
     current_user.present? ? current_user.is_admin? || current_user.is_manager? : false
   end
 
+  def curr_hash_nav_li
+    curr_li = nil
+    all_navs_admin.each{|nav| curr_li = nav if nav[:url] == request.env["PATH_INFO"] }
+    curr_li
+  end
+
   def curr_title_admin_header(add_title=nil)
-    curr_title = nil
-    all_navs_admin.each{|nav| curr_title = nav[:title] if nav[:url] == request.env["PATH_INFO"] }
-    "#{add_title}#{curr_title}"
+    curr_hash_nav_li.present? ? "#{add_title}#{curr_hash_nav_li[:title]}" : "#{add_title}"
   end
 
   def all_navs_admin
     [ 
-      {url: "/admin/admin", title: "Главная"},
-      {url: "/admin/products", title: "Товары"},
+      {url: "/admin/admin", title: "Главная", icon: "home"},
+      {url: "/admin/products", title: "Товары", icon: "products"},
       {url: '/admin/categories', title: 'Категории', display: false}, 
       # {url: '/admin/mix_boxes', title: 'Миксы'}, 
-      {url: "/admin/stock", title: "Склад"},
-      {url: "/admin/sales", title: "Продажи"},
-      {url: "/admin/transfers", title: "Трансферы"},
-      {url: "/admin/revision", title: "Ревизия"},
+      {url: "/admin/stock", title: "Склад", icon: "stock"},
+      {url: "/admin/sales", title: "Продажи", icon: "sales"},
+      {url: "/admin/transfers", title: "Трансферы", icon: "transfers"},
+      {url: "/admin/revision", title: "Ревизия", icon: "revision"},
       # {url: "/admin/hookah_cash", title: "Кальяны"},
-      {url: "/admin/buy", title: "Закупы"},
+      {url: "/admin/buy", title: "Закупы", icon: "buy"},
       {url: "/admin/other_buy", title: "Прочие расходы", display: false},
       # {url: "/admin/admin/sms_phone", title: "Смс банк"},
-      {url: "/admin/cashbox", title: "Касса"},
-      {url: '/admin/order_requests', title: 'Заявки'}, 
-      {url: '/admin/content_pages', title: 'Контент'}, 
-      {url: '/admin/users', title: 'Пользователи'}, 
-      {url: '/admin/contacts', title: 'Клиенты'},
+      {url: "/admin/cashbox", title: "Касса", icon: "cashbox"},
+      {url: '/admin/order_requests', title: 'Заявки', icon: "order_requests"}, 
+      {url: '/admin/content_pages', title: 'Контент', icon: "page_content"}, 
+      {url: '/admin/users', title: 'Пользователи', icon: "users"}, 
+      {url: '/admin/contacts', title: 'Клиенты', icon: "contacts"},
       {url: '/admin/admin/manager_payments', title: 'Выплаты', display: false},
-      {url: '/admin/providers', title: 'Поставщики'},
-      {url: '/admin/magazins', title: 'Компания'},
+      {url: '/admin/providers', title: 'Поставщики', icon: "providers"},
+      {url: '/admin/magazins', title: 'Компания', icon: "settings"},
       {url: '/admin/product_items', title: 'Позиции', display: false},
       {url: '/admin/product_prices', title: 'Цены', display: false},
       {url: '/admin/provider_items', title: 'Цены поставщика', display: false},

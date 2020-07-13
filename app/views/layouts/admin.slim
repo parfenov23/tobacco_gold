@@ -43,7 +43,17 @@ html
 
     = render "layouts/header"
     .well data-action=params[:controller]
-      = yield
+      - if current_user_admin?
+        .left-bar.panel_gray_common.block-material
+          .menu-ul
+            - all_nav_li_admin.each do |li_nav|
+              - if li_nav[:display] != false
+                a.menu-li href="#{li_nav[:url]}" 
+                  i.icon class=li_nav[:icon]
+                  .placeholder
+                    = li_nav[:title]
+      .content
+        = yield
       #overlay
       .allOtherPopup
         .cntt-wrapper

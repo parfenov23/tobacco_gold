@@ -86,3 +86,69 @@ i.remove:before{
     content : "\e902";
 }
 
+i.back:before{
+  content : "\e912";
+}
+
+i.more_vert:before{
+  content : "\e913";
+}
+
+/*LEFT MENU ICON 14*/
+i.home:before{
+  content : "\e909";
+}
+
+i.settings:before{
+  content : "\e90a";
+}
+
+i.cashbox:before{
+  content : "\e910";
+}
+
+i.page_content:before{
+  content : "\e90e";
+}
+
+i.users:before{
+  content : "\e90d";
+}
+
+i.contacts:before{
+  content : "\e90c";
+}
+
+i.buy:before {
+  content: "\e908";
+}
+
+i.providers:before {
+  content: "\e907";
+}
+
+i.sales:before {
+  content: "\e904";
+}
+
+i.revision:before {
+  content: "\e906";
+}
+
+i.products:before {
+  content: "\e90b";
+}
+
+i.stock:before {
+  content: "\e905";
+}
+
+i.order_requests:before {
+  content: "\e90f";
+}
+
+i.transfers:before {
+  content: "\e911";
+}
+
+

@@ -271,9 +271,9 @@ body {
 }
 
 .list-group-item.material {
-  padding: 10px 20px;
-  overflow: auto;
-  position: relative;
+  padding: 10px;
+/*  overflow: auto;*/
+  position: initial;
   margin-bottom: -1px;
   background-color: #fff;
   border: 1px solid #e0e0e0;
@@ -384,7 +384,7 @@ body {
 }
 
 .displayNone{
-  display: none;
+  display: none !important;
 }
 
 .parentSelectMd{

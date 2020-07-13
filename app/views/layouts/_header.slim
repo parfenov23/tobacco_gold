@@ -1,6 +1,9 @@
 nav.navbar.navbar-default.block-material
   .allNavElem
     - if current_user.present?
+      - if curr_hash_nav_li.blank? || curr_hash_nav_li[:display] == false
+        .btnBackPage onclick="window.history.back()"
+          i.icon.back
       .btnOpenleftBar onclick="openNav()"
         |&#9776;
     .headerTitle 

@@ -1,7 +1,17 @@
 - url = url rescue nil
 - url_edit = url_edit || "#{url}/edit"
 - url_remove = url_remove || "#{url}/remove"
-a.btn.btn-success-material.btn-margin-left  href="#{url_edit}" style="margin-right: 5px;" class=(class_edit rescue "") data-title=(data_title rescue "")
-  i.icon.edit
-a.btn.btn-danger-material href="#{url_remove}" data-method='delete' style="margin-right: 5px;" onclick="return confirm('Вы уверены?')" class=(class_remove rescue "")
-  i.icon.remove
+- add_btn = add_btn || []
+/ a.btn.btn-success-material.btn-margin-left  href="#{url_edit}" style="margin-right: 5px;" class=(class_edit rescue "") data-title=(data_title rescue "")
+/   i.icon.edit
+/ a.btn.btn-danger-material href="#{url_remove}" data-method='delete' style="margin-right: 5px;" onclick="return confirm('Вы уверены?')" class=(class_remove rescue "")
+/   i.icon.remove
+
+.dropDownMore
+  .btnMore
+    i.icon.more_vert
+  .listMore.block-material
+    - add_btn.each do |btn|
+      a.liMore href=btn[:href] class=btn[:add_class] =btn[:title]
+    a.liMore href="#{url_edit}" class=(class_edit rescue "") data-title=(data_title rescue "") Редактировать
+    a.liMore  href="#{url_remove}" data-method='delete' onclick="return confirm('Вы уверены?')" class=(class_remove rescue "") Удалить

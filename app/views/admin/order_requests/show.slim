@@ -11,7 +11,7 @@
       - arr_status.delete({:title=>"Оплачено", :id=>"paid"})
       .selectInlineProvider.searchParamSelect data-param="status"
         = render "common_select_new", {arr_li: arr_status, default: @model.status, add_class: "noInit"}
-    .rightContent
+    .rightContent.displayFlex
       a.btn.btn-info-material href="/order_invoice/#{@model.id}.pdf?key=#{@model.created_at.to_i}" 
         i.icon.printer
       - if !@model.reserve
