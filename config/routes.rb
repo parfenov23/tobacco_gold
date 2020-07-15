@@ -142,6 +142,9 @@ Rails.application.routes.draw do
     end
 
     resources :products do
+      collection do
+        get :all_blank_product_items
+      end
       member do
         get :remove
       end

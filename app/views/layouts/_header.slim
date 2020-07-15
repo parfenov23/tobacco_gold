@@ -6,6 +6,8 @@ nav.navbar.navbar-default.block-material
           i.icon.back
       .btnOpenleftBar onclick="openNav()"
         |&#9776;
+    a.logo href="/"
+      img src="/crm-logo.svg"
     .headerTitle 
       = curr_title_admin_header(@add_title) || "Hookah Stock Online"
     - if current_user.present?

@@ -90,6 +90,7 @@
   padding-top: 4px;
   padding-bottom: 4px;
   cursor: pointer;
+  padding-right: 8px;
 }
 
 .plusBtn{
@@ -423,3 +424,17 @@ form.form-horizontal {
   }
 }
 
+a.logo{
+  img{
+    width: 154px;
+    padding-top: 10px;
+  }
+}
+@media only screen and (max-width: 760px) {
+  a.logo{
+    display: none;
+  }
+  .navbar.navbar-default .allNavElem .headerTitle{
+    padding-right: 0px;
+  }
+}

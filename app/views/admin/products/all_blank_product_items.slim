@@ -1,0 +1,23 @@
+- ids  = current_company.products.ids
+.list-group-item.material.table-mobile
+  table.table.table-material.border-right
+    thead
+      tr
+        th Наиминование
+        th ссылка
+        th
+    tbody  
+      - ProductItem.where(product_id: ids).where('description=? OR description=?', nil, "").each do |product_item|
+        tr
+          td = product_item.title
+          td.js_loadContentInOtherPopup href="/admin/product_items/#{product_item.id}/edit" style="cursor:pointer;"
+            = "/admin/product_items/#{product_item.id}/edit"
+          td.removeTD style="cursor:pointer;"
+            i.icon.remove
+
+javascript:
+  $(document).ready(function(){
+    $(document).on('click', '.removeTD', function(){
+      $(this).closest("tr").remove();r
+    })
+  })

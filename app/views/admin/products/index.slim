@@ -1,11 +1,12 @@
 .list-group.row.material
-  .list-group-item.panel_gray_common
+  .list-group-item.panel_gray_common.titleFlex
     - if current_user.is_admin?
       / a.btn.btn-success-material href="/admin/products/new"  Добавить производителя
       a.btn.btn-success-material.btn-margin-left href="/admin/categories" Добавить категорию
     .categories style="display: inline-block;margin-left: 8px;"
-      - current_company.categories.each do |category|
-        a.btn.btn-info-material style="margin-left: 2px;" href="/admin/products?category=#{category.id}" = category.first_name 
+      - arr_categories = current_company.categories.map{|category| {href: "/admin/products?category=#{category.id}", title: category.first_name}}
+      - if arr_categories.present?
+        = render "admin/admin/common_btn", {class_edit: "displayNone", class_remove: "displayNone", add_btn: arr_categories}
   - @models.each do |product|
     - url = "/admin/products/#{product.id}"
     .list-group-item.col-md-6.material

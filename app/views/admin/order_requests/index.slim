@@ -1,6 +1,6 @@
 - model_url = @models.first_url
 .list-group.row
-  .list-group-item.panel_gray_common.displayFlex
+  .list-group-item.panel_gray_common.titleFlex
     - arr_status = OrderRequest.all_satuses
     - current_status = params[:status] || arr_status.first[:id]
     .leftContent.displayFlex.normal

@@ -131,6 +131,7 @@ ul.nav.navbar-nav li {
   width: 30px;
   text-align: center;
   display: none;
+  padding-right: 8px;
 }
 @media only screen and (max-width: 991px) {
   .navbar.navbar-default .allNavElem .btnOpenleftBar{
@@ -144,6 +145,7 @@ ul.nav.navbar-nav li {
   text-transform: uppercase;
   line-height: 28px;
   padding-top: 8px;
+  padding-right: calc(148px - 34px);
 }
 
 .sidenav {
