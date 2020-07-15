@@ -7,7 +7,7 @@
         th ссылка
         th
     tbody  
-      - ProductItem.where(product_id: ids).where(description: nil.each do |product_item|
+      - ProductItem.where(product_id: ids).where(description: nil).each do |product_item|
         tr
           td = product_item.title
           td.js_loadContentInOtherPopup href="/admin/product_items/#{product_item.id}/edit" style="cursor:pointer;"
