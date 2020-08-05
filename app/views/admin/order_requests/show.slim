@@ -4,7 +4,7 @@
   .list-group-item.panel_gray_common.displayFlex
     - model_url = @model.class.first_url
     .leftContent.displayFlex.normal
-      - if @model.status != "paid" && !@model.reserve
+      - if @model.status != "paid"
         - text_reserve = @model.reserve ? "Снять с резерва" : "Поставить на резерв"
         a.btn.btn-success-material href="/admin/order_requests/#{@model.id}/reserve" = text_reserve
       - arr_status = OrderRequest.all_satuses
