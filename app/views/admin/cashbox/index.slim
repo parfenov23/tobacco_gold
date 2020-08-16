@@ -4,7 +4,7 @@
   .list-group-item.panel_gray_common 
     |Общее
     a class="js_closeLeftBar" href="javascript:void(0)" ×
-  .listInfo
+  .listInfo.general
     .item
       // Касса
       i.icon-cashbox.iconCashbox
@@ -36,24 +36,28 @@
       - averege = (@curr_month_sales_price/Time.now.day * Time.now.end_of_month.day).to_i
       span.title #{number_with_delimiter(averege, delimiter: " ")} рублей
   .list-group-item.panel_gray_common Долг поставщикам
-  .listInfo
+  .listInfo.debts
     / - binding.pry
+    - count_debts = 0
     - current_company.providers.each do |provider|
       - all_sum_buys = 0
       - provider.buys.where(def_pay: false, magazine_id: current_user.magazine_id).map{|buy| all_sum_buys += buy.balance_of_pay}
       - if all_sum_buys > 0
+        - count_debts += 1
         .item
           i.user-tie.iconCashbox
           span.title #{provider.title}
         .item.under
           i.icon-coin-dollar.iconCashbox
           span.title #{number_with_delimiter(all_sum_buys, delimiter: " ")} рублей
+      - if count_debts == 0
+        | Долгов нет
 = render "curr_statistic"
 .headerBar.block-material
   .displayFlex
     .leftBlock.js_selectStatisticCachbox
       - deff_select = params[:date].blank? ? "day" : params[:date]
-      = render "common_select_new", {arr_li: [{title: "День", id: "day"}, {title: "Месяц", id: "month"}, {title: "Год", id: "year"}, {title: "Прошлый год", id: "last_year"}], default: deff_select, add_class: "noInit"}
+      = render "common_select_new", {arr_li: [{title: "Сегодня", id: "day"}, {title: "Месяц", id: "month"}, {title: "Год", id: "year"}, {title: "Прошлый год", id: "last_year"}], default: deff_select, add_class: "noInit"}
     .rightBlock
       a.btn.btn-primary-material style="margin-left: 4px;" href="/admin/other_buy" Прочие расходы
       a.btn.btn-success-material.js_loadContentInOtherPopup data-title="Сверка кассы" style="margin-left: 4px;" href="/admin/cashbox/to_check" Сверка
@@ -63,7 +67,7 @@
       .title Продажи
       .price #{number_with_delimiter(@curr_sale, delimiter: " ")} рублей
     .miniBlockStatistic.block-material
-      .title Прибыль
+      .title Выручка
       .price #{number_with_delimiter(@curr_profit, delimiter: " ")} рублей
     .miniBlockStatistic.block-material
       .title Расходы

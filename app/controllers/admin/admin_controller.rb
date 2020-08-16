@@ -1,5 +1,6 @@
 module Admin
   class AdminController < ActionController::Base
+    include ApplicationHelper
     before_action :redirect_to_stock, except: [:api_sms]
     before_action :current_company
     layout "admin"
@@ -106,7 +107,14 @@ module Admin
     private
 
     def redirect_to_stock
-      redirect_to "/" if (current_user.blank? || !current_user.is_admin? && !current_user.is_manager?)
+      present_user = (current_user.blank? || !current_user.is_admin? && !current_user.is_manager?)
+      if current_user.present?
+        if current_company.setting_nav.present? && curr_hash_nav_li.present? && curr_hash_nav_li[:display] != false && curr_hash_nav_li[:url] != "/admin/admin"
+          redirect_to "/" if !current_company.setting_nav.split(",").include?(curr_hash_nav_li[:url])
+        end
+        redirect_to "/users/sign_out"  if !current_company.demo_sign_in_time
+      end
+      redirect_to "/" if present_user
     end
 
     def current_magazine

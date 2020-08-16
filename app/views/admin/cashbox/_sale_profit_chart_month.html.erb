@@ -9,7 +9,7 @@
 
       var options = {
         chart: {
-          title: 'Tobacco Gold',
+          title: '<%= current_magazine.title %>',
           subtitle: 'продажи, прибыль, расходы за <%= Russian::strftime(Time.now, "%B") %>',
         }
       };
@@ -32,7 +32,7 @@
 
       var options = {
         chart: {
-          title: 'Tobacco Gold',
+          title: '<%= current_magazine.title %>',
           subtitle: 'продажи, прибыль за текущий год',
         }
       };

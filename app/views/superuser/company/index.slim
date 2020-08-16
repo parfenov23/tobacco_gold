@@ -1,0 +1,11 @@
+.list-group.row.material
+  / .list-group-item.panel_gray_common
+  /   a.btn.btn-success href="/admin/magazins/new"
+  /     | Добавить магазин
+  - @models.each do |model_f|
+    .list-group-item.col-md-6.material
+      span.js_loadContentInOtherPopup href="/superuser/company/#{model_f.id}/edit" data-title="Редактирование компании"
+        = model_f.title
+      = render "admin/admin/common_btn", {url: "/superuser/company/#{model_f.id}", class_edit: "displayNone"}
+
+/ = render "admin/admin/common_popup_new_model", {model: Magazine.new, title: "Добавление нового магазина"}

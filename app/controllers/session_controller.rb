@@ -1,13 +1,16 @@
 class SessionController < ActionController::Base
   def create
     user = User.where(email: params[:email], role: ["admin", "manager"]).last
-    sign_in("user", user) if user.present? && user.valid_password?(params[:password])
+    if user.present?
+      company = user.magazine.company
+      sign_in("user", user) if company.demo_sign_in_time && user.valid_password?(params[:password])
+    end
     redirect_index
   end
 
   def registration
-    if params[:password] == params[:confirm_password] && params[:key_registration] == "hookahStockCrm2017"
-      company = Company.create({title: params[:company]})
+    if params[:password] == params[:confirm_password]
+      company = Company.create({title: params[:company], demo_time: (Time.now + 7.day).strftime("%d.%m.%Y")})
       magazine = company.magazines.create({title: params[:company], api_key: SecureRandom.hex})
       user = User.create({email: params[:email], admin: true, role: "admin", magazine_id: magazine.id})
       user.password = params[:password]

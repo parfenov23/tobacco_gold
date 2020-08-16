@@ -1,28 +1,31 @@
+<% curr_profit_procent = ((@curr_profit / @curr_sale * 100).round(2)) rescue 0 %>
+<% curr_sale_procent = 100.0 - curr_profit_procent %>
+
+<% curr_exp_procent = (((@curr_exp.to_f + @manager_pay.to_f) / @curr_profit.to_f * 100.0).round(2)) rescue 0 %>
+
 <script type="text/javascript">
   google.charts.load("current", {packages:["corechart"]});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
     var data_1 = google.visualization.arrayToDataTable([
       ['Название', 'Сумма'],
-      ['Продажи', <%= @curr_sale %>],
-      ['Закуп',     <%= @curr_buy %>],
-      ['Прибыль',      <%= @curr_profit %>]
+      ['Продажи', <%= curr_sale_procent %>],
+      ['Выручка', <%= curr_profit_procent %>]
       ]);
 
     var options_1 = {
-      title: 'Продажи, Закупы, Прибыль',
+      title: 'Продажи, Выручка',
       pieHole: 0.4,
     };
 
     var data_2 = google.visualization.arrayToDataTable([
       ['Название', 'Сумма'],
-      ['Расходы', <%= @curr_exp %>],
-      ['Доходы',  <%= @curr_inc %>],
-      ['Выплаты',  <%= @manager_pay %>]
+      ['Расходы', <%= @curr_profit == 0 ? (@curr_exp.to_f + @manager_pay.to_f) : curr_exp_procent %>],
+      ['Выручка',  <%= @curr_profit == 0 ? 0 : 100.0 - curr_exp_procent %>]
     ]);
 
     var options_2 = {
-      title: 'Расходы, Доходы, Выплаты',
+      title: 'Расходы, Выручка',
       pieHole: 0.4,
     };
 

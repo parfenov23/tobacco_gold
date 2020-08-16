@@ -23,6 +23,18 @@ Rails.application.routes.draw do
       post :registration
     end
   end
+  # Админка Системы
+  # resources :superuser do
+  # end 
+  get '/superuser' => "superuser#index"
+  namespace :superuser do
+    resources :company do
+      member do
+        get :remove
+      end
+    end
+  end
+  # ==========
 
   namespace :admin do
     resources :admin do

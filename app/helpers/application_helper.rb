@@ -56,14 +56,18 @@ module ApplicationHelper
     current_user.present? ? current_user.is_admin? || current_user.is_manager? : false
   end
 
-  def curr_hash_nav_li
+  def curr_hash_nav_li(all_navs_admin = all_navs_admin)
     curr_li = nil
     all_navs_admin.each{|nav| curr_li = nav if nav[:url] == request.env["PATH_INFO"] }
     curr_li
   end
 
-  def curr_title_admin_header(add_title=nil)
-    curr_hash_nav_li.present? ? "#{add_title}#{curr_hash_nav_li[:title]}" : "#{add_title}"
+  def curr_title_admin_header(add_title=nil, all_navs_admin = all_navs_admin)
+    curr_hash_nav_li(all_navs_admin).present? ? "#{add_title}#{curr_hash_nav_li(all_navs_admin)[:title]}" : "#{add_title}"
+  end
+
+  def curr_title_superuser_header(add_title=nil)
+    curr_hash_nav_li(all_navs_superuser).present? ? "#{add_title}#{curr_hash_nav_li(all_navs_superuser)[:title]}" : "#{add_title}"
   end
 
   def all_navs_admin
@@ -95,6 +99,13 @@ module ApplicationHelper
       {url: '/admin/sales/new', title: 'Продажа', display: false}, 
       {url: '/admin/buy/new', title: 'Закуп', display: false},
       {url: '/admin/transfers/new', title: 'Трансфер', display: false}
+    ]
+  end
+
+  def all_navs_superuser
+    [
+      {url: '/superuser', title: 'Главная', icon: "home"},
+      {url: '/superuser/company', title: 'Компании', icon: "settings"}
     ]
   end
 

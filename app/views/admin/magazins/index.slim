@@ -11,5 +11,5 @@
       / a.btn.btn-success-material style="margin-right: 5px;" href=url_cashbox Касса
       a.btn.btn-success-material.pull-right href=url_cashbox style="margin-right: 5px;" class="js_loadContentInOtherPopup" data-title="Редактирование кассы" Касса
       = render "admin/admin/common_btn", {url: "/admin/magazins/#{model_f.id}", class_edit: "displayNone"}
-
-= render "admin/admin/common_popup_new_model", {model: Magazine.new, title: "Добавление нового магазина"}
+- if current_company.magazines.count <current_company.max_count_magazine 
+  = render "admin/admin/common_popup_new_model", {model: Magazine.new, title: "Добавление нового магазина"}

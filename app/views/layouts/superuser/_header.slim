@@ -1,0 +1,24 @@
+nav.navbar.navbar-default.block-material
+  .allNavElem
+    - if current_user.present?
+      - if curr_hash_nav_li(all_navs_superuser).blank? || curr_hash_nav_li(all_navs_superuser)[:display] == false
+        .btnBackPage onclick="window.history.back()"
+          i.icon.back
+      .btnOpenleftBar onclick="openNav()"
+        |&#9776;
+    a.logo href="/"
+      img src="/crm-logo.svg"
+    .headerTitle 
+      = curr_title_admin_header(@add_title, all_navs_superuser) || "Online Stock"
+    - if current_user.present?
+      .user_info
+        .ava.js_openUserPopupInfo
+          img src=user_ava(current_user.avatar)
+        .popupUserAvaInfo.block-material
+          .triangle
+          .info
+            ul
+              li 
+                a href="/" Главная
+              li 
+                a href="/users/sign_out" Выход

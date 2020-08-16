@@ -23,9 +23,6 @@ html
     = stylesheet_link_tag 'admin/application'
     = javascript_include_tag 'admin/application'
     meta name="viewport" content="width=device-width, initial-scale=1"
-    / - if Rails.env.production?
-      // javascript:
-      //   (window.Image?(new Image()):document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=TfrGqiMZB2vs4jnbffgNFYFnoLIfyOq8*XcQSovHcoCOaHwnMLOqxUVEgd6*EnXUWVdCyQ*7DBO5/fnCOamlGHVcEYXh0whQL/uEkdsCFmgZRKTj1bRqsYSxrlcDvZA1amZbVNN6piaonAJaKnG0nvhk8gqyntxzdn*QLUOw9*k-';
 
     javascript:
       function openNav() {
@@ -33,25 +30,24 @@ html
       }
 
   body style="background-color: #f5f5f5;"
-    - if current_user_admin?
-      #mySidenav.sidenav
-        a.closebtn href="javascript:void(0)" onclick="openNav()"  &times;
-        - all_nav_li_admin.each do |li_nav|
-          - if li_nav[:display] != false
-            a href="#{li_nav[:url]}" 
-              = li_nav[:title]
+    / - if current_user_admin?
+    /   #mySidenav.sidenav
+    /     a.closebtn href="javascript:void(0)" onclick="openNav()"  &times;
+    /     - all_nav_li_admin.each do |li_nav|
+    /       - if li_nav[:display] != false
+    /         a href="#{li_nav[:url]}" 
+    /           = li_nav[:title]
 
-    = render "layouts/header"
+    = render "layouts/superuser/header"
     .well data-action=params[:controller]
-      - if current_user_admin?
-        .left-bar.panel_gray_common.block-material
-          .menu-ul
-            - all_nav_li_admin.each do |li_nav|
-              - if li_nav[:display] != false
-                a.menu-li href="#{li_nav[:url]}" 
-                  i.icon class=li_nav[:icon]
-                  .placeholder
-                    = li_nav[:title]
+      .left-bar.panel_gray_common.block-material
+        .menu-ul
+          - all_navs_superuser.each do |li_nav|
+            - if li_nav[:display] != false
+              a.menu-li href="#{li_nav[:url]}" 
+                i.icon class=li_nav[:icon]
+                .placeholder
+                  = li_nav[:title]
       .content
         = yield
       #overlay
@@ -75,6 +71,5 @@ html
       .close ×
     - if current_user.present?
       input#currentUserUrl type="hidden" value=current_user.api_url
-      input#currentUserApiKey type="hidden" value=current_magazine.api_key
-      input#currentMagazineId type="hidden" value=current_user.magazine_id
-    = render "layouts/help_notify_user"
+      / input#currentUserApiKey type="hidden" value=current_magazine.api_key
+      / input#currentMagazineId type="hidden" value=current_user.magazine_id

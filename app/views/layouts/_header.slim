@@ -9,7 +9,7 @@ nav.navbar.navbar-default.block-material
     a.logo href="/"
       img src="/crm-logo.svg"
     .headerTitle 
-      = curr_title_admin_header(@add_title) || "Hookah Stock Online"
+      = curr_title_admin_header(@add_title) || "Online Stock"
     - if current_user.present?
       - count_order_waiting = current_magazine.order_requests.waitings.count
       .user_info
@@ -26,5 +26,9 @@ nav.navbar.navbar-default.block-material
                   - if count_order_waiting > 0
                     span.countNotify.btn-danger-material = count_order_waiting
                   span Заявки
+              - if current_user.superuser
+                li  
+                  a href="/superuser"
+                    span Супер Админка
               li 
                 a href="/users/sign_out" Выход

@@ -1,0 +1,12 @@
+.overflowContentHelp
+- show_help = "false"
+.help_notif data-user=(current_user.present? rescue false).to_s data-show=show_help
+  .help_content
+    .title
+      = 'demo'
+    .main_content
+      |Привет
+    .close_help
+      |ПРОПУСТИТЬ РАССКАЗ
+    .next_btn
+      |Продолжить
