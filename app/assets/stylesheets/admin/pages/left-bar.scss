@@ -46,6 +46,9 @@
   }
   .content{
     margin-left: 48px;
+    &.hideLeftBar{
+      margin-left: 0px;
+    }
   }
   @media only screen and (max-width: 991px) {
     .left-bar{

@@ -1,0 +1,230 @@
+.popupAuth{
+  cursor: default;
+  background: #FFF;
+  border-radius: .125em;
+  width: 600px;
+  box-shadow: 0 25px 35px 0 rgba(0, 0, 0, 0.35);
+  right: calc(50% - 600px/2);
+  top: 80px;
+  position: fixed;
+  z-index: 12;
+  color: #fff;
+  border-radius: 4px;
+  display: none;
+  .formAuthOrReg{
+    .panel{
+      margin-bottom: 0;
+    }
+  }
+}
+
+#main-text {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.3);
+  border-radius: 7px;
+}
+
+section{
+  background-color: white;
+  -webkit-font-smoothing: antialiased;
+  &#home{
+    background-image: url(/home/1258-08.jpg); 
+    background-position: center center;
+    height: 480px;
+    padding-top: 8px;
+    #main-text{
+      width: 570px;
+      padding: 0px 15px 8px 15px;
+      margin-left: 10%;
+      #m-t{
+        text-align: center !important;
+        font-size: 24px !important;
+        line-height: 34px;
+      }
+    }
+  }
+  ul {
+    padding-left: 0px;
+    li {
+      list-style: none;
+      margin-bottom: 9px;
+      i{
+        padding-right: 4px;
+      }
+    }
+  }
+  .row{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .border-all {
+    border: 1px solid #ddd;
+  }
+  .border-radius-5px {
+    border-radius: 5px;
+  }
+  .feature-box {
+    min-height: 270px !important;
+  }
+  .text-center {
+    text-align: center!important;
+  }
+  img{
+    max-width: 100%;
+    height: auto;
+  }
+  &.slanty-section{
+    position: relative;
+    overflow: hidden;
+    .section-overlay-in{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      margin: auto;
+      right: 0;
+      left: auto;
+      height: 100%;
+      .btm-slanty-r{
+        position: absolute;
+        left: -10px;
+        bottom: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 10;
+        width: 0;
+        height: 0;
+        border-top-color: transparent !important;
+        border-bottom-color: transparent !important;
+        border-style: solid;
+        border-right-width: 110vw;
+        border-bottom-width: 0px;
+        border-top-width: 70px;
+        border-color: white;
+      }
+      .top-slanty-l{
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 10;
+        width: 0;
+        height: 0;
+        border-top-color: transparent !important;
+        border-bottom-color: transparent !important;
+        border-style: solid;
+        border-left-width: 100vw;
+        border-top-width: 0px;
+        border-bottom-width: 70px;
+        border-color: white;
+      }
+    }
+  }
+  &#pricing{
+    .plan{
+      padding-top: 12px;
+      margin: 0px 4px 0px 4px;
+      .plan-name{
+        padding-top: 12px;
+        padding-bottom: 8px;
+      }
+      ul{
+        margin-bottom: 25px;
+      }
+      .btn{
+        margin-bottom: 24px;
+      }
+    }
+  }
+  .btn-group{
+    padding-bottom: 8px;
+    display: none;
+  }
+}
+
+footer{
+  .row{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .social-icons{
+      text-align: right;
+      padding-top: calc(110px/2 - 67px/2);
+      .social-icons-small {
+        a {
+          font-size: 34px;
+          width: 35px;
+          height: 35px;
+          line-height: 33px;
+          text-decoration: none;
+        }
+        li {
+          display: inline-block;
+          vertical-align: top;
+          margin: 0 8px;
+        }
+      }
+    }
+
+  }
+}
+
+.justify-content-center{
+  -webkit-box-pack: center!important;
+  -ms-flex-pack: center!important;
+  justify-content: center!important;
+}
+
+.align-items-center{
+  -webkit-box-align: center!important;
+  -ms-flex-align: center!important;
+  align-items: center!important;
+}
+
+.dark-bg{
+  background-color: #424242;
+}
+
+@media only screen and (max-width: 667px) {
+  .popupAuth{
+    left: 0;
+    width: 100%;
+  }
+  section#home{
+    height: 580px;
+    #main-text{
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+}
+@media only screen and (max-width: 992px) {
+  section#phone{
+    .container{
+      padding-top: 86px;
+      text-align: center;
+      img{
+        padding-top: 12px;
+      }
+    }
+  }
+  section#pricing{
+    .btn-group{
+      display: flex;
+    }
+    .plan{
+      width: 70%;
+      display: none;
+      &:first-child{
+        display: block;
+      }
+    }
+  }
+}

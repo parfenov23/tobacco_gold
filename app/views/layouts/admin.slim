@@ -52,7 +52,7 @@ html
                   i.icon class=li_nav[:icon]
                   .placeholder
                     = li_nav[:title]
-      .content
+      .content class=(current_user_admin? ? "" : "hideLeftBar")
         = yield
       #overlay
       .allOtherPopup

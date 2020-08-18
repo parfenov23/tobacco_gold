@@ -17,6 +17,7 @@ function closeFAB() {
   $("body").css({overflow: "initial"});
   $(".fab").find(".conteinerPopup, .fab-hdr").fadeOut(300);
   $(".allOtherPopup").hide();
+  $(".popupAuth").hide();
   $(".fab").removeClass('active');
   $("#overlay").removeClass('dark-overlay');
 }

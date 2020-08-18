@@ -151,4 +151,8 @@ i.transfers:before {
   content: "\e911";
 }
 
+i.check:before{
+  content: "\e899";
+}
+
 
