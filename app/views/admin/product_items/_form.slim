@@ -1,4 +1,7 @@
 - product_present = @model.id.nil?
+- product_id = product_present ? params[:product_id] : @model.product_id
+- @model.product_id = product_id
+- find_product = Product.find(product_id)
 - action_url = product_present ? "/admin/product_items" : "/admin/product_items/#{@model.id}"
 - method = product_present ? "post" : "put"
 
@@ -7,11 +10,11 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
   
   - if current_user.is_admin?
     = render "common_input", {title: "Количество", value: @model.current_count(current_magazine), name: "product_items[count]"}
-  
-  / = render "common_input", {title: "Картинка", value: @model.image_url, name: "product_items[image_url]"}
-  / .form-group.material-form-group class="no_label"
-  /   input.form-control id="file" type="file" name="product_items[image_url]" accept="image/*,image/jpeg"
-  /   label for="file" Картинка товара
+  - find_price = find_product.product_prices.where(id: @model.price_id(current_magazine.id)).last
+  - current_price = find_price.present? ? find_price.price : 0
+  = render "common_input", {title: "Цена", value: current_price, name: "product_items[current_price]"}
+
+
   .custom-file.form-group.material-form-group.hideLabel class="no_label"
     input#validatedCustomFile.custom-file-input required="" type="file" name="product_items[image_url]" accept="image/*,image/jpeg"
     label.custom-file-label for="validatedCustomFile"  Выбрать картинку
@@ -24,12 +27,13 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     textarea.form-control name="product_items[specification]" type="text" required=true
       = @model.specification
     label Характеристики
-  - if @model.id.present?
-    .form-group.material-form-group.active
-      label Цена:
-      - all_prices = @model.product.product_prices.where(archive: false)
-      - all_prices_arr = [{title: "Нет", id: nil}] + all_prices.map{|first_price| {title: first_price.price, id: first_price.id} }
-      = render "common_select_new", {arr_li: all_prices_arr, default: (@model.price_id(current_magazine.id) || all_prices_arr.first[:id]), name_input: "product_items[price_id]", add_class: "defaultInitMdSelect"}
+
+  / - if @model.id.present?
+  /   .form-group.material-form-group.active
+  /     label Цена:
+  /     - all_prices = @model.product.product_prices.where(archive: false)
+  /     - all_prices_arr = [{title: "Нет", id: nil}] + all_prices.map{|first_price| {title: first_price.price, id: first_price.id} }
+  /     = render "common_select_new", {arr_li: all_prices_arr, default: (@model.price_id(current_magazine.id) || all_prices_arr.first[:id]), name_input: "product_items[price_id]", add_class: "defaultInitMdSelect"}
   
   = render "common_input", {title: "Код товара", value: @model.barcode, name: "product_items[barcode]"}
 
@@ -54,7 +58,6 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     .form-group
       img.center src=@model.image_url
 
-  - product_id = product_present ? params[:product_id] : @model.product_id
   input type="hidden" name="product_items[product_id]" value="#{product_id}"
   input.current_id type="hidden" value="#{@model.id}"
   input type="hidden" name="_method" value="#{method}"

@@ -4,6 +4,7 @@
 form.form-horizontal action="#{action_url}" method="post" enctype="multipart/form-data"
   = render "common_input", {title: "Название", value: @model.title, name: "products[title]"}
   = render "common_input", {title: "Картинка", value: @model.default_img, name: "products[default_img]"}
+  = render "common_input", {title: "Цена", value: @model.current_price, name: "products[current_price]"}
 
   .form-group.material-form-group.active
     label Категория

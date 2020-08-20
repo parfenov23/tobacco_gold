@@ -220,7 +220,7 @@ class ProductItem < ActiveRecord::Base
   def price_id(magazine_id=nil, params=nil)
     if params.blank?
       curr_price = product_item_magazine_prices.find_by_magazine_id(magazine_id) if magazine_id.present?
-      curr_price.present? ? curr_price.price_id : product.current_price_model.id
+      curr_price.present? ? curr_price.price_id : (product.current_price_model.id rescue nil)
     else
       find_price = product_item_magazine_prices.find_or_create_by(magazine_id: params[:magazine_id])
       find_price.update(params)

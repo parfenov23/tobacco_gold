@@ -12,17 +12,35 @@ module Admin
       redirect_to '/admin/product_items?product_id=' + product_id.to_s
     end
 
+    def create
+      create_model = model.create(params_model)
+      if params[:product_items][:count].present?
+        create_model.product_item_counts.find_by_magazine_id(current_magazine.id).update(count: params[:product_items][:count])
+      end
+
+      current_price = params[:product_items][:current_price].to_f
+      find_product_price = create_model.product.product_prices.where(price: current_price).last
+      if find_product_price.blank? || !find_product_price.default
+        find_product_price = create_model.product.product_prices.find_or_create_by(price: current_price, title: current_price)
+        create_model.product_item_magazine_prices.find_or_create_by(magazine_id: current_magazine.id).update(price_id: find_product_price.id)
+      end
+
+      params[:typeAction] == "json" ? render_json_success(create_model) : redirect_to_index
+    end
+
     def update
       product_item = find_model
       product_item.update(params_model)
-      find_price = product_item.product_item_magazine_prices.where(magazine_id: current_magazine.id).last
-      if params[:product_items][:price_id].present?
-        find_price.present? ? find_price.update(price_id: params[:product_items][:price_id]) : product_item.price_id(nil, {magazine_id: current_magazine.id, price_id: params[:product_items][:price_id]})
-      else
-        find_price.destroy if find_price.present?
+      
+      current_price = params[:product_items][:current_price].to_f
+      find_product_price = product_item.product.product_prices.where(price: current_price).last
+      if find_product_price.blank? || !find_product_price.default
+        find_product_price = product_item.product.product_prices.find_or_create_by(price: current_price, title: current_price)
+        product_item.product_item_magazine_prices.find_or_create_by(magazine_id: current_magazine.id).update(price_id: find_product_price.id)
       end
+
       if params[:product_items][:count].present?
-        product_item.product_item_counts.find_by_magazine_id(magazine_id).update(count: params[:product_items][:count])
+        product_item.product_item_counts.find_by_magazine_id(current_magazine.id).update(count: params[:product_items][:count])
       end
 
       find_product_item_top_magazine = product_item.product_item_top_magazines.where(magazine_id: current_magazine.id).last
@@ -46,30 +64,30 @@ module Admin
           format.html
           format.pdf{
             render pdf: "#{@item.id}_#{Time.now.to_i}",
-                    margin:  {   
+            margin:  {   
                       top:               0,                     # default 10 (mm)
                       bottom:            0,
                       left:              4,
                       right:             0 
                     }
-          }
+                  }
+                end
+              end
+            end
+
+            private
+
+            def model
+              ProductItem
+            end
+
+            def find_product
+              Product.find(params[:product_id])
+            end
+
+            def redirect_to_index
+              product_id = params_model[:product_id].present? ? params_model[:product_id] : find_model.product_id
+              redirect_to '/admin/product_items?product_id=' + product_id
+            end
+          end
         end
-      end
-    end
-
-    private
-
-    def model
-      ProductItem
-    end
-
-    def find_product
-      Product.find(params[:product_id])
-    end
-
-    def redirect_to_index
-      product_id = params_model[:product_id].present? ? params_model[:product_id] : find_model.product_id
-      redirect_to '/admin/product_items?product_id=' + product_id
-    end
-  end
-end
