@@ -12,7 +12,7 @@ section#home
         | Полная автоматизация рабочего места кассира
       li
         i.icon.check.font-w-100
-        | Готовая онлайн-касса для продажи маркированного товара
+        | Готовая решение для интеграции с онлайн кассой
       li
         i.icon.check.font-w-100
         | Мобильные версия сайта
@@ -128,33 +128,31 @@ section.section.p-70px-tb.light-gray-bg#pricing style="padding-top: 24px;padding
         br
         br
     .btn-group.justify-content-center.row.js_selectPlanTariff role="group" 
+      button.btn.btn-secondary data-plan="basic" type="button"  Базовый
       button.btn.btn-secondary data-plan="simple" type="button"  Простой
       button.btn.btn-secondary data-plan="standart" type="button"  Стандарт
       button.btn.btn-secondary data-plan="unlimited" type="button"  Безлимит
     .row.plans.justify-content-center
-      / #plan-basic.col-12.col-md-3.plan.color-dark-gray.border-all
-      /   .price-table-02.text-center.white-bg.border-radius-5px.box-shadow-large.p-20px-lr.md-p-20px-lr.p-30px-tb.md-m-15px-tb.md-p-30px-tb.border-dark
-      /     .m-30px-b.font-40.md-font-40.color-dark-gray.font-w-800 0₽/м
-      /     .color-extra-dark-gray.font-w-600.font-22.font-alt.letter-spacing-1.m-15px-b.color-dark-gray
-      /       | Базовый
-      /       br
-      /       span.font-16.font-w-600.color-theme.font-alt.display-inline-block.text-uppercase style=("margin-bottom: 32px;")  &nbsp;
-      /     hr
-      /     div align="left" 
-      /       p.m-0px.display-inline-block.sm-w-100.font-16.font-w-600.color-theme.m-10px-b style=("opacity: 0.7;") 
-      /         | Ограниченные функции
-      /         br
-      /         | для начинающих
-      /       ul.list-style-none.font-15.p-0px
-      /         li
-      /           i.ti-home.p-5px-r.color-dark-gray
-      /           | 1 магазин
-      /         li
-      /           i.ti-user.p-5px-r.color-dark-gray
-      /           | 1 сотрудник
-      /         li
-      /           i.ti-stats-up.p-5px-r.color-dark-gray
-      /           | 3 отчета
+
+      .plan.col-12.col-md-3.plan.col-sm-3.sm-hidden.border-all data-type="basic"
+        .text-center.border-radius-5px
+          .font-40.md-font-40.color-extra-dark-gray.font-w-800.title 400₽/м
+          .font-w-600.font-25.plan-name
+            | Базовый
+          hr
+          div align="left" 
+            p.m-0px.display-inline-block.sm-w-100.font-16.font-w-600.color-theme.m-10px-b style=("opacity: 0.7;") 
+              | Ограниченные функции
+              br
+              | для начинающих
+            ul.list-style-none.font-15.p-0px
+              li
+                i.icon.check.p-5px-r.color-dark-gray
+                | 1 магазин
+              li
+                i.icon.check.p-5px-r.color-dark-gray
+                | 1 сотрудник
+          .btn.btn-info-material.js_openPopupAuth  Начать бесплатно
       
       .plan.col-12.col-md-3.plan.col-sm-3.sm-hidden.border-all data-type="simple"
         .text-center.border-radius-5px
