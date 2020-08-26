@@ -78,4 +78,4 @@ html
       input#currentUserApiKey type="hidden" value=current_magazine.api_key
       input#currentMagazineId type="hidden" value=current_user.magazine_id
     = render "layouts/help_notify_user"
-    = render "layouts/ya_metrik"
+    = render "layouts/ya_metrik" if Rails.env.production?
