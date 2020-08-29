@@ -45,7 +45,7 @@ module Api
       if order.present?
         status = params[:object][:paid]
         order.update(payment: status)
-        if status == "true"
+        if status
           company = order.company
           demo_time = company.demo_time.to_time 
           demo_time = demo_time < Time.now ? Time.now : demo_time
