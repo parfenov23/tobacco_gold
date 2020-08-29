@@ -50,8 +50,8 @@
         .item.under
           i.icon-coin-dollar.iconCashbox
           span.title #{number_with_delimiter(all_sum_buys, delimiter: " ")} рублей
-      - if count_debts == 0
-        | Долгов нет
+    - if count_debts == 0
+      | Долгов нет
 = render "curr_statistic"
 .headerBar.block-material
   .displayFlex
