@@ -43,7 +43,7 @@ class YandexKassa
 
   def self.auth
     if Rails.env.production? 
-      {id: "740395", api: "test_u7WFVMCw0NwfGZwG4plflNKCKiAjflHiU6v49X6XOlU", return_url: "https://crm-stock.ru/admin/order_payments"}
+      {id: "736297", api: "live_u43V-b3D1BATgBYLRSBBYrdHsqiUSrvlbNfmzdg_dQM", return_url: "https://crm-stock.ru/admin/order_payments"}
     else
       {id: "740395", api: "test_u7WFVMCw0NwfGZwG4plflNKCKiAjflHiU6v49X6XOlU", return_url: "http://localhost:3000/admin/order_payments"}
     end
