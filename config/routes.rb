@@ -77,6 +77,13 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :order_payments do
+      member do
+        get :remove
+      end
+    end
+
+
     resources :order_requests do
       member do
         get :remove
@@ -258,7 +265,9 @@ Rails.application.routes.draw do
     resources :api do
       collection do
         get :company
+        get :update_help
         post :company
+        post :order_payments
         post :auth_domen_vk_group
         get :all_magazines
         get :all_content_pages

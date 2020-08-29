@@ -98,7 +98,8 @@ module ApplicationHelper
       {url: '/admin/contact_prices', title: 'Цены клиента', display: false},
       {url: '/admin/sales/new', title: 'Продажа', display: false}, 
       {url: '/admin/buy/new', title: 'Закуп', display: false},
-      {url: '/admin/transfers/new', title: 'Трансфер', display: false}
+      {url: '/admin/transfers/new', title: 'Трансфер', display: false},
+      {url: '/admin/order_payments', title: 'Тарифы', display: false}
     ]
   end
 

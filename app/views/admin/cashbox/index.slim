@@ -36,7 +36,7 @@
       - averege = (@curr_month_sales_price/Time.now.day * Time.now.end_of_month.day).to_i
       span.title #{number_with_delimiter(averege, delimiter: " ")} рублей
   .list-group-item.panel_gray_common Долг поставщикам
-  .listInfo.debts
+  .listInfo.debts data-scroll="not"
     / - binding.pry
     - count_debts = 0
     - current_company.providers.each do |provider|

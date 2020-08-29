@@ -1,7 +1,7 @@
 module Api
   class ApiController < ActionController::Base
     require 'vk_message'
-    before_action :auth, except: [:find_api_key]
+    before_action :auth, except: [:find_api_key, :order_payments]
 
 
     def index
@@ -38,6 +38,26 @@ module Api
       
       # render json: VkMessage.keybord
       render text: params[:return]
+    end
+
+    def order_payments
+      order = OrderPayment.find_by_id(params[:object][:metadata][:order_payment_id])
+      if order.present?
+        status = params[:object][:paid]
+        order.update(payment: status)
+        if status == "true"
+          company = order.company
+          demo_time = company.demo_time.to_time 
+          demo_time = demo_time < Time.now ? Time.now : demo_time
+          curr_access = (demo_time + order.month.month).strftime("%d.%m.%Y")
+          company.update(tariff: order.tariff, demo_time: curr_access, demo: false)
+        end
+      end
+      render json: {success: true}
+    end
+
+    def update_help
+      current_company.update(help_notify: true)
     end
 
     private

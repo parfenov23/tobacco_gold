@@ -17,7 +17,7 @@ function help_notif(elem_hash) { // применение и настройка �
         elem_height = elem.outerHeight();
     }
     var element_scroll = function (type) {
-        if (elem.length > 0 && elem.css("position") != "fixed"){
+        if (elem.length > 0 && elem.css("position") != "fixed" && elem.data("scroll") != "not"){
             if (type == "top"){
                 $(window).scrollTop(elem.position().top - content.outerHeight());
             }
@@ -172,12 +172,12 @@ var cumulativeOffset = function (element) {
 };
 
 function read_help(type) { // обновление галочки у пользователя показывать или нет
-    // $.ajax({
-    //     type   : "post",
-    //     url    : "/api/v1/users/update_help",
-    //     success: function (response) {
-    //     }
-    // });
+    $.ajax({
+        type   : "get",
+        url    : "/api/api/update_help",
+        success: function (response) {
+        }
+    });
 }
 $(document).ready(function () {
     if ($(".help_notif").data("user") && $(".help_notif").data("show") && isMobile.any() == null){

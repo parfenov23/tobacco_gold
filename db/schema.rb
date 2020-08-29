@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200813143834) do
+ActiveRecord::Schema.define(version: 20200827142712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 20200813143834) do
   create_table "companies", force: :cascade do |t|
     t.string   "title"
     t.text     "contact"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "setting_nav"
     t.string   "domain"
     t.string   "theme_color"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20200813143834) do
     t.string   "demo_time"
     t.boolean  "demo",               default: true
     t.integer  "max_count_magazine", default: 1
+    t.string   "tariff"
+    t.boolean  "help_notify",        default: false
   end
 
   create_table "contact_prices", force: :cascade do |t|
@@ -202,6 +204,18 @@ ActiveRecord::Schema.define(version: 20200813143834) do
     t.integer  "order_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "order_payments", force: :cascade do |t|
+    t.integer  "company_id"
+    t.integer  "amount"
+    t.boolean  "payment"
+    t.text     "params"
+    t.string   "tariff"
+    t.string   "payment_id"
+    t.integer  "month"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_requests", force: :cascade do |t|

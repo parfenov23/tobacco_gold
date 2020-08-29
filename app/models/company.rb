@@ -6,6 +6,7 @@ class Company < ActiveRecord::Base
   has_many :contacts, dependent: :destroy
   has_many :order_requests, dependent: :destroy
   has_many :transfers, dependent: :destroy
+  has_many :order_payments, dependent: :destroy
 
   def self.first_url
     "company"

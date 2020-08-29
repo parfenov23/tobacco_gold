@@ -1,5 +1,5 @@
 .overflowContentHelp
-- show_help = "false"
+- show_help = (!current_company.help_notify).to_s
 .help_notif data-user=(current_user.present? rescue false).to_s data-show=show_help
   .help_content
     .title

@@ -61,44 +61,44 @@ module Admin
     def update_photo
       Thread.new do
         # Rails.application.executor.wrap do
-          company_products_ids = Company.find(90).products.ids
-          product_items = ProductItem.where(product_id: company_products_ids).where(image_url: nil)
-          agent = Mechanize.new
-          count_pi = product_items.count
-          p "Найдено: #{count_pi} товаров"
-          count = 0
-          curr_folder = "#{Rails.root}/tmp/load_png/"
-          Dir.mkdir(curr_folder) unless File.exists?(curr_folder)
-          product_items.each do |product_item|
-            barcodes = product_item.barcode.split(",")
-            barcodes.each do |barcode|
-              bar_add = false
-              ["jpg", "JPG"].each do |type_jpg|
-                url = "http://svet2020.beget.tech/wp-content/uploads/product_items/#{barcode}.#{type_jpg}"
-                page = agent.get(url) rescue false
-                if page
-                  bar_add = true
-                  p "Добавляю картинку"
-                  count += 1
-                  time = Time.now.to_i.to_s
-                  path_img = "#{Rails.root}/tmp/load_png/"+time+"_img."+url.split(".").last
-                  myfile = IO.sysopen(path_img, "wb+")
-                  tmp_img = IO.new(myfile,"wb")
-                  tmp_img.write open(URI.encode(url)).read
-                  if File.exist?(path_img)
-                    product_item.image_url = File.open path_img
-                    product_item.save
-                  end
-                  break
+        company_products_ids = Company.find(90).products.ids
+        product_items = ProductItem.where(product_id: company_products_ids).where(image_url: nil)
+        agent = Mechanize.new
+        count_pi = product_items.count
+        p "Найдено: #{count_pi} товаров"
+        count = 0
+        curr_folder = "#{Rails.root}/tmp/load_png/"
+        Dir.mkdir(curr_folder) unless File.exists?(curr_folder)
+        product_items.each do |product_item|
+          barcodes = product_item.barcode.split(",")
+          barcodes.each do |barcode|
+            bar_add = false
+            ["jpg", "JPG"].each do |type_jpg|
+              url = "http://svet2020.beget.tech/wp-content/uploads/product_items/#{barcode}.#{type_jpg}"
+              page = agent.get(url) rescue false
+              if page
+                bar_add = true
+                p "Добавляю картинку"
+                count += 1
+                time = Time.now.to_i.to_s
+                path_img = "#{Rails.root}/tmp/load_png/"+time+"_img."+url.split(".").last
+                myfile = IO.sysopen(path_img, "wb+")
+                tmp_img = IO.new(myfile,"wb")
+                tmp_img.write open(URI.encode(url)).read
+                if File.exist?(path_img)
+                  product_item.image_url = File.open path_img
+                  product_item.save
                 end
+                break
               end
-              break if bar_add
             end
-            count_pi -= 1
-            p "осталось: #{count_pi}"
-            p "текущее количество: #{count}"
+            break if bar_add
           end
-          FileUtils.rm_rf(curr_folder)
+          count_pi -= 1
+          p "осталось: #{count_pi}"
+          p "текущее количество: #{count}"
+        end
+        FileUtils.rm_rf(curr_folder)
         # end
       end
       render json: {success: true}
@@ -112,7 +112,9 @@ module Admin
         if current_company.setting_nav.present? && curr_hash_nav_li.present? && curr_hash_nav_li[:display] != false && curr_hash_nav_li[:url] != "/admin/admin"
           redirect_to "/" if !current_company.setting_nav.split(",").include?(curr_hash_nav_li[:url])
         end
-        redirect_to "/users/sign_out"  if !current_company.demo_sign_in_time
+        if  params[:controller] != "admin/order_payments"
+          redirect_to "/admin/order_payments"  if !current_company.demo_sign_in_time
+        end
       end
       redirect_to "/" if present_user
     end
