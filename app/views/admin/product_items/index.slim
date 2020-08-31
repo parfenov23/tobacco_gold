@@ -6,9 +6,9 @@
     - blank_desc = item.description.present? && item.image_url.present?
     - url = "/admin/product_items/#{item.id}"
     .list-group-item.material.col-md-6 class=(!blank_desc ? "blankProductItemDescription" : nil)
-      span.js_loadContentInOtherPopup href="#{url}/edit" data-title="Редактирование вкуса"
+      span.js_loadContentInOtherPopup href="#{url}/edit" data-title="Редактирование позиции"
         = item.title
       = render "admin/admin/common_btn", {url: url, class_edit: "displayNone"}
 
 //submit
-= render "admin/admin/common_popup_new_model", {model: ProductItem.new, title: "Добавление нового вкуса"}
+= render "admin/admin/common_popup_new_model", {model: ProductItem.new, title: "Добавление новой позиции"}

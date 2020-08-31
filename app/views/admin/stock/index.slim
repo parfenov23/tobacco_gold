@@ -28,7 +28,7 @@
         - if item_count.to_i > 0 || params[:type] == "not_available"
           - blank_desc = item.description.present? && item.image_url.present?
           .list-group-item.col-md-3.material class=(!blank_desc ? "blankProductItemDescription" : nil)
-            span.js_loadContentInOtherPopup href="/admin/product_items/#{item.id}/edit" data-title="Редактирование вкуса"
+            span.js_loadContentInOtherPopup href="/admin/product_items/#{item.id}/edit" data-title="Редактирование позиции"
               = item.title
             - if current_user_admin? || params[:pub] == "true"
               a.btn.btn-success-material.pull-right.js_loadContentInOtherPopup data-title="#{product.title} - #{item.title}" href="/admin/stock/#{item.id}/info"

@@ -175,6 +175,7 @@ function read_help(type) { // обновление галочки у польз�
     $.ajax({
         type   : "get",
         url    : "/api/api/update_help",
+        dara   : {api_key: current_user_api_key()}
         success: function (response) {
         }
     });
