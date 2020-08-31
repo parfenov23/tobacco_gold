@@ -58,6 +58,7 @@ module Api
 
     def update_help
       current_company.update(help_notify: true)
+      render json: {success: true}
     end
 
     private
