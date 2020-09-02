@@ -2,8 +2,8 @@
   .list-group-item.panel_gray_common
     form.material action="/admin/sales/new" method="get" style="margin-bottom: 0; display: flex;"
       button.btn.btn-success-material  Добавить продажу
-      .selectInlineProvider
-        = render "common_select_new", {arr_li: [{title: "Розница", id: "retail"}, {title: "Оптовая", id: "opt"}], default: "retail", name_input: "type_sale"}
+      / .selectInlineProvider
+      /   = render "common_select_new", {arr_li: [{title: "Розница", id: "retail"}, {title: "Оптовая", id: "opt"}], default: "retail", name_input: "type_sale"}
   - @sales.each do |sale|
     .list-group-item.col-md-6.material
       span

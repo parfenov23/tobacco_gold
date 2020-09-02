@@ -30,13 +30,15 @@ module Admin
       end
       buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:buy_param][:provider_id], magazine_id: magazine_id)
       current_cashbox.calculation(params[:cashbox_type], result, false) if params[:buy_param][:def_pay] == "1"
-      hash_update_price.each do |k, v| 
-        provider = Provider.find(params[:buy_param][:provider_id])
-        curr_item = provider.provider_items.where(product_id: k).last
-        if curr_item.present?
-          curr_item.update(price: v) if curr_item.price != v
-        else
-          provider.provider_items.create(price: v, product_id: k)
+      if params[:buy_param][:provider_id].present?
+        hash_update_price.each do |k, v| 
+          provider = Provider.find(params[:buy_param][:provider_id])
+          curr_item = provider.provider_items.where(product_id: k).last
+          if curr_item.present?
+            curr_item.update(price: v) if curr_item.price != v
+          else
+            provider.provider_items.create(price: v, product_id: k)
+          end
         end
       end
       buy.notify_buy

@@ -8,8 +8,8 @@ module ApplicationHelper
   end
 
   # Заголовок страницы
-  def layout_title
-    "#{curr_title_admin_header} | CRM Stock"
+  def layout_title(superuser=false)
+    "#{superuser ? curr_title_superuser_header : curr_title_admin_header} | CRM Stock"
   end
 
   def title(page_title=nil)
@@ -78,7 +78,7 @@ module ApplicationHelper
       # {url: '/admin/mix_boxes', title: 'Миксы'}, 
       {url: "/admin/stock", title: "Склад", icon: "stock"},
       {url: "/admin/sales", title: "Продажи", icon: "sales"},
-      {url: "/admin/transfers", title: "Трансферы", icon: "transfers"},
+      {url: "/admin/transfers", title: "Трансферы", icon: "transfers", display: (current_company.blank? || current_company.magazines.count > 1 ? true : false)},
       {url: "/admin/revision", title: "Ревизия", icon: "revision"},
       # {url: "/admin/hookah_cash", title: "Кальяны"},
       {url: "/admin/buy", title: "Закупы", icon: "buy"},
@@ -86,7 +86,7 @@ module ApplicationHelper
       # {url: "/admin/admin/sms_phone", title: "Смс банк"},
       {url: "/admin/cashbox", title: "Касса", icon: "cashbox"},
       {url: '/admin/order_requests', title: 'Заявки', icon: "order_requests"}, 
-      {url: '/admin/content_pages', title: 'Контент', icon: "page_content"}, 
+      {url: '/admin/content_pages', title: 'Контент', icon: "page_content", display: (current_company.blank? || current_company.domain.present? ? true : false)}, 
       {url: '/admin/users', title: 'Пользователи', icon: "users"}, 
       {url: '/admin/contacts', title: 'Клиенты', icon: "contacts"},
       {url: '/admin/admin/manager_payments', title: 'Выплаты', display: false},

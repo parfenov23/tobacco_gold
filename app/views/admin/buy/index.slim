@@ -7,8 +7,8 @@
         .selectInlineProvider
           - all_pr = all_providers.map{|pr| {title: pr.title, id: pr.id} }
           = render "common_select_new", {arr_li: all_pr, default: all_providers.first.id, name_input: "provider_id"}
-
-    a.btn.btn-success-material href="/admin/buy/search" Поиск
+    - if all_providers.present?
+      a.btn.btn-success-material href="/admin/buy/search" Поиск
   - @buys.each do |buy|
     .list-group-item.col-md-6.material
       span.js_loadContentInOtherPopup href="/admin/buy/#{buy.id}/info" data-title="Информация о закупе"

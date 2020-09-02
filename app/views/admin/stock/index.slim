@@ -6,10 +6,11 @@
       a.btn.btn-primary-material.addItemSale href="/admin/stock?type=not_available" Нет в наличии
       .selectInlineProvider.selectCurrentMagazine.searchParamSelect data-param="magazine_id"
         - arr_magazines = current_company.magazines.map{|magazine| {title: magazine.title, id: magazine.id}}
-        = render "common_select_new", {arr_li: arr_magazines, default: curr_magazine.id, add_class: "noInit"}
+        - if arr_magazines.count > 1
+          = render "common_select_new", {arr_li: arr_magazines, default: curr_magazine.id, add_class: "noInit"}
   .rightContent
     input.material.form-control name="serach" placeholder="Поиск"
-    a.btn.btn-danger-material href="/admin/stock/#{curr_magazine.id}/clear" data-method='delete' style="margin-left: 5px;" onclick="return confirm('Вы уверены?')"
+    a.btn.btn-danger-material href="/admin/stock/#{curr_magazine.id}/clear" data-method='delete' style="margin-left: 5px;" onclick="return confirm('Вы уверены что хотите очистить свой склад?')"
       i.icon.remove
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
 
