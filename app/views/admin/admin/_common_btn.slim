@@ -12,6 +12,6 @@
     i.icon.more_vert
   .listMore.block-material
     - add_btn.each do |btn|
-      a.liMore href=btn[:href] class=btn[:add_class] =btn[:title]
+      a.liMore href=btn[:href] class=btn[:add_class] onclick=btn[:onclick] =btn[:title]
     a.liMore href="#{url_edit}" class=(class_edit rescue "") data-title=(data_title rescue "") Редактировать
     a.liMore  href="#{url_remove}" data-method='delete' onclick="return confirm('Вы уверены?')" class=(class_remove rescue "") Удалить

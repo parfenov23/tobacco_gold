@@ -9,7 +9,8 @@ module ApplicationHelper
 
   # Заголовок страницы
   def layout_title(superuser=false)
-    "#{superuser ? curr_title_superuser_header : curr_title_admin_header} | CRM Stock"
+    curr_page_title = "#{superuser ? curr_title_superuser_header : curr_title_admin_header}"
+    curr_page_title.present? ? "#{curr_page_title} | CRMStock" : "CRMStock - автоматизация магазина за пару часов"
   end
 
   def title(page_title=nil)

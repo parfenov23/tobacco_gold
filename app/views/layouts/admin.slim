@@ -14,19 +14,15 @@ html
       / script src="/admin/bootstrap/bootstrap.min.js"
       link href="/admin/bootstrap/google_icon.css" rel="stylesheet"
     title = layout_title
-    meta name="yandex-verification" content="82f611331ec2dcf3"
     link href="/style/app.css" rel="stylesheet"
     script src="/admin/js/material_select.js"
     script src="/admin/js/material_popup.js"
     script src="https://js.pusher.com/4.1/pusher.min.js"
-  
+    = render "layouts/favicon"
+    = render "layouts/head_meta_tag"
     = stylesheet_link_tag 'admin/application'
     = javascript_include_tag 'admin/application'
-    meta name="viewport" content="width=device-width, initial-scale=1"
-    meta name="yandex-verification" content="cc2ce98a07feef3f"
-    / - if Rails.env.production?
-      // javascript:
-      //   (window.Image?(new Image()):document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=TfrGqiMZB2vs4jnbffgNFYFnoLIfyOq8*XcQSovHcoCOaHwnMLOqxUVEgd6*EnXUWVdCyQ*7DBO5/fnCOamlGHVcEYXh0whQL/uEkdsCFmgZRKTj1bRqsYSxrlcDvZA1amZbVNN6piaonAJaKnG0nvhk8gqyntxzdn*QLUOw9*k-';
+
 
     javascript:
       function openNav() {

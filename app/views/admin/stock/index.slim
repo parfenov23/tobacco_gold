@@ -2,16 +2,16 @@
 .titleFlex.panel_gray_common.list-group-item.stockHeader
   .leftContent.displayFlex.normal
     - if current_user_admin?
-      a.btn.btn-success-material.addItemSale href='/admin/stock' В наличии
-      a.btn.btn-primary-material.addItemSale href="/admin/stock?type=not_available" Нет в наличии
-      .selectInlineProvider.selectCurrentMagazine.searchParamSelect data-param="magazine_id"
+      .selectInlineProvider.selectCurrentMagazine.searchParamSelect data-param="magazine_id" style="margin-left: 0;"
         - arr_magazines = current_company.magazines.map{|magazine| {title: magazine.title, id: magazine.id}}
         - if arr_magazines.count > 1
           = render "common_select_new", {arr_li: arr_magazines, default: curr_magazine.id, add_class: "noInit"}
   .rightContent
-    input.material.form-control name="serach" placeholder="Поиск"
-    a.btn.btn-danger-material href="/admin/stock/#{curr_magazine.id}/clear" data-method='delete' style="margin-left: 5px;" onclick="return confirm('Вы уверены что хотите очистить свой склад?')"
-      i.icon.remove
+    input.material.form-control.h-40px name="serach" placeholder="Поиск"
+    / a.btn.btn-danger-material href="/admin/stock/#{curr_magazine.id}/clear" data-method='delete' style="margin-left: 5px;" onclick="return confirm('Вы уверены что хотите очистить свой склад?')"
+    /   i.icon.remove
+
+    = render "admin/admin/common_btn", {url: "", class_remove: "displayNone", class_edit: "displayNone", add_btn: [{href: "/admin/stock", title: "В наличии"}, {href: "/admin/stock?type=not_available", title: "Нет в наличии"},{href: "/admin/stock/#{curr_magazine.id}/clear", title: "Очистить склад", onclick: "return confirm('Вы уверены что хотите очистить свой склад?')"}]}
 -# link_to "Excel", to_excel_stock_index_path(format: "xls")
 
 - @products.each do |product|
