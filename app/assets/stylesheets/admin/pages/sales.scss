@@ -121,6 +121,26 @@
     }
   }
 
+  .tableCol5{
+    width: 100%;
+    padding: 0;
+    .col1{
+      width: 50%;
+    }
+    .col2{
+      width: 20%;
+    }
+    .col3{
+      width: 15%;
+    }
+    .col4{
+      width: 13%;
+    }
+    .col5{
+      width: 10%;
+    }
+  }
+
   .headerTableSale{
     div{
       vertical-align: middle;
@@ -220,4 +240,76 @@
       min-width: 100% !important;
     }
   }
+}
+
+/*new page create sale*/
+
+
+.sales_page{
+  .head_sale{
+    position: relative;
+    .deleteContactBtn{
+      margin-top: 14px;
+    }
+    .rightContent{
+      width: 80%;
+    }
+    .newClient.btn{
+      margin: 0;
+      box-shadow: 0 0 black;
+    }
+  }
+  .content_sale{
+    height: calc(100vh - 115px);
+    .leftContent{
+      overflow-x: auto;
+      .block_product{
+        text-align: center;
+        .title{
+          display: block;
+          text-align: center;
+          padding: 0 10px 5px 10px;
+          overflow: hidden;
+          margin: 0;
+          font-size: 14px;
+          height: 60px;
+        }
+      }
+    }
+    .rightContent{
+      width: 80%;
+      position: relative;
+      .tableCol5{
+        max-height: calc(100vh - 215px);
+        overflow-x: auto;
+        border-bottom: 1px solid #bbb;
+        .table{
+          box-shadow: 0 0 black;
+          .allItemsSale{
+            .parentItemSale{
+              padding-bottom: 8px;
+            }
+          }
+          .form-group{
+            margin-bottom: 0;
+            input{
+              max-width: 65px;
+            }
+          }
+        }
+      }
+      .bottomBlock{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        .endSum{
+          padding: 5px;
+          padding-bottom: 10px;
+          font-size: 18px;
+        }
+      }
+    }
+
+  }
+
 }

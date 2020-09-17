@@ -155,4 +155,6 @@ i.check:before{
   content: "\e899";
 }
 
-
+i.search:before{
+  content: "\e903";
+}

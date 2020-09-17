@@ -327,6 +327,7 @@ $(document).ready(function(){
 
     var timout_search_keyup = ""
     $(document).on('keyup', '.search_discount_card', function(){
+      console.log("demo")
       clearTimeout(timout_search_keyup);
       var input = $(this);
       if(input.val().length > 0){
@@ -437,7 +438,7 @@ $(document).ready(function(){
     $(".received_cash + .clearInput").hide();
   });
 
-  $(document).on('click', '.contactAdd.plusBtn', function(){
+  $(document).on('click', '.contactAdd', function(){
     openAllOtherPopup("Добавление нового контакта", function(){
       $.ajax({
         type: 'GET',

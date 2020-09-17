@@ -234,6 +234,10 @@
   &.normal{
     justify-content: normal;
   }
+  &.center{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 #alert {

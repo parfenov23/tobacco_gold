@@ -218,6 +218,7 @@ Rails.application.routes.draw do
         get :close
       end
       collection do
+        get :new_demo
         post :search_contact
         post :save_order_request
         get :load_content_product_items
