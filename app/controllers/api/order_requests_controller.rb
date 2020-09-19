@@ -13,8 +13,9 @@ module Api
         user.update(contact_id: contact.id)
       end
       address = "г.#{params_r[:address][:city]} ул.#{params_r[:address][:street]} д.#{params_r[:address][:house]} кв.#{params_r[:address][:room]}, подьезд: #{params_r[:address][:porch]}, этаж: #{params_r[:address][:floor]}, домофон: #{params_r[:address][:domofon]}"
+      comment = params_r[:surrender].present? ? "Нужна сдача с #{params_r[:surrender]}. #{params_r[:comment]}" : params_r[:comment]
       order = OrderRequest.create(user_id: (user.id rescue nil), user_name: params_r[:user_name], 
-        user_phone: params_r[:user_phone], status: "waiting", items: basket, comment: params_r[:comment], 
+        user_phone: params_r[:user_phone], status: "waiting", items: basket, comment: comment, 
         company_id: current_company.id, magazine_id: current_magazine.id, address: address, type_payment: params_r[:type_payment])
 
       order.update(contact_id: contact.id)
