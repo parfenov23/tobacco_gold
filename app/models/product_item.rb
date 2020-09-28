@@ -169,14 +169,14 @@ class ProductItem < ActiveRecord::Base
   def transfer_to_json(api_key=nil)
     $api_key = api_key if api_key.present?
     as_json({
-      except: [:created_at, :updated_at, :image_url, :price_id],
+      except: [:created_at, :updated_at, :image_url, :price_id, :price, :count],
       methods: [:count, :magazine_count, :count_sales, :default_img, :default_price, :product_title, :thumb_img]
     })
   end
 
   def self.transfer_to_json(api_key=nil)
     $api_key = api_key if api_key.present?
-    all.map{|pi| pi.transfer_to_json(api_key)}
+    all.eager_load(:product_item_counts, :product, :product_item_magazine_prices).map{|pi| pi.transfer_to_json(api_key)}
   end
 
   def self.title_search(query)
@@ -189,8 +189,9 @@ class ProductItem < ActiveRecord::Base
     result
   end
 
-  def default_price
-    price.present? ? price.price : product.current_price
+  def default_price(api_key=nil)
+    $api_key = api_key if api_key.present?
+    price.price
   end
 
   def self.text_search(query, val = "0.4")
@@ -214,13 +215,13 @@ class ProductItem < ActiveRecord::Base
   def price(api_key=nil)
     $api_key = api_key if api_key.present?
     magazine_id = $api_key.present? ? (Magazine.where(api_key: $api_key).last.id rescue nil) : nil
-    (product.product_prices.where(id: price_id(magazine_id)).last rescue nil) || product.current_price_model
+    (ProductPrice.find_by_id(price_id(magazine_id)) rescue nil) || product.current_price_model
   end
 
   def price_id(magazine_id=nil, params=nil)
     if params.blank?
       curr_price = product_item_magazine_prices.find_by_magazine_id(magazine_id) if magazine_id.present?
-      curr_price.present? ? curr_price.price_id : (product.current_price_model.id rescue nil)
+      (curr_price.price_id rescue nil) || (product.current_price_model.id rescue nil)
     else
       find_price = product_item_magazine_prices.find_or_create_by(magazine_id: params[:magazine_id])
       find_price.update(params)

@@ -49,7 +49,7 @@ module Admin
     end
 
     def render_json_success(model=nil, jq_sript=nil)
-      render json: {success: true, model: model.to_json, jq: jq_sript}
+      render json: {success: true, model: model.as_json, jq: jq_sript}
     end
 
     def find_model

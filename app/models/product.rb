@@ -59,8 +59,16 @@ class Product < ActiveRecord::Base
     price.present? ? price : current_price_model
   end
 
+  def default_price(api_key=nil)
+    current_price
+  end
+
   def current_purchase_price(provider_id)
     Provider.find(provider_id).provider_items.where(product_id: id).last.price rescue 0
+  end
+
+  def current_img
+    default_img.present? ? default_img : "/default_img.png"
   end
 
   def transfer_to_json

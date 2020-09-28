@@ -6,6 +6,15 @@ var openAllOtherPopup = function(title, action = function(){}){
   action();
 }
 
+var openFabPopup = function(){
+  var popup = $(".fab");
+  popup.removeClass("displayNone").addClass("active");
+  popup.find(".conteinerPopup").show();
+  popup.find(".fab-hdr").show();
+  popup.data("type", "other_popup")
+  $("#overlay").addClass("dark-overlay");
+}
+
 var closeAllOtherPopup = function(){
   $("body").css({overflow: "initial"});
   $(".allOtherPopup").hide();
@@ -18,7 +27,12 @@ function closeFAB() {
   $(".fab").find(".conteinerPopup, .fab-hdr").fadeOut(300);
   $(".allOtherPopup").hide();
   $(".popupAuth").hide();
-  $(".fab").removeClass('active');
+  if ($(".fab").data("type") != "other_popup"){
+    $(".fab").removeClass('active');
+  }else{
+    $(".fab").addClass("displayNone").removeClass('active');
+  }
+  
   $("#overlay").removeClass('dark-overlay');
 }
 

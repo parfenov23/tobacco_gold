@@ -19,8 +19,9 @@ module Api
     end
 
     def get_search
-      product_item = ProductItem.where(barcode: params[:barcode], product_id: Product.where(company_id: current_company.id).ids).last
-      render text: "<p>" + (product_item.present? ? product_item.get_description : "Нет описания") + "<p>"
+      product_items = current_company.products.product_items.where(barcode: params[:barcode])
+      product_items = product_items.all_present(current_magazine.id) if params[:type] == "present"
+      render json: {ids: product_items.ids}
     end
 
     def load
@@ -48,7 +49,7 @@ module Api
     end
 
     def search
-      render json: current_company.products.product_items.full_text_search(params[:search]).all_present(current_magazine.id).transfer_to_json
+      render json: current_company.products.product_items.full_text_search(params[:search]).all_present(current_magazine.id).transfer_to_json(current_magazine.api_key)
     end
 
     def get_img_url

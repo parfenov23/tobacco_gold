@@ -251,6 +251,17 @@
     .deleteContactBtn{
       margin-top: 14px;
     }
+    .searchProducts{
+      display: none;
+    }
+    .leftContent{
+      .icon{
+        cursor: pointer;
+        &.back{
+          display: none;
+        }
+      }
+    }
     .rightContent{
       width: 80%;
     }
@@ -265,10 +276,17 @@
       overflow-x: auto;
       .block_product{
         text-align: center;
+        .img{
+          height: 120px;
+          img{
+            max-height: 115px;
+          }
+        }
         .title{
           display: block;
           text-align: center;
           padding: 0 10px 5px 10px;
+          margin-bottom: 10px;
           overflow: hidden;
           margin: 0;
           font-size: 14px;
@@ -288,6 +306,17 @@
           .allItemsSale{
             .parentItemSale{
               padding-bottom: 8px;
+              section.title{
+                display: flex;
+                height: 44px;
+                margin: auto;
+                border-radius: 10px;
+                p{
+                  margin: auto;
+                  text-align: left;
+                  margin-left: 0;
+                }
+              }
             }
           }
           .form-group{
@@ -302,14 +331,81 @@
         position: absolute;
         bottom: 0;
         width: 100%;
-        .endSum{
-          padding: 5px;
-          padding-bottom: 10px;
+        .endSum, .countPositions{
+          padding: 3px 5px 2px 5px;
           font-size: 18px;
         }
       }
     }
 
   }
+}
 
+.fab{
+  &.full-screen{
+    width: 100%;
+    right: 0;
+    height: 100%;
+    bottom: 0;
+  }
+  .cntt-wrapper{
+    .saveSale{
+      .endSum{
+        font-size: 18px;
+        position: absolute;
+        bottom: 84px;
+        width: calc(100% - 28px);
+      }
+      .bottomBlock{
+        position: absolute;
+        bottom: 14px;
+        width: calc(100% - 28px);
+        display: flex;
+        justify-content: space-between;
+        .payment{
+          width: 100%;
+        }
+        .orderRequest{
+          width: 80px;
+          font-size: 18px;
+        }
+      }
+    }
+
+  }
+}
+
+.endSaleContent{
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 50px);
+  background-color: white;
+  top: 50;
+  left: 42px;
+}
+@media only screen and (max-width: 991px) {
+  .sales_page {
+    .head_sale{
+      .rightContent {
+        width: 100%;
+        transition:all 1s;
+      }
+      .searchProducts{
+        display: block;
+      }
+    }
+    .content_sale{
+      .rightContent{
+        height: calc(100vh - 115px);
+        width: 100%;
+      }
+    }
+    .mobileDisplayNone{
+      display: none;
+    }
+  }
+  .endSaleContent{
+    left: 0;
+  }
 }

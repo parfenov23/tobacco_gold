@@ -16,7 +16,7 @@
         i.icon.printer
       - if !@model.reserve
         - type_sale = @model.contact.opt ? "opt" : "retail"
-        = render "admin/admin/common_btn", {url_edit: "/admin/sales/new?type_sale=#{type_sale}&order_request=#{@model.id}", url_remove: "/admin/order_requests/#{@model.id}/remove"}
+        = render "admin/admin/common_btn", {url_edit: "/admin/sales/new?order_request=#{@model.id}", url_remove: "/admin/order_requests/#{@model.id}/remove"}
   .list-group-item.material
     div 
       b Имя: 

@@ -1,0 +1,6 @@
+a.block_product.w-150px.white-bg.block-material.m-5px.theme-link.js_loadProductItems data-model=item.class.to_s data-id=item.id href="javascript:void(0)"
+  .img.text-vertical-center
+    img.w-140px src=(item.default_img.present? ? item.default_img : "/default_img.png")
+  .title.p-2px-t data-type="title" data-product_title=(item.class.to_s == "ProductItem" ? item.product.title : nil)  = item.title
+  hr.theme-border-bottom
+  .price.p-10px data-type="price" data-value="#{item.default_price}" = "#{item.default_price(current_magazine.api_key)}₽"

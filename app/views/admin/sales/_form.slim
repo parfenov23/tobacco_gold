@@ -1,77 +1,104 @@
-- form_model = @sale
-- url_form = "admin/sales"
-
-- from_model_present = form_model.id.nil?
-- action_url = from_model_present ? "/#{url_form}" : "/#{url_form}/#{form_model.id}"
-- method = from_model_present ? "post" : "put"
-
-#contentSelect style="display:none;"
-  / = render "select_product_items"
-
-.referenceItemSale style="display: none;"
-  .parentItemSale.active
-    .inlineBlock.col1
-      = render "select_products"
-
-    .formLoadContentTaste.col2
-    .formLoadContentPrice.col3
-    .form-group.col4.material-form-group
-      input.form-control.countItems name="sales[][count]" type="text" value="1"
-    .endSumPosition.col5 0
-    .col6
-      .btn.btn-danger-material.deleteItemSale.pull-right style="margin-bottom: 5px;" ✖
-
-form.form-horizontal.formCreate action="#{action_url}" method="post" enctype="multipart/form-data"
-  .saleAllItemCashbox
-    .list-group-item.col-md-9.tableCol6
-      .table.table-material
-        .headerTableSale
-          .th.col1 Товар
-          .th.col2 Позиция
-          .th.col3 Цена
-          .th.col4 Кол-во
-          .th.col5 Сумма
-          .th.col6
-
-        .allItemsSale
-          = render "order_request"
-          = render "edit_sale"
-      .btn.btn-primary-material.addItemSale Добавить позицию
-      input.idOrderRequest type="hidden" name="order_request" value=params[:order_request]
-      - if from_model_present
-        .btn.btn-success-material.saveOrderRequest Сохранить заявку
-    .list-group-item.col-md-3.block-material
-      .moneyClacl
-        .titlePrice 0.0
-        / .titleDelivery сдача: 99999
-      = render "common_input", {title: "Получено наличными", add_class: "received_cash", label: false, add_class: "titleDelivery received_cash", clear_btn: true}
-
-      .form-group.discountCashBack.material-form-group.no_label
+.sales_page data-id=params[:id]
+  .head_sale.displayFlex.block-material.
+    .leftContent.form-group.material-form-group.p-0px.mb-0px.w-100per.mobileDisplayNone
+      .titleFlex.w-100per
+        .searchProducts.p-9px.theme-border-bottom.white-bg.btn.btn-success-material.js_openSearchProducts
+          i.icon.sales.font-24.color-white
+        i.icon.back.p-9px.font-18.color-extra-medium-gray.white-bg.theme-border-bottom.js_backToProductsBlocks
+        input.w-100per.search_product_items placeholder="Поиск товара по наиминованию"
+    .rightContent.form-group.material-form-group.p-0px.mb-0px.br-left.titleFlex
+      .searchProducts.p-9px.theme-border-bottom.white-bg.btn.btn-success-material.js_openSearchProducts
+        i.icon.products.font-24.color-white
+      i.icon.search.p-9px.font-18.color-extra-medium-gray.white-bg.theme-border-bottom
+      .discountCashBack.w-100per
         .userContact
-          input.form-control.search_discount_card placeholder="Поиск клиента" required=true
+          input.w-100per.search_discount_card placeholder="Поиск клиента"
           .deleteContactBtn ✖
-          .contactAdd.plusBtn ✖
           ul.findContact.block-material
+        form.displayNone.discountContact
+          input name="cashback_bank" type="hidden"
+          input name="contact_id" data-id=@contact_id type="hidden"
+      .newClient.p-9px.theme-border-bottom.white-bg.btn.btn-success-material.contactAdd
+        i.icon.contacts.font-24.color-white
 
-        input type="hidden" name="cashback_bank" value="0"
-        input type="hidden" name="contact_id"
-        / - arr_type = [["Накопить", "stash"], ["Скидка", "dickount"]]
-        / = render "common_select", {arr_li: arr_type, default: arr_type.first.last, name_input: "cashback_type", add_class: "displayNone"}
+  .content_sale.displayFlex
+    .leftContent.w-100per.mobileDisplayNone
+      .allProducts.titleFlex.center
+        - Product.all_present(current_magazine.id).each do |product|
+          = render "admin/sales/helper/product_item", {item: product}
+      .pasteBlock.titleFlex.center style="dispaly:none;"
 
-        / select.form-control  name="cashback_type" style="display: none;"
-        /   option value='stash' Накопить
-        /   option value='dickount' Скидка
-      .form-group.saleDiscount.material-form-group.no_label
-        input.form-control.sale_discount placeholder="Скидка" name="sale_discount" required=true
-        - arr_type = [{title: "Руб.", id: "rub"}, {title: "Проц.", id: "proc"}]
-        = render "common_select_new", {arr_li: arr_type, default: arr_type.first[:id], name_input: "sale_disckount_select"}
-      = render "admin/admin/common_cashbox"
-      .delivery style="display: none;"
-        .title Доставка:
-        .price 0
-      .actionBtnSale
-        .btn.btn-primary-material.priceItemSale Подсчет
-        input type="hidden" name="magazine_id" value="#{current_user.magazine_id}"
-        input type="hidden" name="_method" value="#{method}"
-        button.btn.btn-success-material type="submit" formnovalidate=true Расчет
-  / .list-group.row
+    /// ======================== Right Content ========================= ///
+
+    form.rightContent.white-bg.block-material.br-left.mb-0px.saleAllItemCashbox.titleFlex action="/admin/sales" method="post" enctype="multipart/form-data"
+      .list-group-item.col-md-9.tableCol5
+        .table.table-material
+          .headerTableSale
+            .th.col1 Наиминование
+            .th.col2 Цена
+            .th.col3 Кол-во
+            .th.col4.text-vertical-center Итог
+            .th.col5 
+          .allItemsSale
+            - if @order_request.present?
+              - @order_request.items.each do |product_item, itm|
+                - current_product_item = ProductItem.find(product_item)
+                - product = current_product_item.product
+                - order_item_hash = @order_request.item(current_product_item.id)
+                - count = order_item_hash[:count]
+                - price = order_item_hash[:price_id].present? ? ProductPrice.find(order_item_hash[:price_id]).price : current_product_item.default_price(current_magazine.api_key)
+                = render "admin/sales/helper/parent_item_sale", {id: current_product_item.id, title: "#{product.title} - #{current_product_item.title}", price: price, count: count, sum: (count * price)}
+            - if @sale.present?
+              - @sale.sale_items.each do |sale_item|
+                - current_product_item = sale_item.product_item
+                - product = current_product_item.product
+                - count = sale_item.count
+                - price = ProductPrice.find(sale_item.product_price_id).price
+                = render "admin/sales/helper/parent_item_sale", {id: current_product_item.id, title: "#{product.title} - #{current_product_item.title}", price: price, count: count, sum: (count * price)}
+          .copyBlockItemSale.displayNone
+            = render "admin/sales/helper/parent_item_sale", {id: nil, title: nil, price: nil, count: 0, sum: nil}
+      .bottomBlock
+        .titleFlex.countPositions
+          .title Позиций
+          .count 
+            span.position 0
+            span.currency = " ШТ"
+        .titleFlex.endSum
+          .title Итого
+          .sum 
+            span.price 0
+            span.currency ₽
+        .btn.btn-success-material.w-100per.js_openPopupEndSale disabled=true Продажа
+      input type="hidden" name="order_request" value=params[:order_request]
+
+.endSaleContent.displayNone
+  .text-vertical-center.h-100per
+    .centerBlock
+      i.icon.check.text-vertical-center.font-55.color-theme
+      .title.text-vertical-center.font-18.m-15px-tb.orderSale Продажа успешно создана
+      .title.text-vertical-center.font-18.m-15px-tb.orderRequest.displayNone Заявка успешно сохранена
+      .buttonGroup
+        .btn.btn-primary-material.m-20px.js_gotToCheck Напечатать чек
+        .btn.btn-primary-material.m-20px.js_proceedEdit.displayNone Продолжить редактирование
+        .btn.btn-success-material.m-20px.js_clearSale Новая продажа
+
+- @popup = "Формирование продажи"
+- @btn_open_popup = false
+- content_for :popup do
+  form.saveSale
+    .form-group.saleDiscount.material-form-group.no_label
+      input.form-control.sale_discount placeholder="Скидка" name="sale_discount" required=true
+      input name="sale_disckount_select" type="hidden" value="rub"
+      / - arr_type = [{title: "Руб.", id: "rub"}, {title: "Проц.", id: "proc"}]
+      / = render "common_select_new", {arr_li: arr_type, default: arr_type.first[:id], name_input: "sale_disckount_select"}
+    = render "admin/admin/common_cashbox"
+    = render "common_input", {title: "Получено наличными", add_class: "received_cash", label: false, add_class: "titleDelivery received_cash", clear_btn: true}
+    .titleFlex.endSum
+      .title Итого к оплате
+      .sum 
+        span.price 0
+        span.currency ₽
+    .bottomBlock
+      .btn.btn-primary-material.payment.js_submitSale Расчет
+      .btn.btn-success-material.orderRequest.js_saveSaleToOrderRequest.displayNone
+        i.icon.order_requests

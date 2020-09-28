@@ -2,6 +2,7 @@
 //= require_tree ./help_notify
 //= require vendor/serialize_file
 //= require vendor/jquery.session
+//= require vendor/jquery_round
 // Pusher.logToConsole = true;
 var pusher = new Pusher('1a55ade886312565bd6d', {
   cluster: 'eu',

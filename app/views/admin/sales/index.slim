@@ -9,9 +9,12 @@
       span
         - text = "#{sale.created_at.strftime("%d-%m-%Y")} сумма: #{sale.price} руб. "
         - text += "-> #{sale.profit} руб." if current_user.is_admin?
-        a.link-material href='/admin/sales/#{sale.id}.pdf' 
+        a.link-material href=(!sale.in_stock ? "/admin/sales/#{sale.id}.pdf" : "/admin/sales/#{sale.id}/edit" )
           = text
-      i.iconCashbox class=(sale.visa ? "icon-credit-card" : "icon-coin-dollar")
+      - if !sale.in_stock
+        i.iconCashbox class=(sale.visa ? "icon-credit-card" : "icon-coin-dollar")
+      - else
+        i.icon.stock.font-28.p-4px-t
       - if current_user.is_admin?
         - if !sale.in_stock
           - add_btn = [{href:"/admin/sales/#{sale.id}/close", title: "Возврат"}]

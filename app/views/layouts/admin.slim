@@ -59,8 +59,9 @@ html
             h3 Test
           .conteinerPopup
       - if @popup.present?
-        .fab
-          i.material-icons.fab-icon add
+        .fab class=(@btn_open_popup == false ? "displayNone" : "")
+          - if @btn_open_popup != false
+            i.material-icons.fab-icon add
           .cntt-wrapper
             .fab-hdr
               a.closeBtn href="javascript:void(0)" onclick="closeAllOtherPopup()" ×

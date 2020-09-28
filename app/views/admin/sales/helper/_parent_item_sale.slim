@@ -1,0 +1,11 @@
+.parentItemSale
+  section.col1.title data-type="title"
+    p.max-two-line-text = title
+  .form-group.col2.material-form-group
+    input.form-control.countItems data-type="price" name=(price.present? ? "sales[][price]" : "") type="text" value=price
+  .form-group.col3.material-form-group
+    input.form-control.countItems data-type="count" name=(count > 0 ? "sales[][count]" : "") type="text" value=count
+  .col4.text-vertical-center data-type="sum" = sum
+  .col5
+    .btn.btn-danger-material.deleteItemSale.pull-right ✖
+  input type="hidden" data-type="id" name=(id.present? ? "sales[][item_id]" : "") value=id

@@ -240,6 +240,33 @@
   }
 }
 
+.titleFlex{
+  display: flex;
+  justify-content: space-between;
+  &.center{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .leftContent{
+    width: 100%;
+  }
+  .rightContent{
+    display: flex;
+  }
+}
+
+.displayNone{
+  display: none;
+}
+
+.max-two-line-text{
+ overflow: hidden;
+ text-overflow: ellipsis;
+ display: -webkit-box;
+ -webkit-line-clamp: 2; /* number of lines to show */
+ -webkit-box-orient: vertical;
+}
+
 #alert {
   position      : fixed;
   display       : none;

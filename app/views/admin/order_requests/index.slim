@@ -22,6 +22,6 @@
 
         a.btn.btn-primary-material.pull-right href="/admin/#{model_url}/#{model.id}/next_status" ✔
         - type_sale = model.contact.opt ? "opt" : "retail"
-        = render "admin/admin/common_btn", {url_edit: "/admin/sales/new?type_sale=#{type_sale}&order_request=#{model.id}", url_remove: "/admin/order_requests/#{model.id}/remove"}
+        = render "admin/admin/common_btn", {url_edit: "/admin/sales/new?order_request=#{model.id}", url_remove: "/admin/order_requests/#{model.id}/remove"}
 
 = render "common_blank_page", {title_deff: "", text_deff: "Новых заявок, пока что нет :("} if @models.blank?

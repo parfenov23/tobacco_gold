@@ -8,13 +8,16 @@ module Admin
     end
 
     def new
-      @sale = model.new
-      @products = current_company.products.all_present(magazine_id)
+      if params[:order_request].present?
+        @order_request = current_company.order_requests.find_by_id(params[:order_request])
+        @contact_id = @order_request.contact_id
+      end
     end
 
     def edit
       @sale = find_model
       @products = current_company.products.all_present(magazine_id)
+      @contact_id = @sale.contact_id
     end
 
     def info
@@ -44,7 +47,14 @@ module Admin
       sale = Sale.create(user_id: current_user.id, contact_id: params[:contact_id])
       create_or_update(sale)
       sale.notify_buy
-      redirect_to_index
+      params[:typeAction] == "json" ? render_json_success(sale) : redirect_to_index
+    end
+
+    def update
+      find_model.sale_items.destroy_all
+      find_model.update(contact_id: params[:contact_id])
+      create_or_update(find_model, "update")
+      params[:typeAction] == "json" ? render_json_success(find_model) : redirect_to_index
     end
 
     def save_order_request
@@ -53,8 +63,9 @@ module Admin
       sales_arr.each do |sale_param|
         item = ProductItem.find(sale_param["item_id"])
         count = sale_param["count"].to_i
+        price_id = sale_param["price_id"].present? ? sale_param["price_id"].to_i : item.product.product_prices.find_or_create_by(price: sale_param["price"], title: sale_param["price"]).id
         hash_order_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i : 0
-        hash_order["#{item.id}"] = {count: hash_order_count + count, price_id: sale_param["price_id"].to_i}
+        hash_order["#{item.id}"] = {count: hash_order_count + count, price_id: price_id}
       end
       if params[:order_request].present?
         order_request = current_company.order_requests.where(id: params[:order_request]).last
@@ -68,21 +79,21 @@ module Admin
    end
 
    def load_content_product_items
-
-    @products = Product.where(id: params[:id], company_id: current_company.id) if params[:id].present?
-    @products = current_company.products.joins(:product_items).where(["product_items.barcode = ?", params[:barcode]]).uniq if params[:barcode].present?
-    @products = Product.where(id: ProductItem.find(params[:product_item_id]).product_id, company_id: current_company.id) if params[:product_item_id].present?
-
-    html_form = render_to_string "/admin/sales/_select_product_items", :layout => false
+    if params[:type_partial] != "new"
+      @products = Product.where(id: params[:id], company_id: current_company.id) if params[:id].present?
+      @products = current_company.products.joins(:product_items).where(["product_items.barcode = ?", params[:barcode]]).uniq if params[:barcode].present?
+      @products = Product.where(id: ProductItem.find(params[:product_item_id]).product_id, company_id: current_company.id) if params[:product_item_id].present?
+      html_form = render_to_string "/admin/sales/_select_product_items", :layout => false
+    else
+      if params[:search].blank?
+        @product = current_company.products.find_by_id(params[:id])
+        product_items = @product.product_items.all_present(current_magazine.id)
+      else
+        product_items = current_company.products.product_items.full_text_search(params[:search]).all_present(current_magazine.id)
+      end
+      html_form = product_items.map{|product_item| render_to_string "/admin/sales/helper/_product_item", :layout => false, :locals => {:item => product_item} }.join
+    end
     render text: html_form
-  end
-
-  def update
-    # find_model.close
-    find_model.sale_items.destroy_all
-    find_model.update(contact_id: params[:contact_id])
-    create_or_update(find_model, "update")
-    redirect_to_index
   end
 
   def remove
@@ -106,10 +117,10 @@ module Admin
     sales_arr.each do |sale_param|
       count = sale_param[:count].to_i
       item = ProductItem.find(sale_param[:item_id])
-      price = ProductPrice.find(sale_param[:price_id])
+      price = sale_param[:price_id].present? ? ProductPrice.find(sale_param[:price_id]) : item.product.product_prices.find_or_create_by(price: sale_param[:price], title: sale_param[:price])
       result += price.price*count
       curr_count = hash_order["#{item.id}"].present? ? hash_order["#{item.id}"][:count].to_i + count : count
-      hash_order["#{item.id}"] = {count: curr_count, price_id: sale_param[:price_id].to_i}
+      hash_order["#{item.id}"] = {count: curr_count, price_id: price.id}
       current_item_count = item.product_item_counts.find_by_magazine_id(magazine_id)
       curr_count = current_item_count.count
       current_item_count.update(count: (curr_count - count) )
@@ -140,10 +151,10 @@ module Admin
     end
 
     if params[:order_request].present?
-      order = current_company.order_requests.where(id: params[:order_request]).last
+      order = current_company.order_requests.find_by_id(params[:order_request])
       order.update(status: "paid", items: hash_order) if order.present?
     end
-    sale.update(price: result, profit: sale_profit, visa: (params[:cashbox_type] == "visa"), magazine_id: params[:magazine_id], in_stock: false)
+    sale.update(price: result, profit: sale_profit, visa: (params[:cashbox_type] == "visa"), magazine_id: current_magazine.id, in_stock: false)
     current_cashbox.calculation(params[:cashbox_type], result, true)
     current_user.manager_payments.create(price: result/100*current_user.procent_sale, magazine_id: magazine_id)
   end
