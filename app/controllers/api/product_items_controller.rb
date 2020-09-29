@@ -25,6 +25,18 @@ module Api
     end
 
     def load
+      arr_params_items = params[:load]
+      arr_params_items = arr_params_items.each_slice(1000)
+      Thread.new do
+        agent = Mechanize.new
+        arr_params_items.each do |arr_items|
+          page = agent.post("#{request.protocol + request.host}/api/product_items/load_limit", {api_key: params[:api_key], load: arr_items})
+        end
+      end
+      render json: {success: params.as_json}
+    end
+
+    def load_limit
       arr_product_items = params[:load]
       arr_product_items.each do |json_product_item|        
         category = Category.find_or_create_by(company_id: current_company.id, first_name: json_product_item["category"])
@@ -45,7 +57,6 @@ module Api
 
         product_item.product_item_counts.find_or_create_by(magazine_id: current_magazine.id).update(count: json_product_item["count"])
       end
-      render json: {success: params.as_json}
     end
 
     def search

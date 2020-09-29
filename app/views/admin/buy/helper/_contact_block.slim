@@ -1,0 +1,7 @@
+.p-9px.theme-border-bottom.white-bg.btn.btn-success-material.js_loadContentInOtherPopup href="/admin/product_items/new" data-title="Добавление новой позиции"
+  i.icon.plus.font-24.color-white
+- all_providers = current_company.providers
+- if all_providers.present?
+  .selectInlineProvider.w-100per.m-0px.white-bg
+    - all_pr = all_providers.map{|pr| {title: pr.title, id: pr.id} }
+    = render "common_select_new", {arr_li: all_pr, default: all_providers.first.id, name_input: "provider_id"}

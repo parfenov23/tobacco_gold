@@ -55,6 +55,11 @@ module Admin
       params[:typeAction] == "json" ? render_json_success(find_model, (!blank_item ? jq_script : nil)) : redirect_to_index
     end
 
+    def new
+      html_form = render_to_string "/admin/#{model.first_url}/new", :layout => false, :locals => {:current_company => current_company}
+      render text: html_form
+    end
+
     def show
       @item = find_model if ((find_model.company_id == current_company.id) rescue true )
       if @item.blank?
@@ -65,29 +70,29 @@ module Admin
           format.pdf{
             render pdf: "#{@item.id}_#{Time.now.to_i}",
             margin:  {   
-                      top:               0,                     # default 10 (mm)
-                      bottom:            0,
-                      left:              4,
-                      right:             0 
-                    }
-                  }
-                end
-              end
-            end
-
-            private
-
-            def model
-              ProductItem
-            end
-
-            def find_product
-              Product.find(params[:product_id])
-            end
-
-            def redirect_to_index
-              product_id = params_model[:product_id].present? ? params_model[:product_id] : find_model.product_id
-              redirect_to '/admin/product_items?product_id=' + product_id
-            end
-          end
+              top:               0,  
+              bottom:            0,
+              left:              4,
+              right:             0 
+            }
+          }
         end
+      end
+    end
+
+    private
+
+    def model
+      ProductItem
+    end
+
+    def find_product
+      Product.find(params[:product_id])
+    end
+
+    def redirect_to_index
+      product_id = params_model[:product_id].present? ? params_model[:product_id] : find_model.product_id
+      redirect_to '/admin/product_items?product_id=' + product_id
+    end
+  end
+end

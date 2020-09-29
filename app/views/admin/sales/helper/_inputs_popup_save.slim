@@ -1,0 +1,7 @@
+.form-group.saleDiscount.material-form-group.no_label
+  input.form-control.sale_discount placeholder="Скидка" name="sale_discount" required=true
+  input name="sale_disckount_select" type="hidden" value="rub"
+  / - arr_type = [{title: "Руб.", id: "rub"}, {title: "Проц.", id: "proc"}]
+  / = render "common_select_new", {arr_li: arr_type, default: arr_type.first[:id], name_input: "sale_disckount_select"}
+= render "admin/admin/common_cashbox"
+= render "common_input", {title: "Получено наличными", add_class: "received_cash", label: false, add_class: "titleDelivery received_cash", clear_btn: true}

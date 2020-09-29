@@ -1,5 +1,11 @@
-h2
-  = "Созданине новой позиции"
-hr
+- @products = current_company.products
+form.newTasteItem
+  .form-group.material-form-group.active
+    label Товар
+    - all_products = [{title: "Не выбранно", id: 0}] + @products.map{|prod| {title: prod.title, id: prod.id} } 
 
-= render "form"
+    = render "common_select_new", {arr_li: all_products, default: all_products.first[:id], name_input: "buy[product_id]", add_class: "defaultInitMdSelect"}
+  = render "common_input", {title: "Название", name: "buy[title]"}
+  = render "common_input", {title: "Код товара", name: "buy[barcode]"}
+
+  .btn.btn-primary-material.js_saveNewProductItem Сохранить

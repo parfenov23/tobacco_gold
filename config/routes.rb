@@ -321,6 +321,7 @@ Rails.application.routes.draw do
         get :search
         get :get_search
         post :load
+        post :load_limit
       end
     end
     resources :categories do

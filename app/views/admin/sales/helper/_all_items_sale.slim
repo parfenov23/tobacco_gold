@@ -1,0 +1,15 @@
+- if @order_request.present?
+  - @order_request.items.each do |product_item, itm|
+    - current_product_item = ProductItem.find(product_item)
+    - product = current_product_item.product
+    - order_item_hash = @order_request.item(current_product_item.id)
+    - count = order_item_hash[:count]
+    - price = order_item_hash[:price_id].present? ? ProductPrice.find(order_item_hash[:price_id]).price : current_product_item.default_price(current_magazine.api_key)
+    = render "admin/sales/helper/parent_item_sale", {id: current_product_item.id, title: "#{product.title} - #{current_product_item.title}", price: price, count: count, sum: (count * price)}
+- if @sale.present?
+  - @sale.sale_items.each do |sale_item|
+    - current_product_item = sale_item.product_item
+    - product = current_product_item.product
+    - count = sale_item.count
+    - price = ProductPrice.find(sale_item.product_price_id).price
+    = render "admin/sales/helper/parent_item_sale", {id: current_product_item.id, title: "#{product.title} - #{current_product_item.title}", price: price, count: count, sum: (count * price)}

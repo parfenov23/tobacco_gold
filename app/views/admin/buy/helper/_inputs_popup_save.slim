@@ -1,0 +1,4 @@
+= render "admin/admin/common_cashbox"
+.form-group
+  = check_box("buy_param", "def_pay", {checked: false, class: "checkbox-material", id: "filled-in-box"})
+  label.checkbox-label-material for="filled-in-box" Оплачено?
