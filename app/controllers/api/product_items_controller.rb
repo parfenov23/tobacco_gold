@@ -57,6 +57,7 @@ module Api
 
         product_item.product_item_counts.find_or_create_by(magazine_id: current_magazine.id).update(count: json_product_item["count"])
       end
+      render json: {success: true}
     end
 
     def search
