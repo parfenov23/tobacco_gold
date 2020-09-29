@@ -30,7 +30,7 @@ module Api
       Thread.new do
         agent = Mechanize.new
         arr_params_items.each do |arr_items|
-          page = agent.post("#{request.protocol + request.host}/api/product_items/load_limit", {api_key: params[:api_key], load: arr_items})
+          page = agent.post("https://crm-stock.ru/api/product_items/load_limit", {api_key: params[:api_key], load: arr_items}.to_json, {"Content-Type" => "application/json"})
         end
       end
       render json: {success: params.as_json}
