@@ -79,20 +79,14 @@ module Admin
    end
 
    def load_content_product_items
-    if params[:type_partial] != "new"
-      @products = Product.where(id: params[:id], company_id: current_company.id) if params[:id].present?
-      @products = current_company.products.joins(:product_items).where(["product_items.barcode = ?", params[:barcode]]).uniq if params[:barcode].present?
-      @products = Product.where(id: ProductItem.find(params[:product_item_id]).product_id, company_id: current_company.id) if params[:product_item_id].present?
-      html_form = render_to_string "/admin/sales/_select_product_items", :layout => false
+    if params[:search].blank?
+      @product = current_company.products.find_by_id(params[:id])
+      product_items = params[:count] == "all" ? @product.product_items : @product.product_items.all_present(current_magazine.id)
     else
-      if params[:search].blank?
-        @product = current_company.products.find_by_id(params[:id])
-        product_items = @product.product_items.all_present(current_magazine.id)
-      else
-        product_items = current_company.products.product_items.full_text_search(params[:search]).all_present(current_magazine.id)
-      end
-      html_form = product_items.map{|product_item| render_to_string "/admin/sales/helper/_product_item", :layout => false, :locals => {:item => product_item} }.join
+      search_product_items = current_company.products.product_items.full_text_search(params[:search])
+      product_items = params[:count] == "all" ? search_product_items : search_product_items.all_present(current_magazine.id)
     end
+    html_form = product_items.map{|product_item| render_to_string "/admin/sales/helper/_product_item", :layout => false, :locals => {:item => product_item} }.join
     render text: html_form
   end
 

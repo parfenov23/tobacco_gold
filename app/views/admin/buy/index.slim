@@ -1,13 +1,7 @@
 .list-group.row
   .list-group-item.panel_gray_common style="display: flex;justify-content: space-between;"
-    form action="/admin/buy/new" method="get" style="margin-bottom: 0; display: flex;"
-      button.btn.btn-success-material href="/admin/buy/new"  Добавить закуп
-      - all_providers = current_company.providers
-      - if all_providers.present?
-        .selectInlineProvider
-          - all_pr = all_providers.map{|pr| {title: pr.title, id: pr.id} }
-          = render "common_select_new", {arr_li: all_pr, default: all_providers.first.id, name_input: "provider_id"}
-    - if all_providers.present?
+    a.btn.btn-success-material href="/admin/buy/new"  Добавить закупку
+    - if current_company.providers.present?
       a.btn.btn-success-material href="/admin/buy/search" Поиск
   - @buys.each do |buy|
     .list-group-item.col-md-6.material

@@ -33,13 +33,7 @@
     }
   }
 }
-.saleDiscount{
-  display: flex;
-  justify-content: space-between;
-  .sale_discount{
-    height: 41px;
-  }
-}
+
 .searchProductItem{
   display: none;
   list-style-type: none;
@@ -341,6 +335,16 @@
   }
 }
 
+.fab, .newTasteItem{
+  .bottomBlock{
+    position: absolute;
+    bottom: 14px;
+    width: calc(100% - 28px);
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 .fab{
   &.full-screen{
     width: 100%;
@@ -357,11 +361,6 @@
         width: calc(100% - 28px);
       }
       .bottomBlock{
-        position: absolute;
-        bottom: 14px;
-        width: calc(100% - 28px);
-        display: flex;
-        justify-content: space-between;
         .payment{
           width: 100%;
         }

@@ -1,4 +1,4 @@
-.sales_page data-id=params[:id]
+.sales_page data-id=params[:id] data-type=type
   .head_sale.displayFlex.block-material.
     .leftContent.form-group.material-form-group.p-0px.mb-0px.w-100per.mobileDisplayNone
       .titleFlex.w-100per
@@ -6,19 +6,22 @@
           i.icon.sales.font-24.color-white
         i.icon.back.p-9px.font-18.color-extra-medium-gray.white-bg.theme-border-bottom.js_backToProductsBlocks
         input.w-100per.search_product_items placeholder="Поиск товара по наиминованию"
+        - if type == "buy"
+          .p-9px.theme-border-bottom.white-bg.btn.btn-success-material.js_loadContentInOtherPopup href="/admin/product_items/new" data-title="Добавление новой позиции"
+            i.icon.plus.font-24.color-white
     .rightContent.form-group.material-form-group.p-0px.mb-0px.br-left.titleFlex
       = render "admin/#{type}/helper/contact_block" 
 
   .content_sale.displayFlex
     .leftContent.w-100per.mobileDisplayNone
-      .allProducts.titleFlex.center
+      .allProducts.titleFlex.center data-type=(type == "buy" ? "all" : "present")
         - @products.each do |product|
           = render "admin/sales/helper/product_item", {item: product}
       .pasteBlock.titleFlex.center style="dispaly:none;"
 
     /// ======================== Right Content ========================= ///
 
-    form.rightContent.white-bg.block-material.br-left.mb-0px.saleAllItemCashbox.titleFlex action="/admin/sales" method="post" enctype="multipart/form-data"
+    form.rightContent.white-bg.block-material.br-left.mb-0px.saleAllItemCashbox.titleFlex action="/admin/#{type}" method="post" enctype="multipart/form-data"
       .list-group-item.col-md-9.tableCol5
         .table.table-material
           .headerTableSale
@@ -48,7 +51,7 @@
 .endSaleContent.displayNone
   .text-vertical-center.h-100per
     .centerBlock
-      = render "admin/sales/helper/end_actions"
+      = render "admin/#{type}/helper/end_actions"
 
 - content_for :popup do
   form.saveSale

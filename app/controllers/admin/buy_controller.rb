@@ -18,7 +18,7 @@ module Admin
       sales_arr.each do |sale_param|
         count = sale_param[:count].to_i
         item = ProductItem.find(sale_param[:item_id])
-        price = sale_param[:price_id].to_i
+        price = sale_param[:price].to_f
         result += price*count
         hash_update_price[item.product_id.to_s] = price if hash_update_price[item.product_id.to_s].to_i < price
         current_item_count = item.product_item_counts.where(magazine_id: magazine_id).last
@@ -28,11 +28,11 @@ module Admin
         item.update({barcode: sale_param[:barcode]}) if sale_param[:barcode].present?
         BuyItem.create({buy_id: buy.id, product_item_id: item.id, count: count, price: price, curr_count: curr_count})
       end
-      buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:buy_param][:provider_id], magazine_id: magazine_id)
+      buy.update(price: result, def_pay: params[:buy_param][:def_pay], provider_id: params[:provider_id], magazine_id: magazine_id)
       current_cashbox.calculation(params[:cashbox_type], result, false) if params[:buy_param][:def_pay] == "1"
-      if params[:buy_param][:provider_id].present?
+      if params[:provider_id].present?
         hash_update_price.each do |k, v| 
-          provider = Provider.find(params[:buy_param][:provider_id])
+          provider = Provider.find(params[:provider_id])
           curr_item = provider.provider_items.where(product_id: k).last
           if curr_item.present?
             curr_item.update(price: v) if curr_item.price != v
@@ -42,7 +42,7 @@ module Admin
         end
       end
       buy.notify_buy
-      redirect_to_index
+      params[:typeAction] == "json" ? render_json_success(buy) : redirect_to_index
     end
 
     def def_pay
@@ -66,10 +66,8 @@ module Admin
     end
 
     def new_item_product
-      ProductItem.create(params_model)
-      @products = current_company.products
-      products_select = render_to_string "/admin/buy/_select_product_items", :layout => false
-      render text: products_select
+      product_item = ProductItem.create(params_model)
+      render_json_success(product_item)
     end
 
     def edit
