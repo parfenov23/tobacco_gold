@@ -1,8 +1,0 @@
-- @products.each do |product|
-  - product_items = product.product_items
-  - if product_items.present?
-    div id="select#{product.id}"
-      - all_pi = product_items.map{|item| {title: item.title, id: item.id, add_data: {'data-barcode' => item.barcode, 'data-product' => product.id}} }.sort {|a,b| a[:title] <=> b[:title]}
-      = render "common_select_new", {arr_li: all_pi, default: all_pi.first[:id], add_class: "noInit selectProductItem", name_input: "buy[][item_id]", class_input: "changeSelectContent"}
-      div
-        input.selectProductPrice.form-control name="buy[][price_id]" placeholder='стоимость'
