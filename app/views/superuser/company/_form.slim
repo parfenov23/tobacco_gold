@@ -3,6 +3,7 @@
 form.form-horizontal action="#{action_url}" method="post"
   = render "admin/admin/common_input", {title: "Название", name: "company[title]", value: @model.title}
   = render "admin/admin/common_input", {title: "Количество магазинов", name: "company[max_count_magazine]", value: @model.max_count_magazine}
+  = render "admin/admin/common_input", {title: "Домен сайта", name: "company[domain]", value: @model.domain}
   = render "admin/admin/common_input", {title: "Доступно до", name: "company[demo_time]", value: @model.demo_time}
   .form-group
     = check_box("company", "demo", {checked: check_if_true(@model.demo), class: "checkbox-material", id: "filled-in-opt"})
