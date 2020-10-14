@@ -35,6 +35,10 @@ var search_contact = function(barcode_contact, id){
   });
 }
 
+var setContactPriceToProductPrice = function(){
+  
+}
+
 var backToProductsBlocks = function(){
   $(".leftContent .pasteBlock").fadeOut('slow', function() {
     $(".leftContent .allProducts").show();
