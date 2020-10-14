@@ -86,7 +86,7 @@ module Admin
       search_product_items = current_company.products.product_items.full_text_search(params[:search])
       product_items = params[:count] == "all" ? search_product_items : search_product_items.all_present(current_magazine.id)
     end
-    html_form = product_items.map{|product_item| render_to_string "/admin/sales/helper/_product_item", :layout => false, :locals => {:item => product_item} }.join
+    html_form = product_items.order(title: :asc).map{|product_item| render_to_string "/admin/sales/helper/_product_item", :layout => false, :locals => {:item => product_item} }.join
     render text: html_form
   end
 

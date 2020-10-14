@@ -66,6 +66,7 @@ var addProductItemToSale = function(id){
       find_item.find("[data-type='title'] p").text(product_title + " - " + title);
       find_item.attr('data-id', id);
       $("form .allItemsSale").append(find_item);
+      $(".tableCol5").scrollTop($(".tableCol5 .table-material").height());
     }
     if($(".js_openSearchProducts").is(":visible")){
       openSearchProducts();
