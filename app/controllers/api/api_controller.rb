@@ -1,7 +1,7 @@
 module Api
   class ApiController < ActionController::Base
     require 'vk_message'
-    before_action :auth, except: [:find_api_key, :order_payments]
+    before_action :auth, except: [:find_api_key, :order_payments, :test_blynk]
 
 
     def index
@@ -58,6 +58,12 @@ module Api
 
     def update_help
       current_company.update(help_notify: true)
+      render json: {success: true}
+    end
+
+    def test_blynk
+      agent = Mechanize.new
+      page = agent.get("http://139.59.206.133/YcHlOoUcS9rii7ghQH2Qw6KttF6c91Uc/update/V10?value=#{params[:v][0]}&value=#{params[:v][1]}&value=#{params[:v][2]}")
       render json: {success: true}
     end
 
