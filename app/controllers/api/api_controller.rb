@@ -63,7 +63,7 @@ module Api
 
     def test_blynk
       agent = Mechanize.new
-      page = agent.get("http://139.59.206.133/YcHlOoUcS9rii7ghQH2Qw6KttF6c91Uc/update/V10?value=#{params[:v][0]}&value=#{params[:v][1]}&value=#{params[:v][2]}")
+      page = agent.get("http://139.59.206.133/YcHlOoUcS9rii7ghQH2Qw6KttF6c91Uc/update/V10?value=#{params[:v]["0"]}&value=#{params[:v]["1"]}&value=#{params[:v]["2"]}")
       render json: {success: true}
     end
 
