@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def default_ava_link
-    '/uploads/ava.jpg'
+    '/ava.jpg'
   end
 
   def default_img_product(model)
