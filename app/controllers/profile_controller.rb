@@ -1,9 +1,9 @@
 require 'base64'
 require 'resize_image'
 class ProfileController < ActionController::Base
-  before_filter :find_resource
+  before_action :find_resource
   layout "home"
-  before_filter :authenticate_user!, only: [:update, :edit]
+  before_action :authenticate_user!, only: [:update, :edit]
 
   def update_ava
     unless params[:ava].nil?
