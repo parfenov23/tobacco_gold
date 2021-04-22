@@ -1,4 +1,4 @@
-class CreateProductPrices < ActiveRecord::Migration
+class CreateProductPrices < ActiveRecord::Migration[5.2]
   def change
     create_table :product_prices do |t|
       t.float :price, default: 0

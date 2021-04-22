@@ -57,14 +57,14 @@ module ApplicationHelper
     current_user.present? ? current_user.is_admin? || current_user.is_manager? : false
   end
 
-  def curr_hash_nav_li(all_navs_admin = all_navs_admin)
+  def curr_hash_nav_li(current_navs_admin = all_navs_admin)
     curr_li = nil
-    all_navs_admin.each{|nav| curr_li = nav if nav[:url] == request.env["PATH_INFO"] }
+    current_navs_admin.each{|nav| curr_li = nav if nav[:url] == request.env["PATH_INFO"] }
     curr_li
   end
 
-  def curr_title_admin_header(add_title=nil, all_navs_admin = all_navs_admin)
-    curr_hash_nav_li(all_navs_admin).present? ? "#{add_title}#{curr_hash_nav_li(all_navs_admin)[:title]}" : "#{add_title}"
+  def curr_title_admin_header(add_title=nil, current_navs_admin = all_navs_admin)
+    curr_hash_nav_li(current_navs_admin).present? ? "#{add_title}#{curr_hash_nav_li(current_navs_admin)[:title]}" : "#{add_title}"
   end
 
   def curr_title_superuser_header(add_title=nil)

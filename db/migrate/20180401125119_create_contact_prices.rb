@@ -1,4 +1,4 @@
-class CreateContactPrices < ActiveRecord::Migration
+class CreateContactPrices < ActiveRecord::Migration[5.2]
   def change
     create_table :contact_prices do |t|
       t.integer :contact_id

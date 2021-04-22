@@ -1,4 +1,4 @@
-class AddPgSearchDmetaphoneSupportFunctions < ActiveRecord::Migration
+class AddPgSearchDmetaphoneSupportFunctions < ActiveRecord::Migration[5.2]
   def self.up
     execute "create extension fuzzystrmatch;"
     say_with_time("Adding support functions for pg_search :dmetaphone") do

@@ -1,4 +1,4 @@
-class CreateContentPages < ActiveRecord::Migration
+class CreateContentPages < ActiveRecord::Migration[5.2]
   def change
     create_table :content_pages do |t|
       t.string :name_page

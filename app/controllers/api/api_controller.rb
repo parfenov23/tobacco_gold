@@ -94,7 +94,7 @@ module Api
         @current_user = User.first
         @current_magazine = Magazine.find_by_api_key(auth_key)
       end
-      render json: {auth: false, code: '401'} if @current_user.blank?
+      return render json: {auth: false, code: '401'} if @current_user.blank?
     end
 
     def current_user

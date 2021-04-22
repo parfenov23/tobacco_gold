@@ -1,4 +1,4 @@
-class AddidSmsToSmsPhone < ActiveRecord::Migration
+class AddidSmsToSmsPhone < ActiveRecord::Migration[5.2]
   def change
     add_column :sms_phones, :id_sms, :integer
     add_column :sms_phones, :sum, :integer

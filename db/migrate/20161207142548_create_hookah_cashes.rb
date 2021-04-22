@@ -1,4 +1,4 @@
-class CreateHookahCashes < ActiveRecord::Migration
+class CreateHookahCashes < ActiveRecord::Migration[5.2]
   def change
     create_table :hookah_cashes do |t|
       t.string :title

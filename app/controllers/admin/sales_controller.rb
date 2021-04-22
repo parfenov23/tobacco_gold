@@ -87,7 +87,7 @@ module Admin
       product_items = params[:count] == "all" ? search_product_items : search_product_items.all_present(current_magazine.id)
     end
     html_form = product_items.order(title: :asc).map{|product_item| render_to_string "/admin/sales/helper/_product_item", :layout => false, :locals => {:item => product_item} }.join
-    render text: html_form
+    render plain: html_form
   end
 
   def remove

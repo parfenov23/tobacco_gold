@@ -12,7 +12,7 @@ class SessionController < ActionController::Base
     if params[:password] == params[:confirm_password]
       company = Company.create({title: params[:company], demo_time: (Time.now + 7.day).strftime("%d.%m.%Y")})
       magazine = company.magazines.create({title: params[:company], api_key: SecureRandom.hex})
-      user = User.create({email: params[:email], admin: true, role: "admin", magazine_id: magazine.id})
+      user = User.new({email: params[:email], admin: true, role: "admin", magazine_id: magazine.id})
       user.password = params[:password]
       if user.save
         user.get_api_key

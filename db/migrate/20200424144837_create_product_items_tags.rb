@@ -1,4 +1,4 @@
-class CreateProductItemsTags < ActiveRecord::Migration
+class CreateProductItemsTags < ActiveRecord::Migration[5.2]
   def change
     create_table :product_items_tags do |t|
       t.integer :product_item_id

@@ -1,4 +1,4 @@
-class CreateCashboxes < ActiveRecord::Migration
+class CreateCashboxes < ActiveRecord::Migration[5.2]
   def change
     create_table :cashboxes do |t|
       t.integer :cash

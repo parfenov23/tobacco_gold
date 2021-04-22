@@ -1,4 +1,4 @@
-class AddVisaToSales < ActiveRecord::Migration
+class AddVisaToSales < ActiveRecord::Migration[5.2]
   def change
     add_column :sales, :visa, :boolean, default: false
   end

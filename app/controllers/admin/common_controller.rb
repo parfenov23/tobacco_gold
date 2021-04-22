@@ -43,8 +43,7 @@ module Admin
 
     def render_if_json
       if params[:typeAction] == "json"
-        html_form = render_to_string "/admin/#{@model.class.first_url}/_form", :layout => false, :locals => {:current_company => current_company}
-        render text: html_form
+        render "/admin/#{@model.class.first_url}/_form", :layout => false, :locals => {:current_company => current_company}
       end
     end
 
@@ -65,7 +64,7 @@ module Admin
     end
 
     def params_model
-      params.require(model.first_url.to_sym).permit(model.column_names).compact rescue {}
+      params.require(model.first_url.to_sym).permit(model.column_names).to_h.compact rescue {}
     end
   end
 end

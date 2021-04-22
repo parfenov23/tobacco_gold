@@ -15,7 +15,7 @@ module Api
     end
 
     def show
-      render json: ProductItem.find(params[:id]).transfer_to_json(params[:api_key])
+      render json: ProductItem.find(params[:id]).transfer_to_json(params[:api_key]).as_json
     end
 
     def get_search

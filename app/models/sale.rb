@@ -2,8 +2,8 @@ require 'vk_message'
 class Sale < ActiveRecord::Base
   has_many :sale_items, dependent: :destroy
   belongs_to :user
-  belongs_to :contact
-  belongs_to :magazine
+  belongs_to :contact, required: false
+  belongs_to :magazine, required: false
   default_scope { order("created_at DESC") }
 
   def notify_buy(cashbox=magazine.cashbox)

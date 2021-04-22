@@ -1,4 +1,4 @@
-class CreateVkUsers < ActiveRecord::Migration
+class CreateVkUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :vk_users do |t|
       t.string :domain

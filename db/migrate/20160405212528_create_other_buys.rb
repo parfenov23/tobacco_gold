@@ -1,4 +1,4 @@
-class CreateOtherBuys < ActiveRecord::Migration
+class CreateOtherBuys < ActiveRecord::Migration[5.2]
   def change
     create_table :other_buys do |t|
       t.string :title

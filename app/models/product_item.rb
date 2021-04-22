@@ -40,6 +40,10 @@ class ProductItem < ActiveRecord::Base
 
   mount_uploader :image_url, ImageUrlUploader
 
+  scope :all_present, lambda { |magazine_id, type=true| 
+    joins(:product_item_counts).where(["product_item_counts.magazine_id = ? AND product_item_counts.count #{type ? '>' : '<='} ?", magazine_id, 0]).distinct
+  }
+
   def self.popular_sort(count_first=3)
   	products = self.all
   	products.find(
@@ -95,9 +99,9 @@ class ProductItem < ActiveRecord::Base
     description.present? ? "#{product.title}(#{title}) - #{description}" : "Нет описания"
   end
 
-  def self.all_present(magazine_id, type=true)
-    joins(:product_item_counts).where(["product_item_counts.magazine_id = ? AND product_item_counts.count #{type ? '>' : '<='} ?", magazine_id, 0]).uniq
-  end
+  # def self.all_present(magazine_id, type=true)
+  #   joins(:product_item_counts).where(["product_item_counts.magazine_id = ? AND product_item_counts.count #{type ? '>' : '<='} ?", magazine_id, 0]).distinct
+  # end
 
   # def as_json(*)
   #   super.except("created_at", "updated_at").tap do |hash|

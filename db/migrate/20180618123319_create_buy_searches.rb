@@ -1,4 +1,4 @@
-class CreateBuySearches < ActiveRecord::Migration
+class CreateBuySearches < ActiveRecord::Migration[5.2]
   def change
     create_table :buy_searches do |t|
       t.integer :company_id

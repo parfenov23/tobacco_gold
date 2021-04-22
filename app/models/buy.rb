@@ -1,8 +1,8 @@
 require 'vk_message'
 class Buy < ActiveRecord::Base
   has_many :buy_items
-  belongs_to :provider
-  belongs_to :magazine
+  belongs_to :provider, required: false
+  belongs_to :magazine, required: false
   default_scope { order("created_at DESC") }
 
   def self.all_sum

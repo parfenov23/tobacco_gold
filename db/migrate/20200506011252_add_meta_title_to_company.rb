@@ -1,4 +1,4 @@
-class AddMetaTitleToCompany < ActiveRecord::Migration
+class AddMetaTitleToCompany < ActiveRecord::Migration[5.2]
   def change
     add_column :companies, :meta_title, :string
     add_column :companies, :meta_description, :text

@@ -1,4 +1,4 @@
-class CreateManagerShifts < ActiveRecord::Migration
+class CreateManagerShifts < ActiveRecord::Migration[5.2]
   def change
     create_table :manager_shifts do |t|
       t.integer :user_id

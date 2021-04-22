@@ -1,4 +1,4 @@
-class CreateMixBoxItems < ActiveRecord::Migration
+class CreateMixBoxItems < ActiveRecord::Migration[5.2]
   def change
     create_table :mix_box_items do |t|
       t.integer :mix_box_id

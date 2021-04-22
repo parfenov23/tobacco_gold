@@ -1,18 +1,4 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # resources :contacts do
-  #   member do
-  #     get :remove
-  #   end
-  # end
-
-  # get 'auth' => 'home#auth'
-  # get 'test_pay' => 'home#test_pay'
-  # post 'auth_user' => 'home#auth_user'
-  # # You can have the root of your site routed with "root"
-  # root 'products#index'
   devise_for :users
 
   get '/admin', to: redirect('/admin/admin')

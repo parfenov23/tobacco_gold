@@ -1,4 +1,4 @@
-class CreateBuyItems < ActiveRecord::Migration
+class CreateBuyItems < ActiveRecord::Migration[5.2]
   def change
     create_table :buy_items do |t|
       t.integer :buy_id

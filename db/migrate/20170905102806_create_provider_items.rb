@@ -1,4 +1,4 @@
-class CreateProviderItems < ActiveRecord::Migration
+class CreateProviderItems < ActiveRecord::Migration[5.2]
   def change
     create_table :provider_items do |t|
       t.integer :product_id

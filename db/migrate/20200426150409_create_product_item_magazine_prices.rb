@@ -1,4 +1,4 @@
-class CreateProductItemMagazinePrices < ActiveRecord::Migration
+class CreateProductItemMagazinePrices < ActiveRecord::Migration[5.2]
   def change
     create_table :product_item_magazine_prices do |t|
       t.string :product_item_id

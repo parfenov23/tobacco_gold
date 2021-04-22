@@ -1,4 +1,4 @@
-class CreateSmsPhoneTasks < ActiveRecord::Migration
+class CreateSmsPhoneTasks < ActiveRecord::Migration[5.2]
   def change
     create_table :sms_phone_tasks do |t|
       t.string :phone

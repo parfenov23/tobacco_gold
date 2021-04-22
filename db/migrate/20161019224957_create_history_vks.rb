@@ -1,4 +1,4 @@
-class CreateHistoryVks < ActiveRecord::Migration
+class CreateHistoryVks < ActiveRecord::Migration[5.2]
   def change
     create_table :history_vks do |t|
       t.text :params_type

@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :manager_payments
   has_many :manager_shifts
   belongs_to :magazine
-  belongs_to :contact
+  belongs_to :contact, required: false
 
   def title
     email

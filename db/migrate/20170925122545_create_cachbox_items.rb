@@ -1,4 +1,4 @@
-class CreateCachboxItems < ActiveRecord::Migration
+class CreateCachboxItems < ActiveRecord::Migration[5.2]
   def change
     create_table :cachbox_items do |t|
       t.string :cachbox_item_table_type

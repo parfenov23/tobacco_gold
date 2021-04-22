@@ -1,4 +1,4 @@
-class AddIndeProductItemSearching < ActiveRecord::Migration
+class AddIndeProductItemSearching < ActiveRecord::Migration[5.2]
   def change
   end
 end

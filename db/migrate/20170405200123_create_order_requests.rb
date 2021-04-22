@@ -1,4 +1,4 @@
-class CreateOrderRequests < ActiveRecord::Migration
+class CreateOrderRequests < ActiveRecord::Migration[5.2]
   def change
     create_table :order_requests do |t|
       t.integer :user_id

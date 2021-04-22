@@ -1,5 +1,5 @@
 class BuyItem < ActiveRecord::Base
-  belongs_to :buy
-  belongs_to :product_item
+  belongs_to :buy, required: false
+  belongs_to :product_item, required: false
 
 end

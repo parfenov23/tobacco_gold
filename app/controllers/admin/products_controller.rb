@@ -1,5 +1,5 @@
 module Admin
-  class ProductsController < CommonController
+  class ProductsController < Admin::CommonController
 
     def index
       @models = params[:category].blank? ? current_company.products : current_company.products.where(category_id: params[:category])

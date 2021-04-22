@@ -1,4 +1,4 @@
-class CreateProductItemTopMagazines < ActiveRecord::Migration
+class CreateProductItemTopMagazines < ActiveRecord::Migration[5.2]
   def change
     create_table :product_item_top_magazines do |t|
       t.integer :magazine_id
