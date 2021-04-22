@@ -1,4 +1,6 @@
+require 'bcrypt'
 class User < ActiveRecord::Base
+  include BCrypt
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -17,6 +19,15 @@ class User < ActiveRecord::Base
   has_many :manager_shifts
   belongs_to :magazine
   belongs_to :contact, required: false
+
+  def password
+    @password ||= Password.new(password_hash)
+  end
+
+  def password=(new_password)
+    @password = Password.create(new_password)
+    self.encrypted_password = @password
+  end
 
   def title
     email
