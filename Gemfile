@@ -22,7 +22,7 @@ gem 'mini_magick'
 gem 'carrierwave'
  
 gem 'devise'
-gem 'bcrypt'
+gem 'bcrypt', '3.1.15'
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
