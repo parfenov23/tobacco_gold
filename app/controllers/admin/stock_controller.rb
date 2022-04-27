@@ -11,7 +11,7 @@ module Admin
     def info
       @product_item = ProductItem.find(params[:id])
       html_form = render_to_string "/admin/stock/_info", :layout => false
-      render text: html_form
+      render plain: html_form
     end
 
     def clear

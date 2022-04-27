@@ -44,7 +44,7 @@ module Superuser
     def render_if_json
       if params[:typeAction] == "json"
         html_form = render_to_string "/superuser/#{@model.class.first_url}/_form", :layout => false
-        render text: html_form
+        render plain: html_form
       end
     end
 

@@ -46,7 +46,7 @@ module Admin
       @current_cashbox = current_cashbox
       if params[:typeAction] == "json"
         html_form = render_to_string "/admin/cashbox/to_check", :layout => false
-        render text: html_form
+        render plain: html_form
       end
     end
 

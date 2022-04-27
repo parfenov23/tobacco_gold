@@ -11,7 +11,7 @@ module Api
 
     def prices
       VkMessage.message_price(params)
-      render text: params[:return]
+      render plain: params[:return]
     end
 
     def find_tags

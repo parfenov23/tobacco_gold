@@ -167,7 +167,7 @@ var scanBarCode = function(end_function){
                 }
                 chars = [];
                 pressed = false;
-              },300);
+              },500);
     }
     pressed = true;
   });

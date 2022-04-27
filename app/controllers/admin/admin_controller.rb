@@ -41,7 +41,7 @@ module Admin
 
     def shift_manager
       html_form = render_to_string "/admin/admin/_shift_manager", :layout => false, :locals => {:current_user => current_user}
-      render text: html_form
+      render plain: html_form
     end
 
     def create_shift_manager

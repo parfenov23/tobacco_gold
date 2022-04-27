@@ -22,7 +22,7 @@ module Admin
 
     def edit
       @model = find_model
-      ((@model.company_id == current_company.id) rescue true ) ? render_if_json : (render text: "Страница не найдена 404")
+      ((@model.company_id == current_company.id) rescue true ) ? render_if_json : (render plain: "Страница не найдена 404")
     end
 
     def update

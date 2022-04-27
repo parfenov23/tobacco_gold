@@ -51,7 +51,7 @@ module Admin
       buy.update(paid_out: buy.paid_out.to_i + sum_cash)
       provider = buy.provider
       if sum_cash != 0
-        if provider.phone.present? && params[:cashbox_type] == "visa" && params[:auto][:cash] == "1"
+        if provider&.phone.present? && params[:cashbox_type] == "visa" && params[:auto][:cash] == "1"
           SmsPhone.transfer_cash(current_user.magazine, provider.phone, sum_cash)
         end
         current_cashbox.calculation(params[:cashbox_type], sum_cash, false)

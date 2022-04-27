@@ -56,8 +56,8 @@ module Admin
     end
 
     def new
-      html_form = render_to_string "/admin/#{model.first_url}/new", :layout => false, :locals => {:current_company => current_company}
-      render text: html_form
+      html_form = render_to_string "/admin/#{model.first_url}/new", layout: false, :locals => {:current_company => current_company}
+      render plain: html_form
     end
 
     def show

@@ -63,7 +63,7 @@ module Admin
     def paid_out
       @model = find_model
       html_form = render_to_string "/admin/transfers/paid_out", :layout => false, :locals => {:current_company => current_company}
-      render text: @model.company_id == current_company.id ? html_form : "404"
+      render plain: @model.company_id == current_company.id ? html_form : "404"
     end
 
     def def_pay
