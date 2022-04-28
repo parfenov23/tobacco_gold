@@ -67,6 +67,14 @@ module Admin
 
     def new_item_product
       product_item = ProductItem.create(params_model)
+
+      current_price = params[:product_items][:current_price].to_f
+      find_product_price = product_item.product.product_prices.where(price: current_price).last
+      if find_product_price.blank? || !find_product_price.default
+        find_product_price = product_item.product.product_prices.find_or_create_by(price: current_price, title: current_price)
+        product_item.product_item_magazine_prices.find_or_create_by(magazine_id: current_magazine.id).update(price_id: find_product_price.id)
+      end
+      
       render_json_success(product_item)
     end
 
@@ -141,7 +149,7 @@ module Admin
     end
 
     def params_model
-      params.require(:buy).permit(:title, :product_id, :barcode).compact rescue {}
+      params.require(:buy).permit(:title, :product_id, :barcode)
     end
 
     def model

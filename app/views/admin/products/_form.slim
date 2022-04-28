@@ -10,7 +10,7 @@ form.form-horizontal action="#{action_url}" method="post" enctype="multipart/for
     label Категория
     - all_categories = [{title: "Не выбранно", id: 0}] + current_company.categories.map{|cat| {title: cat.first_name, id: cat.id}} 
 
-    = render "common_select_new", {arr_li: all_categories, default: (@model.category_id || all_categories.first[:id]), name_input: "products[category_id]", add_class: "defaultInitMdSelect"}
+    = render "common_select_new", {arr_li: all_categories, default: (@model.category_id || all_categories.last[:id]), name_input: "products[category_id]", add_class: "defaultInitMdSelect"}
     
   input type="hidden" name="products[company_id]" value=current_company.id
   input type="hidden" name="_method" value="#{method}"

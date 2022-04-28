@@ -6,6 +6,7 @@ form.newTasteItem
 
     = render "common_select_new", {arr_li: all_products, default: all_products.first[:id], name_input: "buy[product_id]", add_class: "defaultInitMdSelect"}
   = render "common_input", {title: "Название", name: "buy[title]"}
+  = render "common_input", {title: "Цена", name: "product_items[current_price]"}
   = render "common_input", {title: "Код товара", name: "buy[barcode]"}
   .bottomBlock
     .btn.btn-primary-material.js_saveNewProductItem.w-100per Сохранить

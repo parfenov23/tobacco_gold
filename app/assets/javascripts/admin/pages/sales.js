@@ -299,17 +299,17 @@ var ajax_current_price_delivery = function(current_price){
   }, false);
 }
 
-var installPusher = function(){
-  var channel = pusher.subscribe('enlistment');
-  console.log("start pusher");
-  channel.bind('sms_info', function(data) {
-    var sum_sale = parseInt($(".moneyClacl .titlePrice").text());
-    console.log(data);
-    if( $("input[name='cashbox_type']").val() == "visa" && current_user_magazine_id() == data.magazine_id){
-      show_error(data.message, 3000);
-    }
-  });
-}
+// var installPusher = function(){
+//   var channel = pusher.subscribe('enlistment');
+//   console.log("start pusher");
+//   channel.bind('sms_info', function(data) {
+//     var sum_sale = parseInt($(".moneyClacl .titlePrice").text());
+//     console.log(data);
+//     if( $("input[name='cashbox_type']").val() == "visa" && current_user_magazine_id() == data.magazine_id){
+//       show_error(data.message, 3000);
+//     }
+//   });
+// }
 
 $(document).ready(function(){
   $(document).on('click', '.js_loadProductItems[data-model="ProductItem"]', function(){
@@ -415,5 +415,5 @@ $(document).ready(function(){
   }
 
   calculateSale();
-  installPusher();
+  // installPusher();
 });

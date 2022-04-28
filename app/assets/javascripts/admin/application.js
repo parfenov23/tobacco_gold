@@ -4,10 +4,10 @@
 //= require vendor/jquery.session
 //= require vendor/jquery_round
 // Pusher.logToConsole = true;
-var pusher = new Pusher('1a55ade886312565bd6d', {
-  cluster: 'eu',
-  encrypted: true
-});
+// var pusher = new Pusher('1a55ade886312565bd6d', {
+//   cluster: 'eu',
+//   enPushcrypted: true
+// });
 
 var block_or_block = function(b1, b2){
   if(b1.length){
